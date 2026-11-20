@@ -698,6 +698,82 @@ document.addEventListener('alpine:init', () => {
       },
     };
   });
+
+  /**
+   * Brand fitment guide. Methods close over `ctx` because Alpine calls
+   * expressions such as `submit()` unbound.
+   */
+  Alpine.data('fitmentGuide', () => {
+    let ctx;
+
+    const uniqueSorted = (values) => [...new Set(values.filter(Boolean))]
+      .sort((a, b) => String(a).localeCompare(String(b)));
+
+    return {
+      fitments: [],
+      make: '',
+      model: '',
+      result: null,
+      contactUrl: '#',
+
+      init() {
+        ctx = this;
+        ctx.contactUrl = ctx.$el.dataset.contactUrl || '#';
+
+        try {
+          const parsed = JSON.parse(ctx.$el.dataset.fitments || '[]');
+          ctx.fitments = Array.isArray(parsed) ? parsed : [];
+        } catch (error) {
+          ctx.fitments = [];
+        }
+      },
+
+      get makes() {
+        return uniqueSorted((this.fitments || []).map((row) => row.make));
+      },
+
+      get models() {
+        if (! this.make) {
+          return [];
+        }
+
+        return uniqueSorted(
+          (this.fitments || [])
+            .filter((row) => row.make === this.make)
+            .map((row) => row.model),
+        );
+      },
+
+      onMakeChange() {
+        ctx.model = '';
+        ctx.result = null;
+      },
+
+      submit() {
+        const match = ctx.fitments.find((row) => row.make === ctx.make && row.model === ctx.model);
+
+        if (! match) {
+          ctx.result = { status: 'none' };
+          return;
+        }
+
+        ctx.result = { status: 'match', ...match };
+      },
+
+      sizeLabel(row) {
+        if (! row || row.status !== 'match') {
+          return '';
+        }
+
+        const mark = (value) => {
+          const text = String(value ?? '');
+          return text.includes('"') ? text : `${text}"`;
+        };
+
+        return `${mark(row.width)} × ${mark(row.length)} × ${mark(row.thickness)}`;
+      },
+    };
+  });
 });
 
 Alpine.start();

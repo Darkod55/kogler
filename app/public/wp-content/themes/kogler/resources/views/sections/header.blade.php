@@ -61,7 +61,7 @@
 
   <header
     id="main-header"
-    class="banner header-bar z-30 px-clamp transition-all duration-300"
+    class="banner header-bar z-30 border-b px-clamp transition-all duration-300 {{ $is_front ? 'border-transparent' : 'border-white/25' }}"
     x-data="{ mobileOpen: false, searchOpen: false }"
     x-effect="document.body.classList.toggle('overflow-hidden', mobileOpen || searchOpen)"
     @keydown.escape.window="searchOpen = false"
