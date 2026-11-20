@@ -21,4 +21,5 @@
   @include('partials.brand.hero')
   @include('partials.brand.kogler')
   @include('partials.brand.goliath-steel')
+  @include('partials.brand.kogler-outdoor')
 @endsection
