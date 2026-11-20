@@ -331,6 +331,29 @@ trait strings
     }
 
     /**
+     * Permalink for a page at $slug, else /{slug}/.
+     * Same lookup the Find a Distributor links use.
+     */
+    public function pageUrlBySlug(string $slug): string
+    {
+        $url = function_exists('home_url') ? home_url('/' . trim($slug, '/') . '/') : '#';
+
+        if ($slug !== '' && function_exists('get_page_by_path') && function_exists('get_permalink')) {
+            $page = get_page_by_path($slug);
+
+            if ($page instanceof \WP_Post) {
+                $permalink = get_permalink($page);
+
+                if (is_string($permalink) && $permalink !== '') {
+                    $url = $permalink;
+                }
+            }
+        }
+
+        return $url;
+    }
+
+    /**
      * Resolve the page ID that supplies archive template content.
      */
     public function resolveArchivePageId(?string $post_type = null, ?string $page_title = null): ?int

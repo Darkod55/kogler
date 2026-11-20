@@ -40,16 +40,7 @@
         }
     }
 
-    $distributorSlug = 'find-a-distributor';
-    $distributorUrl = function_exists('home_url') ? home_url('/' . $distributorSlug . '/') : '#';
-
-    if (function_exists('get_page_by_path') && function_exists('get_permalink')) {
-        $distributorPage = get_page_by_path($distributorSlug);
-
-        if ($distributorPage instanceof \WP_Post) {
-            $distributorUrl = get_permalink($distributorPage);
-        }
-    }
+    $distributorUrl = \App\Helpers\Helpers::instance()->pageUrlBySlug('find-a-distributor');
 
     $ctaButton = 'inline-flex items-center justify-center text-center font-bold no-underline rounded-full text-[length:var(--font-size-btn)] transition motion-safe:hover:-translate-y-px motion-reduce:transform-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white max-[400px]:w-full';
     $ctaTopClass = $ctaPadTop ? 'pt-clamp-block-xl' : 'pt-0';

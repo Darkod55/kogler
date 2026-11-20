@@ -6,9 +6,15 @@
 
 @section('content')
   {{--
-    Become a Distributor — custom page scaffold.
+    Become a Distributor.
     Header and footer come from layouts.app-wide.
-    Build each section as a partial in resources/views/partials/become-a-distributor/
-    and @include it here.
+    Section partials live in resources/views/partials/become-a-distributor/.
+  --}}
+
+  @include('partials.become-a-distributor.hero')
+
+  {{--
+    Next: application form on bg-light.
+    Add it under resources/views/partials/become-a-distributor/ and @include it here.
   --}}
 @endsection
