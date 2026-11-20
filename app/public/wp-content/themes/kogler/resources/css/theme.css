@@ -12,6 +12,7 @@
 */
 @import "./theme/buttons.css";
 @import "./theme/forms.css";
+@import "./theme/distributor-application.css";
 @import "./theme/woocommerce.css";
 @import "./theme/nav.css";
 @import "./theme/typography.css";

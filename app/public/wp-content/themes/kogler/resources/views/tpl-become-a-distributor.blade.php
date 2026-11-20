@@ -12,9 +12,5 @@
   --}}
 
   @include('partials.become-a-distributor.hero')
-
-  {{--
-    Next: application form on bg-light.
-    Add it under resources/views/partials/become-a-distributor/ and @include it here.
-  --}}
+  @include('partials.become-a-distributor.application')
 @endsection
