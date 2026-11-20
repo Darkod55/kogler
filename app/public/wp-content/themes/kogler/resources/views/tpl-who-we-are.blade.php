@@ -18,5 +18,5 @@
   @include('partials.who-we-are.we-serve')
   @include('partials.who-we-are.hours')
   @include('partials.who-we-are.leadership')
-  @include('partials.who-we-are.cta')
+  @include('partials.cta-work-together')
 @endsection

@@ -22,4 +22,8 @@
   @include('partials.brand.kogler')
   @include('partials.brand.goliath-steel')
   @include('partials.brand.kogler-outdoor')
+  @include('partials.cta-work-together', [
+      'ctaBackground' => 'bg-light',
+      'ctaPadTop' => false,
+  ])
 @endsection
