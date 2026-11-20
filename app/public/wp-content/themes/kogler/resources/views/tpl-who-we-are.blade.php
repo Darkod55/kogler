@@ -13,6 +13,7 @@
 
   @include('partials.who-we-are.hero')
   @include('partials.who-we-are.quality-price')
+  @include('partials.who-we-are.our-brands')
 
   {{--
     Next section: add a partial under resources/views/partials/who-we-are/
