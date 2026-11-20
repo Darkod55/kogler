@@ -12,13 +12,10 @@
   --}}
 
   @include('partials.who-we-are.hero')
+  @include('partials.who-we-are.quality-price')
 
   {{--
-    Section placeholder.
-    Add the next section as resources/views/partials/who-we-are/{name}.blade.php
+    Next section: add a partial under resources/views/partials/who-we-are/
     and @include it here.
   --}}
-  <section>
-    <!-- Who We Are — section placeholder -->
-  </section>
 @endsection
