@@ -18,7 +18,16 @@
  */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 7rem;
+  scroll-padding-top: var(--site-chrome-height, 7rem);
+}
+
+/**
+ * Extra offset for an in-page anchor that does not already sit in the
+ * document scrollport. Do not add this on a section when html
+ * scroll-padding-top is already the chrome height — the two stack.
+ */
+@utility scroll-mt-chrome {
+  scroll-margin-top: var(--site-chrome-height, 7rem);
 }
 
 @media (prefers-reduced-motion: reduce) {

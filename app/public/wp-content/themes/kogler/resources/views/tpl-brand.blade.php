@@ -10,14 +10,13 @@
     Header and footer come from layouts.app-wide.
     Build each section as a partial in resources/views/partials/brand/
     and @include it here.
+
+    Hero jump targets, to put on the later brand sections:
+    id="kogler", id="goliath-steel", id="kogler-outdoor".
+    html already uses scroll-padding-top: var(--site-chrome-height, 7rem),
+    so those sections only need the id. Adding scroll-mt-chrome as well
+    stacks a second chrome offset.
   --}}
 
-  {{--
-    Section placeholder.
-    Add the first section as resources/views/partials/brand/{name}.blade.php
-    and @include it here.
-  --}}
-  <section>
-    <!-- Brand — section placeholder -->
-  </section>
+  @include('partials.brand.hero')
 @endsection
