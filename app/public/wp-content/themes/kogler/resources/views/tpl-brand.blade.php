@@ -19,4 +19,5 @@
   --}}
 
   @include('partials.brand.hero')
+  @include('partials.brand.kogler')
 @endsection
