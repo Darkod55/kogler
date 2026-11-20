@@ -17,6 +17,7 @@
   @include('partials.who-we-are.we-are')
   @include('partials.who-we-are.we-serve')
   @include('partials.who-we-are.hours')
+  @include('partials.who-we-are.leadership')
 
   {{--
     Next section: add a partial under resources/views/partials/who-we-are/
