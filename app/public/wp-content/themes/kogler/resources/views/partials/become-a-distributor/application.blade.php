@@ -1,11 +1,10 @@
 {{--
   Become a Distributor — application form.
-  The form is a Fluent Forms record. Import docs/fluent-forms/become-a-distributor.json,
-  then set $formId to the new form's ID.
-  No ACF. $formId 0, or a missing [fluentform] shortcode, prints an HTML comment only.
+  The form is Fluent Forms ID 3.
+  No ACF. A missing [fluentform] shortcode prints an HTML comment only.
 --}}
 @php
-    $formId = 0;
+    $formId = 3;
     $formMarkup = '';
 
     if ($formId && function_exists('shortcode_exists') && shortcode_exists('fluentform')) {
