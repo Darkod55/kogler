@@ -22,3 +22,7 @@ The export matches Fluent Forms’ current transfer format (plugin source `Trans
 ## Styling before the form exists
 
 Rules live in `resources/css/theme/distributor-application.css` and apply only under `.distributor-application`. The partial already uses form ID 3. View the Become a Distributor page once Fluent Forms is active. The error colour is the section property `--da-error: #B42318` (6.57:1 on white). The theme has no danger token, and this value is not added to the global theme.
+
+## Contact
+
+The contact page uses a new form, ID **4**, from `contact.json`. Import steps, including pasting form 1’s SMS disclosure and confirmation, are in `contact-form-update.md`. The earlier “edit form 1” plan is superseded.

@@ -1,43 +1,22 @@
-# Update Fluent Form 1 (Contact)
+# Contact form import
 
-Form 1 already exists. Edit it in **Fluent Forms → All Forms → form 1 → Editor**. Do not import a new form. Importing would create a duplicate and drop this form’s notifications, integrations, and SMS opt-in.
+The earlier plan to edit Fluent Form 1 in place is superseded. Import a new form. It should become ID 4. Do not edit form 1 for this page.
 
-The page partial is `resources/views/partials/contact/info-form.blade.php` with `$formId = 1`. It prints `[fluentform id="1"]` when that shortcode is registered.
+`$formId` in `resources/views/partials/contact/info-form.blade.php` is **4**.
 
-## Fields, in this order
+## Checklist
 
-Use two-column containers where noted. Leave every other field full width. Put one `*` in the label text of required fields, and turn off Fluent’s extra asterisk (**Settings → Layout → Asterisk** can stay, the theme hides it).
+1. In wp-admin go to **Fluent Forms → Tools → Import** and upload `docs/fluent-forms/contact.json`.
+2. Open the new form and confirm its ID is **4**. If WordPress assigns another ID, change `$formId` in the partial to match.
+3. Paste the SMS disclosure from form 1 into the checkbox option. The imported text is the placeholder `[Paste the existing SMS opt-in disclosure from form 1 here, with the company name replaced by: Company legal name]`. Replace that placeholder with the real disclosure, and replace the company name in it with the legal name when the client supplies one. Leave the box optional and unchecked. The field label is hidden (`hide_label`), so only that checkbox text shows. It is a single checkbox, which is what `.contact-section` styles as the SMS box.
+4. Paste form 1’s confirmation message over `[Copy the confirmation message from form 1]`. Leave the behaviour as **Same page** with the form hidden. Do not write a new sentence.
+5. Recreate form 1’s notifications and integrations on the new form. The admin notification in the file is disabled and has no address. There is no auto-reply. SMS and CRM integrations do not come across in a Fluent Forms import.
+6. Do not add a new captcha. Leave Fluent’s global honeypot as the site already has it.
 
-1. **Two columns**
-   - **First Name\*** — Simple text, required. Name `first_name`. Autocomplete `given-name`.
-   - **Last Name\*** — Simple text, required. Name `last_name`. Autocomplete `family-name`.
-2. **Company** — Simple text, not required. Name `company`. Autocomplete `organization`.
-3. **Two columns**
-   - **Email\*** — Email, required. Name `email`. Autocomplete `email`.
-   - **Phone** — Simple text, not required. Set the input type to **tel** (do not use Fluent’s Phone field; that adds a country picker). Name `phone`. Autocomplete `tel`.
-4. **I am a…** — Radio, not required. Options, in order: Fleet, Distributor, Dealership, Retailer, Repair shop, Owner-Operator, Other.
-5. **Brand of interest** — Checkbox, not required. Options, in order: Kogler, Goliath Steel, Kogler Outdoor.
-6. **Message\*** — Textarea, required. About 5 rows. The theme sets the height.
-7. **SMS opt-in** — Keep the existing checkbox or terms field and its disclosure text. Do not rewrite the disclosure. The only edit is to replace the company name inside that existing sentence with `[Company legal name]`. Leave the box optional and unchecked.
-8. **Submit** — Button text `Submit`. Button style **No style**, so the theme CSS controls it.
+## What the file contains
 
-## Confirmation
+Labels, in order: First Name*, Last Name* (two columns), Company, Email*, Phone (two columns), I am a…, Brand of interest, Message*, the SMS checkbox, Submit.
 
-Leave the current confirmation as **Same page** with the form hidden. Do not change the message text and do not write a new one.
+Phone is a text input with type `tel`, not Fluent’s Phone field. Autocomplete is `given-name`, `family-name`, `organization`, `email`, and `tel`. Required labels contain one `*`. The theme hides Fluent’s extra asterisk.
 
-## CSS the theme expects
-
-Styles are in `resources/css/theme/contact-section.css`, only under `.contact-section .fluentform`.
-
-- Inputs use `.ff-el-form-control`. A textarea is `textarea.ff-el-form-control`.
-- Two-column rows use `.ff-t-container.ff_columns_total_2`.
-- Radio and checkbox groups that contain more than one `.ff-el-form-check` are the pills. The native input is visually hidden and stays focusable.
-- The SMS box is a single checkbox or Fluent’s terms field. The selectors are `.ff-el-tc .ff-el-form-check-label` and `.ff-el-group:not(:has(.ff-el-form-check + .ff-el-form-check)) .ff-el-form-check-label`. Terms text is `.ff_t_c`.
-- Errors use `.ff-el-is-error .ff-el-form-control` and `.error.text-danger`.
-- The success message is `.ff-message-success` (Fluent adds `role="status"`).
-
-## Do not change
-
-- Admin notification recipients and other integrations already on form 1.
-- The SMS opt-in, except the company-name placeholder above.
-- The existing confirmation sentence.
+The confirmation message is wrapped in a `<p>` so the scoped Fraunces rule applies. The words inside that tag are only the placeholder.

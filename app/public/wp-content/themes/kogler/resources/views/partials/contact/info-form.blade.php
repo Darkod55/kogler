@@ -3,7 +3,8 @@
   The footer and header hard-code contact details and do not share a settings
   source. Those strings also differ from this spec, so the values below are
   the signed-off copy. Do not invent a theme-options system for them.
-  Fluent Form 1 is edited in place. See docs/fluent-forms/contact-form-update.md.
+  Fluent Form 4 is imported from docs/fluent-forms/contact.json.
+  See docs/fluent-forms/contact-form-update.md.
 --}}
 @php
     $contact = [
@@ -20,7 +21,7 @@
     $mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' . rawurlencode($addressQuery);
     $mapsEmbed = 'https://maps.google.com/maps?q=' . rawurlencode($addressQuery) . '&output=embed';
 
-    $formId = 1;
+    $formId = 4;
     $formMarkup = '';
 
     if ($formId && function_exists('shortcode_exists') && shortcode_exists('fluentform')) {
@@ -98,7 +99,7 @@
           @if ($formMarkup)
             {!! $formMarkup !!}
           @else
-            {!! '<!-- Fluent Forms is not connected. Form 1 is edited in place. See docs/fluent-forms/contact-form-update.md. -->' !!}
+            {!! '<!-- Fluent Forms is not connected. Import docs/fluent-forms/contact.json as form 4. See docs/fluent-forms/contact-form-update.md. -->' !!}
           @endif
         </div>
       </div>
