@@ -16,6 +16,7 @@
   @include('partials.who-we-are.our-brands')
   @include('partials.who-we-are.we-are')
   @include('partials.who-we-are.we-serve')
+  @include('partials.who-we-are.hours')
 
   {{--
     Next section: add a partial under resources/views/partials/who-we-are/
