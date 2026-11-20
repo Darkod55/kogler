@@ -1,7 +1,31 @@
 {{--
   Who We Are — Hero
-  Media stays bg-primary until a road/truck asset is added (see the comment in the placeholder).
+  Media is attachment 97. The bg-primary wrapper shows through while it loads,
+  and stays empty if that attachment is missing.
 --}}
+@php
+    $heroImageId = 97;
+    $heroImage = '';
+
+    if (function_exists('wp_attachment_is_image') && wp_attachment_is_image($heroImageId)) {
+        $heroAttrs = [
+            'class' => 'h-full w-full rounded-t-3xl object-cover',
+            'loading' => 'eager',
+            'fetchpriority' => 'high',
+            'decoding' => 'async',
+            // Container max is 1300px inside px-clamp (24px each side).
+            'sizes' => '(min-width: 1348px) 1300px, calc(100vw - 48px)',
+        ];
+
+        $heroAlt = trim(wp_strip_all_tags((string) get_post_meta($heroImageId, '_wp_attachment_image_alt', true)));
+
+        if ($heroAlt === '') {
+            $heroAttrs['alt'] = __('Wide road / truck shot', 'sage');
+        }
+
+        $heroImage = wp_get_attachment_image($heroImageId, 'full', false, $heroAttrs);
+    }
+@endphp
 <section class="relative overflow-hidden bg-dark-blue px-clamp pt-clamp-block-xl pb-0 text-left">
   <div class="container">
     <h1 class="mb-0 max-w-[1100px] font-fraunces text-[clamp(44px,6.2vw,88px)] font-semibold leading-[1.02] tracking-tight text-white">
@@ -13,21 +37,13 @@
       At Kogler-USA we supply thousands of customers across the commercial truck, RV and marine markets through three brands: Kogler, Goliath Steel and Kogler Outdoor.
     </p>
 
-    {{--
-      Photo placeholder. Swap this div for the img (same classes on the img,
-      bg-primary can stay on a wrapper) when the file exists:
-
-      <img
-        src=""
-        alt="Truck driving on a wide open road"
-        class="size-full object-cover"
-        loading="eager"
-        fetchpriority="high"
-      >
-
-      Optional homepage video, not in the repo:
-      /wp-content/uploads/2026/11/kogler-new-video-homepage.mp4
-    --}}
-    <div class="mt-16 h-[280px] w-full overflow-hidden rounded-t-3xl bg-primary lg:h-[460px]" aria-hidden="true"></div>
+    <div
+      class="mt-16 h-[280px] w-full overflow-hidden rounded-t-3xl bg-primary lg:h-[460px]"
+      @unless ($heroImage) aria-hidden="true" @endunless
+    >
+      @if ($heroImage)
+        {!! $heroImage !!}
+      @endif
+    </div>
   </div>
 </section>
