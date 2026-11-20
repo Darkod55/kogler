@@ -15,6 +15,7 @@
   @include('partials.who-we-are.quality-price')
   @include('partials.who-we-are.our-brands')
   @include('partials.who-we-are.we-are')
+  @include('partials.who-we-are.we-serve')
 
   {{--
     Next section: add a partial under resources/views/partials/who-we-are/
