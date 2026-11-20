@@ -14,6 +14,12 @@
         ['name' => '[Name]', 'title' => '[Title]', 'image_id' => 0],
         ['name' => '[Name]', 'title' => '[Title]', 'image_id' => 0],
     ];
+
+    // The closing CTA is pt-0 when this section renders. Share the flag so the
+    // CTA can add its own top padding when the list is empty.
+    if (function_exists('view')) {
+        view()->share('whoWeAreHasLeadership', $people !== []);
+    }
 @endphp
 
 @if ($people)
