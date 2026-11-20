@@ -1,0 +1,127 @@
+{
+  "$schema": "https://blockstudio.dev/schema/block",
+  "name": "mpx/partial-cards",
+  "title": "Cards",
+  "category": "metapixels-partials",
+  "icon": "grid-view",
+  "description": "Card grid with shared Grid Controls, optional fill-row stretch, solid card background, and optional Alpine page carousel with bullet pagination and autoplay (ping-pong). Accepts card, card-icon, card-image, card-cover, card-cover-small, and testimonial children.",
+  "keywords": [
+    "cards",
+    "grid",
+    "features",
+    "slider",
+    "carousel"
+  ],
+  "supports": {
+    "html": false,
+    "lock": false
+  },
+  "blockstudio": {
+    "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\"><rect width=\"24\" height=\"24\" rx=\"3\" fill=\"#101920\"/><rect x=\"4\" y=\"5\" width=\"16\" height=\"4\" rx=\"1\" fill=\"#FF884B\"/><rect x=\"4\" y=\"10\" width=\"13\" height=\"4\" rx=\"1\" fill=\"#FF884B\" opacity=\"0.85\"/><rect x=\"4\" y=\"15\" width=\"10\" height=\"4\" rx=\"1\" fill=\"#FF884B\" opacity=\"0.7\"/></svg>",
+    "attributes": [
+      {
+        "type": "group",
+        "title": "Card Controls",
+        "attributes": [
+          {
+            "type": "custom/background_colour",
+            "overrides": {
+              "bg_colour": {
+                "label": "Card background"
+              }
+            }
+          },
+          {
+            "id": "fill_row",
+            "type": "toggle",
+            "label": "Fill row",
+            "help": "When on, cards grow to fill leftover space on a row (a single last card becomes full width). Leave off to keep every card at the column width. Ignored when slider is enabled.",
+            "default": false,
+            "conditions": [
+              [
+                {
+                  "id": "enable_slider",
+                  "operator": "!=",
+                  "value": true
+                }
+              ]
+            ]
+          },
+          {
+            "id": "enable_slider",
+            "type": "toggle",
+            "label": "Enable slider",
+            "help": "Frontend only: horizontal carousel with bullet pagination. Advances one card at a time (even when several are visible). Editor always shows a wrapping card grid.",
+            "default": false
+          },
+          {
+            "id": "autoplay",
+            "type": "toggle",
+            "label": "Autoplay",
+            "help": "Advance pages every few seconds. Reverses direction at each end (ping-pong). Pauses on hover/focus and when reduced-motion is preferred.",
+            "default": false,
+            "conditions": [
+              [
+                {
+                  "id": "enable_slider",
+                  "operator": "==",
+                  "value": true
+                }
+              ]
+            ]
+          },
+          {
+            "id": "slides_desktop",
+            "type": "select",
+            "label": "Slides per view (desktop)",
+            "help": "How many cards are fully visible at once on large screens. No peek of the next card.",
+            "default": "4",
+            "returnFormat": "value",
+            "options": [
+              { "value": "2", "label": "2" },
+              { "value": "3", "label": "3" },
+              { "value": "4", "label": "4" },
+              { "value": "5", "label": "5" },
+              { "value": "6", "label": "6" }
+            ],
+            "conditions": [
+              [
+                {
+                  "id": "enable_slider",
+                  "operator": "==",
+                  "value": true
+                }
+              ]
+            ]
+          },
+          {
+            "id": "slides_tablet",
+            "type": "select",
+            "label": "Slides per view (tablet)",
+            "help": "How many cards are fully visible at once on tablet. Mobile always shows 1.",
+            "default": "2",
+            "returnFormat": "value",
+            "options": [
+              { "value": "1", "label": "1" },
+              { "value": "2", "label": "2" },
+              { "value": "3", "label": "3" },
+              { "value": "4", "label": "4" }
+            ],
+            "conditions": [
+              [
+                {
+                  "id": "enable_slider",
+                  "operator": "==",
+                  "value": true
+                }
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "type": "custom/grid_controls"
+      }
+    ]
+  }
+}

@@ -1,0 +1,30 @@
+---
+description: Blockstudio framework context and Kogler block conventions
+globs: "**/themes/kogler/app/blocks/**,**/themes/kogler/blockstudio.json,**/themes/kogler/BLOCKSTUDIO-7.md,**/themes/kogler/patterns/**,**/themes/kogler/pages/**,**/plugins/blockstudio/**"
+alwaysApply: false
+---
+
+# Blockstudio (Kogler)
+
+Installed plugin version: **7.6.6**. Prefer local files over the public docs site.
+
+1. **Framework index** — `app/public/wp-content/plugins/blockstudio/includes/llm/blockstudio-llm.txt` (or `blockstudio-llm-full.txt`). Grep before reading the docs site.
+2. **HTTP mirrors** (`blockstudio.json` → `ai.enableContextGeneration`) — `/blockstudio-llm.txt` on the Local site.
+3. **Theme decisions** — `app/public/wp-content/themes/kogler/BLOCKSTUDIO-7.md` (Acorn Blade bridge, path filters, dual Tailwind). Prefer this over inventing architecture. Some narrative sections may lag the live blocks — verify against `app/blocks` and `trait-blocks.php`.
+
+## Kogler conventions
+
+- Blocks: theme `app/blocks` via `blockstudio/path`. Namespace `mpx/*`. Categories `metapixels-blocks` / `metapixels-partials`.
+- Templates: prefer `index.blade.php`; Acorn renders via `renderBladeBlockTemplates()` (not a second Blade engine). `<InnerBlocks>`, `<RichText>`, `useBlockProps` still work after Blade.
+- Escaping: if WP already escaped (`esc_attr`, `esc_html`, `wp_kses_post`, `wp_json_encode` for attrs), echo with `{!! !!}` — `{{ esc_attr(...) }}` double-encodes. Critical for `<InnerBlocks allowedBlocks="...">`.
+- One `<InnerBlocks>` per block template (core limit). Avoid parent `templateLock` when nested children must stay freely editable.
+- Reusable fields: **only** `app/blocks/fields/{name}/field.json` (discovery is not recursive). Extensions: `app/blocks/extensions/*.json` with `"extend": true`.
+- New `mpx/*` blocks: add the name to `mpxRemoveInnerBlocksWrapper()` in `trait-blocks.php`.
+- Media library images: `wp_get_attachment_image($ID)` — not `bs_media_image()` (that helper is for theme-relative static assets).
+- Icons: block populate reads `resources/views/components/footer-icons.blade.php` (`#icon-{name}`). Add new symbols there; ensure the sprite is included on the page (layouts or block `@include`).
+- Design tokens: `resources/css/theme/*.css`, bridged into Blockstudio Tailwind via `bridgeTailwindConfig()`. Use live utilities (`btn`, `btn-primary`, `py-clamp`, `bg-primary`, `grid-auto-cards`, …). Non-bridged Vite-only rules can live under `resources/css/components/` (imported from `theme.css`). Rebrand via `docs/design-tokens.md`.
+- Dual Tailwind: Vite scans Blade/PHP; Blockstudio also compiles from rendered HTML. Dynamic / post-content classes may need `@source inline(...)` in `resources/css/theme.css`.
+- `blockstudio.json` → `cache.enabled: false` on purpose (populate options live in PHP outside the scan root). Re-enable only with a bust plan.
+- Composition: section blocks nest `mpx/partial-*` pieces. Fluent Forms Gutenberg id is intentionally `fluentfom/guten-block` (plugin typo) when that plugin is in use.
+- Patterns/pages (if added): theme-root `patterns/` and `pages/` — not under `app/blocks` unless paths filters are added. FSE/site templates unused.
+- File-based only (`block.json` + template). Do not invent React/JSX block builds.

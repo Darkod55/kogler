@@ -1,0 +1,42 @@
+{
+  "$schema": "https://blockstudio.dev/schema/extend",
+  "name": "core/heading",
+  "blockstudio": {
+    "extend": true,
+    "attributes": [
+      {
+        "type": "custom/typography"
+      },
+      {
+        "id": "use_fraunces",
+        "type": "toggle",
+        "label": "Use Fraunces?",
+        "help": "Applies the Fraunces serif font family to this heading.",
+        "default": false,
+        "set": [
+          {
+            "attribute": "class",
+            "value": "font-fraunces"
+          }
+        ]
+      },
+      {
+        "id": "margin_bottom",
+        "type": "select",
+        "label": "Margin Bottom",
+        "default": "",
+        "options": [
+          { "value": "", "label": "Default" },
+          { "value": "mb-0", "label": "None" },
+          { "value": "mb-small", "label": "Small" }
+        ],
+        "set": [
+          {
+            "attribute": "class",
+            "value": "{attributes.margin_bottom}"
+          }
+        ]
+      }
+    ]
+  }
+}

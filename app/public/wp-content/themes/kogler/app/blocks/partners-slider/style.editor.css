@@ -1,0 +1,43 @@
+/**
+ * Partners slider — editor only (Blockstudio `.editor.css`).
+ *
+ * Static wrap of logos (no marquee). Keep the same logo scale as frontend
+ * so uploads don't blow up to full intrinsic size in the canvas.
+ */
+
+.mpx-partners-slider .wp-block-gallery,
+.mpx-partners-slider .wp-block-gallery .block-editor-block-list__layout {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--mpx-partners-gap, 4rem);
+  width: 100%;
+  max-width: 100%;
+  margin: 0 !important;
+  animation: none !important;
+}
+
+.mpx-partners-slider .wp-block-gallery .wp-block-image,
+.mpx-partners-slider .wp-block-gallery > figure,
+.mpx-partners-slider .wp-block-gallery [data-type="core/image"] {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: auto !important;
+  max-width: 10rem !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  line-height: 0;
+}
+
+.mpx-partners-slider .wp-block-gallery img {
+  display: block !important;
+  width: auto !important;
+  max-width: 10rem !important;
+  height: 2.75rem !important;
+  max-height: 2.75rem !important;
+  object-fit: contain !important;
+  margin-inline: auto;
+}

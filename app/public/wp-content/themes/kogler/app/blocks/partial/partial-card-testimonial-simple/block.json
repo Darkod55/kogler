@@ -1,0 +1,63 @@
+{
+  "$schema": "https://blockstudio.dev/schema/block",
+  "name": "mpx/partial-card-testimonial-simple",
+  "title": "Card (Testimonial)",
+  "category": "metapixels-partials",
+  "icon": "format-quote",
+  "description": "Testimonial card: name and role at the top, decorative quote mark, quote body, and optional star rating. Background comes from the parent Cards block.",
+  "keywords": [
+    "card",
+    "testimonial",
+    "quote",
+    "review",
+    "rating",
+    "stars"
+  ],
+  "parent": [
+    "mpx/partial-cards"
+  ],
+  "usesContext": [
+    "mpx/partial-cards"
+  ],
+  "supports": {
+    "html": false,
+    "lock": false
+  },
+  "blockstudio": {
+    "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\"><rect width=\"24\" height=\"24\" rx=\"3\" fill=\"#101920\"/><path d=\"M7.2 16.5c-.9 0-1.65-.3-2.25-.9S4.05 14.25 4.05 13.2c0-1.5.45-2.85 1.35-4.05S7.5 7.05 9 6.45l.75 1.35c-1.05.45-1.8 1.05-2.25 1.8s-.6 1.5-.45 2.25c.3-.15.6-.2.9-.2.75 0 1.35.25 1.8.75s.7 1.15.7 1.95-.3 1.45-.9 1.95-1.35.75-2.35.75zm8.4 0c-.9 0-1.65-.3-2.25-.9s-.9-1.35-.9-2.4c0-1.5.45-2.85 1.35-4.05s2.1-2.1 3.6-2.7l.75 1.35c-1.05.45-1.8 1.05-2.25 1.8s-.6 1.5-.45 2.25c.3-.15.6-.2.9-.2.75 0 1.35.25 1.8.75s.7 1.15.7 1.95-.3 1.45-.9 1.95-1.35.75-2.35.75z\" fill=\"#FF884B\"/></svg>",
+    "attributes": [
+      {
+        "id": "show_rating",
+        "type": "toggle",
+        "label": "Show star rating",
+        "help": "Display a row of stars under the quote.",
+        "default": true
+      },
+      {
+        "id": "rating",
+        "type": "select",
+        "label": "Rating",
+        "default": "5",
+        "options": [
+          { "value": "5", "label": "5 stars" },
+          { "value": "4", "label": "4 stars" },
+          { "value": "3", "label": "3 stars" },
+          { "value": "2", "label": "2 stars" },
+          { "value": "1", "label": "1 star" }
+        ],
+        "conditions": [
+          [
+            {
+              "id": "show_rating",
+              "operator": "==",
+              "value": true
+            }
+          ]
+        ]
+      },
+      {
+        "type": "custom/grid_item_width"
+      }
+    ]
+  }
+}

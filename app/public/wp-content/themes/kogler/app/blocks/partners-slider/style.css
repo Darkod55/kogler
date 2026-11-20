@@ -1,0 +1,126 @@
+/**
+ * Partners logo marquee — frontend styles (also loads in the editor;
+ * editor overrides live in style.editor.css).
+ *
+ * Markup (via duplicatePartnersSliderGallery):
+ *   .wp-block-gallery[data-mpx-marquee]
+ *     .mpx-partners-group  (original logos)
+ *     .mpx-partners-group[aria-hidden]  (clone)
+ *
+ * Gap lives inside each group. Each group also gets the same trailing
+ * padding so the repeat unit is exact — translate by one group width
+ * (pixel value from JS, -50% CSS fallback) loops seamlessly.
+ */
+
+.mpx-partners-slider {
+  --mpx-partners-gap: 4rem;
+  --mpx-partners-duration: 40s;
+  --mpx-partners-shift: -50%;
+}
+
+.mpx-partners-slider .wp-block-gallery {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0;
+  width: max-content;
+  max-width: none;
+  margin: 0;
+  margin-left: calc(50% - 50vw);
+  padding: 0;
+  --wp--style--unstable-gallery-gap: 0;
+  --wp--style--gallery-gap: 0;
+}
+
+.mpx-partners-slider .wp-block-gallery[data-mpx-marquee="true"] {
+  animation: mpx-partners-marquee var(--mpx-partners-duration) linear infinite;
+}
+
+.mpx-partners-slider .mpx-partners-group {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--mpx-partners-gap);
+  padding-inline-end: var(--mpx-partners-gap);
+  margin: 0;
+}
+
+.mpx-partners-slider .wp-block-gallery .wp-block-image,
+.mpx-partners-slider .wp-block-gallery .mpx-partners-group > figure,
+.mpx-partners-slider .wp-block-gallery figure {
+  flex-shrink: 0;
+  width: auto !important;
+  max-width: 10rem !important;
+  margin: 0 !important;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+  line-height: 0;
+}
+
+.mpx-partners-slider .wp-block-gallery img {
+  display: block !important;
+  width: auto !important;
+  max-width: 10rem !important;
+  height: 2.75rem !important;
+  max-height: 2.75rem !important;
+  object-fit: contain !important;
+  border-radius: var(--radius-surface);
+}
+
+.mpx-partners-slider .wp-block-gallery + .wp-block-heading,
+.mpx-partners-slider .wp-block-gallery + .wp-block-paragraph {
+  margin-top: 3rem;
+}
+
+@keyframes mpx-partners-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(var(--mpx-partners-shift), 0, 0);
+  }
+}
+
+@media (max-width: 767px) {
+  .mpx-partners-slider {
+    --mpx-partners-duration: 28s;
+    --mpx-partners-gap: 2.5rem;
+  }
+
+  .mpx-partners-slider .wp-block-gallery .wp-block-image,
+  .mpx-partners-slider .wp-block-gallery .mpx-partners-group > figure,
+  .mpx-partners-slider .wp-block-gallery figure {
+    max-width: 8rem !important;
+  }
+
+  .mpx-partners-slider .wp-block-gallery img {
+    max-width: 8rem !important;
+    height: 2.25rem !important;
+    max-height: 2.25rem !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mpx-partners-slider .wp-block-gallery[data-mpx-marquee="true"] {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+  }
+
+  .mpx-partners-slider .mpx-partners-group[aria-hidden="true"] {
+    display: none;
+  }
+
+  .mpx-partners-slider .mpx-partners-group {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-inline-end: 0;
+  }
+}

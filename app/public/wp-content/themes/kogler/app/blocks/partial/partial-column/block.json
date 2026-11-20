@@ -1,0 +1,53 @@
+{
+  "$schema": "https://blockstudio.dev/schema/block",
+  "name": "mpx/partial-column",
+  "title": "Column",
+  "category": "metapixels-partials",
+  "icon": "align-wide",
+  "description": "A column cell. Optional background turns it into a padded card. Widths are set on the parent Columns or Form CTA block.",
+  "keywords": [
+    "column",
+    "card",
+    "grid",
+    "cell"
+  ],
+  "usesContext": [
+    "mpx/columns",
+    "mpx/form-cta",
+    "mpx/hero"
+  ],
+  "supports": {
+    "html": false
+  },
+  "blockstudio": {
+    "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\"><rect width=\"24\" height=\"24\" rx=\"3\" fill=\"#101920\"/><rect x=\"7\" y=\"4.5\" width=\"10\" height=\"15\" rx=\"1.5\" stroke=\"#FF884B\" stroke-width=\"1.5\"/><rect x=\"9.25\" y=\"7.25\" width=\"5.5\" height=\"1.25\" rx=\"0.6\" fill=\"#FF884B\"/><rect x=\"9.25\" y=\"10\" width=\"5.5\" height=\"1.25\" rx=\"0.6\" fill=\"#FF884B\" opacity=\"0.8\"/><rect x=\"9.25\" y=\"12.75\" width=\"4\" height=\"1.25\" rx=\"0.6\" fill=\"#FF884B\" opacity=\"0.65\"/></svg>",
+    "attributes": [
+      {
+        "id": "allowedBlocks",
+        "type": "text",
+        "label": "Allowed blocks",
+        "help": "Comma-separated block names (e.g. \"core/heading, core/paragraph\") this column accepts. Leave empty to allow any block.",
+        "default": "core/heading,core/paragraph,core/list,core/image,core/html,mpx/partial-button,mpx/partial-subheading,mpx/partial-checklist,fluentfom/guten-block",
+        "hidden": true
+      },
+      {
+        "type": "group",
+        "title": "Column background",
+        "attributes": [
+          {
+            "id": "bg_colour",
+            "type": "color",
+            "label": "Background",
+            "help": "Optional. When set, the column becomes a padded card panel.",
+            "clearable": true,
+            "disableCustomColors": true,
+            "populate": {
+              "type": "custom",
+              "custom": "bgColours"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

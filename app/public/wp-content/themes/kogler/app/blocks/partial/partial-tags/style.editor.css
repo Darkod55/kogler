@@ -1,0 +1,47 @@
+/**
+ * mpx/partial-tags — editor canvas (inline pill row like the frontend).
+ */
+
+.mpx-tags > .block-editor-inner-blocks,
+.mpx-tags > .block-editor-inner-blocks > .block-editor-block-list__layout,
+.mpx-tags > .block-editor-block-list__layout,
+[data-type="mpx/partial-tags"] > .block-editor-inner-blocks,
+[data-type="mpx/partial-tags"] > .block-editor-inner-blocks > .block-editor-block-list__layout,
+[data-type="mpx/partial-tags"] > .block-editor-block-list__layout,
+[data-type="mpx/partial-tags"] .mpx-tags > .block-editor-inner-blocks > .block-editor-block-list__layout {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  width: 100% !important;
+}
+
+.mpx-tags > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="mpx/partial-tag"],
+.mpx-tags > .block-editor-block-list__layout > [data-type="mpx/partial-tag"],
+[data-type="mpx/partial-tags"] [data-type="mpx/partial-tag"],
+[data-type="mpx/partial-tag"] {
+  width: auto !important;
+  max-width: 100% !important;
+  flex: 0 0 auto !important;
+}
+
+.mpx-tags > .block-editor-inner-blocks > .block-editor-block-list__layout > .block-list-appender,
+.mpx-tags > .block-editor-block-list__layout > .block-list-appender,
+[data-type="mpx/partial-tags"] .block-list-appender {
+  width: auto !important;
+  margin: 0 !important;
+}
+
+.mpx-tag > .block-editor-inner-blocks > .block-editor-block-list__layout,
+.mpx-tag > .block-editor-block-list__layout,
+.mpx-tag__body > .block-editor-inner-blocks > .block-editor-block-list__layout,
+.mpx-tag__body > .block-editor-block-list__layout {
+  margin: 0 !important;
+}
+
+.mpx-tag p,
+.mpx-tag .block-editor-rich-text__editable {
+  margin: 0 !important;
+}

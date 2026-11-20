@@ -1,0 +1,1240 @@
+@import "tailwindcss";
+@import "./theme.css";
+@source "../../app/**/*.php";
+@source "../**/*.blade.php";
+@source "../**/*.js";
+
+/**
+ * Page/post title in the editor canvas.
+ */
+.edit-post-visual-editor__post-title-wrapper,
+.editor-visual-editor__post-title-wrapper {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none !important;
+  margin-block: 0 !important;
+  padding-block: 0.75rem !important;
+  padding-inline: var(--spacing-clamp-inline, 24px) !important;
+}
+
+.edit-post-visual-editor__post-title-wrapper .editor-post-title,
+.editor-visual-editor__post-title-wrapper .editor-post-title,
+.edit-post-visual-editor__post-title-wrapper .wp-block-post-title,
+.editor-visual-editor__post-title-wrapper .wp-block-post-title,
+.edit-post-visual-editor__post-title-wrapper .editor-post-title__input,
+.editor-visual-editor__post-title-wrapper .editor-post-title__input {
+  box-sizing: border-box;
+  width: 100% !important;
+  max-width: var(--width-container) !important;
+  margin-block: 0 !important;
+  margin-inline: auto !important;
+  padding: 0 !important;
+  text-align: left !important;
+}
+
+/*
+*This runs inside the editor iframe, alongside the block's own rendered markup, so it can actually reach classes like `.bs-block` - unlike editor-canvas.css, which only ever runs in the parent wp-admin document.
+*/
+.bs-block {
+  max-width: 100% !important;
+
+  & .container {
+    max-width: var(--width-container);
+
+    /**
+     * mpx/one-column Limit width.
+     */
+    &.mw-1000 {
+      width: 100%;
+      max-width: var(--width-content);
+    }
+
+    &.content-pos-left > .block-editor-block-list__layout,
+    &.content-pos-center > .block-editor-block-list__layout,
+    &.content-pos-right > .block-editor-block-list__layout {
+      display: flex !important;
+      flex-direction: column !important;
+      width: 100%;
+    }
+
+    &.content-pos-left > .block-editor-block-list__layout {
+      align-items: flex-start !important;
+    }
+
+    &.content-pos-center > .block-editor-block-list__layout {
+      align-items: center !important;
+    }
+
+    &.content-pos-right > .block-editor-block-list__layout {
+      align-items: flex-end !important;
+    }
+
+    &.grid-auto-cards {
+      display: block !important;
+      width: 100%;
+    }
+
+    /*
+     * Cards / other grids — per-item `--col-width-*` / `--col-grow-*`.
+     * Exclude `.mpx-columns` (parent owns `--col-1-*` / `--col-2-*`).
+     */
+    &.grid-auto-cards:not(.mpx-columns) > .block-editor-block-list__layout,
+    &.grid-auto-cards:not(.mpx-columns) > .block-editor-inner-blocks > .block-editor-block-list__layout {
+      --_min: var(--grid-min-desktop, 50%);
+
+      display: flex !important;
+      flex-wrap: wrap;
+      align-items: start;
+      width: 100% !important;
+      min-width: var(--width-container);
+
+      & > *,
+      & > .wp-block-mpx-partial-column,
+      & > [data-type="mpx/partial-column"] {
+        flex-grow: var(
+          --col-grow-desktop,
+          var(--col-grow-tablet, var(--col-grow-mobile, 1))
+        );
+        flex-shrink: 1;
+        flex-basis: var(
+          --col-width-desktop,
+          var(--col-width-tablet, var(--col-width-mobile, var(--_min)))
+        );
+        max-width: 100%;
+        min-width: 0;
+      }
+
+      & > .mpx-subheading,
+      & > .wp-block-mpx-partial-subheading,
+      & > [data-type="mpx/partial-subheading"] {
+        flex: 0 0 100% !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        order: -1;
+      }
+    }
+
+    /*
+     * mpx/columns — parent CSS vars on `.mpx-columns` (`--col-1-*` / `--col-2-*`).
+     * Use `nth-child(n of …)` so we hit column blocks even when not :first-child.
+     */
+    &.mpx-columns.grid-auto-cards > .block-editor-block-list__layout,
+    &.mpx-columns.grid-auto-cards > .block-editor-inner-blocks > .block-editor-block-list__layout {
+      display: flex !important;
+      flex-wrap: wrap;
+      align-items: stretch;
+      width: 100% !important;
+      min-width: var(--width-container);
+      column-gap: var(--grid-gap-col, 20px);
+      row-gap: var(--grid-gap-row, 20px);
+
+      & > [data-type="mpx/partial-column"] {
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 1;
+        align-self: stretch;
+        max-width: 100%;
+        min-width: 0;
+      }
+
+      & > [data-type="mpx/partial-column"] > .mpx-partial-column,
+      & > [data-type="mpx/partial-column"] > .mpx-partial-column--has-bg {
+        flex: 1 1 auto;
+        width: 100%;
+        min-height: 100%;
+      }
+
+      & > [data-type="mpx/partial-column"]:nth-child(1 of [data-type="mpx/partial-column"]) {
+        flex-grow: var(--col-1-grow-desktop, 1);
+        flex-basis: var(--col-1-width-desktop, 50%);
+      }
+
+      & > [data-type="mpx/partial-column"]:nth-child(2 of [data-type="mpx/partial-column"]) {
+        flex-grow: var(--col-2-grow-desktop, 1);
+        flex-basis: var(--col-2-width-desktop, 50%);
+      }
+    }
+
+    &.mpx-columns.grid-auto-cards.is-flipped > .block-editor-block-list__layout,
+    &.mpx-columns.grid-auto-cards.is-flipped > .block-editor-inner-blocks > .block-editor-block-list__layout {
+      & > [data-type="mpx/partial-column"]:nth-child(1 of [data-type="mpx/partial-column"]) {
+        order: 2;
+      }
+
+      & > [data-type="mpx/partial-column"]:nth-child(2 of [data-type="mpx/partial-column"]) {
+        order: 1;
+      }
+    }
+
+    /* Sticky column preview (desktop canvas); scroll host is the editor iframe. */
+    &.mpx-columns.grid-auto-cards.is-sticky-left > .block-editor-block-list__layout,
+    &.mpx-columns.grid-auto-cards.is-sticky-left > .block-editor-inner-blocks > .block-editor-block-list__layout {
+      & > [data-type="mpx/partial-column"]:nth-child(1 of [data-type="mpx/partial-column"]) {
+        position: sticky;
+        top: 1.5rem;
+        align-self: flex-start;
+      }
+    }
+
+    &.mpx-columns.grid-auto-cards.is-sticky-right > .block-editor-block-list__layout,
+    &.mpx-columns.grid-auto-cards.is-sticky-right > .block-editor-inner-blocks > .block-editor-block-list__layout {
+      & > [data-type="mpx/partial-column"]:nth-child(2 of [data-type="mpx/partial-column"]) {
+        position: sticky;
+        top: 1.5rem;
+        align-self: flex-start;
+      }
+    }
+
+    &.grid-auto-cards-gap > .block-editor-block-list__layout,
+    &.grid-auto-cards-gap > .block-editor-inner-blocks > .block-editor-block-list__layout {
+      column-gap: 30px;
+      row-gap: 30px;
+
+      @media (width >= theme(--breakpoint-lg)) {
+        column-gap: var(--grid-gap-col, 20px);
+        row-gap: var(--grid-gap-row, 20px);
+      }
+    }
+
+    &.grid-auto-cards-nowrap > .block-editor-block-list__layout,
+    &.grid-auto-cards-nowrap > .block-editor-inner-blocks > .block-editor-block-list__layout {
+      flex-wrap: nowrap;
+
+      & > * {
+        min-width: 0;
+      }
+    }
+
+    &.grid-auto-cards.is-flipped:not(.mpx-columns) > .block-editor-block-list__layout,
+    &.grid-auto-cards.is-flipped:not(.mpx-columns) > .block-editor-inner-blocks > .block-editor-block-list__layout {
+      & > :first-child {
+        order: 2;
+      }
+
+      & > :first-child + * {
+        order: 1;
+      }
+    }
+
+  }
+}
+
+.block-library-block__reusable-block-container { max-width: unset !important; }
+
+/**
+ * mpx/one-column — background image mode (fixed cover + hero scrim).
+ */
+.mpx-one-column-section.has-bg-image,
+[data-type="mpx/one-column"].has-bg-image {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  min-height: 300px !important;
+}
+
+@media (width >= theme(--breakpoint-lg)) {
+  .mpx-one-column-section.has-bg-image,
+  [data-type="mpx/one-column"].has-bg-image {
+    min-height: 450px !important;
+  }
+}
+
+.mpx-one-column-section.has-bg-image .mpx-one-column__media,
+[data-type="mpx/one-column"].has-bg-image .mpx-one-column__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.mpx-one-column-section.has-bg-image .mpx-one-column__scrim,
+[data-type="mpx/one-column"].has-bg-image .mpx-one-column__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-color: color-mix(in srgb, var(--color-black) 18%, transparent);
+}
+
+.mpx-one-column-section.has-bg-image > .container,
+[data-type="mpx/one-column"].has-bg-image > .container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+/**
+ * mpx/columns — card-style column cells in the canvas.
+ */
+.mpx-partial-column--has-bg > .block-editor-inner-blocks,
+.mpx-partial-column--has-bg > .block-editor-inner-blocks > .block-editor-block-list__layout,
+.mpx-partial-column--has-bg > .block-editor-block-list__layout {
+  display: flex !important;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  height: 100%;
+}
+
+/**
+ * mpx/columns vertical align (editor).
+ *
+ * useBlockProps is on the column root itself (`[data-type].mpx-partial-column`),
+ * not a nested child. InnerBlocks sits directly under that root.
+ * `--mpx-col-justify` is set on the section / `.mpx-columns` wrapper.
+ */
+.mpx-columns-section [data-type="mpx/partial-column"],
+.mpx-columns [data-type="mpx/partial-column"],
+.mpx-form-cta [data-type="mpx/partial-column"],
+.mpx-columns-section .wp-block-mpx-partial-column,
+.mpx-columns .wp-block-mpx-partial-column,
+.mpx-form-cta .wp-block-mpx-partial-column {
+  display: flex !important;
+  flex-direction: column !important;
+  align-self: stretch !important;
+  min-height: 100% !important;
+  height: auto !important;
+  justify-content: var(--mpx-col-justify, flex-start) !important;
+}
+
+.mpx-columns-section [data-type="mpx/partial-column"] > .block-editor-inner-blocks,
+.mpx-columns [data-type="mpx/partial-column"] > .block-editor-inner-blocks,
+.mpx-form-cta [data-type="mpx/partial-column"] > .block-editor-inner-blocks,
+.mpx-columns-section .wp-block-mpx-partial-column > .block-editor-inner-blocks,
+.mpx-columns .wp-block-mpx-partial-column > .block-editor-inner-blocks,
+.mpx-form-cta .wp-block-mpx-partial-column > .block-editor-inner-blocks,
+.mpx-columns-section [data-type="mpx/partial-column"] > .block-editor-inner-blocks > .block-editor-block-list__layout,
+.mpx-columns [data-type="mpx/partial-column"] > .block-editor-inner-blocks > .block-editor-block-list__layout,
+.mpx-form-cta [data-type="mpx/partial-column"] > .block-editor-inner-blocks > .block-editor-block-list__layout,
+.mpx-columns-section .wp-block-mpx-partial-column > .block-editor-inner-blocks > .block-editor-block-list__layout,
+.mpx-columns .wp-block-mpx-partial-column > .block-editor-inner-blocks > .block-editor-block-list__layout,
+.mpx-form-cta .wp-block-mpx-partial-column > .block-editor-inner-blocks > .block-editor-block-list__layout,
+.mpx-columns-section [data-type="mpx/partial-column"] > .block-editor-block-list__layout,
+.mpx-columns [data-type="mpx/partial-column"] > .block-editor-block-list__layout,
+.mpx-form-cta [data-type="mpx/partial-column"] > .block-editor-block-list__layout {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  min-height: 100% !important;
+  height: 100% !important;
+  justify-content: var(--mpx-col-justify, flex-start) !important;
+}
+
+/**
+ * mpx/column-cover — keep the content box usable in the canvas.
+ */
+.mpx-column-cover {
+  display: block !important;
+  width: 100%;
+  min-height: 28rem;
+}
+
+.mpx-column-cover__box > .block-editor-inner-blocks > .block-editor-block-list__layout,
+.mpx-column-cover__box > .block-editor-block-list__layout {
+  display: flex !important;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+/**
+ * mpx/partial-cards editor grid.
+ * Slider mode is frontend-only — the editor always uses the wrapping grid.
+ */
+.mpx-cards.grid-auto-cards,
+[data-type="mpx/partial-cards"] {
+  display: block !important;
+  align-self: stretch !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.mpx-cards.grid-auto-cards > .block-editor-block-list__layout {
+  --_min: var(--grid-min-desktop, 100%);
+
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100% !important;
+  min-width: var(--width-container);
+  column-gap: var(--grid-gap-col, 20px);
+  row-gap: var(--grid-gap-row, 20px);
+
+  & > .mpx-card,
+  & > [data-type="mpx/partial-card"],
+  & > [data-type="mpx/partial-card-icon"],
+  & > [data-type="mpx/partial-card-image"],
+  & > [data-type="mpx/partial-card-square"],
+  & > [data-type="mpx/partial-card-cover"],
+  & > [data-type="mpx/partial-card-cover-small"],
+  & > [data-type="mpx/partial-card-testimonial-simple"],
+  & > [data-type="mpx/partial-button"] {
+    flex: 0 1 var(
+      --col-width-desktop,
+      var(--col-width-tablet, var(--col-width-mobile, var(--_min)))
+    );
+    align-self: stretch;
+    max-width: 100%;
+    min-width: 0;
+    width: auto;
+  }
+
+  & > [data-type="mpx/partial-button"] {
+    display: flex;
+
+    & .mpx-partial-button,
+    & .wp-block-buttons,
+    & .wp-block-button,
+    & .wp-block-button__link {
+      width: 100%;
+    }
+  }
+
+  & > .block-list-appender {
+    flex: 1 0 100%;
+  }
+}
+
+.mpx-cards.grid-auto-cards.is-fill-row > .block-editor-block-list__layout {
+  & > .mpx-card,
+  & > [data-type="mpx/partial-card"],
+  & > [data-type="mpx/partial-card-icon"],
+  & > [data-type="mpx/partial-card-image"],
+  & > [data-type="mpx/partial-card-square"],
+  & > [data-type="mpx/partial-card-cover"],
+  & > [data-type="mpx/partial-card-cover-small"],
+  & > [data-type="mpx/partial-card-testimonial-simple"],
+  & > [data-type="mpx/partial-button"] {
+    flex-grow: 1;
+  }
+}
+
+.mpx-card.mpx-card--square,
+[data-type="mpx/partial-card-square"],
+[data-type="mpx/partial-card-square"] .mpx-card--square {
+  align-self: start;
+  aspect-ratio: 1 / 1;
+  padding: 0 !important;
+  overflow: hidden;
+  background-color: transparent !important;
+}
+
+.mpx-card--square .mpx-card--square__image,
+.mpx-card--square .mpx-card--square__placeholder,
+[data-type="mpx/partial-card-square"] .mpx-card--square__image,
+[data-type="mpx/partial-card-square"] .mpx-card--square__placeholder {
+  position: absolute !important;
+  inset: 0 !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  object-fit: cover !important;
+}
+
+/**
+ * Card inner stack (icon / heading / paragraph / button).
+ */
+.mpx-card--icon > .block-editor-block-list__layout,
+.mpx-card--image > .block-editor-block-list__layout,
+.mpx-card--icon > .block-editor-inner-blocks > .block-editor-block-list__layout,
+.mpx-card--image > .block-editor-inner-blocks > .block-editor-block-list__layout,
+[data-type="mpx/partial-card-image"] > .block-editor-block-list__layout,
+[data-type="mpx/partial-card-image"] > .block-editor-inner-blocks > .block-editor-block-list__layout {
+  display: flex !important;
+  flex-direction: column;
+  gap: 1rem;
+
+  & > * {
+    margin-block: 0 !important;
+  }
+}
+
+/**
+ * Full-width icon card: centered large glyph + title.
+ */
+.mpx-card--icon.is-full-width-icon > .block-editor-block-list__layout,
+.mpx-card--icon.is-full-width-icon > .block-editor-inner-blocks > .block-editor-block-list__layout {
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.75rem !important;
+  text-align: center !important;
+  min-height: 5.5rem;
+
+  & > [data-type="mpx/partial-icon"],
+  & > [data-type="mpx/partial-icon"] .mpx-partial-icon,
+  & > .mpx-partial-icon {
+    width: auto !important;
+    height: auto !important;
+    background-color: transparent !important;
+    border-radius: 0 !important;
+    color: var(--color-white) !important;
+
+    & :is(.icon, svg.icon) {
+      width: 3.5rem !important;
+      height: 3.5rem !important;
+    }
+  }
+
+  & :is(h1, h2, h3, h4, h5, h6) {
+    margin-bottom: 0 !important;
+  }
+
+  & :is(h1, h2, h3, h4, h5, h6) + p {
+    margin-top: 0.5rem !important;
+  }
+}
+
+.mpx-card--image.is-content-centered > .block-editor-inner-blocks > .block-editor-block-list__layout,
+.mpx-card--image.is-content-centered > .block-editor-block-list__layout,
+[data-type="mpx/partial-card-image"].is-content-centered > .block-editor-inner-blocks > .block-editor-block-list__layout,
+[data-type="mpx/partial-card-image"].is-content-centered > .block-editor-block-list__layout {
+  align-items: center !important;
+  text-align: center !important;
+}
+
+.mpx-card--image.is-content-centered > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="core/image"],
+.mpx-card--image.is-content-centered > .block-editor-block-list__layout > [data-type="core/image"],
+[data-type="mpx/partial-card-image"].is-content-centered > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="core/image"],
+[data-type="mpx/partial-card-image"].is-content-centered > .block-editor-block-list__layout > [data-type="core/image"] {
+  width: fit-content !important;
+  max-width: 100% !important;
+  margin-inline: auto !important;
+  align-self: center !important;
+}
+
+.mpx-card--image.is-content-centered .wp-block-image,
+.mpx-card--image.is-content-centered .wp-block-image img,
+.mpx-card--image.is-content-centered .components-resizable-box__container,
+[data-type="mpx/partial-card-image"].is-content-centered .wp-block-image,
+[data-type="mpx/partial-card-image"].is-content-centered .wp-block-image img,
+[data-type="mpx/partial-card-image"].is-content-centered .components-resizable-box__container {
+  display: block !important;
+  width: auto !important;
+  max-width: 100% !important;
+  height: auto !important;
+  margin-inline: auto !important;
+}
+
+.mpx-card--image.is-intrinsic-image:not(.is-bleed-image) > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="core/image"],
+.mpx-card--image.is-intrinsic-image:not(.is-bleed-image) > .block-editor-block-list__layout > [data-type="core/image"],
+[data-type="mpx/partial-card-image"].is-intrinsic-image:not(.is-bleed-image) > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="core/image"],
+[data-type="mpx/partial-card-image"].is-intrinsic-image:not(.is-bleed-image) > .block-editor-block-list__layout > [data-type="core/image"] {
+  width: auto !important;
+  max-width: 100% !important;
+}
+
+.mpx-card--image.is-intrinsic-image:not(.is-bleed-image) .wp-block-image,
+.mpx-card--image.is-intrinsic-image:not(.is-bleed-image) .wp-block-image img,
+[data-type="mpx/partial-card-image"].is-intrinsic-image:not(.is-bleed-image) .wp-block-image,
+[data-type="mpx/partial-card-image"].is-intrinsic-image:not(.is-bleed-image) .wp-block-image img,
+[data-type="mpx/partial-card-image"].is-intrinsic-image:not(.is-bleed-image) .components-resizable-box__container {
+  width: auto !important;
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/**
+ * Card (Cover) — stack tags / copy / CTAs over the photo.
+ */
+.mpx-card--cover,
+[data-type="mpx/partial-card-cover"] .mpx-card--cover {
+  padding: 0 !important;
+  background-image: none !important;
+  color: var(--color-white) !important;
+}
+
+/**
+ * Scope to `.mpx-card--cover` only — Cover Small reuses `__content` markup
+ * and must not inherit the tall min-height / CTA pin.
+ */
+.mpx-card--cover .mpx-card--cover__content > .block-editor-inner-blocks,
+.mpx-card--cover .mpx-card--cover__content > .block-editor-inner-blocks > .block-editor-block-list__layout,
+.mpx-card--cover .mpx-card--cover__content > .block-editor-block-list__layout,
+[data-type="mpx/partial-card-cover"] .mpx-card--cover .mpx-card--cover__content > .block-editor-inner-blocks > .block-editor-block-list__layout {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  width: 100%;
+  min-height: var(--mpx-card-cover-min-h, 28rem);
+  flex: 1 1 auto;
+}
+
+.mpx-card--cover .mpx-card--cover__content > .block-editor-inner-blocks > .block-editor-block-list__layout > *,
+.mpx-card--cover .mpx-card--cover__content > .block-editor-block-list__layout > * {
+  margin-block: 0 !important;
+  width: 100%;
+}
+
+.mpx-card--cover .mpx-card--cover__content > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="mpx/partial-button"]:first-of-type,
+.mpx-card--cover .mpx-card--cover__content > .block-editor-block-list__layout > [data-type="mpx/partial-button"]:first-of-type {
+  margin-top: auto !important;
+  width: auto;
+}
+
+.mpx-card--cover .mpx-card--cover__content > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="mpx/partial-button"],
+.mpx-card--cover .mpx-card--cover__content > .block-editor-block-list__layout > [data-type="mpx/partial-button"] {
+  width: auto;
+}
+
+/**
+ * Card (Cover Small) — match frontend (shell padding 0, content surface pad).
+ * Uses `.mpx-card--cover-small__content` so Cover’s `__content` rules cannot apply.
+ */
+.mpx-card--cover-small,
+[data-type="mpx/partial-card-cover-small"],
+[data-type="mpx/partial-card-cover-small"] .mpx-card--cover-small {
+  padding: 0 !important;
+  background-image: none !important;
+  color: var(--color-white) !important;
+  min-height: 0 !important;
+}
+
+.mpx-card--cover-small__content,
+[data-type="mpx/partial-card-cover-small"] .mpx-card--cover-small__content {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  gap: 1rem !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding: var(--padding-surface) !important;
+  flex: 1 1 auto !important;
+  text-align: start !important;
+}
+
+@media (width >= theme(--breakpoint-lg)) {
+  .mpx-card--cover-small__content,
+  [data-type="mpx/partial-card-cover-small"] .mpx-card--cover-small__content {
+    gap: 1.25rem !important;
+    padding: 0 !important;
+  }
+}
+
+.mpx-card--cover-small__content > .block-editor-inner-blocks,
+.mpx-card--cover-small__content > .block-editor-inner-blocks > .block-editor-block-list__layout,
+.mpx-card--cover-small__content > .block-editor-block-list__layout,
+[data-type="mpx/partial-card-cover-small"] .mpx-card--cover-small__content > .block-editor-inner-blocks > .block-editor-block-list__layout {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  gap: inherit !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  flex: 0 1 auto !important;
+  text-align: start !important;
+}
+
+.mpx-card--cover-small__content > .block-editor-inner-blocks > .block-editor-block-list__layout > *,
+.mpx-card--cover-small__content > .block-editor-block-list__layout > * {
+  margin-block: 0 !important;
+  margin-top: 0 !important;
+  margin-inline: 0 !important;
+  width: auto !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+
+.mpx-card--cover-small__content > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="mpx/partial-button"],
+.mpx-card--cover-small__content > .block-editor-block-list__layout > [data-type="mpx/partial-button"] {
+  width: auto !important;
+  max-width: 100% !important;
+  margin: auto 0 0 !important;
+}
+
+/**
+ * Feature Mosaic — editor grid mirrors frontend.
+ * Important: only the block-list layout is the grid. Making
+ * `.block-editor-inner-blocks` a grid too nests grids and squeezes
+ * tiles into a single 1/3-width track.
+ */
+.mpx-feature-mosaic__grid {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.mpx-feature-mosaic__grid > .block-editor-inner-blocks {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.mpx-feature-mosaic__grid > .block-editor-inner-blocks > .block-editor-block-list__layout,
+.mpx-feature-mosaic__grid > .block-editor-block-list__layout {
+  display: grid !important;
+  gap: 1.25rem;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  grid-template-columns: 1fr;
+  grid-auto-rows: minmax(14rem, auto);
+}
+
+.mpx-feature-mosaic__grid > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="mpx/partial-mosaic-tile"],
+.mpx-feature-mosaic__grid > .block-editor-block-list__layout > [data-type="mpx/partial-mosaic-tile"] {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  min-height: 14rem;
+  height: auto;
+  align-self: stretch;
+}
+
+.mpx-feature-mosaic__grid > .block-editor-inner-blocks > .block-editor-block-list__layout > .block-list-appender,
+.mpx-feature-mosaic__grid > .block-editor-block-list__layout > .block-list-appender {
+  grid-column: 1 / -1;
+  width: 100%;
+  min-height: 0;
+}
+
+@media (width >= theme(--breakpoint-md)) {
+  .mpx-feature-mosaic__grid > .block-editor-inner-blocks > .block-editor-block-list__layout,
+  .mpx-feature-mosaic__grid > .block-editor-block-list__layout {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(12rem, 1fr));
+    min-height: 28rem;
+  }
+
+  .mpx-feature-mosaic__grid > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="mpx/partial-mosaic-tile"]:nth-child(1 of [data-type="mpx/partial-mosaic-tile"]),
+  .mpx-feature-mosaic__grid > .block-editor-block-list__layout > [data-type="mpx/partial-mosaic-tile"]:nth-child(1 of [data-type="mpx/partial-mosaic-tile"]) {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .mpx-feature-mosaic__grid > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="mpx/partial-mosaic-tile"]:nth-child(2 of [data-type="mpx/partial-mosaic-tile"]),
+  .mpx-feature-mosaic__grid > .block-editor-block-list__layout > [data-type="mpx/partial-mosaic-tile"]:nth-child(2 of [data-type="mpx/partial-mosaic-tile"]) {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .mpx-feature-mosaic__grid > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="mpx/partial-mosaic-tile"]:nth-child(3 of [data-type="mpx/partial-mosaic-tile"]),
+  .mpx-feature-mosaic__grid > .block-editor-block-list__layout > [data-type="mpx/partial-mosaic-tile"]:nth-child(3 of [data-type="mpx/partial-mosaic-tile"]) {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .mpx-feature-mosaic__grid > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="mpx/partial-mosaic-tile"]:nth-child(4 of [data-type="mpx/partial-mosaic-tile"]),
+  .mpx-feature-mosaic__grid > .block-editor-block-list__layout > [data-type="mpx/partial-mosaic-tile"]:nth-child(4 of [data-type="mpx/partial-mosaic-tile"]) {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    min-height: 18rem;
+  }
+}
+
+@media (width >= theme(--breakpoint-lg)) {
+  .mpx-feature-mosaic__grid > .block-editor-inner-blocks > .block-editor-block-list__layout,
+  .mpx-feature-mosaic__grid > .block-editor-block-list__layout {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    min-height: 32rem;
+    gap: 1.5rem;
+  }
+
+  .mpx-feature-mosaic__grid > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="mpx/partial-mosaic-tile"]:nth-child(1 of [data-type="mpx/partial-mosaic-tile"]),
+  .mpx-feature-mosaic__grid > .block-editor-block-list__layout > [data-type="mpx/partial-mosaic-tile"]:nth-child(1 of [data-type="mpx/partial-mosaic-tile"]) {
+    grid-column: 1;
+    grid-row: 1;
+    min-height: 0;
+  }
+
+  .mpx-feature-mosaic__grid > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="mpx/partial-mosaic-tile"]:nth-child(2 of [data-type="mpx/partial-mosaic-tile"]),
+  .mpx-feature-mosaic__grid > .block-editor-block-list__layout > [data-type="mpx/partial-mosaic-tile"]:nth-child(2 of [data-type="mpx/partial-mosaic-tile"]) {
+    grid-column: 2;
+    grid-row: 1;
+    min-height: 0;
+  }
+
+  .mpx-feature-mosaic__grid > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="mpx/partial-mosaic-tile"]:nth-child(3 of [data-type="mpx/partial-mosaic-tile"]),
+  .mpx-feature-mosaic__grid > .block-editor-block-list__layout > [data-type="mpx/partial-mosaic-tile"]:nth-child(3 of [data-type="mpx/partial-mosaic-tile"]) {
+    grid-column: 1 / 3;
+    grid-row: 2;
+    min-height: 0;
+  }
+
+  .mpx-feature-mosaic__grid > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="mpx/partial-mosaic-tile"]:nth-child(4 of [data-type="mpx/partial-mosaic-tile"]),
+  .mpx-feature-mosaic__grid > .block-editor-block-list__layout > [data-type="mpx/partial-mosaic-tile"]:nth-child(4 of [data-type="mpx/partial-mosaic-tile"]) {
+    grid-column: 3;
+    grid-row: 1 / 3;
+    min-height: 0;
+  }
+}
+
+.mpx-mosaic-tile,
+[data-type="mpx/partial-mosaic-tile"],
+[data-type="mpx/partial-mosaic-tile"] .mpx-mosaic-tile {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  min-height: inherit;
+}
+
+.mpx-mosaic-tile__content,
+[data-type="mpx/partial-mosaic-tile"] .mpx-mosaic-tile__content {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+
+.mpx-mosaic-tile__content > .block-editor-inner-blocks,
+.mpx-mosaic-tile__content > .block-editor-inner-blocks > .block-editor-block-list__layout,
+.mpx-mosaic-tile__content > .block-editor-block-list__layout,
+[data-type="mpx/partial-mosaic-tile"] .mpx-mosaic-tile__content > .block-editor-inner-blocks > .block-editor-block-list__layout {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  gap: 1rem !important;
+}
+
+.mpx-mosaic-tile__placeholder,
+[data-type="mpx/partial-mosaic-tile"] .mpx-mosaic-tile__placeholder {
+  display: none !important;
+}
+
+/**
+ * Form CTA — bordered panel; columns reuse `.mpx-columns` editor rules
+ * (panel class lives on the same `.container.mpx-columns` element).
+ */
+.mpx-form-cta .container.mpx-form-cta__panel {
+  box-sizing: border-box;
+  padding: var(--padding-surface);
+  border: 1px dashed var(--color-primary);
+  border-radius: var(--radius-surface);
+
+  @media (width >= theme(--breakpoint-lg)) {
+    padding: var(--padding-surface-lg);
+  }
+}
+
+/**
+ * Card (Image) — edge-to-edge via negative margins (same idea as frontend).
+ * Keeps card padding for text; only the first image breaks out.
+ */
+[data-type="mpx/partial-card-image"].is-bleed-image,
+[data-type="mpx/partial-card-image"] .mpx-card--image.is-bleed-image,
+.mpx-card--image.is-bleed-image {
+  --_card-pad: var(--padding-surface);
+  overflow: hidden !important;
+  align-items: stretch !important;
+  text-align: center;
+
+  @media (width >= theme(--breakpoint-lg)) {
+    --_card-pad: var(--padding-surface-lg);
+  }
+}
+
+[data-type="mpx/partial-card-image"].is-bleed-image > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="core/image"]:nth-child(1 of [data-type="core/image"]),
+[data-type="mpx/partial-card-image"].is-bleed-image > .block-editor-block-list__layout > [data-type="core/image"]:nth-child(1 of [data-type="core/image"]),
+[data-type="mpx/partial-card-image"] .is-bleed-image > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="core/image"]:nth-child(1 of [data-type="core/image"]),
+[data-type="mpx/partial-card-image"] .is-bleed-image > .block-editor-block-list__layout > [data-type="core/image"]:nth-child(1 of [data-type="core/image"]),
+.mpx-card--image.is-bleed-image > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="core/image"]:nth-child(1 of [data-type="core/image"]),
+.mpx-card--image.is-bleed-image > .block-editor-block-list__layout > [data-type="core/image"]:nth-child(1 of [data-type="core/image"]) {
+  width: calc(100% + (var(--_card-pad, var(--padding-surface)) * 2)) !important;
+  max-width: none !important;
+  margin-top: calc(var(--_card-pad, var(--padding-surface)) * -1) !important;
+  margin-inline: calc(var(--_card-pad, var(--padding-surface)) * -1) !important;
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+[data-type="mpx/partial-card-image"].is-bleed-image [data-type="core/image"]:nth-child(1 of [data-type="core/image"]) .wp-block-image,
+[data-type="mpx/partial-card-image"] .is-bleed-image [data-type="core/image"]:nth-child(1 of [data-type="core/image"]) .wp-block-image,
+.mpx-card--image.is-bleed-image [data-type="core/image"]:nth-child(1 of [data-type="core/image"]) .wp-block-image,
+[data-type="mpx/partial-card-image"].is-bleed-image [data-type="core/image"]:nth-child(1 of [data-type="core/image"]) .components-resizable-box__container,
+[data-type="mpx/partial-card-image"] .is-bleed-image [data-type="core/image"]:nth-child(1 of [data-type="core/image"]) .components-resizable-box__container,
+.mpx-card--image.is-bleed-image [data-type="core/image"]:nth-child(1 of [data-type="core/image"]) .components-resizable-box__container {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+
+[data-type="mpx/partial-card-image"].is-bleed-image [data-type="core/image"]:nth-child(1 of [data-type="core/image"]) img,
+[data-type="mpx/partial-card-image"] .is-bleed-image [data-type="core/image"]:nth-child(1 of [data-type="core/image"]) img,
+.mpx-card--image.is-bleed-image [data-type="core/image"]:nth-child(1 of [data-type="core/image"]) img {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  object-fit: cover !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+/**
+ * Testimonial card — name / role top; quote grows; stars at the bottom.
+ */
+.mpx-card--testimonial-simple {
+  & > .mpx-card__body > .block-editor-inner-blocks,
+  & > .mpx-card__body > .block-editor-inner-blocks > .block-editor-block-list__layout {
+    display: flex !important;
+    flex-direction: column;
+    flex: 1 1 auto;
+    height: 100%;
+    min-height: 0;
+  }
+
+  & > .mpx-card__body > .block-editor-inner-blocks > .block-editor-block-list__layout {
+    & > * {
+      margin-block: 0 !important;
+    }
+
+    & > [data-type="core/heading"] {
+      order: 1;
+      margin-bottom: 0.15rem !important;
+    }
+
+    & > [data-type="core/paragraph"].mpx-card__company {
+      order: 2;
+      margin-bottom: 1.25rem !important;
+    }
+
+    & > [data-type="core/paragraph"]:not(.mpx-card__company) {
+      order: 3;
+      flex: 1 1 auto;
+    }
+  }
+
+  & .mpx-card__quote-mark {
+    position: absolute;
+    top: var(--padding-surface);
+    inset-inline-end: var(--padding-surface);
+    z-index: 1;
+    color: color-mix(in srgb, var(--color-black) 14%, transparent);
+    pointer-events: none;
+
+    @media (width >= theme(--breakpoint-lg)) {
+      top: var(--padding-surface-lg);
+      inset-inline-end: var(--padding-surface-lg);
+    }
+  }
+
+  & .mpx-card__body {
+    padding-inline-end: 3.25rem;
+  }
+
+  & .mpx-card__rating {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    margin-top: auto;
+    color: #c9a227;
+  }
+}
+
+/**
+ * Full-width icon card padding (matches frontend 30px 20px).
+ */
+.mpx-card.mpx-card--icon.is-full-width-icon {
+  padding: 30px 20px !important;
+}
+
+/**
+ * Icon-beside-content toggle — editor.
+ */
+.mpx-card.mpx-card--icon.is-horizontal {
+  --_icon-size: 74px;
+  --_icon-gap: 1rem;
+
+  position: relative;
+  padding-inline-start: var(--padding-surface) !important;
+  min-height: 0 !important;
+
+  @media (width >= theme(--breakpoint-lg)) {
+    padding-inline-start: var(--padding-surface-lg) !important;
+  }
+}
+
+.mpx-card--icon.is-horizontal > .block-editor-block-list__layout,
+.mpx-card--icon.is-horizontal > .block-editor-inner-blocks > .block-editor-block-list__layout {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1rem !important;
+  box-sizing: border-box;
+  min-height: var(--_icon-size, 74px);
+  padding-inline-start: calc(var(--_icon-size, 74px) + var(--_icon-gap, 1rem)) !important;
+
+  & > [data-type="mpx/partial-icon"] {
+    position: absolute !important;
+    top: 0 !important;
+    inset-inline-start: 0 !important;
+    inset-inline-end: auto !important;
+    margin: 0 !important;
+    width: var(--_icon-size, 74px) !important;
+    max-width: var(--_icon-size, 74px) !important;
+    height: var(--_icon-size, 74px) !important;
+
+    & :is(.icon, svg.icon) {
+      width: 40px !important;
+      height: 40px !important;
+    }
+  }
+
+  & > :not([data-type="mpx/partial-icon"]) {
+    margin-inline-start: 0 !important;
+    max-width: 100%;
+  }
+
+  & :is(h1, h2, h3, h4, h5, h6, p) {
+    margin-bottom: 0 !important;
+  }
+}
+
+/**
+ * Paragraph Limit Width? (`mw-1000`).
+ * `.fs-*` text sizes come from theme/typography.css via theme.css import.
+ */
+.mw-1000 {
+  width: 100%;
+  max-width: var(--width-content);
+}
+
+/**
+ * Typography font toggles (Blockstudio extensions).
+ */
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+.font-fraunces {
+  font-family: var(--font-fraunces);
+}
+
+h1.font-fraunces,
+.h1.font-fraunces {
+  font-weight: 700 !important;
+  line-height: 1em !important;
+}
+
+/**
+ * Glass-panel utilities applied via Additional CSS class(es)
+ */
+.bg-white\/10 {
+  background-color: color-mix(in oklab, var(--color-white) 10%, transparent);
+}
+
+.backdrop-blur-sm {
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.border {
+  border-style: solid;
+  border-width: 1px;
+}
+
+.border-white\/20 {
+  border-color: color-mix(in oklab, var(--color-white) 20%, transparent);
+}
+
+.rounded-lg {
+  border-radius: var(--radius-surface);
+}
+
+.p-6 {
+  padding: 1.5rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+/**
+ * core/button editor preview
+ *
+ * Frontend `.btn` rules live in `@layer components` (buttons.css). In the
+ * canvas the link still has core's unlayered `.wp-block-button__link` /
+ * `.wp-element-button` (the PHP pass that strips those only runs on FE
+ * render), so layered theme styles lose. Mirror the global base here,
+ * unlayered + !important, and keep it in sync when buttons.css changes.
+ */
+.wp-block-button.btn > .wp-block-button__link,
+.wp-block-button[class*='btn-'] > .wp-block-button__link {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: var(--padding-btn-y) var(--padding-btn-x) !important;
+  border-radius: 100px !important;
+  border-style: solid !important;
+  border-width: 1px !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  font-family: var(--font-heading) !important;
+  font-size: var(--font-size-btn) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.025em;
+  line-height: 15px !important;
+  text-transform: none !important;
+  text-align: center !important;
+  box-sizing: border-box;
+  height: auto;
+}
+
+.wp-block-button.btn-primary > .wp-block-button__link,
+.wp-block-button.btn-primary-alt > .wp-block-button__link {
+  background-color: var(--color-primary) !important;
+  background-image: none !important;
+  color: var(--color-white) !important;
+  border-color: var(--color-primary) !important;
+}
+
+.wp-block-button.btn-primary > .wp-block-button__link:hover,
+.wp-block-button.btn-primary-alt > .wp-block-button__link:hover {
+  background-color: var(--color-secondary) !important;
+  color: var(--color-white) !important;
+  border-color: var(--color-secondary) !important;
+}
+
+.wp-block-button.btn-secondary > .wp-block-button__link {
+  background-color: var(--color-secondary) !important;
+  background-image: none !important;
+  color: var(--color-black) !important;
+  border-color: var(--color-secondary) !important;
+}
+
+.wp-block-button.btn-secondary > .wp-block-button__link:hover {
+  background-color: var(--color-primary) !important;
+  color: var(--color-white) !important;
+  border-color: var(--color-primary) !important;
+}
+
+.wp-block-button.btn-tertiary > .wp-block-button__link {
+  background-color: var(--color-tertiary) !important;
+  background-image: none !important;
+  color: var(--color-black) !important;
+  border-color: var(--color-tertiary) !important;
+}
+
+.wp-block-button.btn-tertiary > .wp-block-button__link:hover {
+  background-color: var(--color-primary) !important;
+  color: var(--color-white) !important;
+  border-color: var(--color-primary) !important;
+}
+
+.wp-block-button.btn-white > .wp-block-button__link,
+.wp-block-button.btn-outline-primary > .wp-block-button__link {
+  background-color: var(--color-white) !important;
+  background-image: none !important;
+  color: var(--color-primary) !important;
+  border-color: var(--color-white) !important;
+}
+
+.wp-block-button.btn-white > .wp-block-button__link:hover,
+.wp-block-button.btn-outline-primary > .wp-block-button__link:hover {
+  background-color: transparent !important;
+  color: var(--color-white) !important;
+  border-color: var(--color-white) !important;
+}
+
+.wp-block-button.btn-link-white > .wp-block-button__link,
+.wp-block-button.btn-link-dark > .wp-block-button__link {
+  padding: 0 !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border-color: transparent !important;
+  border-radius: 0 !important;
+}
+
+.wp-block-button.btn-link-white > .wp-block-button__link {
+  color: var(--color-white) !important;
+}
+
+.wp-block-button.btn-link-white > .wp-block-button__link:hover {
+  background-color: transparent !important;
+  color: var(--color-secondary) !important;
+  border-color: transparent !important;
+}
+
+.wp-block-button.btn-link-dark > .wp-block-button__link {
+  color: var(--color-black) !important;
+}
+
+.wp-block-button.btn-link-dark > .wp-block-button__link:hover {
+  background-color: transparent !important;
+  color: var(--color-secondary) !important;
+  border-color: transparent !important;
+}
+
+.wp-block-button.btn-sm > .wp-block-button__link {
+  padding: var(--padding-btn-sm-y) var(--padding-btn-sm-x) !important;
+  font-size: var(--font-size-btn) !important;
+  font-weight: 700 !important;
+  line-height: 15px !important;
+}
+
+.wp-block-button.btn-full,
+.wp-block-button.btn-full > .wp-block-button__link,
+.wp-block-button.btn-full > a {
+  width: 100% !important;
+}
+
+/**
+ * Include icon — editor canvas can't receive the PHP-injected sprite
+ * (<use href="#icon-arrow-right">), so mirror the same path with a mask.
+ * Frontend renders the real SVG from footer-icons.
+ */
+.wp-block-button.btn-has-icon > .wp-block-button__link::after {
+  content: '';
+  display: inline-block;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/**
+ * Button Align / Position — Blockstudio sets `w-full flex justify-*` on `.wp-block-button`.
+ */
+.wp-block-button.w-full {
+  width: 100% !important;
+}
+
+.wp-block-button.flex {
+  display: flex !important;
+}
+
+.wp-block-button.justify-center {
+  justify-content: center !important;
+}
+
+@media (width >= 768px) {
+  .wp-block-button.md\:justify-end {
+    justify-content: flex-end !important;
+  }
+}

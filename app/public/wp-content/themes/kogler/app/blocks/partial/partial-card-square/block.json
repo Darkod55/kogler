@@ -1,0 +1,78 @@
+{
+  "$schema": "https://blockstudio.dev/schema/block",
+  "name": "mpx/partial-card-square",
+  "title": "Card (Square)",
+  "category": "metapixels-partials",
+  "icon": "format-image",
+  "description": "Square image tile with an optional link. The image fills the card edge-to-edge — ideal for brand / logo tiles.",
+  "keywords": [
+    "card",
+    "square",
+    "image",
+    "logo",
+    "brand",
+    "link",
+    "tile"
+  ],
+  "parent": [
+    "mpx/partial-cards"
+  ],
+  "usesContext": [
+    "mpx/partial-cards"
+  ],
+  "supports": {
+    "html": false,
+    "lock": false
+  },
+  "blockstudio": {
+    "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\"><rect width=\"24\" height=\"24\" rx=\"3\" fill=\"#101920\"/><rect x=\"4\" y=\"4\" width=\"16\" height=\"16\" rx=\"1.5\" stroke=\"#FF884B\" stroke-width=\"1.5\"/><rect x=\"6.5\" y=\"7\" width=\"11\" height=\"7\" rx=\"1\" fill=\"#FF884B\"/><circle cx=\"9\" cy=\"9.5\" r=\"1\" fill=\"#101920\"/><path d=\"M6.5 12.5l2.6-2 1.8 1.35 2.1-1.7 2.5 2.35V14H6.5v-1.5Z\" fill=\"#101920\" opacity=\"0.9\"/></svg>",
+    "attributes": [
+      {
+        "type": "group",
+        "title": "Media",
+        "attributes": [
+          {
+            "id": "square_image",
+            "type": "files",
+            "label": "Image",
+            "help": "Square (or near-square) image. It fills the card edge-to-edge with object-fit: cover.",
+            "allowedTypes": ["image"],
+            "multiple": false,
+            "returnFormat": "object"
+          },
+          {
+            "id": "image_position_x",
+            "type": "range",
+            "label": "Horizontal position",
+            "help": "0% = left, 100% = right (object-position).",
+            "default": 50,
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "allowReset": true
+          },
+          {
+            "id": "image_position_y",
+            "type": "range",
+            "label": "Vertical position",
+            "help": "0% = top, 100% = bottom (object-position).",
+            "default": 50,
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "allowReset": true
+          }
+        ]
+      },
+      {
+        "id": "link",
+        "type": "link",
+        "label": "Link",
+        "help": "Optional. Makes the whole square clickable."
+      },
+      {
+        "type": "custom/grid_item_width"
+      }
+    ]
+  }
+}

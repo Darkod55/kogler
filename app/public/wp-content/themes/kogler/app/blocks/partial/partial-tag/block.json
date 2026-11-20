@@ -1,0 +1,24 @@
+{
+  "$schema": "https://blockstudio.dev/schema/block",
+  "name": "mpx/partial-tag",
+  "title": "Tag",
+  "category": "metapixels-partials",
+  "icon": "tag",
+  "description": "A single pill tag. Lives inside Tags.",
+  "keywords": [
+    "tag",
+    "pill",
+    "chip",
+    "label"
+  ],
+  "parent": [
+    "mpx/partial-tags"
+  ],
+  "supports": {
+    "html": false,
+    "lock": false
+  },
+  "blockstudio": {
+    "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\"><rect width=\"24\" height=\"24\" rx=\"3\" fill=\"#101920\"/><rect x=\"4\" y=\"9.5\" width=\"16\" height=\"5\" rx=\"2.5\" fill=\"#FF884B\"/></svg>"
+  }
+}

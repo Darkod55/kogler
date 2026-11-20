@@ -1,0 +1,205 @@
+/**
+ * Global CSS
+ */
+
+/**
+ * Menu-editor alias for `lg:hidden` — WP strips colons from nav CSS Classes.
+ */
+@layer utilities {
+  @media (width >= theme(--breakpoint-lg)) {
+    .lg-hidden { display: none !important; }
+  }
+}
+
+/**
+ * Smooth in-page anchors (TOC, nav hash links, block anchors).
+ * scroll-padding-top clears the sticky header; heading-level
+ * scroll-margin-top in posts.css covers the same for post content.
+ */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 7rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+#main-header .brand {
+  line-height: 0.8em;
+}
+
+#main-header .site-logo {
+  height: auto;
+}
+
+/**
+ * Homepage: fixed chrome over the hero — solid primary preheader,
+ * transparent main bar that fills dark-blue on scroll.
+ * `--site-admin-bar-height` is measured in app.js (0 when logged out).
+ */
+.site-chrome--front {
+  position: fixed;
+  inset-inline: 0;
+  top: var(--site-admin-bar-height, 0px);
+  z-index: 30;
+}
+
+.site-chrome--front .preheader {
+  background-color: var(--color-primary);
+}
+
+.site-chrome--front #main-header {
+  background-color: transparent;
+  transition: background-color 450ms ease-in-out;
+}
+
+body.scrolled .site-chrome--front #main-header {
+  background-color: var(--color-dark-blue);
+}
+
+/**
+ * Homepage only: crossfade main → alt logo when scrolled.
+ */
+.site-chrome--front .brand-logo-link .site-logo {
+  grid-area: 1 / 1;
+  transition: opacity 450ms ease-in-out;
+}
+
+.site-chrome--front .brand-logo-link .site-logo--alt {
+  opacity: 0;
+}
+
+body.scrolled .site-chrome--front .brand-logo-link .site-logo--main {
+  opacity: 0;
+}
+
+body.scrolled .site-chrome--front .brand-logo-link .site-logo--alt {
+  opacity: 1;
+}
+
+/**
+ * Homepage mobile: solid dark-blue bar + alt logo at all times
+ * (no transparent-over-hero / scroll swap — preheader is hidden below md).
+ */
+@media (width < theme(--breakpoint-md)) {
+  .site-chrome--front #main-header {
+    background-color: var(--color-dark-blue);
+  }
+
+  .site-chrome--front .brand-logo-link .site-logo--main {
+    opacity: 0;
+  }
+
+  .site-chrome--front .brand-logo-link .site-logo--alt {
+    opacity: 1;
+  }
+}
+
+/**
+ * Inner pages: stick the whole chrome (preheader + bar). Sticky on
+ * `#main-header` alone fails because `.site-chrome--inner` is only as
+ * tall as the chrome — the parent scrolls away immediately.
+ * Main bar matches the homepage scrolled state (dark-blue + white UI).
+ */
+.site-chrome--inner {
+  position: sticky;
+  inset-inline: 0;
+  top: var(--site-admin-bar-height, 0px);
+  z-index: 30;
+}
+
+.site-chrome--inner .preheader {
+  background-color: var(--color-white);
+  color: var(--color-dark-blue);
+}
+
+.site-chrome--inner #main-header {
+  background-color: var(--color-dark-blue);
+}
+
+#main-header .nav-dropdown { border-radius: var(--radius-surface); }
+
+.site-footer .site-logo {
+  width: var(--logo-width, 180px);
+  max-width: 100%;
+  height: auto;
+}
+
+.wp-block-image img { border-radius: var(--radius-surface); }
+
+/* Bleed / post cards: square image edges (card clips via overflow + radius). */
+.mpx-card--image .wp-block-image img,
+.mpx-post-card .wp-block-image img,
+.mpx-post-card__image {
+  border-radius: 0;
+}
+
+/**
+ * Partners slider logos — theme fallback so size wins even if the
+ * Blockstudio block stylesheet loses the cascade to Preflight/img attrs.
+ */
+.mpx-partners-slider .wp-block-gallery img {
+  display: block !important;
+  width: auto !important;
+  max-width: 10rem !important;
+  height: 2.75rem !important;
+  max-height: 2.75rem !important;
+  object-fit: contain !important;
+}
+
+@media (max-width: 767px) {
+  .mpx-partners-slider .wp-block-gallery img {
+    max-width: 8rem !important;
+    height: 2.25rem !important;
+    max-height: 2.25rem !important;
+  }
+}
+
+/**
+ * Responsive embeds (YouTube etc.).
+ * Block-library CSS is dequeued on the front end. One Column (and other
+ * flex parents with align-items ≠ stretch) would otherwise shrink the
+ * figure to 0 width once the iframe is absolutely positioned.
+ */
+@layer components {
+  .wp-block-embed,
+  [data-type="core/embed"] {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    align-self: stretch;
+    margin-bottom: 1.5rem;
+  }
+
+  .wp-block-embed__wrapper {
+    position: relative;
+    display: block;
+    width: 100%;
+  }
+
+  .wp-block-embed iframe {
+    max-width: 100%;
+  }
+
+  .wp-has-aspect-ratio .wp-block-embed__wrapper {
+    aspect-ratio: 16 / 9;
+  }
+
+  .wp-embed-aspect-21-9 .wp-block-embed__wrapper { aspect-ratio: 21 / 9; }
+  .wp-embed-aspect-18-9 .wp-block-embed__wrapper { aspect-ratio: 18 / 9; }
+  .wp-embed-aspect-16-9 .wp-block-embed__wrapper { aspect-ratio: 16 / 9; }
+  .wp-embed-aspect-4-3 .wp-block-embed__wrapper { aspect-ratio: 4 / 3; }
+  .wp-embed-aspect-1-1 .wp-block-embed__wrapper { aspect-ratio: 1 / 1; }
+  .wp-embed-aspect-9-16 .wp-block-embed__wrapper { aspect-ratio: 9 / 16; }
+  .wp-embed-aspect-1-2 .wp-block-embed__wrapper { aspect-ratio: 1 / 2; }
+
+  .wp-has-aspect-ratio iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+}

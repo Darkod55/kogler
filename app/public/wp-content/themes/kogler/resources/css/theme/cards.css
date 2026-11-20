@@ -1,0 +1,972 @@
+/**
+ * Cards grid (mpx/partial-cards + card / card-icon / card-image /
+ * card-square / card-cover / card-cover-small / card-testimonial-simple / icon).
+ */
+
+.mpx-cards.grid-auto-cards {
+  /*
+   * One Column `content-pos-*` uses align-items ≠ stretch. Without this,
+   * the cards grid shrink-wraps to content width, % tracks collapse, and
+   * children stack instead of sitting in a row.
+   */
+  align-self: stretch;
+  width: 100%;
+  max-width: 100%;
+  align-items: stretch;
+
+  &:not(.is-fill-row) > * {
+    flex-grow: 0;
+  }
+
+  /**
+   * Buttons as grid children (e.g. three CTAs in a row): fill the cell.
+   */
+  & > .mpx-partial-button,
+  & > .wp-block-mpx-partial-button {
+    display: flex;
+    align-self: stretch;
+    width: 100%;
+    min-width: 0;
+
+    & .wp-block-buttons,
+    & .wp-block-button,
+    & .wp-block-button__link {
+      width: 100%;
+    }
+  }
+}
+
+@layer components {
+  .mpx-card {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    width: 100%;
+    box-sizing: border-box;
+    padding: var(--padding-surface);
+    border-radius: var(--radius-surface);
+    background-color: var(--mpx-card-bg, var(--color-tertiary));
+
+    @media (width >= theme(--breakpoint-lg)) {
+      padding: var(--padding-surface-lg);
+    }
+  }
+
+  /**
+   * Horizontal page carousel (Alpine `mpxCardsSlider`).
+   * Slide width fills the track exactly for N slides — no peek of the next card.
+   *
+   * `--mpx-slides` is set by Alpine from --mpx-slides-{mobile,tablet,desktop}
+   * (Blockstudio’s Tailwind regroups @media blocks, so CSS breakpoints alone
+   * are not reliable for this). Mobile value is the pre-JS fallback.
+   */
+  .mpx-cards--slider {
+    --mpx-slides: var(--mpx-slides-mobile, 1);
+    --mpx-cards-slide-basis: calc(
+      (100% - (var(--mpx-slides) - 1) * var(--grid-gap-col, 20px)) / var(--mpx-slides)
+    );
+  }
+
+  .mpx-cards-slider {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .mpx-cards-slider__track {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: var(--grid-gap-col, 20px);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    & > * {
+      flex: 0 0 var(--mpx-cards-slide-basis);
+      width: var(--mpx-cards-slide-basis);
+      max-width: 100%;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      min-width: 0;
+    }
+  }
+
+  .mpx-cards-slider__dots {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .mpx-cards-slider__dot {
+    display: block;
+    width: 0.5rem;
+    height: 0.5rem;
+    padding: 0;
+    border: none;
+    border-radius: 9999px;
+    background-color: color-mix(in srgb, var(--color-primary) 28%, white);
+    cursor: pointer;
+    transition: background-color 0.2s, width 0.2s, transform 0.2s;
+
+    &:hover {
+      background-color: color-mix(in srgb, var(--color-primary) 55%, white);
+    }
+
+    &.is-active {
+      width: 1.25rem;
+      background-color: var(--color-primary);
+    }
+  }
+
+  /**
+   * Light dots on dark section backgrounds (primary / secondary / tertiary / black).
+   */
+  :is(
+    .bg-primary,
+    .bg-secondary,
+    .bg-tertiary,
+    .bg-black
+  ) .mpx-cards-slider__dot {
+    background-color: color-mix(in srgb, var(--color-white) 40%, transparent);
+
+    &:hover {
+      background-color: color-mix(in srgb, var(--color-white) 70%, transparent);
+    }
+
+    &.is-active {
+      background-color: var(--color-white);
+    }
+  }
+
+  .mpx-card--check {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .mpx-card__icon {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 9999px;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+
+    & .icon {
+      display: block;
+      fill: currentColor;
+      color: inherit;
+    }
+  }
+
+  .mpx-card__body {
+    flex: 1 1 auto;
+    min-width: 0;
+
+    & :is(h1, h2, h3, h4, h5, h6, p):last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  /**
+   * Plain text tile (icon off): centered content for label-style cards.
+   */
+  .mpx-card--plain {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 5.5rem;
+
+    & .mpx-card__body {
+      width: 100%;
+    }
+
+    & :is(h1, h2, h3, h4, h5, h6, p) {
+      margin-bottom: 0;
+    }
+
+    & :is(h1, h2, h3, h4, h5, h6) + p {
+      margin-top: 0.5rem;
+    }
+  }
+
+  .mpx-card--icon {
+    gap: 0;
+
+    & :is(h1, h2, h3, h4, h5, h6) {
+      margin-bottom: 0.5rem;
+    }
+
+    & :is(h1, h2, h3, h4, h5, h6, p):last-child {
+      margin-bottom: 0;
+    }
+
+    /**
+     * Toggle: large centered glyph (no badge) — label-style tiles.
+     */
+    &.is-full-width-icon {
+      --_icon-glyph: 3.5rem;
+
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 30px 20px;
+      text-align: center;
+      min-height: 5.5rem;
+
+      @media (width >= theme(--breakpoint-lg)) {
+        padding: 30px 20px;
+      }
+
+      & :is(h1, h2, h3, h4, h5, h6) {
+        margin-bottom: 0;
+      }
+
+      & :is(h1, h2, h3, h4, h5, h6) + p {
+        margin-top: 0.5rem;
+      }
+
+      & > .mpx-partial-icon {
+        width: auto;
+        height: auto;
+        background-color: transparent;
+        border-radius: 0;
+        color: var(--color-white);
+
+        & .icon {
+          width: var(--_icon-glyph) !important;
+          height: var(--_icon-glyph) !important;
+        }
+      }
+    }
+
+    /**
+     * Toggle: icon left of text from tablet up (mobile stays stacked).
+     */
+    &.is-horizontal {
+      --_icon-size: 74px;
+      --_icon-gap: 1rem;
+      --_card-pad: var(--padding-surface);
+
+      & :is(h1, h2, h3, h4, h5, h6, p) {
+        margin-bottom: 0;
+      }
+
+      @media (width >= theme(--breakpoint-md)) {
+        position: relative;
+        min-height: calc(var(--_icon-size) + var(--_card-pad) * 2);
+        padding-inline-start: calc(
+          var(--_card-pad) + var(--_icon-size) + var(--_icon-gap)
+        );
+
+        & > .mpx-partial-icon {
+          position: absolute;
+          top: var(--_card-pad);
+          inset-inline-start: var(--_card-pad);
+          width: var(--_icon-size) !important;
+          height: var(--_icon-size) !important;
+
+          & .icon {
+            width: 40px !important;
+            height: 40px !important;
+          }
+        }
+      }
+
+      @media (width >= theme(--breakpoint-lg)) {
+        --_card-pad: var(--padding-surface-lg);
+      }
+    }
+  }
+
+  .mpx-partial-icon {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-surface);
+    background-color: var(--color-primary);
+    color: var(--color-white);
+
+    & .icon {
+      display: block;
+      fill: currentColor;
+      color: inherit;
+    }
+  }
+
+  /**
+   * Simple testimonial: name / role top-left, quote mark top-right,
+   * quote body, optional star rating pinned to the bottom.
+   */
+  .mpx-card--testimonial-simple {
+    position: relative;
+    gap: 1.25rem;
+    align-items: flex-start;
+    text-align: left;
+
+    & .mpx-card__quote-mark {
+      position: absolute;
+      top: var(--padding-surface);
+      inset-inline-end: var(--padding-surface);
+      z-index: 1;
+      display: grid;
+      flex-shrink: 0;
+      place-items: center;
+      pointer-events: none;
+      color: color-mix(in srgb, var(--color-black) 14%, transparent);
+
+      @media (width >= theme(--breakpoint-lg)) {
+        top: var(--padding-surface-lg);
+        inset-inline-end: var(--padding-surface-lg);
+      }
+
+      & .icon {
+        display: block;
+        width: 2.75rem;
+        height: 2.2rem;
+        fill: currentColor;
+        color: inherit;
+      }
+    }
+
+    & .mpx-card__body {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
+      width: 100%;
+      min-height: 0;
+      padding-inline-end: 3.25rem;
+    }
+
+    /**
+     * Visual order via flex `order` so older cards (quote first) still
+     * render as name → role → quote.
+     */
+    & .mpx-card__body > :is(h1, h2, h3, h4, h5, h6) {
+      order: 1;
+      margin: 0 0 0.15rem;
+      font-family: var(--font-heading);
+      font-size: 1.125rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    & .mpx-card__body > .mpx-card__company,
+    & .mpx-card__body > .wp-block-paragraph.mpx-card__company {
+      order: 2;
+      margin: 0 0 1.25rem;
+      font-family: var(--font-sans);
+      font-size: var(--font-size-sm);
+      font-weight: 400;
+      line-height: 1.4;
+      color: var(--color-dark-gray);
+      opacity: 1;
+    }
+
+    & .mpx-card__body > p:not(.mpx-card__company),
+    & .mpx-card__body > .wp-block-paragraph:not(.mpx-card__company) {
+      order: 3;
+      flex: 1 1 auto;
+      margin: 0;
+      font-family: var(--font-sans);
+      font-size: var(--font-size-base);
+      font-weight: 400;
+      line-height: 1.55;
+    }
+
+    & .mpx-card__rating {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 0.2rem;
+      margin-top: auto;
+      color: #c9a227;
+    }
+
+    & .mpx-card__star {
+      display: grid;
+      place-items: center;
+      line-height: 0;
+
+      & .icon {
+        display: block;
+        width: 1.125rem;
+        height: 1.125rem;
+        fill: currentColor;
+        color: inherit;
+      }
+
+      &.is-empty {
+        color: color-mix(in srgb, var(--color-black) 18%, transparent);
+      }
+    }
+  }
+
+  /**
+   * Card (Cover) — full-bleed photo + scrim, tags / copy / link CTAs.
+   * Own background image (not parent Cards solid fill).
+   */
+  .mpx-card--cover {
+    --mpx-card-cover-min-h: 28rem;
+    position: relative;
+    overflow: hidden;
+    min-height: var(--mpx-card-cover-min-h);
+    align-items: stretch;
+    gap: 0;
+    padding: 0;
+    color: var(--color-white);
+    text-align: center;
+    background-color: var(--color-dark-blue);
+    background-image: none;
+  }
+
+  .mpx-card--cover__media,
+  .mpx-card--cover__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .mpx-card--cover__media {
+    overflow: hidden;
+  }
+
+  .mpx-card--cover__image,
+  .mpx-card--cover__placeholder {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--mpx-card-cover-pos, 50% 50%);
+  }
+
+  .mpx-card--cover__placeholder {
+    display: grid;
+    place-items: center;
+    background: color-mix(in srgb, var(--color-dark-blue) 85%, white);
+    color: color-mix(in srgb, var(--color-white) 75%, transparent);
+    text-align: center;
+    font-size: 0.875rem;
+    line-height: normal;
+    object-fit: unset;
+    padding: 1.5rem;
+  }
+
+  .mpx-card--cover__scrim {
+    z-index: 1;
+    pointer-events: none;
+    background-color: color-mix(in srgb, var(--color-black) 45%, transparent);
+  }
+
+  .mpx-card--cover .mpx-card--cover__content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: var(--mpx-card-cover-min-h);
+    padding: var(--padding-surface);
+    height: 100%;
+  }
+
+  @media (width >= theme(--breakpoint-lg)) {
+    .mpx-card--cover .mpx-card--cover__content {
+      padding: var(--padding-surface-lg);
+      gap: 1.5rem;
+    }
+  }
+
+  /**
+   * Only the cover content stack — not nested layouts (e.g. tags row).
+   * Scoped under `.mpx-card--cover` so Cover Small is not affected.
+   */
+  .mpx-card--cover .mpx-card--cover__content > .block-editor-inner-blocks > .block-editor-block-list__layout,
+  .mpx-card--cover .mpx-card--cover__content > .block-editor-block-list__layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: inherit;
+    width: 100%;
+    min-height: inherit;
+  }
+
+  .mpx-card--cover .mpx-card--cover__content > *,
+  .mpx-card--cover .mpx-card--cover__content > .block-editor-inner-blocks > .block-editor-block-list__layout > *,
+  .mpx-card--cover .mpx-card--cover__content > .block-editor-block-list__layout > *,
+  .mpx-card--cover .mpx-card--cover__content :is(h1, h2, h3, h4, h5, h6, p) {
+    margin-block: 0 !important;
+  }
+
+  .mpx-card--cover .mpx-card--cover__content :is(h1, h2, h3, h4, h5, h6, p, a:not(.btn):not(.wp-block-button__link)) {
+    color: inherit;
+  }
+
+  .mpx-card--cover .mpx-tags {
+    width: 100%;
+    /* padding — cover content zeros margin-block on children */
+    padding-bottom: 0.75rem;
+  }
+
+  .mpx-card--cover .mpx-tag {
+    background-color: #f2eee8b2;
+    color: var(--color-black);
+  }
+
+  /**
+   * Push the CTA stack to the bottom; keep heading/copy in the middle band.
+   */
+  .mpx-card--cover .mpx-card--cover__content > :is(
+    .mpx-partial-button,
+    .wp-block-button,
+    .wp-block-buttons,
+    .wp-block-mpx-partial-button
+  ):first-of-type,
+  .mpx-card--cover .mpx-card--cover__content > .block-editor-inner-blocks > .block-editor-block-list__layout > :is(
+    [data-type="mpx/partial-button"],
+    .wp-block-mpx-partial-button,
+    .mpx-partial-button
+  ):first-of-type,
+  .mpx-card--cover .mpx-card--cover__content > .block-editor-block-list__layout > :is(
+    [data-type="mpx/partial-button"],
+    .wp-block-mpx-partial-button,
+    .mpx-partial-button
+  ):first-of-type {
+    margin-top: auto !important;
+  }
+
+  .mpx-card--cover .mpx-card--cover__content > :is(
+    .mpx-partial-button,
+    .wp-block-button,
+    .wp-block-buttons,
+    .wp-block-mpx-partial-button
+  ),
+  .mpx-card--cover .mpx-card--cover__content > .block-editor-inner-blocks > .block-editor-block-list__layout > :is(
+    [data-type="mpx/partial-button"],
+    .wp-block-mpx-partial-button,
+    .mpx-partial-button
+  ),
+  .mpx-card--cover .mpx-card--cover__content > .block-editor-block-list__layout > :is(
+    [data-type="mpx/partial-button"],
+    .wp-block-mpx-partial-button,
+    .mpx-partial-button
+  ) {
+    width: auto;
+    justify-content: center;
+  }
+
+  /**
+   * Card (Cover Small) — compact category tile: centred title + pill CTA.
+   * Height follows content (no forced min-height).
+   */
+  .mpx-card--cover-small {
+    --mpx-card-cover-pos: 50% 50%;
+    position: relative;
+    overflow: hidden;
+    align-items: stretch;
+    gap: 0;
+    padding: 0;
+    color: var(--color-white);
+    background-color: var(--color-dark-blue);
+    background-image: none;
+  }
+
+  .mpx-card--cover-small .mpx-card--cover__media,
+  .mpx-card--cover-small .mpx-card--cover__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .mpx-card--cover-small .mpx-card--cover__media {
+    overflow: hidden;
+  }
+
+  .mpx-card--cover-small .mpx-card--cover__image,
+  .mpx-card--cover-small .mpx-card--cover__placeholder {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--mpx-card-cover-pos, 50% 50%);
+  }
+
+  .mpx-card--cover-small .mpx-card--cover__placeholder {
+    display: grid;
+    place-items: center;
+    background: color-mix(in srgb, var(--color-dark-blue) 85%, white);
+    color: color-mix(in srgb, var(--color-white) 75%, transparent);
+    text-align: center;
+    font-size: 0.875rem;
+    line-height: normal;
+    object-fit: unset;
+    padding: 1rem;
+  }
+
+  .mpx-card--cover-small .mpx-card--cover__scrim {
+    z-index: 1;
+    pointer-events: none;
+    background-color: color-mix(in srgb, var(--color-black) 45%, transparent);
+  }
+
+  /**
+   * Own content class — must not share `.mpx-card--cover__content`
+   * (that brings the tall feature min-height / CTA pin into the editor).
+   */
+  .mpx-card--cover-small__content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: start;
+    gap: 1rem;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    flex: 1 1 auto;
+    min-height: 0;
+    height: auto;
+    /* Mobile / tablet inset; desktop keeps padding:0 (editor-controlled). */
+    padding: var(--padding-surface);
+  }
+
+  @media (width >= theme(--breakpoint-lg)) {
+    .mpx-card--cover-small__content {
+      gap: 1.25rem;
+      padding: 0 !important;
+    }
+  }
+
+  .mpx-card--cover-small__content > .block-editor-inner-blocks,
+  .mpx-card--cover-small__content > .block-editor-inner-blocks > .block-editor-block-list__layout,
+  .mpx-card--cover-small__content > .block-editor-block-list__layout {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: inherit;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    min-height: 0;
+    height: auto;
+    flex: 0 1 auto;
+  }
+
+  .mpx-card--cover-small__content > *,
+  .mpx-card--cover-small__content > .block-editor-inner-blocks > .block-editor-block-list__layout > *,
+  .mpx-card--cover-small__content > .block-editor-block-list__layout > *,
+  .mpx-card--cover-small__content :is(h1, h2, h3, h4, h5, h6, p) {
+    margin-block: 0 !important;
+  }
+
+  .mpx-card--cover-small__content :is(h1, h2, h3, h4, h5, h6, p, a:not(.btn):not(.wp-block-button__link)) {
+    color: inherit;
+  }
+
+  .mpx-card--cover-small__content > :is(
+    .mpx-partial-button,
+    .wp-block-button,
+    .wp-block-buttons,
+    .wp-block-mpx-partial-button
+  ),
+  .mpx-card--cover-small__content > .block-editor-inner-blocks > .block-editor-block-list__layout > :is(
+    [data-type="mpx/partial-button"],
+    .wp-block-mpx-partial-button,
+    .mpx-partial-button
+  ),
+  .mpx-card--cover-small__content > .block-editor-block-list__layout > :is(
+    [data-type="mpx/partial-button"],
+    .wp-block-mpx-partial-button,
+    .mpx-partial-button
+  ) {
+    width: auto;
+    max-width: 100%;
+    min-width: 0;
+    margin: auto 0 0 !important;
+  }
+
+  /**
+   * Square image tile — edge-to-edge media, optional stretched link.
+   * Beat `.mpx-card` surface padding at every breakpoint.
+   */
+  .mpx-card.mpx-card--square {
+    --mpx-card-square-pos: 50% 50%;
+
+    position: relative;
+    align-self: start;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    padding: 0;
+    background-color: transparent;
+    background-image: none;
+
+    @media (width >= theme(--breakpoint-lg)) {
+      padding: 0;
+    }
+  }
+
+  .mpx-card--square__image,
+  .mpx-card--square__placeholder {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    object-fit: cover;
+    object-position: var(--mpx-card-square-pos, 50% 50%);
+  }
+
+  .mpx-card--square__placeholder {
+    display: grid;
+    place-items: center;
+    object-fit: unset;
+    padding: 1rem;
+    background: color-mix(in srgb, var(--color-dark-blue) 85%, white);
+    color: color-mix(in srgb, var(--color-white) 75%, transparent);
+    text-align: center;
+    font-size: 0.875rem;
+    line-height: normal;
+  }
+
+  .mpx-card--square__link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: block;
+    border-radius: inherit;
+    text-decoration: none;
+  }
+
+  .mpx-card--square:has(.mpx-card--square__link):hover {
+    opacity: 0.94;
+  }
+
+  .mpx-card--image {
+    gap: 1rem;
+
+    & .wp-block-image {
+      margin: 0;
+      width: 100%;
+      max-width: 100%;
+
+      & img {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        object-fit: contain;
+        border-radius: 0;
+      }
+    }
+
+    & :is(h1, h2, h3, h4, h5, h6) {
+      margin-bottom: 0.5rem;
+    }
+
+    & :is(h1, h2, h3, h4, h5, h6, p):last-child {
+      margin-bottom: 0;
+    }
+
+    & .mpx-partial-button,
+    & .wp-block-buttons {
+      margin-top: auto;
+    }
+
+    /**
+     * Centre image / copy / CTA (feature-style icon cards).
+     * Image is block-level / often full-width, so text-align alone is not enough —
+     * shrink-wrap the figure and centre it in the flex column.
+     */
+    &.is-content-centered {
+      align-items: center;
+      text-align: center;
+
+      & .wp-block-image,
+      & figure.wp-block-image {
+        display: flex;
+        justify-content: center;
+        align-self: center;
+        width: fit-content;
+        max-width: 100%;
+        margin-inline: auto;
+
+        & img {
+          display: block;
+          width: auto;
+          max-width: 100%;
+          height: auto;
+          margin-inline: auto;
+        }
+      }
+
+      & .mpx-partial-button,
+      & .wp-block-buttons,
+      & .wp-block-mpx-partial-button {
+        align-self: center;
+      }
+
+      & .wp-block-buttons {
+        width: auto;
+        justify-content: center;
+      }
+    }
+
+    /**
+     * Keep the image at its intrinsic size (icons / logos) instead of
+     * stretching to the card width.
+     */
+    &.is-intrinsic-image:not(.is-bleed-image) {
+      & > .wp-block-image,
+      & .wp-block-image,
+      & figure.wp-block-image {
+        width: auto;
+        max-width: 100%;
+
+        & img {
+          width: auto;
+          max-width: 100%;
+          height: auto;
+          object-fit: contain;
+        }
+      }
+    }
+
+    /**
+     * Edge-to-edge image: pull the first image out of the card padding
+     * with negative margins (keeps text padding intact — editor-friendly).
+     */
+    &.is-bleed-image {
+      --_card-pad: var(--padding-surface);
+      overflow: hidden;
+      align-items: stretch;
+      text-align: center;
+
+      @media (width >= theme(--breakpoint-lg)) {
+        --_card-pad: var(--padding-surface-lg);
+      }
+
+      & > .wp-block-image {
+        width: calc(100% + (var(--_card-pad) * 2));
+        max-width: none;
+        margin-top: calc(var(--_card-pad) * -1);
+        margin-inline: calc(var(--_card-pad) * -1);
+        margin-bottom: 0;
+
+        & img {
+          display: block;
+          width: 100%;
+          max-width: 100%;
+          height: auto;
+          object-fit: cover;
+          border-radius: 0;
+        }
+      }
+
+      & .mpx-partial-button,
+      & .wp-block-buttons {
+        margin-top: auto;
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  }
+
+  /**
+   * Blog / archive / related post cards — Card (Image) bleed style:
+   * edge-to-edge featured image, centered serif title, date (no excerpt).
+   */
+  .mpx-post-card {
+    gap: 1rem;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    text-align: center;
+    align-items: center;
+    box-shadow: 0 4px 16px color-mix(in srgb, var(--color-primary) 18%, transparent);
+
+    & :is(h1, h2, h3, h4, h5, h6, p, a:not(.btn):not(.wp-block-button__link)) {
+      color: inherit;
+    }
+
+    & .mpx-post-card__media {
+      line-height: 0;
+
+      & a {
+        display: block;
+      }
+    }
+
+    & .mpx-post-card__image {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      border-radius: 0;
+    }
+
+    & .mpx-post-card__placeholder {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      background: color-mix(in srgb, var(--color-primary) 70%, white);
+    }
+
+    & .mpx-post-card__title {
+      margin: 0;
+      font-family: var(--font-heading);
+      font-weight: 700;
+
+      & a {
+        text-decoration: none;
+        color: inherit;
+
+        &:hover {
+          opacity: 0.9;
+        }
+      }
+    }
+
+    & .mpx-post-card__date {
+      display: block;
+      margin: 0;
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      line-height: 1.4;
+      opacity: 0.85;
+    }
+
+    & .mpx-post-card__footer {
+      margin-top: auto;
+      width: 100%;
+
+      & .btn {
+        width: 100%;
+      }
+    }
+  }
+}

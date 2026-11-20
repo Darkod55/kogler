@@ -1,0 +1,23 @@
+{
+  "$schema": "https://blockstudio.dev/schema/block",
+  "name": "mpx/partial-checklist-item",
+  "title": "Checklist Item",
+  "category": "metapixels-partials",
+  "icon": "yes-alt",
+  "description": "A single checklist row: theme checkmark icon plus a paragraph.",
+  "keywords": [
+    "list",
+    "item",
+    "check"
+  ],
+  "parent": [
+    "mpx/partial-checklist"
+  ],
+  "supports": {
+    "html": false,
+    "lock": false
+  },
+  "blockstudio": {
+    "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\"><rect width=\"24\" height=\"24\" rx=\"3\" fill=\"#101920\"/><circle cx=\"7.5\" cy=\"12\" r=\"3.25\" fill=\"#FF884B\"/><path d=\"M6 12.05l1.2 1.2 2.35-2.55\" stroke=\"#101920\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"12.25\" y=\"11.25\" width=\"8\" height=\"1.5\" rx=\"0.75\" fill=\"#FF884B\"/></svg>"
+  }
+}

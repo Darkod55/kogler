@@ -1,0 +1,21 @@
+/**
+ * mpx/partial-subheading — uppercase label with a colour-matched accent bar.
+ *
+ * Kept outside resources/css/theme/ so bridgeTailwindConfig() (which globs
+ * theme/*.css into Blockstudio's inline Tailwind) does not duplicate it.
+ * Vite still loads this via theme.css → app.css / editor.css.
+ */
+
+@layer components {
+  .mpx-subheading {
+    margin-bottom: 10px;
+
+    & p {
+      margin-bottom: 0;
+      border-left: 3px solid currentColor;
+      padding: 0 0 0 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+  }
+}

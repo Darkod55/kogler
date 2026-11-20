@@ -1,0 +1,37 @@
+/**
+ * Theme design system entry point.
+ */
+@import "./theme/variables.css";
+@import "./theme/fonts.css";
+@import "./theme/sections.css";
+@import "./theme/cards.css";
+@import "./theme/mosaic.css";
+@import "./theme/form-cta.css";
+/* Rank Math FAQ cards — unused here for now. Re-enable: move unused/faqs.css → theme/faqs.css and uncomment.
+@import "./theme/faqs.css";
+*/
+@import "./theme/buttons.css";
+@import "./theme/forms.css";
+@import "./theme/woocommerce.css";
+@import "./theme/nav.css";
+@import "./theme/typography.css";
+@import "./theme/posts.css";
+@import "./theme/global.css";
+/* Outside theme/ so Blockstudio's bridgeTailwindConfig() glob does not re-emit it. */
+@import "./components/mpx-subheading.css";
+@import "./components/header-chrome.css";
+
+@source inline("text-primary text-secondary text-tertiary text-teal text-gray text-light text-dark-blue text-light-blue text-dark-gray text-black text-white");
+@source inline("bg-primary bg-secondary bg-tertiary bg-teal bg-gray bg-light bg-dark-blue bg-light-blue bg-dark-gray bg-black bg-white");
+@source inline("font-heading font-fraunces");
+/**
+ * Utilities applied via the block editor's "Additional CSS class(es)"
+ * field (e.g. the hero right-column glass panel). Those class names live
+ * in post content, not in theme source files, so Tailwind's @source globs
+ * never see them - and Blockstudio's editor compiler only scans block
+ * templates, not saved className attributes. Listing them here keeps the
+ * Vite editor.css / app.css bundles in sync with the frontend, where
+ * Blockstudio's HTML-scan Tailwind already picks them up at request time.
+ */
+@source inline("bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 p-20px mt-4 brand-form");
+@source inline("is-v-align-top is-v-align-center is-v-align-bottom is-bleed-image is-content-centered is-intrinsic-image is-sticky-left is-sticky-right");

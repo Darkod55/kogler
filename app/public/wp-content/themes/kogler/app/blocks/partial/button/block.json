@@ -1,0 +1,16 @@
+{
+  "$schema": "https://blockstudio.dev/schema/block",
+  "name": "mpx/partial-button",
+  "title": "Button",
+  "category": "metapixels-partials",
+  "icon": "star-filled",
+  "example": {},
+  "blockstudio": {
+    "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\"><rect width=\"24\" height=\"24\" rx=\"3\" fill=\"#101920\"/><rect x=\"3.5\" y=\"8.5\" width=\"17\" height=\"7\" rx=\"3.5\" fill=\"#FF884B\"/><rect x=\"7\" y=\"11.25\" width=\"10\" height=\"1.5\" rx=\"0.75\" fill=\"#101920\"/></svg>"
+  },
+  "supports": {
+    "html": false,
+    "lock": false,
+    "customClassName": true
+  }
+}

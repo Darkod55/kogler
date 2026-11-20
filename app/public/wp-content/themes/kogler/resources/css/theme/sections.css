@@ -1,0 +1,660 @@
+/**
+ * Section layout utilities
+ */
+
+@utility p-clamp {
+  padding-inline: var(--spacing-clamp-inline);
+  padding-block: var(--spacing-clamp-block);
+}
+
+@utility p-clamp-xl {
+  padding-inline: var(--spacing-clamp-inline);
+  padding-block: var(--spacing-clamp-block-xl);
+}
+
+@utility px-clamp {
+  padding-inline: var(--spacing-clamp-inline);
+}
+
+@utility py-clamp {
+  padding-block: var(--spacing-clamp-block);
+}
+
+@utility py-clamp-xl {
+  padding-block: var(--spacing-clamp-block-xl);
+}
+
+/**
+ * Fixed surface padding on all sides.
+ */
+@utility p-20px {
+  padding: var(--padding-surface);
+}
+
+/**
+ * Fixed-width, centered container.
+ */
+@utility container {
+  margin-inline: auto;
+  max-width: var(--width-container);
+}
+
+/**
+ * Optional content-width cap (mpx/one-column Limit width toggle,
+ */
+@utility mw-1000 {
+  width: 100%;
+  max-width: var(--width-content);
+}
+
+/**
+ * Align content *inside* a centered `.container` (mpx/one-column Position).
+ */
+@utility content-pos-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+@utility content-pos-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@utility content-pos-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/**
+ * Shared light black wash (same as `.mpx-hero__scrim`) for image-backed sections.
+ */
+@utility hero-overlay {
+  background-color: color-mix(in srgb, var(--color-black) 18%, transparent);
+}
+
+/**
+ * mpx/one-column — background image mode (fixed cover + hero scrim).
+ */
+@layer components {
+  .mpx-one-column-section.has-bg-image {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 300px;
+  }
+
+  @media (width >= theme(--breakpoint-lg)) {
+    .mpx-one-column-section.has-bg-image {
+      min-height: 450px;
+    }
+  }
+
+  .mpx-one-column__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+
+  .mpx-one-column__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background-color: color-mix(in srgb, var(--color-black) 18%, transparent);
+  }
+
+  .mpx-one-column-section.has-bg-image > .container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+  }
+}
+
+/**
+ * mpx/hero — cinematic full-bleed photo or looping video with a light
+ * full-bleed black overlay + overlaid copy (container-aligned).
+ */
+@layer components {
+  .mpx-hero {
+    /**
+     * Mobile: full viewport. Tablet (md–lg): shorter band.
+     * Desktop (lg+): fill the viewport minus the preheader (see below).
+     */
+    --mpx-hero-min-h: calc(100vh - var(--site-admin-bar-height, 0px));
+    --mpx-hero-min-h: calc(100dvh - var(--site-admin-bar-height, 0px));
+    min-height: var(--mpx-hero-min-h);
+    background-color: var(--color-black);
+  }
+
+  @media (width >= theme(--breakpoint-md)) {
+    .mpx-hero {
+      --mpx-hero-min-h: 60vh;
+      --mpx-hero-min-h: 60dvh;
+    }
+  }
+
+  @media (width >= theme(--breakpoint-lg)) {
+    .mpx-hero {
+      --mpx-hero-min-h: calc(
+        100vh - var(--site-chrome-height, 5.5rem) - var(--site-admin-bar-height, 0px)
+      );
+      --mpx-hero-min-h: calc(
+        100dvh - var(--site-chrome-height, 5.5rem) - var(--site-admin-bar-height, 0px)
+      );
+    }
+
+    /**
+     * Homepage chrome is fixed over the hero — sit below the preheader and
+     * fill the rest of the viewport (main bar floats over the image).
+     * Admin bar is already cleared via html margin-top; chrome uses
+     * `--site-admin-bar-height` for its fixed `top`. Hero height still
+     * subtracts the admin bar so it ends at the viewport bottom.
+     */
+    body.home .mpx-hero,
+    body.front-page .mpx-hero {
+      margin-top: var(--site-preheader-height, 0px);
+      --mpx-hero-min-h: calc(
+        100vh - var(--site-preheader-height, 0px) - var(--site-admin-bar-height, 0px)
+      );
+      --mpx-hero-min-h: calc(
+        100dvh - var(--site-preheader-height, 0px) - var(--site-admin-bar-height, 0px)
+      );
+    }
+  }
+
+  .mpx-hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .mpx-hero__image,
+  .mpx-hero__video,
+  .mpx-hero__placeholder {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Mobile → optional override, else desktop. */
+    object-position: var(
+      --mpx-hero-pos-mobile,
+      var(--mpx-hero-pos-desktop, 100% 50%)
+    );
+  }
+
+  .mpx-hero__video {
+    pointer-events: none;
+  }
+
+  @media (width >= theme(--breakpoint-md)) {
+    .mpx-hero__image,
+    .mpx-hero__video,
+    .mpx-hero__placeholder {
+      /* Tablet → optional override, else desktop. */
+      object-position: var(
+        --mpx-hero-pos-tablet,
+        var(--mpx-hero-pos-desktop, 100% 50%)
+      );
+    }
+  }
+
+  @media (width >= theme(--breakpoint-lg)) {
+    .mpx-hero__image,
+    .mpx-hero__video,
+    .mpx-hero__placeholder {
+      object-position: var(--mpx-hero-pos-desktop, 100% 50%);
+    }
+  }
+
+  .mpx-hero__placeholder {
+    display: grid;
+    place-items: center;
+    background: color-mix(in srgb, var(--color-black) 70%, white);
+    color: color-mix(in srgb, var(--color-white) 75%, transparent);
+    text-align: center;
+    font-size: 0.875rem;
+    line-height: normal;
+    object-fit: unset;
+  }
+
+  /**
+   * Light full-bleed black wash for text contrast.
+   */
+  .mpx-hero__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background-color: color-mix(in srgb, var(--color-black) 18%, transparent);
+  }
+
+  .mpx-hero__foreground {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: flex-end;
+    min-height: var(--mpx-hero-min-h);
+  }
+
+  .mpx-hero__content,
+  .mpx-hero__content .block-editor-block-list__layout {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: 1.5rem;
+    row-gap: 24px;
+    width: 100%;
+    max-width: 34rem;
+  }
+
+  /**
+   * Copy takes a full row. CTAs use mpx/partial-button in the editor;
+   * on the frontend that wrapper is unwrapped to .wp-block-button.
+   */
+  .mpx-hero__content > :not(
+    .wp-block-button,
+    .wp-block-buttons,
+    .wp-block-mpx-partial-button,
+    .mpx-partial-button
+  ),
+  .mpx-hero__content .block-editor-block-list__layout > :not(
+    [data-type="mpx/partial-button"],
+    .wp-block-mpx-partial-button,
+    .mpx-partial-button
+  ) {
+    flex: 0 0 100%;
+    width: 100%;
+  }
+
+  /**
+   * Hero-only CTA row: stack on mobile; side-by-side from tablet up.
+   */
+  .mpx-hero__content > :is(
+    .wp-block-button,
+    .wp-block-buttons,
+    .wp-block-mpx-partial-button,
+    .mpx-partial-button
+  ),
+  .mpx-hero__content .block-editor-block-list__layout > :is(
+    [data-type="mpx/partial-button"],
+    .wp-block-mpx-partial-button,
+    .mpx-partial-button
+  ) {
+    flex: 0 0 100%;
+    width: 100%;
+  }
+
+  @media (width >= theme(--breakpoint-md)) {
+    .mpx-hero__content > :is(
+      .wp-block-button,
+      .wp-block-buttons,
+      .wp-block-mpx-partial-button,
+      .mpx-partial-button
+    ),
+    .mpx-hero__content .block-editor-block-list__layout > :is(
+      [data-type="mpx/partial-button"],
+      .wp-block-mpx-partial-button,
+      .mpx-partial-button
+    ) {
+      flex: 0 0 auto;
+      width: auto;
+    }
+  }
+
+  .mpx-hero__content > *,
+  .mpx-hero__content .block-editor-block-list__layout > *,
+  .mpx-hero__content :is(h1, h2, h3, h4, h5, h6, p) {
+    margin-block: 0 !important;
+  }
+
+  .mpx-hero__content .mpx-subheading {
+    margin-bottom: 0;
+  }
+
+  @media (width >= theme(--breakpoint-lg)) {
+    .mpx-hero__foreground {
+      align-items: center;
+    }
+
+    .mpx-hero__content,
+    .mpx-hero__content .block-editor-block-list__layout {
+      row-gap: 30px;
+      max-width: 38rem;
+    }
+  }
+}
+
+/**
+ * mpx/column-cover — full-bleed photo with a content box overlaid on the left
+ * (same InnerBlocks as Hero: heading, paragraph, button).
+ */
+@layer components {
+  .mpx-column-cover {
+    --mpx-cover-min-h: min(36rem, 70vh);
+    min-height: var(--mpx-cover-min-h);
+    background-color: var(--mpx-cover-box-bg, var(--color-primary));
+  }
+
+  .mpx-column-cover__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .mpx-column-cover__image,
+  .mpx-column-cover__placeholder {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--mpx-cover-pos, 70% 50%);
+  }
+
+  .mpx-column-cover__placeholder {
+    display: grid;
+    place-items: center;
+    background: color-mix(in srgb, var(--mpx-cover-box-bg, var(--color-primary)) 80%, white);
+    color: color-mix(in srgb, var(--color-white) 75%, transparent);
+    text-align: center;
+    font-size: 0.875rem;
+    line-height: normal;
+    object-fit: unset;
+  }
+
+  .mpx-column-cover__foreground {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    min-height: var(--mpx-cover-min-h);
+  }
+
+  .mpx-column-cover__foreground > .container {
+    width: 100%;
+    display: flex;
+  }
+
+  .mpx-column-cover.is-box-right .mpx-column-cover__foreground > .container {
+    justify-content: flex-end;
+  }
+
+  .mpx-column-cover__box {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    padding: 1.5rem;
+    border-radius: var(--radius-surface);
+    background-color: var(--mpx-cover-box-bg, #00000070);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    color: var(--color-white);
+  }
+
+  .mpx-column-cover__box,
+  .mpx-column-cover__box .block-editor-block-list__layout {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .mpx-column-cover__box > *,
+  .mpx-column-cover__box .block-editor-block-list__layout > *,
+  .mpx-column-cover__box :is(h1, h2, h3, h4, h5, h6, p) {
+    margin-block: 0 !important;
+  }
+
+  .mpx-column-cover__box :is(h1, h2, h3, h4, h5, h6, p, a:not(.btn)) {
+    color: inherit;
+  }
+
+  @media (width >= theme(--breakpoint-lg)) {
+    .mpx-column-cover__box {
+      width: 50%;
+      max-width: 50%;
+      padding: 2.5rem;
+    }
+
+    .mpx-column-cover__box,
+    .mpx-column-cover__box .block-editor-block-list__layout {
+      gap: 1.5rem;
+    }
+  }
+}
+
+/**
+ * mpx/columns — card-style column cells.
+ */
+@layer components {
+  .mpx-partial-column {
+    box-sizing: border-box;
+    min-width: 0;
+  }
+
+  .mpx-partial-column--has-bg {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: var(--padding-surface);
+    border-radius: var(--radius-surface);
+    background-color: var(--mpx-column-bg, var(--color-gray));
+  }
+
+  @media (width >= theme(--breakpoint-lg)) {
+    .mpx-partial-column--has-bg {
+      padding: var(--padding-surface-lg);
+    }
+  }
+}
+
+/**
+ * Flexible wrapping column layout (mpx/columns, mpx/hero, cards + Grid Controls).
+ *
+ * Per-item overrides:
+ * - --col-width-* → flex-basis (px / % / auto)
+ * - --col-grow-*  → flex-grow (0 for fixed px so `auto` siblings can fill)
+ */
+@utility grid-auto-cards {
+  --_min: var(--grid-min-mobile, 100%);
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+
+  & > * {
+    flex-grow: var(--col-grow-mobile, 1);
+    flex-shrink: 1;
+    flex-basis: var(--col-width-mobile, var(--_min));
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  /*
+   * Section-level subheading (mpx/columns sibling of columns):
+   * full-width row above the column cells; order keeps it on top
+   */
+  & > .mpx-subheading,
+  & > .wp-block-mpx-partial-subheading {
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 100%;
+    order: -1;
+  }
+
+  @media (width >= theme(--breakpoint-md)) {
+    --_min: var(--grid-min-tablet, var(--grid-min-mobile, 100%));
+
+    & > * {
+      flex-grow: var(--col-grow-tablet, var(--col-grow-mobile, 1));
+      flex-basis: var(--col-width-tablet, var(--col-width-mobile, var(--_min)));
+    }
+
+    & > .mpx-subheading,
+    & > .wp-block-mpx-partial-subheading {
+      flex-grow: 0;
+      flex-basis: 100%;
+    }
+
+    /*
+     * Flip via `order` only — DOM order (and :first-child width targeting)
+     * stays the same. Avoid direction:rtl which visually swaps columns.
+     */
+    &.is-flipped > :first-child {
+      order: 2;
+    }
+
+    &.is-flipped > :first-child + * {
+      order: 1;
+    }
+  }
+
+  @media (width >= theme(--breakpoint-lg)) {
+    --_min: var(--grid-min-desktop, var(--grid-min-tablet, 100%));
+
+    & > * {
+      flex-grow: var(
+        --col-grow-desktop,
+        var(--col-grow-tablet, var(--col-grow-mobile, 1))
+      );
+      flex-basis: var(
+        --col-width-desktop,
+        var(--col-width-tablet, var(--col-width-mobile, var(--_min)))
+      );
+    }
+
+    & > .mpx-subheading,
+    & > .wp-block-mpx-partial-subheading {
+      flex-grow: 0;
+      flex-basis: 100%;
+    }
+  }
+}
+
+/**
+ * mpx/columns — two-column layout. Widths come from parent CSS vars
+ * (`--col-1-*` → `:first-child`, `--col-2-*` → second child).
+ * Flip only changes visual order via `order`; DOM targeting stays the same.
+ * Mobile is always full width.
+ */
+@layer utilities {
+  /*
+   * Must live in utilities — @utility grid-auto-cards sets align-items:start
+   * and would otherwise win over a components-layer stretch rule.
+   */
+  .mpx-columns.grid-auto-cards {
+    align-items: stretch;
+  }
+
+  .mpx-columns.grid-auto-cards > :first-child,
+  .mpx-columns.grid-auto-cards > :first-child + * {
+    flex-grow: 1;
+    flex-basis: 100%;
+    align-self: stretch;
+  }
+
+  /**
+   * Vertical content align (both columns). Columns stretch to equal height;
+   * `--mpx-col-justify` is set from the Columns block (top/center/bottom).
+   */
+  .mpx-columns.grid-auto-cards > .mpx-partial-column,
+  .mpx-columns.grid-auto-cards > .wp-block-mpx-partial-column {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    justify-content: var(--mpx-col-justify, flex-start);
+  }
+
+  .mpx-columns.grid-auto-cards > .mpx-partial-column--has-bg {
+    height: auto;
+    min-height: 100%;
+  }
+
+  @media (width >= theme(--breakpoint-md)) {
+    .mpx-columns.grid-auto-cards > :first-child {
+      flex-grow: var(--col-1-grow-tablet, 1);
+      flex-basis: var(--col-1-width-tablet, 50%);
+    }
+
+    .mpx-columns.grid-auto-cards > :first-child + * {
+      flex-grow: var(--col-2-grow-tablet, 1);
+      flex-basis: var(--col-2-width-tablet, 50%);
+    }
+  }
+
+  @media (width >= theme(--breakpoint-lg)) {
+    .mpx-columns.grid-auto-cards > :first-child {
+      flex-grow: var(--col-1-grow-desktop, 1);
+      flex-basis: var(--col-1-width-desktop, var(--col-1-width-tablet, 50%));
+    }
+
+    .mpx-columns.grid-auto-cards > :first-child + * {
+      flex-grow: var(--col-2-grow-desktop, 1);
+      flex-basis: var(--col-2-width-desktop, var(--col-2-width-tablet, 50%));
+    }
+
+    /**
+     * Sticky column (desktop only). align-self:flex-start is required —
+     * stretch makes the column as tall as the row so sticky never engages.
+     * Top offset clears the sticky site header.
+     */
+    .mpx-columns.is-sticky-left > :first-child,
+    .mpx-columns.is-sticky-left > .mpx-partial-column:first-child,
+    .mpx-columns.is-sticky-left > .wp-block-mpx-partial-column:first-child {
+      position: sticky;
+      top: calc(
+        var(--site-chrome-height, 5.5rem) + var(--site-admin-bar-height, 0px) + 1.5rem
+      );
+      align-self: flex-start;
+    }
+
+    .mpx-columns.is-sticky-right > :first-child + *,
+    .mpx-columns.is-sticky-right > .mpx-partial-column:first-child + *,
+    .mpx-columns.is-sticky-right > .wp-block-mpx-partial-column:first-child + * {
+      position: sticky;
+      top: calc(
+        var(--site-chrome-height, 5.5rem) + var(--site-admin-bar-height, 0px) + 1.5rem
+      );
+      align-self: flex-start;
+    }
+  }
+}
+
+/**
+ * Gap companion for grid-auto-cards.
+ * 30px column/row gap on mobile/tablet;
+ * desktop reads `--grid-gap-col` / `--grid-gap-row`.
+ */
+@utility grid-auto-cards-gap {
+  column-gap: 20px;
+  row-gap: 20px;
+
+  @media (width >= theme(--breakpoint-lg)) {
+    column-gap: var(--grid-gap-col, 20px);
+    row-gap: var(--grid-gap-row, 20px);
+  }
+}
+
+/**
+ * Keep columns on one row from desktop up (hero). Below lg, tablet/mobile
+ * tracks can still stack (e.g. 100% basis). Prevents a fixed px + auto
+ * pair from wrapping early on mid-width desktops.
+ */
+@utility grid-auto-cards-nowrap {
+  @media (width >= theme(--breakpoint-lg)) {
+    flex-wrap: nowrap;
+
+    & > * {
+      min-width: 0;
+    }
+  }
+}

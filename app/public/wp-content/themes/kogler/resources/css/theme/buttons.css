@@ -1,0 +1,131 @@
+/**
+ * Button components
+ *
+ * Variants (default → hover) from docs/design-tokens.md Active recipes:
+ * 1. btn-primary     — primary fill / white text → secondary fill / white text
+ * 2. btn-secondary   — secondary fill / black text → primary fill / white text
+ * 3. btn-tertiary    — tertiary fill / black text → primary fill / white text
+ * 4. btn-white       — white fill / primary text → transparent + white border / white text
+ * 5. btn-link-white  — transparent / white text → secondary text
+ * 6. btn-link-dark   — transparent / black text → secondary text
+ *
+ * Legacy: btn-primary-alt → btn-primary; btn-outline-primary → btn-white.
+ */
+
+@layer components {
+  :is(
+    a.btn,
+    button.btn,
+    .wp-block-button.btn > .wp-block-button__link,
+    .wp-block-button[class*='btn-'] > .wp-block-button__link
+  ) {
+    @apply inline-flex! items-center justify-center gap-2 font-heading font-semibold tracking-wide no-underline! shadow-none! transition-colors disabled:cursor-not-allowed disabled:opacity-50 rounded-[100px] text-center! border border-transparent;
+    padding: var(--padding-btn-y) var(--padding-btn-x) !important;
+    font-size: var(--font-size-btn);
+    line-height: 15px;
+  }
+
+  :is(
+    a.btn-primary,
+    button.btn-primary,
+    .wp-block-button.btn-primary > .wp-block-button__link,
+    /* Legacy alias of primary. */
+    a.btn-primary-alt,
+    button.btn-primary-alt,
+    .wp-block-button.btn-primary-alt > .wp-block-button__link
+  ) {
+    @apply border-primary bg-primary text-white hover:border-dark-blue hover:bg-dark-blue hover:text-white;
+  }
+
+  :is(
+    a.btn-secondary,
+    button.btn-secondary,
+    .wp-block-button.btn-secondary > .wp-block-button__link
+  ) {
+    @apply border-secondary bg-secondary text-black hover:border-primary hover:bg-primary hover:text-white;
+  }
+
+  :is(
+    a.btn-tertiary,
+    button.btn-tertiary,
+    .wp-block-button.btn-tertiary > .wp-block-button__link
+  ) {
+    @apply border-tertiary bg-tertiary text-black hover:border-primary hover:bg-primary hover:text-white;
+  }
+
+  :is(
+    a.btn-white,
+    button.btn-white,
+    .wp-block-button.btn-white > .wp-block-button__link,
+    /* Legacy alias — previously an outline style. */
+    a.btn-outline-primary,
+    button.btn-outline-primary,
+    .wp-block-button.btn-outline-primary > .wp-block-button__link
+  ) {
+    @apply border-white bg-white text-primary hover:border-white hover:bg-transparent hover:text-white;
+  }
+
+  :is(
+    a.btn-link-white,
+    button.btn-link-white,
+    .wp-block-button.btn-link-white > .wp-block-button__link,
+    a.btn-link-dark,
+    button.btn-link-dark,
+    .wp-block-button.btn-link-dark > .wp-block-button__link
+  ) {
+    padding: 0 !important;
+    border-color: transparent;
+    background-color: transparent;
+    border-radius: 0;
+  }
+
+  :is(
+    a.btn-link-white,
+    button.btn-link-white,
+    .wp-block-button.btn-link-white > .wp-block-button__link
+  ) {
+    @apply text-white hover:bg-transparent hover:text-secondary;
+  }
+
+  :is(
+    a.btn-link-dark,
+    button.btn-link-dark,
+    .wp-block-button.btn-link-dark > .wp-block-button__link
+  ) {
+    @apply text-black hover:bg-transparent hover:text-secondary;
+  }
+
+  /**
+   * Size modifier - combine with a colour variant
+   */
+  :is(
+    a.btn-sm,
+    button.btn-sm,
+    .wp-block-button.btn-sm > .wp-block-button__link
+  ) {
+    @apply font-bold;
+    padding: var(--padding-btn-sm-y) var(--padding-btn-sm-x) !important;
+    font-size: var(--font-size-btn);
+  }
+
+  /**
+   * Full-width (Blockstudio "Full Width?" toggle).
+   */
+  :is(
+    .btn-full,
+    .wp-block-button.btn-full > .wp-block-button__link,
+    .wp-block-button.btn-full > a
+  ) {
+    @apply w-full;
+  }
+
+  /**
+   * Include icon (Blockstudio toggle) — arrow-right from footer-icons sprite, injected after the link text in moveCoreButtonClassesToLink().
+   */
+  :is(
+    a.btn-has-icon > .icon,
+    button.btn-has-icon > .icon
+  ) {
+    flex-shrink: 0;
+  }
+}

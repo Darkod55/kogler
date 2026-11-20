@@ -1,0 +1,34 @@
+{
+  "$schema": "https://blockstudio.dev/schema/block",
+  "name": "mpx/partial-icon",
+  "title": "Icon",
+  "category": "metapixels-partials",
+  "icon": "star-filled",
+  "description": "SVG icon from the theme sprite (footer-icons). Used inside Card (Icon).",
+  "keywords": [
+    "icon",
+    "svg"
+  ],
+  "parent": [
+    "mpx/partial-card-icon"
+  ],
+  "supports": {
+    "html": false,
+    "lock": false
+  },
+  "blockstudio": {
+    "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\"><rect width=\"24\" height=\"24\" rx=\"3\" fill=\"#101920\"/><circle cx=\"12\" cy=\"12\" r=\"6.5\" stroke=\"#FF884B\" stroke-width=\"1.5\"/><path d=\"M12 7.6l1.15 2.45 2.7.4-1.95 1.9.46 2.7L12 13.75 9.64 15.05l.46-2.7-1.95-1.9 2.7-.4L12 7.6Z\" fill=\"#FF884B\"/></svg>",
+    "attributes": [
+      {
+        "id": "icon",
+        "type": "select",
+        "label": "Icon",
+        "default": "globe",
+        "populate": {
+          "type": "custom",
+          "custom": "spriteIcons"
+        }
+      }
+    ]
+  }
+}

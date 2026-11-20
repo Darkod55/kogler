@@ -1,0 +1,55 @@
+{
+  "$schema": "https://blockstudio.dev/schema/extend",
+  "name": "core/paragraph",
+  "blockstudio": {
+    "extend": true,
+    "attributes": [
+      {
+        "type": "custom/typography"
+      },
+      {
+        "id": "limit_width",
+        "type": "toggle",
+        "label": "Limit Width?",
+        "help": "Caps the paragraph at 1000px wide.",
+        "default": false,
+        "set": [
+          {
+            "attribute": "class",
+            "value": "mw-1000"
+          }
+        ]
+      },
+      {
+        "id": "use_fraunces",
+        "type": "toggle",
+        "label": "Use Fraunces?",
+        "help": "Applies the Fraunces serif font family to this paragraph.",
+        "default": false,
+        "set": [
+          {
+            "attribute": "class",
+            "value": "font-fraunces"
+          }
+        ]
+      },
+      {
+        "id": "margin_bottom",
+        "type": "select",
+        "label": "Margin Bottom",
+        "default": "",
+        "options": [
+          { "value": "", "label": "Default" },
+          { "value": "mb-0", "label": "None" },
+          { "value": "mb-small", "label": "Small" }
+        ],
+        "set": [
+          {
+            "attribute": "class",
+            "value": "{attributes.margin_bottom}"
+          }
+        ]
+      }
+    ]
+  }
+}

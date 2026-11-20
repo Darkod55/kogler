@@ -1,0 +1,65 @@
+{
+  "$schema": "https://blockstudio.dev/schema/block",
+  "name": "mpx/partial-card-image",
+  "title": "Card (Image)",
+  "category": "metapixels-partials",
+  "icon": "format-image",
+  "description": "Image/logo card with heading, paragraph, and optional button. Optional edge-to-edge image, centred content, or natural (non-stretching) image size. Background comes from the parent Cards block.",
+  "keywords": [
+    "card",
+    "image",
+    "logo",
+    "icon",
+    "member",
+    "bleed",
+    "center"
+  ],
+  "parent": [
+    "mpx/partial-cards"
+  ],
+  "usesContext": [
+    "mpx/partial-cards"
+  ],
+  "supports": {
+    "html": false,
+    "lock": false
+  },
+  "blockstudio": {
+    "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\"><rect width=\"24\" height=\"24\" rx=\"3\" fill=\"#101920\"/><rect x=\"3.5\" y=\"4.5\" width=\"17\" height=\"15\" rx=\"1.5\" stroke=\"#FF884B\" stroke-width=\"1.5\"/><rect x=\"5.5\" y=\"6.25\" width=\"13\" height=\"6.5\" rx=\"1\" fill=\"#FF884B\"/><circle cx=\"8.25\" cy=\"8.4\" r=\"1\" fill=\"#101920\"/><path d=\"M5.5 11.5l3.2-2.4 2.1 1.6 2.4-2 3.3 2.8v1.25H5.5v-1.25Z\" fill=\"#101920\" opacity=\"0.9\"/><rect x=\"5.5\" y=\"14.25\" width=\"9\" height=\"1.25\" rx=\"0.6\" fill=\"#FF884B\"/><rect x=\"5.5\" y=\"16.35\" width=\"6.5\" height=\"1.1\" rx=\"0.55\" fill=\"#FF884B\" opacity=\"0.7\"/></svg>",
+    "attributes": [
+      {
+        "id": "bleed_image",
+        "type": "toggle",
+        "label": "Edge-to-edge image",
+        "help": "Bleed the image to the top and sides of the card (no padding around the image). Text and button keep padded spacing below.",
+        "default": false
+      },
+      {
+        "id": "center_content",
+        "type": "toggle",
+        "label": "Center content",
+        "help": "Centre the image, heading, text, and button inside the card.",
+        "default": false
+      },
+      {
+        "id": "intrinsic_image",
+        "type": "toggle",
+        "label": "Natural image size",
+        "help": "Keep the image at its own size instead of stretching to the card width. Ideal for icons/logos. Ignored when edge-to-edge image is on.",
+        "default": false,
+        "conditions": [
+          [
+            {
+              "id": "bleed_image",
+              "operator": "!=",
+              "value": true
+            }
+          ]
+        ]
+      },
+      {
+        "type": "custom/grid_item_width"
+      }
+    ]
+  }
+}

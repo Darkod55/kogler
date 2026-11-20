@@ -1,0 +1,328 @@
+/**
+ * Fluent Forms — brand skin.
+ *
+ * Inputs: white fields, soft radius, muted placeholders.
+ * Submit: matches theme btn-tertiary (heading / uppercase / teal).
+ * Optional `.brand-form` on the form or wrapper adds the glass panel.
+ */
+
+@layer components {
+  /**
+   * Optional glass panel (hero / dark sections).
+   */
+  .fluentform.brand-form,
+  .fluentform:has(form.brand-form) {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 724px;
+    margin-inline: auto;
+    padding: 1.25rem;
+    border: 1px solid color-mix(in srgb, var(--color-white) 20%, transparent);
+    border-radius: var(--radius-surface);
+    background-color: color-mix(in srgb, var(--color-white) 10%, transparent);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+
+    @media (width >= theme(--breakpoint-md)) {
+      padding: 2rem;
+    }
+  }
+
+  .fluentform,
+  .frm-fluent-form {
+    max-width: 100%;
+  }
+
+  .fluentform .ff-el-input--label,
+  .fluentform .ff-el-input--label label,
+  .frm-fluent-form .ff-el-input--label,
+  .frm-fluent-form .ff-el-input--label label {
+    color: inherit;
+    font-family: var(--font-sans);
+    font-size: var(--font-size-sm);
+    font-weight: 400;
+  }
+
+  .fluentform .ff-el-input--label.ff-el-is-required.asterisk-left label::before,
+  .fluentform .ff-el-input--label.ff-el-is-required.asterisk-right label::after,
+  .frm-fluent-form .ff-el-input--label.ff-el-is-required.asterisk-left label::before,
+  .frm-fluent-form .ff-el-input--label.ff-el-is-required.asterisk-right label::after {
+    display: none;
+  }
+
+  .fluentform .ff-message-success {
+    border: none !important;
+    box-shadow: none !important;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .fluentform .ff-el-form-control,
+  .frm-fluent-form .ff-el-form-control {
+    width: 100%;
+    min-height: 3.25rem;
+    padding: 15px 20px !important;
+    border: 1px solid var(--color-light) !important;
+    border-radius: var(--radius-surface);
+    background-color: var(--color-white) !important;
+    box-shadow: none !important;
+    color: var(--color-primary);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base);
+    line-height: 1.4;
+  }
+
+  /**
+   * On dark / glass panels, drop the field border (matches design comps).
+   */
+  .fluentform.brand-form .ff-el-form-control,
+  .fluentform:has(form.brand-form) .ff-el-form-control,
+  form.brand-form .ff-el-form-control,
+  .bg-primary .fluentform .ff-el-form-control,
+  .bg-secondary .fluentform .ff-el-form-control,
+  .bg-tertiary .fluentform .ff-el-form-control,
+  .bg-dark-blue .fluentform .ff-el-form-control {
+    border-color: transparent !important;
+  }
+
+  .fluentform .ff-el-form-control::placeholder,
+  .frm-fluent-form .ff-el-form-control::placeholder {
+    color: color-mix(in srgb, var(--color-primary) 45%, var(--color-white));
+    opacity: 1;
+  }
+
+  .fluentform textarea.ff-el-form-control,
+  .frm-fluent-form textarea.ff-el-form-control {
+    min-height: 140px;
+    resize: vertical;
+  }
+
+  .fluentform select.ff-el-form-control,
+  .frm-fluent-form select.ff-el-form-control {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%230e192b' d='M1.4.6 6 5.2 10.6.6 12 2 6 8 0 2z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 12px 8px;
+    padding-right: 2.5rem !important;
+  }
+
+  .fluentform .ff-el-group,
+  .frm-fluent-form .ff-el-group {
+    margin-bottom: 1rem;
+  }
+
+  .fluentform .ff_submit_btn_wrapper,
+  .frm-fluent-form .ff_submit_btn_wrapper {
+    margin-top: 0.25rem;
+    text-align: left;
+  }
+
+  /**
+   * Submit — same treatment as `.btn.btn-tertiary`.
+   */
+  .fluentform .ff-btn-submit,
+  .frm-fluent-form .ff-btn-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    min-width: 0;
+    margin: 0;
+    padding: var(--padding-btn-y) var(--padding-btn-x);
+    border: 1px solid var(--color-tertiary);
+    border-radius: var(--radius-surface);
+    background-color: var(--color-tertiary) !important;
+    color: var(--color-white) !important;
+    font-family: var(--font-heading);
+    font-size: var(--font-size-btn);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    line-height: 1.2;
+    text-transform: uppercase;
+    text-shadow: none;
+    box-shadow: none !important;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .fluentform .ff-btn-submit:hover,
+  .frm-fluent-form .ff-btn-submit:hover {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary) !important;
+    color: var(--color-white) !important;
+    opacity: 1;
+  }
+
+  .fluentform .ff-el-is-error .ff-el-form-control,
+  .frm-fluent-form .ff-el-is-error .ff-el-form-control {
+    box-shadow: 0 0 0 1px var(--fluentform-danger, #f56c6c) !important;
+  }
+
+  .fluentform .text-danger,
+  .frm-fluent-form .text-danger {
+    color: #c44;
+  }
+
+  /**
+   * Dark / glass contexts: light labels + success / error copy.
+   */
+  .fluentform.brand-form .ff-el-input--label,
+  .fluentform.brand-form .ff-el-input--label label,
+  .fluentform:has(form.brand-form) .ff-el-input--label,
+  .fluentform:has(form.brand-form) .ff-el-input--label label,
+  form.brand-form .ff-el-input--label,
+  form.brand-form .ff-el-input--label label,
+  .bg-primary .fluentform .ff-el-input--label,
+  .bg-primary .fluentform .ff-el-input--label label,
+  .bg-secondary .fluentform .ff-el-input--label,
+  .bg-secondary .fluentform .ff-el-input--label label,
+  .bg-tertiary .fluentform .ff-el-input--label,
+  .bg-tertiary .fluentform .ff-el-input--label label {
+    color: var(--color-white);
+  }
+
+  .fluentform.brand-form .ff-message-success,
+  .fluentform:has(form.brand-form) .ff-message-success,
+  .bg-primary .fluentform .ff-message-success,
+  .bg-secondary .fluentform .ff-message-success,
+  .bg-tertiary .fluentform .ff-message-success {
+    color: var(--color-white);
+  }
+
+  .fluentform.brand-form .text-danger,
+  .fluentform:has(form.brand-form) .text-danger,
+  form.brand-form .text-danger,
+  .bg-primary .fluentform .text-danger,
+  .bg-secondary .fluentform .text-danger,
+  .bg-tertiary .fluentform .text-danger {
+    color: #ffb4b4;
+  }
+
+  /**
+   * Theme search form — same metrics as Fluent inputs.
+   */
+  .search-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 36rem;
+  }
+
+  @media (width >= theme(--breakpoint-sm)) {
+    .search-form {
+      flex-direction: row;
+      align-items: stretch;
+    }
+  }
+
+  .search-form__field {
+    display: block;
+    margin: 0;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .search-form__input {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 3.25rem;
+    padding: 15px 20px;
+    border: 1px solid var(--color-light);
+    border-radius: 100px;
+    background-color: var(--color-white);
+    box-shadow: none;
+    color: var(--color-primary);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base);
+    line-height: 1.4;
+    outline: none;
+  }
+
+  .search-form__input::placeholder {
+    color: color-mix(in srgb, var(--color-primary) 45%, var(--color-white));
+    opacity: 1;
+  }
+
+  .search-form__input:focus {
+    border-color: var(--color-primary);
+  }
+
+  .bg-primary .search-form__input,
+  .bg-secondary .search-form__input,
+  .bg-tertiary .search-form__input,
+  .bg-dark-blue .search-form__input {
+    border-color: transparent;
+  }
+
+  .search-form__submit {
+    flex-shrink: 0;
+  }
+
+  /**
+   * Inner banner titles (404 / search) — page-title scale, not marketing H1.
+   */
+  .mpx-banner__title {
+    margin: 0 0 2.5rem;
+    font-family: var(--font-heading, var(--font-sans));
+    font-size: clamp(1.75rem, 0.5rem + 2vw, 2.25rem);
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--color-white);
+  }
+
+  /**
+   * Search results list.
+   */
+  .search-results-list > .search-result + .search-result {
+    border-top: 1px solid color-mix(in srgb, var(--color-dark-blue) 28%, transparent);
+  }
+
+  .search-result__heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+  }
+
+  .search-result__title {
+    min-width: 0;
+  }
+
+  .search-result__link {
+    color: var(--color-dark-blue);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .search-result__link:hover {
+    color: var(--color-primary);
+  }
+
+  .search-result__badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.65rem;
+    border: 1px solid color-mix(in srgb, var(--color-dark-blue) 18%, transparent);
+    border-radius: 999px;
+    background-color: var(--color-gray);
+    color: var(--color-dark-blue);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .search-result__summary {
+    color: var(--color-black);
+  }
+}

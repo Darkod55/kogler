@@ -1,0 +1,42 @@
+---
+description: Kogler plugin integrations (Blockstudio, Fluent Forms, Rank Math, WooCommerce)
+globs: "**/themes/kogler/**,**/plugins/blockstudio/**,**/plugins/fluentform/**,**/plugins/seo-by-rank-math/**,**/plugins/woocommerce/**"
+alwaysApply: false
+---
+
+# Kogler plugins
+
+Plugins live under `app/public/wp-content/plugins/` and are **not in git**. Prefer on-disk sources / LLM docs on the Local machine over inventing APIs. Typical installs: `blockstudio`, `fluentform`, `seo-by-rank-math`, `woocommerce`, `wp-migrate-db-pro`.
+
+## Blockstudio
+
+- Theme config: `themes/kogler/blockstudio.json` (`ai.enableContextGeneration: true`, `cache.enabled: false`, Tailwind on, admin-only editor).
+- Agent docs (if present): `plugins/blockstudio/includes/llm/blockstudio-llm.txt` (+ `-full`). HTTP mirrors: `/blockstudio-llm.txt`, `/blockstudio-llm-full.txt`.
+- Theme decisions: `themes/kogler/BLOCKSTUDIO-7.md` + `.cursor/rules/blockstudio.mdc`.
+
+## Fluent Forms
+
+- Gutenberg block name is misspelled in the plugin: **`fluentfom/guten-block`**. Keep that string in templates/`allowedBlocks`.
+- Brand styles: `.fluentform.brand-form` in `resources/css/theme/forms.css` (listed in `theme.css` `@source inline`).
+- Prefer Fluent Forms for multi-step / complex forms rather than inventing Blockstudio RPC unless there is a clear reason.
+
+## WooCommerce
+
+- Package: `generoi/sage-woocommerce` (Composer). Declares `woocommerce` theme support; gallery zoom/lightbox/slider in `app/setup.php`.
+- Blade shop templates: `resources/views/woocommerce/` (`archive-product`, `single-product`).
+- Hook overrides: `app/wc-template-hooks.php` (theme wrappers, no default sidebar).
+- Skin: `resources/css/theme/woocommerce.css`.
+- Header cart/account already use `WC()` when available; AJAX fragments in `app/filters.php`.
+- WC 9.x: Cart/Checkout pages ship as blocks — replace with `[woocommerce_cart]` / `[woocommerce_checkout]` if classic templates are needed. Turn off **Coming soon** under WooCommerce → Settings → Site visibility so logged-out visitors get theme templates.
+- Theme map + gotchas: `themes/kogler/docs/woocommerce.md`. Cross-project CSS/cascade playbook: Cursor skill `sage-woocommerce-skin`.
+
+## Rank Math
+
+- FAQ block: `rank-math/faq-block`. Extension: `app/blocks/extensions/rank-math-faq.json`.
+- Frontend: `faqWidget()` in `trait-blocks.php` → `.mpx-faqs-grid` / `.mpx-faq-card` (`resources/css/theme/faqs.css`).
+- Allowed in `mpx/one-column` (and wherever templates explicitly list it).
+
+## Other
+
+- SEO is Rank Math, not theme `trait-seo` (empty). Don’t add ACF assumptions unless that plugin is installed.
+- Mu-plugins (if tracked): `wp-admin-bar, wp-login-screen, wp-last-edited`.

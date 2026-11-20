@@ -1,0 +1,56 @@
+{
+  "name": "background",
+  "attributes": [
+    {
+      "id": "bg_colour",
+      "type": "color",
+      "label": "Background Colour",
+      "clearable": false,
+      "disableCustomColors": true,
+      "populate": {
+        "type": "custom",
+        "custom": "bgColours"
+      }
+    },
+    {
+      "id": "use_background_image",
+      "type": "toggle",
+      "label": "Use background image",
+      "default": false
+    },
+    {
+      "id": "background_image",
+      "type": "files",
+      "label": "Background image",
+      "help": "Full-bleed behind the section with fixed attachment. On One Column, the section also uses a min-height and vertically centres content.",
+      "allowedTypes": ["image"],
+      "multiple": false,
+      "returnFormat": "object",
+      "conditions": [
+        [
+          {
+            "id": "use_background_image",
+            "operator": "==",
+            "value": true
+          }
+        ]
+      ]
+    },
+    {
+      "id": "use_background_overlay",
+      "type": "toggle",
+      "label": "Background overlay",
+      "help": "Light black wash over the image (same as Hero) for text contrast.",
+      "default": true,
+      "conditions": [
+        [
+          {
+            "id": "use_background_image",
+            "operator": "==",
+            "value": true
+          }
+        ]
+      ]
+    }
+  ]
+}

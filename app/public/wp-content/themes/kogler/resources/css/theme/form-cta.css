@@ -1,0 +1,143 @@
+/**
+ * Form CTA (mpx/form-cta) — bordered panel around the shared Columns layout
+ * (two mpx/partial-column children via .mpx-columns.grid-auto-cards).
+ */
+
+@layer components {
+  .mpx-form-cta__panel {
+    box-sizing: border-box;
+    width: 100%;
+    padding: var(--padding-surface);
+    border: 5px dashed var(--color-primary);
+    border-radius: 0;
+  }
+
+  @media (width >= theme(--breakpoint-lg)) {
+    .mpx-form-cta__panel {
+      padding: var(--padding-surface-lg);
+    }
+  }
+
+  /**
+   * Tagline / title / body — screenshot styling inside the copy column.
+   */
+  .mpx-form-cta .fs-tagline {
+    margin-bottom: 0.75rem;
+    color: var(--color-dark-blue);
+  }
+
+  .mpx-form-cta :is(h1, h2, h3, h4, h5, h6) {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--color-dark-blue);
+  }
+
+  .mpx-form-cta .mpx-partial-column > p:not(.fs-tagline) {
+    margin-bottom: 0;
+    color: var(--color-dark-gray);
+  }
+
+  .mpx-form-cta .mpx-subheading {
+    margin-bottom: 0.75rem;
+  }
+
+  /**
+   * Fluent Form — match contact CTA screenshot:
+   * light-grey bordered fields, tall message box, pill primary submit right.
+   */
+  .mpx-form-cta .fluentform,
+  .mpx-form-cta .frm-fluent-form {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .mpx-form-cta .ff-el-group,
+  .mpx-form-cta .frm-fluent-form .ff-el-group {
+    margin-bottom: 0.875rem;
+  }
+
+  .mpx-form-cta .ff-el-input--label,
+  .mpx-form-cta .ff-el-input--label label {
+    margin-bottom: 0.35rem;
+    color: var(--color-dark-gray);
+    font-size: var(--font-size-sm);
+    font-weight: 400;
+  }
+
+  .mpx-form-cta .ff-el-form-control,
+  .mpx-form-cta .frm-fluent-form .ff-el-form-control {
+    width: 100%;
+    min-height: 3.25rem;
+    padding: 0.875rem 1.125rem !important;
+    border: 1px solid var(--color-black) !important;
+    border-radius: 10px;
+    background-color: var(--color-white) !important;
+    box-shadow: none !important;
+    color: var(--color-dark-blue);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base);
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  .mpx-form-cta .ff-el-form-control:focus,
+  .mpx-form-cta .frm-fluent-form .ff-el-form-control:focus {
+    border-color: var(--color-primary) !important;
+    outline: none;
+  }
+
+  .mpx-form-cta .ff-el-form-control::placeholder,
+  .mpx-form-cta .frm-fluent-form .ff-el-form-control::placeholder {
+    color: var(--color-dark-gray);
+    opacity: 1;
+  }
+
+  .mpx-form-cta textarea.ff-el-form-control,
+  .mpx-form-cta .frm-fluent-form textarea.ff-el-form-control {
+    min-height: 10rem;
+    resize: vertical;
+  }
+
+  .mpx-form-cta .ff_submit_btn_wrapper,
+  .mpx-form-cta .frm-fluent-form .ff_submit_btn_wrapper {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    text-align: right;
+  }
+
+  .mpx-form-cta .ff-btn-submit,
+  .mpx-form-cta .frm-fluent-form .ff-btn-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    min-width: 0;
+    margin: 0;
+    padding: var(--padding-btn-y) var(--padding-btn-x) !important;
+    border: 1px solid var(--color-primary);
+    border-radius: 100px;
+    background-color: var(--color-primary) !important;
+    color: var(--color-white) !important;
+    font-family: var(--font-heading);
+    font-size: var(--font-size-btn);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+    text-transform: none;
+    text-shadow: none;
+    box-shadow: none !important;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .mpx-form-cta .ff-btn-submit:hover,
+  .mpx-form-cta .frm-fluent-form .ff-btn-submit:hover {
+    border-color: var(--color-dark-blue);
+    background-color: var(--color-dark-blue) !important;
+    color: var(--color-white) !important;
+    opacity: 1;
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "$schema": "https://blockstudio.dev/schema/block",
+  "name": "mpx/partial-mosaic-tile",
+  "title": "Mosaic Tile",
+  "category": "metapixels-partials",
+  "icon": "format-image",
+  "description": "Feature Mosaic tile: full-bleed photo or solid colour, dark scrim over images, centred title and pill button.",
+  "keywords": [
+    "mosaic",
+    "tile",
+    "bento",
+    "cover",
+    "promo"
+  ],
+  "parent": [
+    "mpx/feature-mosaic"
+  ],
+  "supports": {
+    "html": false,
+    "lock": false
+  },
+  "blockstudio": {
+    "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\"><rect width=\"24\" height=\"24\" rx=\"3\" fill=\"#101920\"/><rect x=\"4\" y=\"5\" width=\"16\" height=\"14\" rx=\"1.5\" stroke=\"#FF884B\" stroke-width=\"1.5\"/><rect x=\"7\" y=\"9\" width=\"10\" height=\"1.5\" rx=\"0.75\" fill=\"#FF884B\"/><rect x=\"8\" y=\"13\" width=\"8\" height=\"2.5\" rx=\"1.25\" fill=\"#FF884B\" opacity=\"0.85\"/></svg>",
+    "attributes": [
+      {
+        "type": "group",
+        "title": "Media",
+        "attributes": [
+          {
+            "id": "cover_image",
+            "type": "files",
+            "label": "Background image",
+            "help": "Optional full-bleed photo. When set, a dark scrim is applied for text contrast. Leave empty to use the solid colour below.",
+            "allowedTypes": ["image"],
+            "multiple": false,
+            "returnFormat": "object"
+          },
+          {
+            "id": "image_position_x",
+            "type": "range",
+            "label": "Horizontal position",
+            "help": "0% = left, 100% = right (object-position).",
+            "default": 50,
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "allowReset": true
+          },
+          {
+            "id": "image_position_y",
+            "type": "range",
+            "label": "Vertical position",
+            "help": "0% = top, 100% = bottom (object-position).",
+            "default": 50,
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "allowReset": true
+          },
+          {
+            "id": "tile_bg",
+            "type": "color",
+            "label": "Solid background",
+            "help": "Used when no image is set (and as a fallback behind the image).",
+            "clearable": false,
+            "disableCustomColors": true,
+            "default": {
+              "value": "#1570a4",
+              "color": "#1570a4",
+              "name": "Primary",
+              "slug": "bg-primary"
+            },
+            "populate": {
+              "type": "custom",
+              "custom": "bgColours"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

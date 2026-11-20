@@ -1,0 +1,40 @@
+---
+description: Kogler design tokens, utilities, buttons, dual Tailwind
+globs: "**/themes/kogler/resources/css/**,**/themes/kogler/app/blocks/**,**/themes/kogler/resources/views/**,**/themes/kogler/theme.json,**/themes/kogler/docs/design-tokens.md"
+alwaysApply: false
+---
+
+# Kogler design system
+
+Stay on theme tokens. Do not invent purple/indigo gradients, cream+serif+terracotta defaults, or generic AI landing kits.
+
+**Rebrand:** edit Active blocks in `docs/design-tokens.md` only, then run its agent prompt. Agent writes `variables.css`, type clamps, button sync. `(pending)` = leave that target alone. Do not invent button variants or tokens not listed in the playbook.
+
+## Files
+
+- Playbook (human input): `docs/design-tokens.md`
+- Runtime tokens: `resources/css/theme/variables.css`
+- Hub: `resources/css/theme.css`
+- Modules: `resources/css/theme/{variables,fonts,sections,cards,faqs,buttons,forms,nav,typography,posts,global}.css`
+- Site entry: `resources/css/app.css`
+- Editor: `resources/css/editor.css` (+ `editor-canvas.css`)
+
+## Tokens (runtime)
+
+- Colours → `text-*` / `bg-*` (keep both in `theme.css` `@source inline` when adding a name).
+- Spacing / widths / radius / padding / font-size — see playbook; do not hardcode in components.
+- Type: single value → fixed; `min / max` → `clamp()` (never hand-tune middle term).
+- Buttons: recipe `default / hover` in playbook.
+
+Fonts: see `fonts.css` (`--font-sans`, `--font-heading`).
+
+## Layout utilities (`sections.css`)
+
+- `container`, `px-clamp` / `py-clamp*`, `grid-auto-cards`, `hero-overlay`, `mw-*`, `content-pos-*` — reuse existing.
+
+## Dual Tailwind
+
+1. **Vite** scans theme Blade/PHP/JS at build time.
+2. **Blockstudio** compiles from rendered HTML (bridged tokens from `theme/*.css`).
+
+Dynamic / post-content classes may need `@source inline("…")` in `theme.css`.

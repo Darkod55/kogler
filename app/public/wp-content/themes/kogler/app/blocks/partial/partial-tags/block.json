@@ -1,0 +1,22 @@
+{
+  "$schema": "https://blockstudio.dev/schema/block",
+  "name": "mpx/partial-tags",
+  "title": "Tags",
+  "category": "metapixels-partials",
+  "icon": "tag",
+  "description": "A row of pill-shaped tags (labels). Used on Card (Cover) and anywhere else a chip row is needed.",
+  "keywords": [
+    "tags",
+    "pills",
+    "chips",
+    "labels",
+    "badges"
+  ],
+  "supports": {
+    "html": false,
+    "lock": false
+  },
+  "blockstudio": {
+    "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\"><rect width=\"24\" height=\"24\" rx=\"3\" fill=\"#101920\"/><rect x=\"3.5\" y=\"5.5\" width=\"8\" height=\"3.25\" rx=\"1.625\" fill=\"#FF884B\"/><rect x=\"12.5\" y=\"5.5\" width=\"6\" height=\"3.25\" rx=\"1.625\" fill=\"#FF884B\" opacity=\"0.75\"/><rect x=\"3.5\" y=\"10.5\" width=\"10\" height=\"3.25\" rx=\"1.625\" fill=\"#FF884B\" opacity=\"0.9\"/><rect x=\"3.5\" y=\"15.5\" width=\"7\" height=\"3.25\" rx=\"1.625\" fill=\"#FF884B\" opacity=\"0.65\"/></svg>"
+  }
+}
