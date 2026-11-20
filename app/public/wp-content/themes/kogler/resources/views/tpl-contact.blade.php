@@ -12,9 +12,9 @@
   --}}
 
   @include('partials.contact.hero')
+  @include('partials.contact.info-form')
 
   {{--
-    Later sections go here.
-    Next: company info plus the contact form, on bg-light.
+    Later sections go here, as partials in resources/views/partials/contact/.
   --}}
 @endsection

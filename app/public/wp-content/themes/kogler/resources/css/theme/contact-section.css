@@ -1,0 +1,275 @@
+/**
+ * Contact page form.
+ * Scoped to .contact-section. The distributor sheet is left unchanged:
+ * pills, textarea height, and the confirmation size differ, so the shared
+ * declarations are repeated here rather than combined into one selector list.
+ *
+ * Error red: no theme danger token. --da-error is set on the section
+ * (#B42318, 6.57:1 on white). It is not a global theme variable.
+ *
+ * A multi-check group is a pill set. A lone checkbox, and Fluent's terms
+ * field (.ff-el-tc / .ff_tc_label), is the SMS opt-in box.
+ */
+
+@layer components {
+  .contact-section .fluentform .ff-el-group {
+    margin-bottom: 22px;
+  }
+
+  .contact-section .fluentform .ff-t-container {
+    display: grid;
+    gap: 22px 18px;
+    margin-bottom: 22px;
+  }
+
+  .contact-section .fluentform .ff-t-container.ff_columns_total_2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .contact-section .fluentform .ff-t-cell {
+    width: auto !important;
+    max-width: none !important;
+    flex-basis: auto !important;
+  }
+
+  .contact-section .fluentform .ff-t-cell > .ff-el-group,
+  .contact-section .fluentform .ff-t-container .ff-el-group {
+    margin-bottom: 0;
+  }
+
+  .contact-section .fluentform .ff-el-input--label,
+  .contact-section .fluentform .ff-el-input--label label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--color-dark-blue);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .contact-section .fluentform .ff-el-group:has(.ff-el-form-check) > .ff-el-input--label,
+  .contact-section .fluentform .ff-el-group:has(.ff-el-form-check) > .ff-el-input--label label {
+    margin-bottom: 0.625rem;
+  }
+
+  .contact-section .fluentform .ff-el-input--label.ff-el-is-required label::before,
+  .contact-section .fluentform .ff-el-input--label.ff-el-is-required label::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  .contact-section .fluentform .ff-el-form-control {
+    width: 100%;
+    height: 52px;
+    min-height: 52px;
+    padding: 0 1rem !important;
+    border: 1px solid color-mix(in srgb, var(--color-dark-blue) 20%, transparent) !important;
+    border-radius: 0.75rem;
+    background-color: var(--color-white) !important;
+    box-shadow: none !important;
+    color: var(--color-dark-blue);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-btn);
+    line-height: 1.4;
+  }
+
+  .contact-section .fluentform textarea.ff-el-form-control {
+    height: auto;
+    min-height: 140px;
+    padding: 0.875rem 1rem !important;
+    resize: vertical;
+  }
+
+  .contact-section .fluentform .ff-el-form-control:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 1px;
+    border-color: var(--color-primary) !important;
+    box-shadow: none !important;
+  }
+
+  .contact-section .fluentform .ff-el-input--content:has(.ff-el-form-check + .ff-el-form-check) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .contact-section .fluentform .ff-el-input--content:has(.ff-el-form-check + .ff-el-form-check) .ff-el-form-check {
+    margin: 0;
+  }
+
+  .contact-section .fluentform .ff-el-input--content:has(.ff-el-form-check + .ff-el-form-check) .ff-el-form-check-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0.625rem 1rem;
+    border: 1px solid color-mix(in srgb, var(--color-dark-blue) 20%, transparent);
+    border-radius: 999px;
+    background-color: var(--color-white);
+    color: var(--color-dark-blue);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.3;
+    cursor: pointer;
+  }
+
+  .contact-section .fluentform .ff-el-input--content:has(.ff-el-form-check + .ff-el-form-check) .ff-el-form-check-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .contact-section .fluentform .ff-el-input--content:has(.ff-el-form-check + .ff-el-form-check) .ff-el-form-check-label:has(:checked) {
+    border-color: var(--color-dark-blue);
+    background-color: var(--color-dark-blue);
+    color: var(--color-white);
+  }
+
+  .contact-section .fluentform .ff-el-input--content:has(.ff-el-form-check + .ff-el-form-check) .ff-el-form-check-label:has(:focus-visible) {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  .contact-section .fluentform .ff-el-tc .ff-el-form-check-label,
+  .contact-section .fluentform .ff-el-group:not(:has(.ff-el-form-check + .ff-el-form-check)) .ff-el-form-check-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.875rem;
+    margin: 0;
+    padding: 18px 1.25rem;
+    border: 0;
+    border-radius: 1rem;
+    background-color: var(--color-light);
+    color: color-mix(in srgb, var(--color-dark-blue) 80%, transparent);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.6;
+    cursor: pointer;
+  }
+
+  .contact-section .fluentform .ff-el-tc .ff-el-form-check-input,
+  .contact-section .fluentform .ff-el-group:not(:has(.ff-el-form-check + .ff-el-form-check)) .ff-el-form-check-input {
+    width: 20px;
+    height: 20px;
+    flex: none;
+    margin: 0.125rem 0 0;
+    accent-color: var(--color-dark-blue);
+  }
+
+  .contact-section .fluentform .ff_t_c,
+  .contact-section .fluentform .ff-el-tc .ff-el-form-check-label span,
+  .contact-section .fluentform .ff-el-group:not(:has(.ff-el-form-check + .ff-el-form-check)) .ff-el-form-check-label span {
+    color: color-mix(in srgb, var(--color-dark-blue) 80%, transparent);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .contact-section .fluentform .ff_submit_btn_wrapper {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    text-align: left;
+  }
+
+  .contact-section .fluentform .ff-btn-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: 3.5rem;
+    min-height: 0;
+    margin: 0;
+    padding: 0 2.5rem !important;
+    border: 1px solid var(--color-dark-blue) !important;
+    border-radius: 999px;
+    background-color: var(--color-dark-blue) !important;
+    box-shadow: none !important;
+    color: var(--color-white) !important;
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1;
+    text-transform: none;
+    cursor: pointer;
+    transition: translate 0.2s ease;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .contact-section .fluentform .ff-btn-submit:hover {
+      translate: 0 -1px;
+      opacity: 1;
+    }
+  }
+
+  .contact-section .fluentform .ff-el-is-error .ff-el-form-control {
+    border-color: var(--da-error) !important;
+    box-shadow: none !important;
+  }
+
+  .contact-section .fluentform .error.text-danger,
+  .contact-section .fluentform .text-danger {
+    margin-top: 0.375rem;
+    color: var(--da-error);
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .contact-section .fluentform .ff-message-success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    min-height: 520px;
+    margin: 0;
+    padding: 0;
+    border: 0 !important;
+    border-radius: 0;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: var(--color-dark-blue);
+    text-align: center;
+  }
+
+  .contact-section .fluentform .ff-message-success::before {
+    content: "";
+    display: block;
+    width: 72px;
+    height: 72px;
+    flex: none;
+    border-radius: 999px;
+    background-color: var(--color-dark-blue);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 32px 32px;
+  }
+
+  .contact-section .fluentform .ff-message-success p {
+    max-width: 460px;
+    margin: 0;
+    color: var(--color-dark-blue);
+    font-family: var(--font-fraunces);
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  @media (width < theme(--breakpoint-md)) {
+    .contact-section .fluentform .ff-t-container,
+    .contact-section .fluentform .ff-t-container.ff_columns_total_2 {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-section .fluentform .ff-btn-submit {
+      width: 100%;
+    }
+  }
+}
