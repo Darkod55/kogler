@@ -1,0 +1,58 @@
+# ignore all
+/app/*.*
+/app/sql/
+/app/public/*.*
+/app/public/vendor/
+/app/public/wp-admin/
+/app/public/wp-includes/
+/app/public/wp-content/*.*
+/app/public/wp-content/logs
+/app/public/wp-content/ewww
+/app/public/wp-content/mu-plugins/*
+/app/public/wp-content/plugins/*
+/app/public/wp-content/themes/*
+/app/public/wp-content/languages/*
+/app/public/wp-content/themes/kogler/node_modules
+/app/public/wp-content/themes/kogler/.budfiles
+/app/public/wp-content/themes/kogler/vendor
+/app/public/wp-content/themes/kogler/public
+/app/public/wp-content/themes/kogler/app/blocks/*/_dist
+/app/public/wp-content/themes/kogler/app/blocks/partials/*/_dist
+/app/public/wp-content/languages/themes/twenty*.*o
+/app/public/wp-content/languages/plugins/*.*o
+/app/public/wp-content/languages/plugins/contact*.*
+/app/public/wp-content/languages/plugins/seo*.*
+/app/public/wp-content/languages/plugins/uk-cookie*.*o
+/app/public/wp-content/languages/plugins/ewww*.*o
+/app/public/wp-content/languages/plugins/query-monitor*.*o
+/app/public/wp-content/languages/plugins/classic-editor*.*o
+/app/public/wp-content/languages/admin-*.*o
+/app/public/wp-content/languages/*.*o
+/app/public/wp-content/languages/*.json
+/app/public/wp-content/languages/plugins
+/app/public/wp-content/cache
+/app/public/wp-content/litespeed
+/app/public/wp-content/updraft
+/app/public/wp-content/uploads/*
+/logs/
+/conf/
+/.idea/
+
+# exceptions
+# theme
+!/app/public/wp-content/themes/kogler
+# mu-plugins
+!/app/public/wp-content/mu-plugins/bedrock-autoloader.php
+#!/app/public/wp-content/mu-plugins/acorn
+!/app/public/wp-content/mu-plugins/wp-admin-bar.php
+!/app/public/wp-content/mu-plugins/wp-login-screen.php
+!/app/public/wp-content/mu-plugins/wp-last-edited.php
+# plugins
+#!/app/public/wp-content/plugins/itd-acf
+#!/app/public/wp-content/plugins/business-pilot-forms
+#!/app/public/wp-content/plugins/advanced-custom-fields-pro
+#!/app/public/wp-content/plugins/advanced-forms-pro
+#!/app/public/wp-content/plugins/wp-migrate-db-pr*
+!/app/public/composer.json
+/app/public/wp-content/uploads_
+/app/data
