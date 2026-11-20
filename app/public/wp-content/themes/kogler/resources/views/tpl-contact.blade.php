@@ -6,9 +6,15 @@
 
 @section('content')
   {{--
-    Contact — custom page scaffold.
+    Contact.
     Header and footer come from layouts.app-wide.
-    Build each section as a partial in resources/views/partials/contact/
-    and @include it here.
+    Section partials live in resources/views/partials/contact/.
+  --}}
+
+  @include('partials.contact.hero')
+
+  {{--
+    Later sections go here.
+    Next: company info plus the contact form, on bg-light.
   --}}
 @endsection
