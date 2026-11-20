@@ -2,11 +2,18 @@
   Brand — Goliath Steel
   No ACF. Categories, items, and the parts slot are edited in the arrays below.
   An admin-editable catalogue would need ACF.
-  No Goliath logo file is referenced in the theme. Set $logoUrl to swap the
-  wordmark for an image.
+  $logoUrl is the square brand tile. Empty falls back to the text wordmark.
 --}}
 @php
     $logoUrl = '';
+
+    if (class_exists(\Illuminate\Support\Facades\Vite::class)) {
+        try {
+            $logoUrl = \Illuminate\Support\Facades\Vite::asset('resources/images/brands/goliath-steel.webp');
+        } catch (\Throwable $e) {
+            $logoUrl = '';
+        }
+    }
     $imageId = 0;
     $goliathImage = '';
 
@@ -50,8 +57,8 @@
     <div class="flex flex-wrap items-center gap-16">
       <div class="min-w-[min(100%,460px)] shrink grow basis-[460px]">
         @if ($logoUrl)
-          <span class="inline-flex h-12 items-center rounded-xl bg-white/[0.08] px-5">
-            <img src="{{ $logoUrl }}" alt="{{ __('Goliath Steel', 'sage') }}" class="h-6 w-auto" height="24">
+          <span class="inline-flex size-20 overflow-hidden rounded-xl">
+            <img src="{{ $logoUrl }}" alt="{{ __('Goliath Steel logo', 'sage') }}" width="80" height="80" class="h-full w-full object-cover" loading="lazy" decoding="async">
           </span>
         @else
           <span class="inline-flex h-12 items-center rounded-xl bg-white/[0.08] px-5 text-[20px] font-extrabold tracking-[0.15em] text-(--gs-logo)">GOLIATH STEEL</span>

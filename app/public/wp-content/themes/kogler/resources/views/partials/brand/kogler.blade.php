@@ -19,6 +19,8 @@
         ]);
     }
 
+    // Horizontal white wordmark for the primary chip. The square brand tile
+    // has its own blue background and is used as a badge elsewhere.
     $koglerLogo = function_exists('content_url')
         ? content_url('uploads/2026/08/kogler-logo-white.webp')
         : '';

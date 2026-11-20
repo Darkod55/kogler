@@ -2,13 +2,20 @@
   Brand — Kogler Outdoor
   No ACF. Products and the parts slot are edited in the arrays below.
   An admin-editable catalogue would need ACF.
-  No Kogler Outdoor logo file is referenced in the theme. Set $logoUrl to
-  swap the wordmark for an image.
+  $logoUrl is the square brand tile. Empty falls back to the text wordmark.
   $amazonUrl is empty until the Amazon URL is confirmed. The button is
   omitted while it is empty.
 --}}
 @php
     $logoUrl = '';
+
+    if (class_exists(\Illuminate\Support\Facades\Vite::class)) {
+        try {
+            $logoUrl = \Illuminate\Support\Facades\Vite::asset('resources/images/brands/kogler-outdoor.webp');
+        } catch (\Throwable $e) {
+            $logoUrl = '';
+        }
+    }
     $amazonUrl = '';
     $imageId = 0;
     $outdoorImage = '';
@@ -54,8 +61,8 @@
     <div class="flex flex-wrap items-center gap-16">
       <div class="min-w-[min(100%,460px)] shrink grow basis-[460px]">
         @if ($logoUrl)
-          <span class="inline-flex h-12 items-center gap-2.5 rounded-xl bg-(--ko-green) px-5">
-            <img src="{{ $logoUrl }}" alt="{{ __('Kogler Outdoor', 'sage') }}" class="h-6 w-auto" height="24">
+          <span class="inline-flex size-20 overflow-hidden rounded-xl">
+            <img src="{{ $logoUrl }}" alt="{{ __('Kogler Outdoor logo', 'sage') }}" width="80" height="80" class="h-full w-full object-cover" loading="lazy" decoding="async">
           </span>
         @else
           <span class="inline-flex h-12 items-center gap-2.5 rounded-xl bg-(--ko-green) px-5" role="img" aria-label="{{ __('Kogler Outdoor', 'sage') }}">

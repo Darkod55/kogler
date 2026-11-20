@@ -11,6 +11,7 @@
             'link_label' => 'Visit Kogler',
             'url' => '#',
             'image_id' => 0,
+            'badge' => 'kogler.webp',
             'alt' => __('Kogler mattress in a truck sleeper cab', 'sage'),
             'strip' => 'color-mix(in srgb, var(--color-dark-blue) 88%, transparent)',
             'link' => 'var(--color-secondary)',
@@ -21,6 +22,7 @@
             'link_label' => 'Visit Goliath Steel',
             'url' => '#',
             'image_id' => 0,
+            'badge' => 'goliath-steel.webp',
             'alt' => __('Goliath Steel heavy-duty truck parts', 'sage'),
             'strip' => 'color-mix(in srgb, #181B1E 90%, transparent)',
             'link' => '#D6DBDF',
@@ -31,6 +33,7 @@
             'link_label' => 'Visit Kogler Outdoor',
             'url' => '#',
             'image_id' => 0,
+            'badge' => 'kogler-outdoor.webp',
             'alt' => __('RV parked by a lake', 'sage'),
             'strip' => 'color-mix(in srgb, #203228 90%, transparent)',
             'link' => '#F2C88F',
@@ -48,6 +51,17 @@
         @php
             $brandImage = '';
             $brandImageId = (int) $brand['image_id'];
+
+            $badgeUrl = '';
+            $badgeFile = trim((string) ($brand['badge'] ?? ''));
+
+            if ($badgeFile !== '' && class_exists(\Illuminate\Support\Facades\Vite::class)) {
+                try {
+                    $badgeUrl = \Illuminate\Support\Facades\Vite::asset('resources/images/brands/' . $badgeFile);
+                } catch (\Throwable $e) {
+                    $badgeUrl = '';
+                }
+            }
 
             if ($brandImageId && function_exists('wp_attachment_is_image') && wp_attachment_is_image($brandImageId)) {
                 $brandAttrs = [
@@ -76,6 +90,11 @@
           @endif
 
           <div class="relative z-10 bg-[var(--brand-strip)] p-8">
+            @if ($badgeUrl)
+              <span class="mb-4 inline-flex size-16 overflow-hidden rounded-xl">
+                <img src="{{ $badgeUrl }}" alt="{{ $brand['name'] }} logo" width="64" height="64" class="h-full w-full object-cover" loading="lazy" decoding="async">
+              </span>
+            @endif
             <h3 class="mb-0 text-[30px] font-extrabold tracking-tight text-white">
               {{ $brand['name'] }}
             </h3>
