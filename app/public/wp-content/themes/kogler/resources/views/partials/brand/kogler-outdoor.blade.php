@@ -2,23 +2,26 @@
   Brand — Kogler Outdoor
   No ACF. Products and the parts slot are edited in the arrays below.
   An admin-editable catalogue would need ACF.
-  $logoUrl is the square brand tile. Empty falls back to the text wordmark.
+  No Kogler Outdoor logo file is referenced in the theme. Set $logoUrl to
+  swap the wordmark for an image. $tile fills the photo slot when $imageId is empty.
   $amazonUrl is empty until the Amazon URL is confirmed. The button is
   omitted while it is empty.
 --}}
 @php
     $logoUrl = '';
-
-    if (class_exists(\Illuminate\Support\Facades\Vite::class)) {
-        try {
-            $logoUrl = \Illuminate\Support\Facades\Vite::asset('resources/images/brands/kogler-outdoor.webp');
-        } catch (\Throwable $e) {
-            $logoUrl = '';
-        }
-    }
     $amazonUrl = '';
     $imageId = 0;
+    $tileFile = 'kogler-outdoor.webp';
+    $tileUrl = '';
     $outdoorImage = '';
+
+    if ($tileFile !== '' && class_exists(\Illuminate\Support\Facades\Vite::class)) {
+        try {
+            $tileUrl = \Illuminate\Support\Facades\Vite::asset('resources/images/brands/' . $tileFile);
+        } catch (\Throwable $e) {
+            $tileUrl = '';
+        }
+    }
 
     if ($imageId && function_exists('wp_attachment_is_image') && wp_attachment_is_image($imageId)) {
         $outdoorImage = wp_get_attachment_image($imageId, 'full', false, [
@@ -61,8 +64,8 @@
     <div class="flex flex-wrap items-center gap-16">
       <div class="min-w-[min(100%,460px)] shrink grow basis-[460px]">
         @if ($logoUrl)
-          <span class="inline-flex size-20 overflow-hidden rounded-xl">
-            <img src="{{ $logoUrl }}" alt="{{ __('Kogler Outdoor logo', 'sage') }}" width="80" height="80" class="h-full w-full object-cover" loading="lazy" decoding="async">
+          <span class="inline-flex h-12 items-center gap-2.5 rounded-xl bg-(--ko-green) px-5">
+            <img src="{{ $logoUrl }}" alt="{{ __('Kogler Outdoor', 'sage') }}" class="h-6 w-auto" height="24">
           </span>
         @else
           <span class="inline-flex h-12 items-center gap-2.5 rounded-xl bg-(--ko-green) px-5" role="img" aria-label="{{ __('Kogler Outdoor', 'sage') }}">
@@ -92,11 +95,13 @@
       </div>
 
       <div
-        class="h-[280px] min-w-[min(100%,460px)] w-full shrink grow basis-[460px] overflow-hidden rounded-3xl bg-(--ko-tint) lg:h-[420px]"
-        @unless ($outdoorImage) aria-hidden="true" @endunless
+        class="relative h-[280px] min-w-[min(100%,460px)] w-full shrink grow basis-[460px] overflow-hidden rounded-3xl bg-(--ko-tint) lg:h-[420px]"
+        @unless ($outdoorImage || $tileUrl) aria-hidden="true" @endunless
       >
         @if ($outdoorImage)
           {!! $outdoorImage !!}
+        @elseif ($tileUrl)
+          <img src="{{ $tileUrl }}" alt="{{ __('Kogler Outdoor logo', 'sage') }}" width="270" height="270" class="absolute inset-0 h-full w-full object-cover object-center" loading="lazy" decoding="async">
         @endif
       </div>
     </div>

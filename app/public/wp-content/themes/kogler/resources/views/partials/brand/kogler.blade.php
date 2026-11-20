@@ -7,7 +7,17 @@
 --}}
 @php
     $imageId = 0;
+    $tileFile = 'kogler.webp';
+    $tileUrl = '';
     $koglerImage = '';
+
+    if ($tileFile !== '' && class_exists(\Illuminate\Support\Facades\Vite::class)) {
+        try {
+            $tileUrl = \Illuminate\Support\Facades\Vite::asset('resources/images/brands/' . $tileFile);
+        } catch (\Throwable $e) {
+            $tileUrl = '';
+        }
+    }
 
     if ($imageId && function_exists('wp_attachment_is_image') && wp_attachment_is_image($imageId)) {
         $koglerImage = wp_get_attachment_image($imageId, 'full', false, [
@@ -19,8 +29,6 @@
         ]);
     }
 
-    // Horizontal white wordmark for the primary chip. The square brand tile
-    // has its own blue background and is used as a badge elsewhere.
     $koglerLogo = function_exists('content_url')
         ? content_url('uploads/2026/08/kogler-logo-white.webp')
         : '';
@@ -97,11 +105,13 @@
       </div>
 
       <div
-        class="h-[280px] min-w-[min(100%,460px)] w-full shrink grow basis-[460px] overflow-hidden rounded-3xl bg-light-blue lg:h-[420px]"
-        @unless ($koglerImage) aria-hidden="true" @endunless
+        class="relative h-[280px] min-w-[min(100%,460px)] w-full shrink grow basis-[460px] overflow-hidden rounded-3xl bg-light-blue lg:h-[420px]"
+        @unless ($koglerImage || $tileUrl) aria-hidden="true" @endunless
       >
         @if ($koglerImage)
           {!! $koglerImage !!}
+        @elseif ($tileUrl)
+          <img src="{{ $tileUrl }}" alt="{{ __('Kogler logo', 'sage') }}" width="270" height="270" class="absolute inset-0 h-full w-full object-cover object-center" loading="lazy" decoding="async">
         @endif
       </div>
     </div>

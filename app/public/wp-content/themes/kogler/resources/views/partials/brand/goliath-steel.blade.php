@@ -2,20 +2,23 @@
   Brand — Goliath Steel
   No ACF. Categories, items, and the parts slot are edited in the arrays below.
   An admin-editable catalogue would need ACF.
-  $logoUrl is the square brand tile. Empty falls back to the text wordmark.
+  No Goliath logo file is referenced in the theme. Set $logoUrl to swap the
+  wordmark for an image. $tile fills the photo slot when $imageId is empty.
 --}}
 @php
     $logoUrl = '';
+    $imageId = 0;
+    $tileFile = 'goliath-steel.webp';
+    $tileUrl = '';
+    $goliathImage = '';
 
-    if (class_exists(\Illuminate\Support\Facades\Vite::class)) {
+    if ($tileFile !== '' && class_exists(\Illuminate\Support\Facades\Vite::class)) {
         try {
-            $logoUrl = \Illuminate\Support\Facades\Vite::asset('resources/images/brands/goliath-steel.webp');
+            $tileUrl = \Illuminate\Support\Facades\Vite::asset('resources/images/brands/' . $tileFile);
         } catch (\Throwable $e) {
-            $logoUrl = '';
+            $tileUrl = '';
         }
     }
-    $imageId = 0;
-    $goliathImage = '';
 
     if ($imageId && function_exists('wp_attachment_is_image') && wp_attachment_is_image($imageId)) {
         $goliathImage = wp_get_attachment_image($imageId, 'full', false, [
@@ -57,8 +60,8 @@
     <div class="flex flex-wrap items-center gap-16">
       <div class="min-w-[min(100%,460px)] shrink grow basis-[460px]">
         @if ($logoUrl)
-          <span class="inline-flex size-20 overflow-hidden rounded-xl">
-            <img src="{{ $logoUrl }}" alt="{{ __('Goliath Steel logo', 'sage') }}" width="80" height="80" class="h-full w-full object-cover" loading="lazy" decoding="async">
+          <span class="inline-flex h-12 items-center rounded-xl bg-white/[0.08] px-5">
+            <img src="{{ $logoUrl }}" alt="{{ __('Goliath Steel', 'sage') }}" class="h-6 w-auto" height="24">
           </span>
         @else
           <span class="inline-flex h-12 items-center rounded-xl bg-white/[0.08] px-5 text-[20px] font-extrabold tracking-[0.15em] text-(--gs-logo)">GOLIATH STEEL</span>
@@ -74,11 +77,13 @@
       </div>
 
       <div
-        class="h-[280px] min-w-[min(100%,460px)] w-full shrink grow basis-[460px] overflow-hidden rounded-3xl bg-(--gs-tile) lg:order-first lg:h-[420px]"
-        @unless ($goliathImage) aria-hidden="true" @endunless
+        class="relative h-[280px] min-w-[min(100%,460px)] w-full shrink grow basis-[460px] overflow-hidden rounded-3xl bg-(--gs-tile) lg:order-first lg:h-[420px]"
+        @unless ($goliathImage || $tileUrl) aria-hidden="true" @endunless
       >
         @if ($goliathImage)
           {!! $goliathImage !!}
+        @elseif ($tileUrl)
+          <img src="{{ $tileUrl }}" alt="{{ __('Goliath Steel logo', 'sage') }}" width="270" height="270" class="absolute inset-0 h-full w-full object-cover object-center" loading="lazy" decoding="async">
         @endif
       </div>
     </div>

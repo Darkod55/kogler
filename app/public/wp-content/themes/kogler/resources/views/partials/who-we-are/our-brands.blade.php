@@ -1,7 +1,8 @@
 {{--
   Who We Are — Our brands
   URLs and image IDs are placeholders. Set url and image_id per brand when they exist.
-  Images render only when image_id is a real attachment. Otherwise the card keeps bg-dark-gray.
+  A real attachment fills the photo area. Otherwise the brand tile does, and the
+  card stays bg-dark-gray only when both are missing.
 --}}
 @php
     $brands = [
@@ -11,7 +12,7 @@
             'link_label' => 'Visit Kogler',
             'url' => '#',
             'image_id' => 0,
-            'badge' => 'kogler.webp',
+            'tile' => 'kogler.webp',
             'alt' => __('Kogler mattress in a truck sleeper cab', 'sage'),
             'strip' => 'color-mix(in srgb, var(--color-dark-blue) 88%, transparent)',
             'link' => 'var(--color-secondary)',
@@ -22,7 +23,7 @@
             'link_label' => 'Visit Goliath Steel',
             'url' => '#',
             'image_id' => 0,
-            'badge' => 'goliath-steel.webp',
+            'tile' => 'goliath-steel.webp',
             'alt' => __('Goliath Steel heavy-duty truck parts', 'sage'),
             'strip' => 'color-mix(in srgb, #181B1E 90%, transparent)',
             'link' => '#D6DBDF',
@@ -33,7 +34,7 @@
             'link_label' => 'Visit Kogler Outdoor',
             'url' => '#',
             'image_id' => 0,
-            'badge' => 'kogler-outdoor.webp',
+            'tile' => 'kogler-outdoor.webp',
             'alt' => __('RV parked by a lake', 'sage'),
             'strip' => 'color-mix(in srgb, #203228 90%, transparent)',
             'link' => '#F2C88F',
@@ -52,14 +53,14 @@
             $brandImage = '';
             $brandImageId = (int) $brand['image_id'];
 
-            $badgeUrl = '';
-            $badgeFile = trim((string) ($brand['badge'] ?? ''));
+            $tileUrl = '';
+            $tileFile = trim((string) ($brand['tile'] ?? ''));
 
-            if ($badgeFile !== '' && class_exists(\Illuminate\Support\Facades\Vite::class)) {
+            if ($tileFile !== '' && ! str_contains($tileFile, '/') && ! str_contains($tileFile, '\\') && class_exists(\Illuminate\Support\Facades\Vite::class)) {
                 try {
-                    $badgeUrl = \Illuminate\Support\Facades\Vite::asset('resources/images/brands/' . $badgeFile);
+                    $tileUrl = \Illuminate\Support\Facades\Vite::asset('resources/images/brands/' . $tileFile);
                 } catch (\Throwable $e) {
-                    $badgeUrl = '';
+                    $tileUrl = '';
                 }
             }
 
@@ -85,16 +86,15 @@
           class="group relative flex min-h-[440px] flex-col justify-end overflow-hidden rounded-xl bg-dark-gray no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary md:min-h-[560px]"
           style="--brand-strip: {{ $brand['strip'] }}; --brand-link: {{ $brand['link'] }};"
         >
-          @if ($brandImage)
-            {!! $brandImage !!}
-          @endif
+          <div class="relative min-h-0 w-full flex-1">
+            @if ($brandImage)
+              {!! $brandImage !!}
+            @elseif ($tileUrl)
+              <img src="{{ $tileUrl }}" alt="" width="270" height="270" class="absolute inset-0 h-full w-full object-cover object-center motion-safe:transition-transform motion-safe:group-hover:scale-[1.03]" loading="lazy" decoding="async">
+            @endif
+          </div>
 
           <div class="relative z-10 bg-[var(--brand-strip)] p-8">
-            @if ($badgeUrl)
-              <span class="mb-4 inline-flex size-16 overflow-hidden rounded-xl">
-                <img src="{{ $badgeUrl }}" alt="{{ $brand['name'] }} logo" width="64" height="64" class="h-full w-full object-cover" loading="lazy" decoding="async">
-              </span>
-            @endif
             <h3 class="mb-0 text-[30px] font-extrabold tracking-tight text-white">
               {{ $brand['name'] }}
             </h3>
