@@ -816,6 +816,10 @@ function syncSiteChromeHeight() {
     `${Math.round(preheaderHeight)}px`
   );
   document.documentElement.style.setProperty('--site-chrome-height', `${Math.round(height)}px`);
+  document.documentElement.style.setProperty(
+    '--site-header-h',
+    `${Math.round(height + adminBarHeight)}px`
+  );
 }
 
 /**

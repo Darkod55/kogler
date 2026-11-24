@@ -45,77 +45,11 @@ html {
 }
 
 /**
- * Homepage: fixed chrome over the hero — solid primary preheader,
- * transparent main bar that fills dark-blue on scroll.
+ * Sticky chrome on every page, including Home. The main bar is solid
+ * `--site-header-bg`; it does not overlay the hero.
  * `--site-admin-bar-height` is measured in app.js (0 when logged out).
  */
-.site-chrome--front {
-  position: fixed;
-  inset-inline: 0;
-  top: var(--site-admin-bar-height, 0px);
-  z-index: 30;
-}
-
-.site-chrome--front .preheader {
-  background-color: var(--site-topbar-bg);
-  color: var(--color-white);
-}
-
-.site-chrome--front #main-header {
-  background-color: transparent;
-  transition: background-color 450ms ease-in-out;
-}
-
-body.scrolled .site-chrome--front #main-header {
-  background-color: var(--site-header-bg);
-  @apply border-white/25;
-}
-
-/**
- * Homepage only: crossfade main → alt logo when scrolled.
- */
-.site-chrome--front .brand-logo-link .site-logo {
-  grid-area: 1 / 1;
-  transition: opacity 450ms ease-in-out;
-}
-
-.site-chrome--front .brand-logo-link .site-logo--alt {
-  opacity: 0;
-}
-
-body.scrolled .site-chrome--front .brand-logo-link .site-logo--main {
-  opacity: 0;
-}
-
-body.scrolled .site-chrome--front .brand-logo-link .site-logo--alt {
-  opacity: 1;
-}
-
-/**
- * Homepage mobile: solid dark-blue bar + alt logo at all times
- * (no transparent-over-hero / scroll swap — preheader is hidden below md).
- */
-@media (width < theme(--breakpoint-md)) {
-  .site-chrome--front #main-header {
-    background-color: var(--site-header-bg);
-    @apply border-white/25;
-  }
-
-  .site-chrome--front .brand-logo-link .site-logo--main {
-    opacity: 0;
-  }
-
-  .site-chrome--front .brand-logo-link .site-logo--alt {
-    opacity: 1;
-  }
-}
-
-/**
- * Inner pages: stick the whole chrome (preheader + bar). Sticky on
- * `#main-header` alone fails because `.site-chrome--inner` is only as
- * tall as the chrome — the parent scrolls away immediately.
- * Main bar matches the homepage scrolled state (dark-blue + white UI).
- */
+.site-chrome,
 .site-chrome--inner {
   position: sticky;
   inset-inline: 0;

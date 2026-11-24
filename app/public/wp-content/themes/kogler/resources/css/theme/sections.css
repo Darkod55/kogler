@@ -150,23 +150,18 @@
       );
     }
 
-    /**
-     * Homepage chrome is fixed over the hero — sit below the preheader and
-     * fill the rest of the viewport (main bar floats over the image).
-     * Admin bar is already cleared via html margin-top; chrome uses
-     * `--site-admin-bar-height` for its fixed `top`. Hero height still
-     * subtracts the admin bar so it ends at the viewport bottom.
-     */
-    body.home .mpx-hero,
-    body.front-page .mpx-hero {
-      margin-top: var(--site-preheader-height, 0px);
-      --mpx-hero-min-h: calc(
-        100vh - var(--site-preheader-height, 0px) - var(--site-admin-bar-height, 0px)
-      );
-      --mpx-hero-min-h: calc(
-        100dvh - var(--site-preheader-height, 0px) - var(--site-admin-bar-height, 0px)
-      );
-    }
+  }
+
+  /**
+   * Home: the chrome is in normal flow above the hero, so the hero fills
+   * whatever viewport is left. `--site-header-h` is the preheader, the main
+   * bar, and the admin bar (0 when logged out).
+   */
+  body.home .mpx-hero,
+  body.front-page .mpx-hero {
+    margin-top: 0;
+    --mpx-hero-min-h: calc(100vh - var(--site-header-h, 7rem));
+    --mpx-hero-min-h: calc(100svh - var(--site-header-h, 7rem));
   }
 
   .mpx-hero__media {

@@ -10,14 +10,15 @@
   }
 
   /**
-   * Preheader utility bar (promo copy left, contact / menu right).
+   * Preheader: phone and email on the left, search and social on the right.
    */
   .preheader-pros {
     @apply font-sans text-sm font-semibold text-white;
   }
 
   .preheader-nav,
-  .preheader-phone {
+  .preheader-phone,
+  .preheader-email {
     @apply font-sans text-sm font-semibold text-white;
   }
 
@@ -25,10 +26,8 @@
     @apply inline-flex items-center gap-2 text-white transition-opacity hover:opacity-80;
   }
 
-  .site-chrome--inner .preheader-pros,
-  .site-chrome--inner .preheader-nav,
-  .site-chrome--inner .preheader-phone,
-  .site-chrome--inner .preheader-nav .nav-link {
+  .site-chrome .preheader-phone,
+  .site-chrome .preheader-email {
     color: var(--color-white);
   }
 
@@ -71,41 +70,20 @@
     @apply inline-flex size-7 shrink-0 items-center justify-center bg-transparent p-0 text-black no-underline transition-colors hover:text-tertiary;
   }
 
-  .header-icon-btn .icon {
+  .header-icon-btn .icon,
+  .preheader-social .icon {
     display: block;
     width: 1.5rem;
     height: 1.5rem;
   }
 
-  .header-cart {
-    @apply relative inline-flex items-center gap-2.5 bg-transparent p-0 font-sans text-sm font-semibold text-black no-underline transition-colors hover:text-tertiary;
+  .preheader-social {
+    @apply inline-flex size-7 shrink-0 items-center justify-center text-white no-underline;
   }
 
-  .header-cart .icon {
-    display: block;
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-
-  /**
-   * Dark chrome white/hover colours: components/header-chrome.css (Vite-only).
-   */
-
-  /**
-   * Cart dollar amount: desktop only. Tablet keeps icon + count
-   * (screenshot layout + search/account/cart icons).
-   */
-  .header-cart__total {
-    @apply max-lg:hidden;
-  }
-
-  .header-cart__icon {
-    @apply relative inline-flex;
-  }
-
-  .header-cart__count {
-    @apply absolute -right-2 -top-2 inline-flex size-4 items-center justify-center rounded-full text-[10px] font-bold leading-none text-white;
-    background-color: #e53935;
+  .preheader-social .icon {
+    width: 1rem;
+    height: 1rem;
   }
 
   /**
