@@ -25,17 +25,11 @@
     @apply inline-flex items-center gap-2 text-white transition-opacity hover:opacity-80;
   }
 
-  /**
-   * Inner pages: white preheader with dark-blue copy/icons.
-   */
   .site-chrome--inner .preheader-pros,
   .site-chrome--inner .preheader-nav,
-  .site-chrome--inner .preheader-phone {
-    @apply text-dark-blue;
-  }
-
+  .site-chrome--inner .preheader-phone,
   .site-chrome--inner .preheader-nav .nav-link {
-    @apply text-dark-blue hover:opacity-80;
+    color: var(--color-white);
   }
 
   /**
@@ -132,43 +126,62 @@
   }
 
   .site-footer {
-    @apply border-t border-black/10 bg-white text-dark-gray;
+    border-top: 1px solid color-mix(in srgb, var(--color-white) 12%, transparent);
+    background-color: var(--site-footer-bg);
+    color: color-mix(in srgb, var(--color-white) 85%, transparent);
   }
 
   .footer-nav__title {
-    @apply mb-4 font-heading text-sm font-bold uppercase tracking-wide text-dark-blue;
+    @apply mb-4 font-heading text-sm font-bold uppercase tracking-wide;
+    color: var(--color-white);
   }
 
   .footer-links .nav-link {
-    @apply font-sans text-base font-medium text-dark-blue! no-underline transition-colors;
+    @apply font-sans text-base font-medium no-underline transition-colors;
+    color: color-mix(in srgb, var(--color-white) 85%, transparent) !important;
 
     &:hover {
-      @apply text-primary!;
+      color: var(--color-white) !important;
     }
   }
 
   .footer-legal-links .nav-link {
-    @apply font-sans text-sm font-medium text-dark-gray! no-underline transition-colors;
+    @apply font-sans text-sm font-medium no-underline transition-colors;
+    color: color-mix(in srgb, var(--color-white) 70%, transparent) !important;
 
     &:hover {
-      @apply text-primary!;
+      color: var(--color-white) !important;
     }
   }
 
   .footer-contact__link,
   .footer-contact__text {
-    @apply font-sans text-base font-medium text-dark-blue no-underline transition-colors;
+    @apply font-sans text-base font-medium no-underline transition-colors;
+    color: color-mix(in srgb, var(--color-white) 85%, transparent);
   }
 
   .footer-contact__link:hover {
-    @apply text-primary;
+    color: var(--color-white);
+  }
+
+  .footer-bar {
+    color: color-mix(in srgb, var(--color-white) 70%, transparent);
   }
 
   /**
-   * Social: dark-blue rounded squares with white glyphs (design screenshot).
+   * Social: light tiles on the dark footer.
    */
   .footer-social .nav-link {
-    @apply inline-flex size-10 items-center justify-center rounded-surface bg-dark-blue text-white transition-colors hover:bg-primary;
+    @apply inline-flex size-10 items-center justify-center rounded-surface text-white transition-colors;
+    background-color: color-mix(in srgb, var(--color-white) 12%, transparent);
+
+    &:hover {
+      background-color: color-mix(in srgb, var(--color-white) 22%, transparent);
+    }
+  }
+
+  .offcanvas-nav {
+    background-color: var(--site-header-bg);
   }
 
   .footer-social .nav-link .icon {

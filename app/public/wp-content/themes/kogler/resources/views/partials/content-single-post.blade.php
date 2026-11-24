@@ -17,7 +17,7 @@
 <article class="{{ implode(' ', get_post_class(['mpx-single-post-article', 'h-entry'])) }}">
   <section class="p-clamp-xl bg-secondary text-white bs-block">
     <div class="container">
-      <h1 class="p-name mb-4">{!! get_the_title() !!}</h1>
+      <h1 class="p-name mb-4">{{ kogler_title_case(get_the_title()) }}</h1>
       <div class="mpx-single-post__meta">
         <span class="mpx-single-post__meta-item">
           <span class="mpx-single-post__meta-icon" aria-hidden="true">
@@ -90,7 +90,7 @@
 @if (! empty($relatedPosts))
   <section class="p-clamp-xl mpx-related-posts pt-0">
     <div class="container">
-      <h2 class="mpx-related-posts__title">{{ __('Related posts', 'sage') }}</h2>
+      <h2 class="mpx-related-posts__title">{{ __('Related Posts', 'sage') }}</h2>
 
       <div
         class="blog-posts-list mpx-cards grid-auto-cards grid-auto-cards-gap"

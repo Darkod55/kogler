@@ -34,7 +34,7 @@
 <section class="relative bg-light px-clamp py-clamp-xl">
   <div class="container">
     <h2 class="mx-auto mb-0 max-w-[760px] text-center font-fraunces text-[clamp(38px,4.6vw,64px)] font-semibold leading-[1.05] text-dark-blue">
-      We log the <span class="italic text-primary">HOURS</span>
+      We Log the <span class="italic text-primary">HOURS</span>
     </h2>
 
     {{-- Theme base styles put discs and left padding on every ul. --}}
@@ -46,7 +46,7 @@
           </div>
           <div class="min-w-0">
             <h3 class="mt-6 mb-3 text-[20px] font-bold text-dark-blue md:mt-0 lg:mt-6">
-              {{ $value['name'] }}
+              {{ kogler_title_case($value['name']) }}
             </h3>
             <p class="mb-0 text-[length:var(--font-size-btn)] leading-[1.65] text-dark-blue/75">
               {{ $value['text'] }}

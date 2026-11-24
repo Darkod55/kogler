@@ -75,7 +75,7 @@
     </div>
   </div>
 
-  <div class="footer-bar border-t border-black/10 px-clamp py-4 text-sm text-dark-gray">
+  <div class="footer-bar border-t border-white/12 px-clamp py-4 text-sm">
     <div class="container flex flex-col items-center gap-3 text-center lg:flex-row lg:items-center lg:justify-between lg:gap-6 lg:text-left">
       @if (has_nav_menu('legal_navigation'))
         <nav class="footer-legal-nav" aria-label="{{ wp_get_nav_menu_name('legal_navigation') }}">
@@ -96,7 +96,7 @@
         ) }}
         {!! sprintf(
           __('Developed by %s', 'sage'),
-          '<a href="https://metapixels.co.uk/" class="text-dark-blue underline transition-colors hover:text-primary" target="_blank" rel="noopener noreferrer">' . esc_html__('MetaPixels', 'sage') . '</a>'
+          '<a href="https://metapixels.co.uk/" class="text-white underline transition-colors hover:text-white/80" target="_blank" rel="noopener noreferrer">' . esc_html__('MetaPixels', 'sage') . '</a>'
         ) !!}
       </p>
     </div>

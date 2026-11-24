@@ -56,7 +56,7 @@
               @endif
             </div>
             <h3 class="mt-5 mb-1 text-[19px] font-bold text-dark-blue">
-              {{ $person['name'] }}
+              {{ kogler_title_case($person['name']) }}
             </h3>
             <p class="mb-0 text-[length:var(--font-size-btn)] text-dark-blue/75">
               {{ $person['title'] }}

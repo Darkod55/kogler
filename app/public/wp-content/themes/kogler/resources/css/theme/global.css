@@ -57,7 +57,8 @@ html {
 }
 
 .site-chrome--front .preheader {
-  background-color: var(--color-primary);
+  background-color: var(--site-topbar-bg);
+  color: var(--color-white);
 }
 
 .site-chrome--front #main-header {
@@ -66,7 +67,7 @@ html {
 }
 
 body.scrolled .site-chrome--front #main-header {
-  background-color: var(--color-dark-blue);
+  background-color: var(--site-header-bg);
   @apply border-white/25;
 }
 
@@ -96,7 +97,7 @@ body.scrolled .site-chrome--front .brand-logo-link .site-logo--alt {
  */
 @media (width < theme(--breakpoint-md)) {
   .site-chrome--front #main-header {
-    background-color: var(--color-dark-blue);
+    background-color: var(--site-header-bg);
     @apply border-white/25;
   }
 
@@ -123,12 +124,12 @@ body.scrolled .site-chrome--front .brand-logo-link .site-logo--alt {
 }
 
 .site-chrome--inner .preheader {
-  background-color: var(--color-white);
-  color: var(--color-dark-blue);
+  background-color: var(--site-topbar-bg);
+  color: var(--color-white);
 }
 
 .site-chrome--inner #main-header {
-  background-color: var(--color-dark-blue);
+  background-color: var(--site-header-bg);
 }
 
 #main-header .nav-dropdown { border-radius: var(--radius-surface); }

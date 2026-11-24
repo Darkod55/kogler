@@ -47,11 +47,31 @@ tertiary: #d0bd9c
 teal: #a3bcc6
 gray: #f9f9fb
 light: #faf6f0
-dark-blue: #0b3e5c
+dark-blue: #0a1737
+darker-blue: #060e24
 light-blue: #d4eef8
 dark-gray: #7e7e7e
 white: #fff
 black: #000
+goliath-950: #141619
+goliath-900: #1c1f22
+goliath-800: #26292d
+goliath-700: #3a3f44
+goliath-silver: #aeb5bb
+goliath-chrome: #d6dbdf
+goliath-green: #41ad4a
+goliath-green-ink: #10140f
+goliath-orange: #f07a20
+goliath-orange-light: #f5a15a
+outdoor-950: #24392d
+outdoor-900: #2f4a3a
+outdoor-700: #3d5c49
+outdoor-600: #4a6b57
+outdoor-water: #45647a
+outdoor-amber: #f2c88f
+outdoor-amber-ink: #8a5a1e
+outdoor-ink: #1f3328
+outdoor-tint: #cfdcd3
 
 # Section spacing → --spacing-clamp-*
 spacing-clamp-inline: 24px

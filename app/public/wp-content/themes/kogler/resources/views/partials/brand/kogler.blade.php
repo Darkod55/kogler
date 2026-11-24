@@ -96,7 +96,7 @@
         @endif
 
         <h2 class="mt-6 mb-0 font-fraunces text-[clamp(34px,3.8vw,54px)] font-semibold leading-[1.08] tracking-tight text-dark-blue">
-          Driving a truck is hard, <em class="italic font-medium text-primary">sleeping in one shouldn’t be.</em>
+          Driving a Truck Is Hard, <em class="italic font-medium text-primary">Sleeping in One Shouldn’t Be.</em>
         </h2>
 
         <p class="mt-6 mb-0 max-w-[560px] text-[length:var(--font-size-tagline)] leading-[1.7] text-dark-blue/80">
@@ -118,7 +118,7 @@
 
     <div class="mt-[72px] flex flex-wrap items-stretch gap-6">
       <div class="min-w-[min(100%,520px)] shrink grow-[3] basis-[520px]">
-        <h3 class="mb-5 text-[24px] font-bold text-dark-blue">Sleeper mattresses</h3>
+        <h3 class="mb-5 text-[24px] font-bold text-dark-blue">Sleeper Mattresses</h3>
 
         <div class="overflow-hidden rounded-3xl border border-dark-blue/12">
           <div class="overflow-x-auto">
@@ -155,7 +155,7 @@
       <div class="flex min-w-[min(100%,340px)] shrink grow-[2] basis-[340px] flex-col justify-between gap-7 rounded-3xl bg-dark-blue p-9 text-white">
         <div>
           <p class="mb-0 text-[13px] font-semibold text-secondary">Manufacturer’s Fitment Guide</p>
-          <h3 class="mt-2.5 mb-0 font-fraunces text-[34px] font-semibold leading-[1.1]">Find your mattress</h3>
+          <h3 class="mt-2.5 mb-0 font-fraunces text-[34px] font-semibold leading-[1.1]">Find Your Mattress</h3>
         </div>
 
         <form

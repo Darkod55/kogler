@@ -96,6 +96,55 @@
   }
 
   /**
+   * Brand-aware buttons. Fill and ink follow the page theme.
+   * Outline is for dark brand pages.
+   */
+  :is(
+    a.btn-brand,
+    button.btn-brand,
+    .wp-block-button.btn-brand > .wp-block-button__link
+  ) {
+    background-color: var(--site-accent);
+    border-color: var(--site-accent);
+    color: var(--site-accent-ink);
+  }
+
+  :is(
+    a.btn-brand-outline,
+    button.btn-brand-outline,
+    .wp-block-button.btn-brand-outline > .wp-block-button__link
+  ) {
+    background-color: transparent;
+    border-width: 1.5px;
+    border-color: color-mix(in srgb, var(--color-white) 65%, transparent);
+    color: var(--color-white);
+  }
+
+  :is([data-brand="goliath-steel"], [data-brand="kogler-outdoor"]) :is(
+    a.btn-primary,
+    button.btn-primary,
+    .wp-block-button.btn-primary > .wp-block-button__link,
+    a.btn-primary-alt,
+    button.btn-primary-alt,
+    .wp-block-button.btn-primary-alt > .wp-block-button__link
+  ) {
+    background-color: var(--site-accent);
+    border-color: var(--site-accent);
+    color: var(--site-accent-ink);
+  }
+
+  :is([data-brand="goliath-steel"], [data-brand="kogler-outdoor"]) :is(
+    a.btn-primary,
+    button.btn-primary,
+    .wp-block-button.btn-primary > .wp-block-button__link
+  ):hover {
+    background-color: var(--site-accent);
+    border-color: var(--site-accent);
+    color: var(--site-accent-ink);
+    filter: brightness(1.08);
+  }
+
+  /**
    * Size modifier - combine with a colour variant
    */
   :is(

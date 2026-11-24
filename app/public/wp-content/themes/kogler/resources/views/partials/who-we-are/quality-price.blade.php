@@ -31,7 +31,7 @@
     <div class="flex flex-wrap items-center gap-10 lg:gap-16">
       <div class="min-w-0 shrink grow basis-[420px]">
         <h2 class="mb-0 font-heading text-[clamp(30px,3.2vw,44px)] font-bold leading-[1.2] tracking-tight text-dark-blue">
-          We don't believe you should have to choose between quality and price.
+          We Don't Believe You Should Have to Choose Between Quality and Price.
         </h2>
 
         <p class="mt-6 mb-0 max-w-[520px] text-[length:var(--font-size-tagline)] leading-[1.7] text-dark-blue/75">

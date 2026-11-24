@@ -58,7 +58,7 @@
 <section
   id="kogler-outdoor"
   class="bg-light px-clamp py-clamp-xl"
-  style="--ko-green: #2F4A3A; --ko-ink: #1F3328; --ko-amber: #F2C88F; --ko-amber-ink: #8A5A1E; --ko-tint: #CFDCD3;"
+  style="--ko-green: var(--color-outdoor-900); --ko-ink: var(--color-outdoor-ink); --ko-amber: var(--color-outdoor-amber); --ko-amber-ink: var(--color-outdoor-amber-ink); --ko-tint: var(--color-outdoor-tint);"
 >
   <div class="container">
     <div class="flex flex-wrap items-center gap-16">
@@ -75,7 +75,7 @@
         @endif
 
         <h2 class="mt-6 mb-0 font-fraunces text-[clamp(34px,3.8vw,54px)] font-semibold leading-[1.08] tracking-tight text-(--ko-green)">
-          Sleep like home, <em class="italic font-medium text-(--ko-amber-ink)">wherever you roam!</em>
+          Sleep Like Home, <em class="italic font-medium text-(--ko-amber-ink)">Wherever You Roam!</em>
         </h2>
 
         <p class="mt-6 mb-0 max-w-[560px] text-[length:var(--font-size-tagline)] leading-[1.7] text-(--ko-ink)/80">
@@ -141,7 +141,7 @@
                   @endif
                 </div>
                 <div>
-                  <h4 class="mb-0 font-fraunces text-[26px] font-semibold text-(--ko-green)">{{ $product['title'] }}</h4>
+                  <h4 class="mb-0 font-fraunces text-[26px] font-semibold text-(--ko-green)">{{ kogler_title_case($product['title']) }}</h4>
                   @if ($note !== '')
                     <p class="mt-1.5 mb-0 text-[14px] text-(--ko-amber-ink)">{{ $note }}</p>
                   @endif

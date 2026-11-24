@@ -6,7 +6,7 @@
       <div class="mpx-subheading text-white mb-4">
         <p>{{ __('404', 'sage') }}</p>
       </div>
-      <h1 class="mpx-banner__title">{{ __('Page not found', 'sage') }}</h1>
+      <h1 class="mpx-banner__title">{{ __('Page Not Found', 'sage') }}</h1>
       {!! get_search_form(false) !!}
     </div>
   </section>

@@ -37,7 +37,7 @@
 
       <div class="min-w-[min(100%,420px)] w-full shrink grow basis-[420px] lg:max-w-[520px]">
         <div class="rounded-3xl bg-white px-9 pt-9 pb-6 text-dark-blue">
-          <h2 class="mb-2 text-[22px] font-bold text-dark-blue">What partners get</h2>
+          <h2 class="mb-2 text-[22px] font-bold text-dark-blue">What Partners Get</h2>
 
           <ul class="m-0 flex list-none flex-col p-0">
             @foreach ($benefits as $benefit)

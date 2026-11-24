@@ -22,7 +22,7 @@
         @if ($hasQuery)
           {{ sprintf(__('Results for “%s”', 'sage'), $query) }}
         @else
-          {{ __('Search results', 'sage') }}
+          {{ __('Search Results', 'sage') }}
         @endif
       </h1>
       {!! get_search_form(false) !!}

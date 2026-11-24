@@ -49,7 +49,7 @@
   <div class="container">
     <div class="flex flex-wrap items-center justify-start gap-10 rounded-4xl bg-dark-blue px-7 py-12 text-white lg:justify-between lg:px-14 lg:py-20">
       <h2 class="mb-0 max-w-[640px] font-fraunces text-[clamp(36px,4.2vw,60px)] font-semibold leading-[1.05] text-white">
-        Ready to work <em class="italic font-medium text-secondary">together?</em>
+        Ready to Work <em class="italic font-medium text-secondary">Together?</em>
       </h2>
 
       <div class="flex flex-wrap gap-3.5 max-[400px]:w-full">

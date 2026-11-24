@@ -6,7 +6,7 @@
 <section class="relative bg-dark-blue px-clamp pt-clamp-block-xl pb-clamp-block-xl text-left text-white">
   <div class="container">
     <h1 class="mb-0 font-fraunces text-[clamp(44px,6vw,84px)] font-semibold leading-[1.02] tracking-tight text-white">
-      Our <em class="italic font-medium text-secondary">brands</em>
+      Our <em class="italic font-medium text-secondary">Brands</em>
     </h1>
 
     <p class="mt-8 mb-0 max-w-[620px] text-[length:var(--font-size-lead)] leading-[1.65] text-white/85">

@@ -30,7 +30,7 @@
     <div class="flex flex-wrap gap-16">
       <div class="min-w-0 max-w-[400px] shrink grow basis-[320px]">
         <h2 class="mb-0 font-fraunces text-[clamp(32px,3.4vw,48px)] font-semibold leading-[1.1] text-dark-blue">
-          We are
+          We Are
         </h2>
 
         <div

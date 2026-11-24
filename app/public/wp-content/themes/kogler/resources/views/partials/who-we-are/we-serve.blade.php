@@ -64,7 +64,7 @@
 <section class="relative bg-dark-blue px-clamp py-clamp-xl">
   <div class="container">
     <h2 class="mb-0 font-fraunces text-[clamp(32px,3.4vw,48px)] font-semibold leading-[1.1] text-white">
-      We serve
+      We Serve
     </h2>
 
     <div class="mt-14 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -109,7 +109,7 @@
 
             <div class="min-w-0">
               <h3 class="mb-1.5 text-[19px] font-bold text-dark-blue">
-                {{ $audience['title'] }}
+                {{ kogler_title_case($audience['title']) }}
               </h3>
               <p class="mb-0 text-[length:var(--font-size-btn)] leading-[1.6] text-dark-blue/75">
                 {{ $audience['text'] }}

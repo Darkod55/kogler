@@ -23,7 +23,7 @@
 @endphp
 
 <div class="site-chrome {{ $is_front ? 'site-chrome--front' : 'site-chrome--inner' }}">
-  <div class="preheader hidden md:block px-clamp {{ $is_front ? 'text-white' : 'text-dark-blue' }}">
+  <div class="preheader hidden md:block px-clamp text-white">
     <div class="container flex items-center justify-between gap-4 py-2.5 text-sm lg:gap-6">
       <ul class="preheader-pros m-0 flex list-none items-center gap-4 p-0 lg:gap-6">
         <li class="inline-flex items-center gap-2">
@@ -51,7 +51,7 @@
           ]) !!}
         </nav>
       @else
-        <a class="preheader-phone inline-flex shrink-0 items-center gap-2 no-underline transition-opacity hover:opacity-80 {{ $is_front ? 'text-white' : 'text-dark-blue' }}" href="tel:+18557026636">
+        <a class="preheader-phone inline-flex shrink-0 items-center gap-2 text-white no-underline transition-opacity hover:opacity-80" href="tel:+18557026636">
           <span class="shrink-0" aria-hidden="true">@svgIcon('phone'|14|14)</span>
           <span>(855) 702 - 6636</span>
         </a>
@@ -183,7 +183,7 @@
         x-transition:leave="duration-200 ease-in"
         x-transition:leave-start="translate-x-0"
         x-transition:leave-end="translate-x-full"
-        class="offcanvas-nav fixed inset-0 z-50 flex flex-col overflow-y-auto bg-dark-blue px-clamp py-4 text-white lg:hidden"
+        class="offcanvas-nav fixed inset-0 z-50 flex flex-col overflow-y-auto px-clamp py-4 text-white lg:hidden"
       >
         {{--
           Logo + spacer row: matches the main bar's py-6 / toggle height so the

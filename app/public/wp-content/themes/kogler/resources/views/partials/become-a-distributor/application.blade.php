@@ -18,7 +18,7 @@
 >
   <div class="container">
     <div class="mx-auto max-w-[920px] rounded-4xl bg-white p-7 shadow-xl md:p-14">
-      <h2 class="sr-only">Application form</h2>
+      <h2 class="sr-only">Application Form</h2>
       @if ($formMarkup)
         {!! $formMarkup !!}
       @else

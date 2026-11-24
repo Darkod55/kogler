@@ -25,8 +25,8 @@
             'image_id' => 0,
             'tile' => 'goliath-steel.webp',
             'alt' => __('Goliath Steel heavy-duty truck parts', 'sage'),
-            'strip' => 'color-mix(in srgb, #181B1E 90%, transparent)',
-            'link' => '#D6DBDF',
+            'strip' => 'color-mix(in srgb, var(--color-goliath-900) 90%, transparent)',
+            'link' => 'var(--color-goliath-chrome)',
         ],
         [
             'name' => 'Kogler Outdoor',
@@ -36,15 +36,15 @@
             'image_id' => 0,
             'tile' => 'kogler-outdoor.webp',
             'alt' => __('RV parked by a lake', 'sage'),
-            'strip' => 'color-mix(in srgb, #203228 90%, transparent)',
-            'link' => '#F2C88F',
+            'strip' => 'color-mix(in srgb, var(--color-outdoor-950) 90%, transparent)',
+            'link' => 'var(--color-outdoor-amber)',
         ],
     ];
 @endphp
 <section class="relative bg-white px-clamp pt-0 pb-clamp-block-xl">
   <div class="container">
     <h2 class="mb-8 font-heading text-[clamp(30px,3.2vw,44px)] font-bold tracking-tight text-dark-blue">
-      Our brands
+      Our Brands
     </h2>
 
     <div class="grid grid-cols-1 gap-4 md:grid-cols-3">

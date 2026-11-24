@@ -18,7 +18,7 @@
   @else
     <section class="p-clamp-xl bg-secondary text-white bs-block">
       <div class="container">
-        <h1 class="mb-0">{!! $page_title !!}</h1>
+        <h1 class="mb-0">{{ kogler_title_case($page_title) }}</h1>
       </div>
     </section>
   @endif

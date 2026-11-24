@@ -54,7 +54,7 @@
 <section
   id="goliath-steel"
   class="bg-(--gs-bg) px-clamp py-clamp-xl text-white"
-  style="--gs-bg: #1C1F22; --gs-panel: #26292D; --gs-tile: #3A3F44; --gs-accent: #AEB5BB; --gs-logo: #D6DBDF;"
+  style="--gs-bg: var(--color-goliath-900); --gs-panel: var(--color-goliath-800); --gs-tile: var(--color-goliath-700); --gs-accent: var(--color-goliath-silver); --gs-logo: var(--color-goliath-chrome);"
 >
   <div class="container">
     <div class="flex flex-wrap items-center gap-16">
@@ -68,7 +68,7 @@
         @endif
 
         <h2 class="mt-6 mb-0 font-fraunces text-[clamp(34px,3.8vw,54px)] font-semibold leading-[1.08] tracking-tight text-white">
-          Goliath strength <em class="italic font-medium text-(--gs-accent)">without the Goliath price.</em>
+          Goliath Strength <em class="italic font-medium text-(--gs-accent)">Without the Goliath Price.</em>
         </h2>
 
         <p class="mt-6 mb-0 max-w-[560px] text-[length:var(--font-size-tagline)] leading-[1.7] text-white/80">
@@ -89,7 +89,7 @@
     </div>
 
     <div class="mt-[72px]">
-      <h3 class="mb-5 text-[24px] font-bold text-white">Product categories</h3>
+      <h3 class="mb-5 text-[24px] font-bold text-white">Product Categories</h3>
 
       <div class="flex flex-col gap-6">
       @foreach ($categories as $category)
@@ -99,7 +99,7 @@
               <path d="m12 14 4-4" />
               <path d="M3.34 19a10 10 0 1 1 17.32 0" />
             </svg>
-            <h4 class="mb-0 font-fraunces text-[28px] font-semibold">{{ $category['name'] }}</h4>
+            <h4 class="mb-0 font-fraunces text-[28px] font-semibold">{{ kogler_title_case($category['name']) }}</h4>
           </div>
 
           <ul class="m-0 mt-6 grid list-none grid-cols-1 gap-3 p-0 sm:grid-cols-2 lg:grid-cols-3">

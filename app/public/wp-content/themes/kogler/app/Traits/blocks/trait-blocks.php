@@ -278,7 +278,7 @@ trait blocks
             ['hex' => '#a3bcc6', 'name' => 'Teal', 'slug' => 'teal'],
             ['hex' => '#f9f9fb', 'name' => 'Gray', 'slug' => 'gray'],
             ['hex' => '#faf6f0', 'name' => 'Light', 'slug' => 'light'],
-            ['hex' => '#0b3e5c', 'name' => 'Dark Blue', 'slug' => 'dark-blue'],
+            ['hex' => '#0a1737', 'name' => 'Dark Blue', 'slug' => 'dark-blue'],
             ['hex' => '#d4eef8', 'name' => 'Light Blue', 'slug' => 'light-blue'],
             ['hex' => '#7e7e7e', 'name' => 'Dark Gray', 'slug' => 'dark-gray'],
             ['hex' => '#000000', 'name' => 'Black', 'slug' => 'black'],

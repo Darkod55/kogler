@@ -29,8 +29,8 @@
 <section class="relative overflow-hidden bg-dark-blue px-clamp pt-clamp-block-xl pb-0 text-left">
   <div class="container">
     <h1 class="mb-0 max-w-[1100px] font-fraunces text-[clamp(44px,6.2vw,88px)] font-semibold leading-[1.02] tracking-tight text-white">
-      One company. Three brands.
-      <em class="font-medium italic text-secondary">Built for the people who keep America moving.</em>
+      One Company. Three Brands.
+      <em class="font-medium italic text-secondary">Built for the People Who Keep America Moving.</em>
     </h1>
 
     <p class="mt-12 mb-0 max-w-[620px] text-lg leading-relaxed text-white/85 lg:text-[length:var(--font-size-lead)]">

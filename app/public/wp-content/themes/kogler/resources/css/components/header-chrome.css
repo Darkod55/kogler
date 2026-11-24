@@ -25,7 +25,11 @@
   .site-chrome--inner .primary-nav .menu-item.current-menu-item > .nav-link:not(.btn),
   .site-chrome--inner .primary-nav .menu-item.current-menu-ancestor > .nav-link:not(.btn),
   .site-chrome--inner .primary-nav .menu-item.active > .nav-link:not(.btn) {
-    color: var(--color-white);
+    color: var(--site-accent);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.35em;
+    text-decoration-color: var(--site-accent);
   }
 
   .site-chrome--front .header-menu-toggle,

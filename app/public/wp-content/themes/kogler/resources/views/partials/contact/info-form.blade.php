@@ -36,7 +36,7 @@
     <div class="flex flex-wrap items-start gap-6">
       <aside class="flex w-full min-w-0 max-w-none basis-full flex-col gap-4 min-[1000px]:max-w-[440px] min-[1000px]:grow min-[1000px]:shrink min-[1000px]:basis-[340px]" aria-labelledby="company-info">
         <div class="rounded-3xl bg-white p-9">
-          <h2 id="company-info" class="mb-2 text-[22px] font-bold text-dark-blue">Company info</h2>
+          <h2 id="company-info" class="mb-2 text-[22px] font-bold text-dark-blue">Company Info</h2>
 
           <dl class="m-0">
             <div class="{{ $rowClass }}">
@@ -95,7 +95,7 @@
 
       <div class="min-w-0 w-full basis-full min-[1000px]:shrink min-[1000px]:grow-[999] min-[1000px]:basis-[560px]">
         <div class="rounded-4xl bg-white p-7 md:p-12">
-          <h2 class="sr-only">Contact form</h2>
+          <h2 class="sr-only">Contact Form</h2>
           @if ($formMarkup)
             {!! $formMarkup !!}
           @else
