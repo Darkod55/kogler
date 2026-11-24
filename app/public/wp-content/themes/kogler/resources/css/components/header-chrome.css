@@ -26,12 +26,14 @@
 
   .site-chrome .header-menu-toggle,
   .site-chrome .header-icon-btn,
+  .site-chrome .preheader-icon,
   .site-chrome .preheader-social {
     color: var(--color-white);
   }
 
   @media (hover: hover) {
     .site-chrome .header-icon-btn:hover,
+    .site-chrome .preheader-icon:hover,
     .site-chrome .preheader-social:hover {
       color: var(--color-tertiary);
     }

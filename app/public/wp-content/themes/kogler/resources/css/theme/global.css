@@ -42,6 +42,18 @@ html {
 
 #main-header .site-logo {
   height: auto;
+  transform-origin: left center;
+  transition: transform 280ms ease;
+}
+
+body.scrolled #main-header .site-logo {
+  transform: scale(0.75);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #main-header .site-logo {
+    transition: none;
+  }
 }
 
 /**

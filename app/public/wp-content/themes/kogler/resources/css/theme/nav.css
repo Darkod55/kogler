@@ -70,18 +70,22 @@
     @apply inline-flex size-7 shrink-0 items-center justify-center bg-transparent p-0 text-black no-underline transition-colors hover:text-tertiary;
   }
 
-  .header-icon-btn .icon,
-  .preheader-social .icon {
+  .header-icon-btn .icon {
     display: block;
     width: 1.5rem;
     height: 1.5rem;
   }
 
+  .preheader-icon,
   .preheader-social {
-    @apply inline-flex size-7 shrink-0 items-center justify-center text-white no-underline;
+    @apply inline-flex size-7 shrink-0 items-center justify-center bg-transparent p-0 text-white no-underline;
   }
 
-  .preheader-social .icon {
+  .preheader-icon .icon,
+  .preheader-social .icon,
+  .preheader-phone .icon,
+  .preheader-email .icon {
+    display: block;
     width: 1rem;
     height: 1rem;
   }
@@ -91,16 +95,27 @@
    */
   .nav-dropdown {
     @apply absolute left-0 top-full z-20 mt-2 w-max min-w-0 overflow-hidden p-0 shadow-none;
-    @apply rounded-surface bg-primary text-white normal-case tracking-normal;
+    @apply rounded-surface normal-case tracking-normal;
+    background-color: var(--site-header-bg);
+    color: color-mix(in srgb, var(--color-white) 85%, transparent);
   }
 
   .primary-nav .nav-dropdown .nav-link {
-    @apply flex! items-center justify-start border-0 px-5 py-2.5 text-left font-sans text-[14px] font-medium text-white! no-underline capitalize transition-colors hover:text-white!;
+    @apply flex! items-center justify-start border-0 px-5 py-2.5 text-left font-sans text-[14px] font-medium no-underline capitalize transition-colors;
     background-color: transparent;
+    color: color-mix(in srgb, var(--color-white) 85%, transparent) !important;
 
-    &:hover {
-      background-color: color-mix(in srgb, var(--color-white) 18%, var(--color-primary));
+    &:hover,
+    &:focus-visible {
+      color: var(--site-accent) !important;
+      background-color: color-mix(in srgb, var(--color-white) 8%, transparent);
     }
+  }
+
+  .primary-nav .nav-dropdown .menu-item.current-menu-item > .nav-link,
+  .primary-nav .nav-dropdown .menu-item.current-menu-ancestor > .nav-link,
+  .primary-nav .nav-dropdown .menu-item.active > .nav-link {
+    color: var(--site-accent) !important;
   }
 
   .site-footer {

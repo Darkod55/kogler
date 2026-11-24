@@ -44,28 +44,28 @@
   @keydown.escape.window="searchOpen = false"
 >
   <div class="preheader px-clamp text-white">
-    <div class="container flex flex-wrap items-center justify-between gap-x-4 gap-y-2 py-2.5 text-sm">
-      <div class="flex min-w-0 flex-wrap items-center gap-x-4 gap-y-1">
-        <a class="preheader-phone inline-flex items-center gap-2 text-white no-underline transition-opacity hover:opacity-80" href="tel:+18557026636">
-          <span class="shrink-0" aria-hidden="true">@svgIcon('phone'|14|14)</span>
-          <span>(855) 702 - 6636</span>
+    <div class="container flex flex-nowrap items-center justify-between gap-3 py-2.5 text-sm">
+      <div class="flex min-w-0 items-center gap-4">
+        <a class="preheader-phone inline-flex items-center gap-2 text-white no-underline transition-opacity hover:opacity-80 max-md:size-7 max-md:justify-center max-md:gap-0" href="tel:+18557026636" aria-label="{{ __('(855) 702 - 6636', 'sage') }}">
+          <span class="shrink-0" aria-hidden="true">@svgIcon('phone'|16|16)</span>
+          <span class="preheader-contact-text max-md:sr-only">(855) 702 - 6636</span>
         </a>
-        <a class="preheader-email inline-flex items-center gap-2 text-white no-underline transition-opacity hover:opacity-80" href="mailto:info@kogler-usa.com">
-          <span class="shrink-0" aria-hidden="true">@svgIcon('email'|14|14)</span>
-          <span>info@kogler-usa.com</span>
+        <a class="preheader-email inline-flex items-center gap-2 text-white no-underline transition-opacity hover:opacity-80 max-md:size-7 max-md:justify-center max-md:gap-0" href="mailto:info@kogler-usa.com" aria-label="{{ __('info@kogler-usa.com', 'sage') }}">
+          <span class="shrink-0" aria-hidden="true">@svgIcon('email'|16|16)</span>
+          <span class="preheader-contact-text max-md:sr-only">info@kogler-usa.com</span>
         </a>
       </div>
 
-      <div class="ml-auto flex items-center gap-3">
+      <div class="ml-auto flex items-center gap-1">
         <button
           type="button"
-          class="header-icon-btn"
+          class="preheader-icon"
           aria-label="{{ __('Search', 'sage') }}"
           aria-controls="header-search-dialog"
           :aria-expanded="searchOpen.toString()"
           @click="mobileOpen = false; searchOpen = true; $nextTick(() => $refs.headerSearch?.querySelector('.search-form__input')?.focus())"
         >
-          @svgIcon('search'|24|24)
+          @svgIcon('search'|16|16)
         </button>
 
         @if ($socialLinks)

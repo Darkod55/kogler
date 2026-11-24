@@ -782,8 +782,8 @@ if (window.scrollY > 0) document.body.classList.add('scrolled');
 window.addEventListener('scroll',() => window.scrollY > 0 ? document.body.classList.add('scrolled') : document.body.classList.remove('scrolled'));
 
 /**
- * Admin bar + preheader + main header heights for fixed chrome / heroes.
- * Preheader is display:none below md; `--site-preheader-height` is 0 then.
+ * Admin bar + preheader + main header heights.
+ * `--site-header-h` uses layout height, not the scaled scrolled logo.
  * Admin bar only when `#wpadminbar` is visible (logged-in).
  */
 function syncSiteChromeHeight() {
