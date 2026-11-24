@@ -38,6 +38,10 @@
     @apply font-sans text-base font-medium text-dark-blue;
   }
 
+  .primary-nav .menu-item-has-children {
+    position: relative;
+  }
+
   .primary-nav .nav-link:not(.btn) {
     @apply inline-flex items-center gap-1 border-0 pb-0 text-dark-blue transition-colors hover:text-primary;
   }

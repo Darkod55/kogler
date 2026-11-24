@@ -778,17 +778,34 @@ document.addEventListener('alpine:init', () => {
 
 Alpine.start();
 
-if (window.scrollY > 0) document.body.classList.add('scrolled');
-window.addEventListener('scroll',() => window.scrollY > 0 ? document.body.classList.add('scrolled') : document.body.classList.remove('scrolled'));
+const headerScrollOn = 48;
+const headerScrollOff = 8;
+let headerIsScrolled = window.scrollY > headerScrollOn;
+
+function syncHeaderScrolled() {
+  const y = window.scrollY;
+
+  if (!headerIsScrolled && y > headerScrollOn) {
+    headerIsScrolled = true;
+  } else if (headerIsScrolled && y < headerScrollOff) {
+    headerIsScrolled = false;
+  }
+
+  document.body.classList.toggle('scrolled', headerIsScrolled);
+}
+
+syncHeaderScrolled();
+window.addEventListener('scroll', syncHeaderScrolled, { passive: true });
 
 /**
- * Admin bar + preheader + main header heights.
- * `--site-header-h` uses layout height, not the scaled scrolled logo.
+ * Admin bar + preheader + the full main-header slot.
+ * `--site-header-h` stays the unscrolled stack. The shortened bar does not change it.
  * Admin bar only when `#wpadminbar` is visible (logged-in).
  */
 function syncSiteChromeHeight() {
   const adminBar = document.getElementById('wpadminbar');
   const preheader = document.querySelector('.preheader');
+  const slot = document.querySelector('.header-bar-slot');
   const header = document.getElementById('main-header');
   let adminBarHeight = 0;
   let preheaderHeight = 0;
@@ -800,11 +817,12 @@ function syncSiteChromeHeight() {
 
   if (preheader && getComputedStyle(preheader).display !== 'none') {
     preheaderHeight = preheader.getBoundingClientRect().height;
-    height += preheaderHeight;
   }
 
-  if (header) {
-    height += header.getBoundingClientRect().height;
+  if (slot) {
+    height = slot.offsetHeight;
+  } else if (header) {
+    height = header.offsetHeight;
   }
 
   document.documentElement.style.setProperty(
@@ -818,7 +836,7 @@ function syncSiteChromeHeight() {
   document.documentElement.style.setProperty('--site-chrome-height', `${Math.round(height)}px`);
   document.documentElement.style.setProperty(
     '--site-header-h',
-    `${Math.round(height + adminBarHeight)}px`
+    `${Math.round(preheaderHeight + height + adminBarHeight)}px`
   );
 }
 

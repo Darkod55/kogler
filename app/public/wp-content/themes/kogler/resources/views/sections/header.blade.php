@@ -38,7 +38,7 @@
 @endphp
 
 <div
-  class="site-chrome site-chrome--inner"
+  class="site-chrome-root"
   x-data="{ mobileOpen: false, searchOpen: false }"
   x-effect="document.body.classList.toggle('overflow-hidden', mobileOpen || searchOpen)"
   @keydown.escape.window="searchOpen = false"
@@ -83,11 +83,13 @@
     </div>
   </div>
 
+  <div class="site-chrome site-chrome--inner">
+    <div class="header-bar-slot">
   <header
     id="main-header"
     class="banner header-bar z-30 border-b border-white/25 px-clamp"
   >
-    <div class="container flex items-center justify-between gap-8 py-6">
+    <div class="container flex h-full items-center justify-between gap-8">
       <div class="brand shrink-0">
         @if (get_theme_mod('custom_logo_alt'))
           {!! \App\helpers()->getSiteLogo([
@@ -210,4 +212,6 @@
       </div>
     </div>
   </header>
+    </div>
+  </div>
 </div>
