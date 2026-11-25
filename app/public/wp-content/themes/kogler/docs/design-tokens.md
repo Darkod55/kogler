@@ -198,7 +198,7 @@ Example: `vmin=767`, `vmax=1330`, `H1: 50px / 75px` →
 
 ```text
 Minimum Viewport Width: 1100
-Maximum Viewport Width: 1300
+Maximum Viewport Width: 1800
 H1: 50px / 96px
 H2: 36px / 48px
 H3: 26px / 32px

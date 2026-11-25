@@ -99,14 +99,16 @@
 /**
  * Fluid type. Change these and every heading, `.lead`, and block that
  * references them follows. Clamps are the type-scale recipes in
- * docs/design-tokens.md (vmin 1100, vmax 1300, root 16).
+ * docs/design-tokens.md (vmin 1100, vmax 1800 for h1, 1300 for the
+ * other levels, root 16). H1 stays near 63px on a 1300px laptop and
+ * reaches 96px on a wide screen, so a short laptop still shows the hero.
  *
  * h1–h6 pick these up on their own. Add `lead` on a heading for
  * `--font-lead-scale` times that level. `lead` on any other element
  * uses `--font-size-lead`.
  */
 :root {
-  --font-size-h1: clamp(3.125rem, -12.6875rem + 23vw, 6rem);
+  --font-size-h1: clamp(3.125rem, -1.3929rem + 6.5714vw, 6rem);
   --font-size-h2: clamp(2.25rem, -1.875rem + 6vw, 3rem);
   --font-size-h3: clamp(1.625rem, -0.4375rem + 3vw, 2rem);
   --font-size-h4: clamp(1.25rem, -0.125rem + 2vw, 1.5rem);

@@ -26,19 +26,19 @@
         $heroImage = wp_get_attachment_image($heroImageId, 'full', false, $heroAttrs);
     }
 @endphp
-<section class="relative overflow-hidden bg-dark-blue p-clamp-x pt-clamp-xl pb-0 text-left">
+<section class="relative overflow-hidden bg-dark-blue p-clamp-x pt-clamp pb-0 text-left min-[1400px]:pt-clamp-xl">
   <div class="container">
     <h1 class="mb-0 max-w-[1100px] font-fraunces text-white">
       One Company. Three Brands.
       <em class="font-medium italic text-secondary">Built for the People Who Keep America Moving.</em>
     </h1>
 
-    <p class="mt-12 mb-0 max-w-[620px] text-lg leading-relaxed text-white/85 lg:lead">
+    <p class="mt-8 mb-0 max-w-[620px] text-lg leading-relaxed text-white/85 min-[1400px]:mt-12 lg:lead">
       At Kogler-USA we supply thousands of customers across the commercial truck, RV and marine markets through three brands: Kogler, Goliath Steel and Kogler Outdoor.
     </p>
 
     <div
-      class="mt-16 h-[280px] w-full overflow-hidden rounded-t-3xl bg-primary lg:h-[460px]"
+      class="mt-10 h-[280px] w-full overflow-hidden rounded-t-3xl bg-primary min-[1400px]:mt-16 lg:h-[420px] min-[1400px]:h-[460px]"
       @unless ($heroImage) aria-hidden="true" @endunless
     >
       @if ($heroImage)
