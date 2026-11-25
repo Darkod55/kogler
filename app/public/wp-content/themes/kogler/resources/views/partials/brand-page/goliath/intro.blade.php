@@ -6,7 +6,7 @@
 --}}
 @php
     $logoUrl = '';
-    $imageId = 0;
+    $imageId = 405;
 
     $themeImage = function (string $file): string {
         if ($file === '' || ! class_exists(\Illuminate\Support\Facades\Vite::class)) {
