@@ -60,8 +60,9 @@
   x-data="{ playing: ! window.matchMedia('(prefers-reduced-motion: reduce)').matches }"
   x-init="if (! playing && $refs.vid) { $refs.vid.pause() }"
 >
+  {{-- Scale from the bottom-left so the truck rides up into the open road, clear of the headline. --}}
   <div
-    class="absolute inset-0 bg-darker-blue bg-cover bg-center"
+    class="absolute inset-0 origin-bottom scale-[1.16] bg-darker-blue bg-cover bg-center min-[1025px]:origin-bottom-left min-[1025px]:scale-[1.28]"
     @if ($posterUrl !== '') style="background-image: url('{{ esc_url($posterUrl) }}')" @endif
   >
     @if ($videoUrl !== '')
@@ -81,10 +82,16 @@
     @endif
   </div>
 
+  {{-- Dark behind the copy. The road stays open so the truck is not buried in the wash. --}}
   <div
-    class="pointer-events-none absolute inset-0"
+    class="pointer-events-none absolute inset-0 min-[1025px]:hidden"
     aria-hidden="true"
-    style="background: linear-gradient(180deg, color-mix(in srgb, var(--color-darker-blue) 35%, transparent) 0%, color-mix(in srgb, var(--color-darker-blue) 8%, transparent) 28%, color-mix(in srgb, var(--color-darker-blue) 78%, transparent) 42%, color-mix(in srgb, var(--color-darker-blue) 94%, transparent) 100%)"
+    style="background: linear-gradient(180deg, color-mix(in srgb, var(--color-darker-blue) 34%, transparent) 0%, color-mix(in srgb, var(--color-darker-blue) 6%, transparent) 22%, color-mix(in srgb, var(--color-darker-blue) 8%, transparent) 58%, color-mix(in srgb, var(--color-darker-blue) 72%, transparent) 78%, color-mix(in srgb, var(--color-darker-blue) 90%, transparent) 100%)"
+  ></div>
+  <div
+    class="pointer-events-none absolute inset-0 hidden min-[1025px]:block"
+    aria-hidden="true"
+    style="background: linear-gradient(90deg, color-mix(in srgb, var(--color-darker-blue) 62%, transparent) 0%, color-mix(in srgb, var(--color-darker-blue) 34%, transparent) 30%, transparent 44%, transparent 62%, color-mix(in srgb, var(--color-darker-blue) 28%, transparent) 100%), linear-gradient(180deg, color-mix(in srgb, var(--color-darker-blue) 30%, transparent) 0%, color-mix(in srgb, var(--color-darker-blue) 4%, transparent) 16%, color-mix(in srgb, var(--color-darker-blue) 8%, transparent) 48%, color-mix(in srgb, var(--color-darker-blue) 36%, transparent) 70%, color-mix(in srgb, var(--color-darker-blue) 84%, transparent) 100%)"
   ></div>
 
   <div class="relative flex h-full flex-col justify-end px-clamp pb-16 min-[641px]:pb-[88px]">
