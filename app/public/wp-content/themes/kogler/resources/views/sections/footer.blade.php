@@ -56,19 +56,20 @@
 
       <div class="footer-nav footer-contact">
         <h3 class="footer-nav__title">{{ __('Contact', 'sage') }}</h3>
+        @php($siteContact = \App\helpers()->siteContact())
         <ul class="footer-contact__list m-0 flex list-none flex-col gap-2.5 p-0">
           <li>
-            <a class="footer-contact__link" href="mailto:info@kogler-usa.com">
-              {{ __('Email: info@kogler-usa.com', 'sage') }}
+            <a class="footer-contact__link" href="mailto:{{ $siteContact['email'] }}">
+              {{ sprintf(__('Email: %s', 'sage'), $siteContact['email']) }}
             </a>
           </li>
           <li>
-            <a class="footer-contact__link" href="tel:+18557026636">
-              {{ __('Phone: +1 (855) 702-6636', 'sage') }}
+            <a class="footer-contact__link" href="tel:{{ $siteContact['phone_tel'] }}">
+              {{ sprintf(__('Phone: %s', 'sage'), $siteContact['phone_display']) }}
             </a>
           </li>
           <li>
-            <span class="footer-contact__text">{{ __('Location: 939 W North Ave. Suite 880. Chicago, IL 60642', 'sage') }}</span>
+            <span class="footer-contact__text">{{ sprintf(__('Location: %s', 'sage'), $siteContact['address']) }}</span>
           </li>
         </ul>
       </div>

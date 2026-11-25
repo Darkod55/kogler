@@ -9,5 +9,6 @@
   @include('partials.home.benefits')
   @include('partials.home.services')
   @include('partials.home.testimonials')
+  @include('partials.home.contact')
   {!! the_content() !!}
 @endsection

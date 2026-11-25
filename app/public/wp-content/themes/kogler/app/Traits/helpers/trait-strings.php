@@ -331,6 +331,22 @@ trait strings
     }
 
     /**
+     * Phone, email, and address shown in the footer.
+     * The homepage contact panel reads this too.
+     *
+     * @return array{phone_display: string, phone_tel: string, email: string, address: string}
+     */
+    public function siteContact(): array
+    {
+        return [
+            'phone_display' => '+1 (855) 702-6636',
+            'phone_tel' => '+18557026636',
+            'email' => 'info@kogler-usa.com',
+            'address' => '939 W North Ave. Suite 880. Chicago, IL 60642',
+        ];
+    }
+
+    /**
      * Permalink for a page at $slug, else /{slug}/.
      * Same lookup the Find a Distributor links use.
      */

@@ -749,6 +749,45 @@ add_action('acf/init', function () {
             ],
         ],
     ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_kogler_home_contact',
+        'title' => __('Homepage Contact', 'sage'),
+        'fields' => [
+            [
+                'key' => 'field_kogler_cta_title',
+                'label' => __('Title', 'sage'),
+                'name' => 'cta_title',
+                'type' => 'text',
+                'instructions' => __('The last two words are set in italic.', 'sage'),
+            ],
+            [
+                'key' => 'field_kogler_cta_text',
+                'label' => __('Text', 'sage'),
+                'name' => 'cta_text',
+                'type' => 'textarea',
+                'rows' => 3,
+                'new_lines' => '',
+            ],
+            [
+                'key' => 'field_kogler_cta_form',
+                'label' => __('Fluent Form ID', 'sage'),
+                'name' => 'cta_form',
+                'type' => 'number',
+                'instructions' => __('ID of the imported Homepage – Quote Request form. Set Form Style to None.', 'sage'),
+                'min' => 0,
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_type',
+                    'operator' => '==',
+                    'value' => 'front_page',
+                ],
+            ],
+        ],
+    ]);
 });
 
 add_filter('acf/location/rule_types', function ($choices) {
