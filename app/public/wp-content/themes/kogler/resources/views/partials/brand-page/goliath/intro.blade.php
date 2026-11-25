@@ -36,11 +36,11 @@
         [
             'name' => 'Air System',
             'items' => [
-                ['name' => '3-in-1 Electric Airline Sets', 'image_id' => 0],
-                ['name' => 'ABS Power Cables', 'image_id' => 0],
-                ['name' => 'ABS Air Brake Hose', 'image_id' => 0],
-                ['name' => 'Gladhands & Seals', 'image_id' => 0],
-                ['name' => 'Plugs & Receptacles', 'image_id' => 0],
+                ['name' => '3-in-1 Electric Airline Sets', 'image_id' => 404],
+                ['name' => 'ABS Power Cables', 'image_id' => 407],
+                ['name' => 'ABS Air Brake Hose', 'image_id' => 411],
+                ['name' => 'Gladhands & Seals', 'image_id' => 405],
+                ['name' => 'Plugs & Receptacles', 'image_id' => 409],
                 ['name' => 'Tender Springs & Clips', 'image_id' => 0],
             ],
         ],
