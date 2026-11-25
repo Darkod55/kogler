@@ -1,13 +1,15 @@
 {{--
   Sister-brand link cards. Pass $currentBrand to hide that brand.
   Defaults to the page's kogler_brand. Sleep and Goliath can include this later.
-  Set a logo attachment to replace the wordmark. 0 keeps the text name.
+  Logos share one height so the cards line up. 0 keeps the text name.
 --}}
 @php
     $currentBrand = $currentBrand ?? \App\helpers()->brandTheme();
 
-    $sleepLogoId = 0;
-    $goliathLogoId = 0;
+    $sleepLogoId = 395;
+    $goliathLogoId = 397;
+    $outdoorLogoId = 396;
+    $logoClass = 'block h-10 w-auto max-w-full object-contain object-left';
 
     $brandLogo = function (int $id, string $alt, string $class): string {
         if ($id < 1 || ! function_exists('wp_get_attachment_image')) {
@@ -34,7 +36,7 @@
     $brands = [
         'kogler-sleep' => [
             'card' => 'bg-primary',
-            'logo' => $brandLogo($sleepLogoId, 'Kögler Sleep', 'h-8 w-auto'),
+            'logo' => $brandLogo($sleepLogoId, 'Kögler Sleep', $logoClass),
             'name' => 'Kögler',
             'name_class' => 'text-[24px] font-extrabold tracking-tight',
             'line' => 'High-quality sleep products for the commercial truck cab.',
@@ -42,7 +44,7 @@
         ],
         'goliath-steel' => [
             'card' => 'bg-goliath-900',
-            'logo' => $brandLogo($goliathLogoId, 'Goliath Steel', 'h-10 w-auto'),
+            'logo' => $brandLogo($goliathLogoId, 'Goliath Steel', $logoClass),
             'name' => 'GOLIATH STEEL',
             'name_class' => 'text-[20px] font-extrabold tracking-[0.15em] text-goliath-chrome',
             'line' => 'Heavy-duty commercial truck aftermarket parts, high quality at reasonable prices.',
@@ -50,7 +52,7 @@
         ],
         'kogler-outdoor' => [
             'card' => 'bg-outdoor-950',
-            'logo' => '',
+            'logo' => $brandLogo($outdoorLogoId, 'Kögler Outdoor', $logoClass),
             'name' => 'Kögler Outdoor',
             'name_class' => 'text-[24px] font-extrabold tracking-tight',
             'line' => 'Adventure sleep products for life on the road and on the water.',
