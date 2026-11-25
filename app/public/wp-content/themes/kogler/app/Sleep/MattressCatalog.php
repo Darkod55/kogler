@@ -23,6 +23,41 @@ class MattressCatalog
     }
 
     /**
+     * Part-number rows for one construction, split by cover.
+     * Sizes and SKUs come from the same parts list as the finder.
+     *
+     * @return array{cloth: array<int, array{sku: string, description: string, size: string}>, wipeable: array<int, array{sku: string, description: string, size: string}>}
+     */
+    public static function partsForCover(string $construction): array
+    {
+        $rows = ['cloth' => [], 'wipeable' => []];
+
+        foreach (self::parts() as $width => $parts) {
+            foreach ($parts as $part) {
+                if ($part['construction'] !== $construction) {
+                    continue;
+                }
+
+                $widthLabel = (string) $width;
+                $length = $widthLabel === '29' ? '79' : '80';
+                $row = [
+                    'sku' => $part['sku'],
+                    'description' => $part['construction'] . ', ' . $part['cover'] . ' Cover',
+                    'size' => $widthLabel . '" × ' . $length . '" × 7"',
+                ];
+
+                if ($part['cover'] === 'Cloth') {
+                    $rows['cloth'][] = $row;
+                } elseif ($part['cover'] === 'Wipeable') {
+                    $rows['wipeable'][] = $row;
+                }
+            }
+        }
+
+        return $rows;
+    }
+
+    /**
      * Spec table rows. Width chips come from the parts list.
      *
      * @return array<int, array<string, mixed>>
