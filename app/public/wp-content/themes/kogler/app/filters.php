@@ -122,3 +122,102 @@ add_action('save_post_page', function ($post_id) {
     update_post_meta($post_id, 'kogler_brand', $brand);
 });
 
+/**
+ * Ordering cards on the Goliath Steel brand page.
+ * The repeater is label, headline, and detail. It only appears once ACF
+ * is installed, and only on a Brand Page set to Goliath Steel.
+ */
+add_action('acf/init', function () {
+    if (! function_exists('acf_add_local_field_group')) {
+        return;
+    }
+
+    acf_add_local_field_group([
+        'key' => 'group_kogler_goliath_ordering',
+        'title' => __('Goliath Ordering Information', 'sage'),
+        'fields' => [
+            [
+                'key' => 'field_kogler_goliath_ordering',
+                'label' => __('Ordering Information', 'sage'),
+                'name' => 'goliath_ordering',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'button_label' => __('Add card', 'sage'),
+                'sub_fields' => [
+                    [
+                        'key' => 'field_kogler_goliath_ordering_label',
+                        'label' => __('Label', 'sage'),
+                        'name' => 'label',
+                        'type' => 'text',
+                        'instructions' => __('Stored in normal case. The page uppercases it.', 'sage'),
+                    ],
+                    [
+                        'key' => 'field_kogler_goliath_ordering_headline',
+                        'label' => __('Headline', 'sage'),
+                        'name' => 'headline',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_kogler_goliath_ordering_detail',
+                        'label' => __('Detail', 'sage'),
+                        'name' => 'detail',
+                        'type' => 'textarea',
+                        'rows' => 2,
+                        'new_lines' => '',
+                    ],
+                ],
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_template',
+                    'operator' => '==',
+                    'value' => 'tpl-brand-page.blade.php',
+                ],
+                [
+                    'param' => 'kogler_brand',
+                    'operator' => '==',
+                    'value' => 'goliath-steel',
+                ],
+            ],
+        ],
+    ]);
+});
+
+add_filter('acf/location/rule_types', function ($choices) {
+    if (! is_array($choices)) {
+        return $choices;
+    }
+
+    if (! isset($choices['Page']) || ! is_array($choices['Page'])) {
+        $choices['Page'] = [];
+    }
+
+    $choices['Page']['kogler_brand'] = __('Brand', 'sage');
+
+    return $choices;
+});
+
+add_filter('acf/location/rule_values/kogler_brand', function ($choices) {
+    if (! is_array($choices)) {
+        $choices = [];
+    }
+
+    $choices['goliath-steel'] = __('Goliath Steel', 'sage');
+
+    return $choices;
+});
+
+add_filter('acf/location/rule_match/kogler_brand', function ($match, $rule, $screen) {
+    $postId = is_array($screen) ? (int) ($screen['post_id'] ?? 0) : 0;
+    $brand = $postId > 0 ? (string) get_post_meta($postId, 'kogler_brand', true) : '';
+    $isMatch = $brand === (string) ($rule['value'] ?? '');
+
+    if (($rule['operator'] ?? '==') === '!=') {
+        return ! $isMatch;
+    }
+
+    return $isMatch;
+}, 10, 3);
+

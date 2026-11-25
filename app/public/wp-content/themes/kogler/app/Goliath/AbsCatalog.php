@@ -4,8 +4,8 @@ namespace App\Goliath;
 
 /**
  * Goliath Steel 2027 ABS assemblies catalog.
- * One list of products and part numbers for the product cards and,
- * later, the Quick Reference table.
+ * One list of products and part numbers for the product cards and the
+ * Quick Reference table.
  */
 class AbsCatalog
 {
@@ -118,6 +118,7 @@ class AbsCatalog
             [
                 'id' => 'air-brake-hoses',
                 'group' => 'abs',
+                'ref_name' => 'Air Brake Hose',
                 'title' => 'Air Brake Hoses',
                 'intro' => 'Straight rubber service and emergency air lines, 15 ft, sold individually.',
                 'image_id' => 411,
@@ -144,8 +145,8 @@ class AbsCatalog
                         'show_box' => false,
                         'note' => 'Boxed packaging available on request.',
                         'parts' => [
-                            self::part('KOGALBLU15E', 'Air Brake Hose, Blue (Service)', '15 ft', 'Poly bag'),
-                            self::part('KOGALRED15E', 'Air Brake Hose, Red (Emergency)', '15 ft', 'Poly bag'),
+                            self::part('KOGALBLU15E', 'Air Brake Hose, Blue (Service)', '15 ft', 'Poly bag', 'Blue (Service)'),
+                            self::part('KOGALRED15E', 'Air Brake Hose, Red (Emergency)', '15 ft', 'Poly bag', 'Red (Emergency)'),
                         ],
                     ],
                 ],
@@ -250,16 +251,100 @@ class AbsCatalog
     }
 
     /**
-     * @return array{sku: string, description: string, length: string, packaging: string}
+     * Quick Reference rows, grouped from the ABS parts.
+     * Row order follows the catalog. Poly bag is listed before Boxed.
+     * A length with no parts is an empty list.
+     *
+     * @return array{lengths: array<int, string>, rows: array<int, array<string, mixed>>}
      */
-    private static function part(string $sku, string $description, string $length, string $packaging): array
+    public static function quickReference(): array
     {
+        $lengths = ['12 ft', '15 ft'];
+        $groups = [];
+
+        foreach (self::byGroup('abs') as $product) {
+            $productName = (string) ($product['ref_name'] ?? $product['title'] ?? '');
+
+            foreach ($product['variants'] as $variant) {
+                foreach ($variant['parts'] as $part) {
+                    $length = (string) ($part['length'] ?? '');
+
+                    if ($length !== '' && ! in_array($length, $lengths, true)) {
+                        $lengths[] = $length;
+                    }
+
+                    $name = (string) ($part['ref_name'] ?? $productName);
+                    $variantLabel = (string) ($part['ref_variant'] ?? $variant['label'] ?? '');
+                    $key = $name . "\0" . $variantLabel;
+
+                    if (! isset($groups[$key])) {
+                        $groups[$key] = [
+                            'id' => (string) ($product['id'] ?? ''),
+                            'name' => $name,
+                            'variant' => $variantLabel,
+                            'parts' => [],
+                        ];
+                    }
+
+                    $groups[$key]['parts'][] = [
+                        'sku' => (string) ($part['sku'] ?? ''),
+                        'length' => $length,
+                        'packaging' => (string) ($part['packaging'] ?? ''),
+                    ];
+                }
+            }
+        }
+
+        $packOrder = ['Poly bag' => 0, 'Boxed' => 1];
+        $rows = [];
+
+        foreach ($groups as $group) {
+            $cells = [];
+
+            foreach ($lengths as $length) {
+                $cell = array_values(array_filter(
+                    $group['parts'],
+                    static fn (array $part): bool => $part['length'] === $length
+                ));
+
+                usort($cell, static function (array $a, array $b) use ($packOrder): int {
+                    return ($packOrder[$a['packaging']] ?? 2) <=> ($packOrder[$b['packaging']] ?? 2);
+                });
+
+                $cells[$length] = $cell;
+            }
+
+            $rows[] = [
+                'id' => $group['id'],
+                'name' => $group['name'],
+                'variant' => $group['variant'],
+                'cells' => $cells,
+            ];
+        }
+
         return [
+            'lengths' => $lengths,
+            'rows' => $rows,
+        ];
+    }
+
+    /**
+     * @return array{sku: string, description: string, length: string, packaging: string, ref_variant?: string}
+     */
+    private static function part(string $sku, string $description, string $length, string $packaging, ?string $refVariant = null): array
+    {
+        $part = [
             'sku' => $sku,
             'description' => $description,
             'length' => $length,
             'packaging' => $packaging,
         ];
+
+        if ($refVariant !== null && $refVariant !== '') {
+            $part['ref_variant'] = $refVariant;
+        }
+
+        return $part;
     }
 
     /**

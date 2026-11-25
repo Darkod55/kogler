@@ -1,6 +1,6 @@
 {{--
   Goliath Steel — ABS Assemblies & Air Brake Hoses.
-  Part numbers live in App\Goliath\AbsCatalog, shared with the later Quick Reference.
+  Part numbers live in App\Goliath\AbsCatalog, shared with the Quick Reference.
   In-page offset is html scroll-padding-top (--site-chrome-height).
 --}}
 @php
