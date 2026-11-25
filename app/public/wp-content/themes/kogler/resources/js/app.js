@@ -843,6 +843,30 @@ document.addEventListener('alpine:init', () => {
         } else if (models.length === 1) {
           ctx.model = 0;
         }
+
+        ctx.dispatchWidths();
+      },
+
+      dispatchWidths() {
+        const widths = [];
+
+        if (ctx.make !== '' && ctx.model !== null) {
+          const truck = ctx.catalog.trucks?.[ctx.make]?.[ctx.model];
+
+          (truck?.bunks || []).forEach((bunk) => {
+            bunk.widths.forEach((width) => {
+              if (width === '38/39') {
+                widths.push('38', '39');
+              } else {
+                widths.push(String(width));
+              }
+            });
+          });
+        }
+
+        window.dispatchEvent(new CustomEvent('fitment:widths', {
+          detail: { widths: [...new Set(widths)] },
+        }));
       },
 
       get makes() {
@@ -891,12 +915,14 @@ document.addEventListener('alpine:init', () => {
         const models = ctx.catalog.trucks[ctx.make] || [];
         ctx.model = models.length === 1 ? 0 : null;
         ctx.syncUrl();
+        ctx.dispatchWidths();
       },
 
       onModelChange(event) {
         const value = event.target.value;
         ctx.model = value === '' ? null : Number(value);
         ctx.syncUrl();
+        ctx.dispatchWidths();
       },
 
       selectTruck(detail) {
@@ -910,6 +936,7 @@ document.addEventListener('alpine:init', () => {
         ctx.make = detail.make;
         ctx.model = Number.isInteger(index) && models[index] ? index : (models.length === 1 ? 0 : null);
         ctx.syncUrl();
+        ctx.dispatchWidths();
 
         const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         document.getElementById('find-your-size')?.scrollIntoView({
@@ -934,6 +961,56 @@ document.addEventListener('alpine:init', () => {
         }
 
         window.history.replaceState(null, '', url);
+      },
+    };
+  });
+
+  /**
+   * Size Finder: copy a SKU, and highlight widths sent by the mattress finder.
+   */
+  Alpine.data('sizeFinder', () => {
+    let ctx;
+    let copiedTimer;
+
+    return {
+      copied: '',
+      widths: [],
+
+      init() {
+        ctx = this;
+      },
+
+      setWidths(detail) {
+        ctx.widths = detail && Array.isArray(detail.widths) ? detail.widths.map(String) : [];
+      },
+
+      highlighted(width) {
+        return ctx.widths.includes(String(width));
+      },
+
+      async copySku(sku, event) {
+        window.clearTimeout(copiedTimer);
+
+        try {
+          if (! navigator.clipboard || ! navigator.clipboard.writeText) {
+            throw new Error('clipboard unavailable');
+          }
+
+          await navigator.clipboard.writeText(sku);
+          ctx.copied = sku;
+          copiedTimer = window.setTimeout(() => {
+            if (ctx.copied === sku) {
+              ctx.copied = '';
+            }
+          }, 1500);
+        } catch (error) {
+          const range = document.createRange();
+          range.selectNodeContents(event.currentTarget);
+          const selection = window.getSelection();
+          selection.removeAllRanges();
+          selection.addRange(range);
+          ctx.copied = '';
+        }
       },
     };
   });

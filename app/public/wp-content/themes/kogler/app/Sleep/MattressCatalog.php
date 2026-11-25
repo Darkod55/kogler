@@ -73,6 +73,61 @@ class MattressCatalog
     }
 
     /**
+     * Mattress length in inches. 29" is the only width that is not 80" long.
+     */
+    public static function lengthForWidth(string $width): string
+    {
+        return $width === '29' ? '79' : '80';
+    }
+
+    /**
+     * One row per width, with a SKU or an empty string for each of the four styles.
+     *
+     * @return array<int, array{width: string, key: string, lengthNote: string, cells: array<int, string>}>
+     */
+    public static function sizeGrid(): array
+    {
+        $columns = [
+            ['construction' => 'Innerspring', 'cover' => 'Cloth'],
+            ['construction' => 'Innerspring', 'cover' => 'Wipeable'],
+            ['construction' => 'Gel Foam', 'cover' => 'Cloth'],
+            ['construction' => 'Gel Foam', 'cover' => 'Wipeable'],
+        ];
+        $parts = self::parts();
+        $widths = array_keys($parts);
+        sort($widths, SORT_NUMERIC);
+        $rows = [];
+
+        foreach ($widths as $width) {
+            $label = (string) $width;
+            $length = self::lengthForWidth($label);
+            $cells = [];
+
+            foreach ($columns as $column) {
+                $sku = '';
+
+                foreach ($parts[$width] as $part) {
+                    if ($part['construction'] === $column['construction'] && $part['cover'] === $column['cover']) {
+                        $sku = $part['sku'];
+                        break;
+                    }
+                }
+
+                $cells[] = $sku;
+            }
+
+            $rows[] = [
+                'width' => $label . '"',
+                'key' => $label,
+                'lengthNote' => $length === '80' ? '' : '× ' . $length . '" long',
+                'cells' => $cells,
+            ];
+        }
+
+        return $rows;
+    }
+
+    /**
      * @return array<string, string>
      */
     public static function footnotes(): array
@@ -111,7 +166,7 @@ class MattressCatalog
                 }
 
                 $widthLabel = (string) $width;
-                $length = $widthLabel === '29' ? '79' : '80';
+                $length = self::lengthForWidth($widthLabel);
                 $row = [
                     'sku' => $part['sku'],
                     'description' => $part['construction'] . ', ' . $part['cover'] . ' Cover',
