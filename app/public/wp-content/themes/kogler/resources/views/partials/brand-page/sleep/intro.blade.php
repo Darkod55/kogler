@@ -1,103 +1,54 @@
 {{--
-  Kögler Sleep — brand intro
-  Own copy of the Brands page Kogler section. Edit this file for the sleep
-  page. The Brands page partial is separate.
-  No ACF. Specs and fitments are edited in the arrays below.
-  EXAMPLE DATA — replace with real fitments before launch. These rows use
-  invented makes and models, not real truck names.
+  Kögler Sleep — brand intro, spec table, and mattress finder.
+  Catalog: App\Sleep\MattressCatalog (also used by later fitment sections).
+  Set $photoId to the Media Library attachment of the night truck photo.
+  resources/images/brands/kogler-sleep-truck-night.webp is used when that file is in the build.
 --}}
 @php
-    $imageId = 0;
-    $tileFile = 'kogler.webp';
-    $tileUrl = '';
-    $koglerImage = '';
+    $catalog = \App\Sleep\MattressCatalog::catalog();
+    $specs = \App\Sleep\MattressCatalog::specRows();
+    $fitmentJson = function_exists('wp_json_encode')
+        ? wp_json_encode($catalog)
+        : json_encode($catalog, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE);
 
-    if ($tileFile !== '' && class_exists(\Illuminate\Support\Facades\Vite::class)) {
-        try {
-            $tileUrl = \Illuminate\Support\Facades\Vite::asset('resources/images/brands/' . $tileFile);
-        } catch (\Throwable $e) {
-            $tileUrl = '';
-        }
-    }
+    $photoId = 0;
+    $photo = '';
 
-    if ($imageId && function_exists('wp_attachment_is_image') && wp_attachment_is_image($imageId)) {
-        $koglerImage = wp_get_attachment_image($imageId, 'full', false, [
-            'class' => 'h-full w-full object-cover',
+    if ($photoId && function_exists('wp_attachment_is_image') && wp_attachment_is_image($photoId)) {
+        $photo = wp_get_attachment_image($photoId, 'full', false, [
+            'class' => 'absolute inset-0 h-full w-full object-cover',
+            'alt' => 'Semi truck driving at night',
             'loading' => 'lazy',
             'decoding' => 'async',
-            'alt' => __('Kogler mattress fitted in a truck sleeper cab', 'sage'),
-            'sizes' => '(min-width: 1024px) 640px, calc(100vw - 48px)',
+            'sizes' => '(min-width: 1000px) 640px, calc(100vw - 48px)',
         ]);
+    } elseif (class_exists(\Illuminate\Support\Facades\Vite::class)) {
+        try {
+            $photoUrl = \Illuminate\Support\Facades\Vite::asset('resources/images/brands/kogler-sleep-truck-night.webp');
+            $photo = '<img src="' . esc_url($photoUrl) . '" alt="Semi truck driving at night" width="1200" height="800" class="absolute inset-0 h-full w-full object-cover" loading="lazy" decoding="async">';
+        } catch (\Throwable $e) {
+            $photo = '';
+        }
     }
 
     $koglerLogo = function_exists('content_url')
         ? content_url('uploads/2026/08/kogler-logo-white.webp')
         : '';
 
-    $specs = [
-        ['label' => 'Widths', 'value' => ['29"', '32"', '36"', '38/39"', '42"']],
-        ['label' => 'Length', 'value' => '80"'],
-        ['label' => 'Thickness', 'value' => '7"'],
-        ['label' => 'Construction', 'value' => 'Foam or innerspring'],
-        ['label' => 'Cover', 'value' => 'Nylon or cloth'],
-    ];
-
-    // EXAMPLE DATA — replace with real fitments before launch.
-    $fitments = [
-        [
-            'make' => 'Example Make A',
-            'model' => 'Example Model 1',
-            'width' => '42',
-            'length' => '80',
-            'thickness' => '7',
-            'productUrl' => '',
-        ],
-        [
-            'make' => 'Example Make A',
-            'model' => 'Example Model 2',
-            'width' => '38',
-            'length' => '80',
-            'thickness' => '7',
-            'productUrl' => '/example-mattress',
-        ],
-        [
-            'make' => 'Example Make B',
-            'model' => 'Example Model 3',
-            'width' => '36',
-            'length' => '80',
-            'thickness' => '7',
-        ],
-    ];
-
-    // Same resolution as the Who We Are closing CTA.
-    $contactUrl = function_exists('home_url') ? home_url('/contact-us/') : '#';
-
-    if (function_exists('get_page_by_path') && function_exists('get_permalink')) {
-        foreach (['contact-us', 'contact'] as $contactSlug) {
-            $contactPage = get_page_by_path($contactSlug);
-
-            if ($contactPage instanceof \WP_Post) {
-                $contactUrl = get_permalink($contactPage);
-                break;
-            }
-        }
-    }
-
-    // Future parts guide. Empty means the strip is not rendered.
-    $parts = [];
+    $selectClass = 'h-[50px] w-full cursor-pointer appearance-none rounded-xl bg-white pr-10 pl-3.5 text-[length:var(--font-size-btn)] text-dark-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-blue disabled:cursor-not-allowed disabled:opacity-[0.55]';
 @endphp
-<section id="kogler" class="relative bg-white px-clamp py-clamp-xl">
+<section id="kogler" class="relative scroll-mt-chrome bg-white px-clamp py-clamp-xl">
   <div class="container">
     <div class="flex flex-wrap items-center gap-16">
-      <div class="min-w-[min(100%,460px)] shrink grow basis-[460px]">
+      <div class="min-w-0 w-full shrink grow basis-full min-[1000px]:basis-[460px]">
         @if ($koglerLogo)
-          <span class="inline-flex h-12 items-center rounded-xl bg-primary px-5">
-            <img src="{{ $koglerLogo }}" alt="{{ __('Kogler', 'sage') }}" class="h-6 w-auto" height="24">
+          <span class="inline-flex h-12 items-center rounded-xl bg-dark-blue px-5">
+            <img src="{{ $koglerLogo }}" alt="Kögler" class="h-6 w-auto" height="24">
           </span>
         @endif
 
         <h2 class="mt-6 mb-0 font-fraunces text-[clamp(34px,3.8vw,54px)] font-semibold leading-[1.08] tracking-tight text-dark-blue">
-          Driving a Truck Is Hard, <em class="italic font-medium text-(--site-heading-accent)">Sleeping in One Shouldn’t Be.</em>
+          Driving a Truck Is Hard, <em class="italic font-medium text-darker-blue">Sleeping in One Shouldn’t Be.</em>
         </h2>
 
         <p class="mt-6 mb-0 max-w-[560px] text-[length:var(--font-size-tagline)] leading-[1.7] text-(--site-ink)/80">
@@ -105,129 +56,150 @@
         </p>
       </div>
 
-      <div
-        class="relative h-[280px] min-w-[min(100%,460px)] w-full shrink grow basis-[460px] overflow-hidden rounded-3xl bg-light-blue lg:h-[420px]"
-        @unless ($koglerImage || $tileUrl) aria-hidden="true" @endunless
-      >
-        @if ($koglerImage)
-          {!! $koglerImage !!}
-        @elseif ($tileUrl)
-          <img src="{{ $tileUrl }}" alt="{{ __('Kogler logo', 'sage') }}" width="270" height="270" class="absolute inset-0 h-full w-full object-cover object-center" loading="lazy" decoding="async">
+      <div class="relative h-[280px] min-w-0 w-full shrink grow basis-full overflow-hidden rounded-3xl bg-light-blue min-[1000px]:h-[420px] min-[1000px]:basis-[460px]" @unless ($photo) aria-hidden="true" @endunless>
+        @if ($photo)
+          {!! $photo !!}
         @endif
       </div>
     </div>
 
-    <div class="mt-[72px] flex flex-wrap items-stretch gap-6">
-      <div class="min-w-[min(100%,520px)] shrink grow-[3] basis-[520px]">
-        <h3 class="mb-5 text-[24px] font-bold text-dark-blue">Sleeper Mattresses</h3>
+    <script type="application/json" id="kogler-sleep-fitment">{!! $fitmentJson !!}</script>
 
-        <div class="overflow-hidden rounded-3xl border border-(--site-ink)/10">
-          <div class="overflow-x-auto">
-            <table class="w-full border-collapse text-left text-base text-(--site-ink)">
-              <thead class="bg-light text-dark-blue">
-                <tr>
-                  <th class="w-[34%] px-6 py-4 text-[12px] font-bold uppercase tracking-widest" scope="col">Spec</th>
-                  <th class="px-6 py-4 text-[12px] font-bold uppercase tracking-widest" scope="col">Options</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach ($specs as $spec)
-                  <tr class="border-t border-(--site-ink)/10">
-                    <th class="px-6 py-[18px] text-left font-bold" scope="row">{{ $spec['label'] }}</th>
-                    <td class="px-6 py-[18px]">
-                      @if (is_array($spec['value']))
-                        <div class="flex flex-wrap gap-1.5">
-                          @foreach ($spec['value'] as $chip)
-                            <span class="rounded-lg bg-light-blue px-3 py-1.5 text-sm font-bold text-(--site-ink)">{{ $chip }}</span>
-                          @endforeach
-                        </div>
-                      @else
-                        {{ $spec['value'] }}
-                      @endif
-                    </td>
+    <div x-data="fitmentFinder(JSON.parse(document.getElementById('kogler-sleep-fitment').textContent))">
+      <div class="mt-[72px] flex flex-wrap items-stretch gap-6">
+        <div class="min-w-0 w-full shrink grow-[3] basis-full min-[1000px]:basis-[520px]">
+          <h3 class="mb-5 text-[24px] font-bold text-dark-blue">Sleeper Mattresses</h3>
+
+          <div class="overflow-hidden rounded-3xl border border-(--site-ink)/12">
+            <div class="overflow-x-auto">
+              <table class="w-full border-collapse text-left text-base text-(--site-ink)">
+                <thead class="bg-light">
+                  <tr>
+                    <th class="w-[34%] px-6 py-4 text-[12px] font-bold tracking-widest text-dark-blue uppercase" scope="col">Spec</th>
+                    <th class="px-6 py-4 text-[12px] font-bold tracking-widest text-dark-blue uppercase" scope="col">Options</th>
                   </tr>
-                @endforeach
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  @foreach ($specs as $spec)
+                    <tr class="border-t border-(--site-ink)/10">
+                      <th class="px-6 py-[18px] text-left font-bold text-dark-blue" scope="row">{{ $spec['label'] }}</th>
+                      <td class="px-6 py-[18px]">
+                        @if ($spec['type'] === 'chips')
+                          <div class="flex flex-wrap gap-1.5">
+                            @foreach ($spec['chips'] as $chip)
+                              <span class="rounded-lg bg-light-blue px-3 py-1.5 text-sm font-bold text-darker-blue">{{ $chip }}</span>
+                            @endforeach
+                          </div>
+                        @elseif ($spec['type'] === 'length')
+                          {{ $spec['value'] }} <span class="text-(--site-ink)/70">{{ $spec['note'] }}</span>
+                        @else
+                          {{ $spec['value'] }}
+                        @endif
+                      </td>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
           </div>
+        </div>
+
+        <div id="find-your-size" class="flex min-w-0 w-full shrink grow-[2] basis-full flex-col justify-between gap-7 rounded-3xl bg-dark-blue p-9 text-white min-[1000px]:basis-[340px]">
+          <div>
+            <p class="mb-0 text-[13px] font-semibold text-light-blue">Manufacturer’s Fitment Guide</p>
+            <h3 class="mt-2.5 mb-0 font-fraunces text-[34px] font-semibold leading-[1.1]">Find Your Mattress</h3>
+          </div>
+
+          <form class="flex flex-col gap-3" @submit.prevent>
+            <label class="flex flex-col gap-1.5 text-[13px] font-semibold text-white/90">
+              Truck make
+              <span class="relative">
+                <select
+                  x-model="make"
+                  @change="onMakeChange()"
+                  class="{{ $selectClass }}"
+                >
+                  <option value="">Select make</option>
+                  <template x-for="name in makes" :key="name">
+                    <option :value="name" x-text="name"></option>
+                  </template>
+                </select>
+                <svg class="pointer-events-none absolute inset-y-0 right-3.5 my-auto size-4 text-dark-blue" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <path d="M5 7.5 10 12.5 15 7.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </label>
+
+            <label class="flex flex-col gap-1.5 text-[13px] font-semibold text-white/90">
+              Model
+              <span class="relative">
+                <select
+                  :disabled="make === ''"
+                  :value="model === null ? '' : String(model)"
+                  @change="onModelChange($event)"
+                  class="{{ $selectClass }}"
+                >
+                  <option value="">Select model</option>
+                  <template x-for="(item, index) in models" :key="item.name">
+                    <option :value="index" x-text="item.name"></option>
+                  </template>
+                </select>
+                <svg class="pointer-events-none absolute inset-y-0 right-3.5 my-auto size-4 text-dark-blue" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <path d="M5 7.5 10 12.5 15 7.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </label>
+          </form>
+
+          <noscript>
+            <a class="font-semibold text-white underline underline-offset-2" href="#fitment-guide">See the full fitment guide</a>
+          </noscript>
         </div>
       </div>
 
-      <div id="find-your-size" class="flex min-w-[min(100%,340px)] shrink grow-[2] basis-[340px] flex-col justify-between gap-7 rounded-3xl bg-dark-blue p-9 text-white">
-        <div>
-          <p class="mb-0 text-[13px] font-semibold text-secondary">Manufacturer’s Fitment Guide</p>
-          <h3 class="mt-2.5 mb-0 font-fraunces text-[34px] font-semibold leading-[1.1]">Find Your Mattress</h3>
-        </div>
+      <div class="mt-6" aria-live="polite">
+        <p
+          x-show="make === '' || model === null"
+          x-cloak
+          class="mb-0 rounded-3xl border-[1.5px] border-dashed border-(--site-ink)/25 px-8 py-7 text-[length:var(--font-size-base)] text-(--site-ink)/75"
+          x-text="emptyMessage"
+        >Choose your truck make to see which Kögler mattress fits.</p>
 
-        <form
-          class="flex flex-col gap-3"
-          x-data="fitmentGuide()"
-          data-fitments='@json($fitments)'
-          data-contact-url="{{ $contactUrl }}"
-          @submit.prevent="submit()"
-        >
-          <label class="flex flex-col gap-1.5 text-[13px] font-semibold text-white/85">
-            [Make]
-            <select
-              x-model="make"
-              @change="onMakeChange()"
-              :disabled="makes.length === 0"
-              class="h-[50px] rounded-xl bg-white px-3.5 text-[length:var(--font-size-base)] text-dark-blue disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              <option value="">[Select]</option>
-              <template x-for="item in makes" :key="item">
-                <option :value="item" x-text="item"></option>
-              </template>
-            </select>
-          </label>
+        <div x-show="make !== '' && model !== null" x-cloak class="rounded-3xl bg-light-blue p-9">
+          <div class="flex flex-wrap items-baseline gap-x-4 gap-y-1.5">
+            <p class="mb-0 text-[13px] font-bold tracking-widest text-darker-blue uppercase">Your Kögler size</p>
+            <p class="mb-0 font-fraunces text-[28px] font-semibold text-dark-blue" x-text="truckName"></p>
+          </div>
 
-          <label class="flex flex-col gap-1.5 text-[13px] font-semibold text-white/85">
-            [Model]
-            <select
-              x-model="model"
-              :disabled="!make"
-              class="h-[50px] rounded-xl bg-white px-3.5 text-[length:var(--font-size-base)] text-dark-blue disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              <option value="">[Select]</option>
-              <template x-for="item in models" :key="item">
-                <option :value="item" x-text="item"></option>
-              </template>
-            </select>
-          </label>
-
-          <button
-            type="submit"
-            class="mt-1.5 h-[52px] w-full rounded-full bg-white text-[length:var(--font-size-base)] font-bold text-(--site-accent-ink) disabled:cursor-not-allowed disabled:opacity-60"
-            :disabled="!make || !model"
-          >
-            Find your mattress
-          </button>
-
-          {{-- Copy TBC: no-match line and the Contact Sales label. --}}
-          <div aria-live="polite">
-            <template x-if="result && result.status === 'match'">
-              <p class="mb-0 text-[length:var(--font-size-base)]">
-                <span x-text="sizeLabel(result)"></span>
-                <a class="mt-2 block text-secondary underline" x-show="result.productUrl" :href="result.productUrl">View product</a>
-              </p>
-            </template>
-            <template x-if="result && result.status === 'none'">
-              <p class="mb-0 text-[length:var(--font-size-base)]">
-                No match found.
-                <a class="text-secondary underline" :href="contactUrl">Contact Sales</a>
-              </p>
+          <div class="mt-6 grid grid-cols-1 gap-4 min-[1000px]:grid-cols-[repeat(auto-fit,minmax(340px,1fr))]">
+            <template x-for="bunk in bunks" :key="bunk.position">
+              <article class="rounded-[20px] bg-white p-7">
+                <p class="mb-0 text-[12px] font-bold tracking-widest text-(--site-ink)/70 uppercase" x-text="bunk.position"></p>
+                <p class="mt-2 mb-0 font-fraunces text-[44px] leading-none font-semibold text-dark-blue">
+                  <span x-text="bunk.widthsLabel"></span>
+                  <span class="text-[length:var(--font-size-base)] font-semibold text-(--site-ink)/60">wide</span>
+                </p>
+                <p x-show="bunk.note" x-cloak class="mt-2.5 mb-0 text-sm leading-[1.55] text-(--site-ink)/80" x-text="bunk.note"></p>
+                <ul class="mt-[18px] mb-0 list-none p-0">
+                  <template x-for="option in bunk.options" :key="option.sku + option.size">
+                    <li class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-t border-(--site-ink)/10 py-2.5 text-sm">
+                      <span><strong x-text="option.type"></strong> · <span x-text="option.size"></span></span>
+                      <span class="font-bold text-dark-blue tabular-nums" x-text="option.sku"></span>
+                    </li>
+                  </template>
+                </ul>
+              </article>
             </template>
           </div>
-        </form>
+
+          <p x-show="makeNote" x-cloak class="mt-4 mb-0 text-sm text-(--site-ink)/80" x-text="makeNote"></p>
+
+          <p class="mt-5 mb-0 text-sm text-(--site-ink)/80">
+            Measure your bunk to confirm before ordering.
+            <a class="font-semibold text-dark-blue underline-offset-2 hover:underline" href="#fitment-guide">See the full fitment guide</a>
+          </p>
+        </div>
       </div>
     </div>
-
-    {{--
-      Parts guide slot. Render nothing while $parts is empty.
-      When it has items: grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-6.
-    --}}
-    @if ($parts)
-      <div class="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4"></div>
-    @endif
   </div>
 </section>

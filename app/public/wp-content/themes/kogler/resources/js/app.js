@@ -774,6 +774,141 @@ document.addEventListener('alpine:init', () => {
       },
     };
   });
+
+  /**
+   * Kögler Sleep mattress finder. One scope covers the card and the results.
+   * Methods close over `ctx` because Alpine calls them unbound.
+   */
+  Alpine.data('fitmentFinder', (data = {}) => {
+    let ctx;
+
+    const empty = { trucks: {}, makeNotes: {}, parts: {} };
+
+    const bunksFor = (catalog, make, model) => {
+      const truck = catalog.trucks?.[make]?.[model];
+
+      if (! truck) {
+        return [];
+      }
+
+      return truck.bunks.map((bunk) => {
+        const widthsLabel = bunk.widths.map((width) => `${width}"`).join(' or ');
+        const expanded = bunk.widths.flatMap((width) => (width === '38/39' ? ['38', '39'] : [width]));
+        const options = expanded.flatMap((width) => (catalog.parts[width] || []).map((part) => ({
+          type: `${part.construction}, ${part.cover} cover`,
+          size: `${width}" × ${width === '29' ? '79' : '80'}" × 7"`,
+          sku: part.sku,
+        })));
+
+        return {
+          position: bunk.position,
+          widthsLabel,
+          note: bunk.note || '',
+          options,
+        };
+      });
+    };
+
+    return {
+      catalog: empty,
+      make: '',
+      model: null,
+
+      init() {
+        ctx = this;
+        ctx.catalog = data && data.trucks ? data : empty;
+
+        const params = new URLSearchParams(window.location.search);
+        const make = params.get('make') || '';
+        const modelParam = params.get('model');
+        const models = ctx.catalog.trucks[make] || [];
+
+        if (! models.length) {
+          return;
+        }
+
+        ctx.make = make;
+
+        if (modelParam !== null && modelParam !== '' && models[Number(modelParam)]) {
+          ctx.model = Number(modelParam);
+        } else if (models.length === 1) {
+          ctx.model = 0;
+        }
+      },
+
+      get makes() {
+        return Object.keys(ctx.catalog.trucks || {});
+      },
+
+      get models() {
+        if (ctx.make === '') {
+          return [];
+        }
+
+        return ctx.catalog.trucks[ctx.make] || [];
+      },
+
+      get bunks() {
+        if (ctx.make === '' || ctx.model === null) {
+          return [];
+        }
+
+        return bunksFor(ctx.catalog, ctx.make, ctx.model);
+      },
+
+      get truckName() {
+        const model = ctx.catalog.trucks?.[ctx.make]?.[ctx.model];
+
+        return model ? `${ctx.make} ${model.name}` : '';
+      },
+
+      get makeNote() {
+        return ctx.catalog.makeNotes?.[ctx.make] || '';
+      },
+
+      get emptyMessage() {
+        if (ctx.make === '') {
+          return 'Choose your truck make to see which Kögler mattress fits.';
+        }
+
+        if (ctx.model === null) {
+          return `Now choose your ${ctx.make} model.`;
+        }
+
+        return '';
+      },
+
+      onMakeChange() {
+        const models = ctx.catalog.trucks[ctx.make] || [];
+        ctx.model = models.length === 1 ? 0 : null;
+        ctx.syncUrl();
+      },
+
+      onModelChange(event) {
+        const value = event.target.value;
+        ctx.model = value === '' ? null : Number(value);
+        ctx.syncUrl();
+      },
+
+      syncUrl() {
+        const url = new URL(window.location.href);
+
+        if (ctx.make) {
+          url.searchParams.set('make', ctx.make);
+        } else {
+          url.searchParams.delete('make');
+        }
+
+        if (ctx.model !== null) {
+          url.searchParams.set('model', String(ctx.model));
+        } else {
+          url.searchParams.delete('model');
+        }
+
+        window.history.replaceState(null, '', url);
+      },
+    };
+  });
 });
 
 Alpine.start();
