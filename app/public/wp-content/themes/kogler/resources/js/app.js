@@ -3,6 +3,29 @@ import Alpine from 'alpinejs';
 window.Alpine = Alpine;
 
 document.addEventListener('alpine:init', () => {
+  Alpine.store('fitment', {
+    make: '',
+    model: null,
+    truck: '',
+    contactHref(base) {
+      const truck = Alpine.store('fitment').truck;
+
+      if (! truck || ! base) {
+        return base;
+      }
+
+      try {
+        const url = new URL(base, window.location.origin);
+        url.searchParams.set('topic', 'mattress-fit');
+        url.searchParams.set('truck', truck);
+
+        return `${url.pathname}${url.search}`;
+      } catch (error) {
+        return base;
+      }
+    },
+  });
+
   /**
    * Close over Alpine’s reactive `ctx` (`this` from init). Expressions like
    * `goTo(n)` are invoked unbound, so method bodies must not rely on `this`.
@@ -845,6 +868,7 @@ document.addEventListener('alpine:init', () => {
         }
 
         ctx.dispatchWidths();
+        ctx.publishSelection();
       },
 
       dispatchWidths() {
@@ -867,6 +891,14 @@ document.addEventListener('alpine:init', () => {
         window.dispatchEvent(new CustomEvent('fitment:widths', {
           detail: { widths: [...new Set(widths)] },
         }));
+      },
+
+      publishSelection() {
+        const store = Alpine.store('fitment');
+        const model = ctx.model !== null ? ctx.catalog.trucks?.[ctx.make]?.[ctx.model] : null;
+        store.make = ctx.make || '';
+        store.model = ctx.model;
+        store.truck = model ? `${ctx.make} ${model.name}` : '';
       },
 
       get makes() {
@@ -961,6 +993,7 @@ document.addEventListener('alpine:init', () => {
         }
 
         window.history.replaceState(null, '', url);
+        ctx.publishSelection();
       },
     };
   });
