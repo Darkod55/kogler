@@ -379,6 +379,40 @@ trait strings
     }
 
     /**
+     * Permalink for a Brand Page whose sidebar brand is $brand.
+     * Falls back to /{brand}/ until that page is published.
+     */
+    public function brandPageUrl(string $brand): string
+    {
+        $brand = strtolower(trim($brand));
+        $url = function_exists('home_url') ? home_url('/' . trim($brand, '/') . '/') : '#';
+
+        if ($brand === '' || ! function_exists('get_posts') || ! function_exists('get_permalink')) {
+            return $url;
+        }
+
+        $pages = get_posts([
+            'post_type' => 'page',
+            'post_status' => 'publish',
+            'posts_per_page' => 1,
+            'meta_key' => 'kogler_brand',
+            'meta_value' => $brand,
+            'orderby' => 'date',
+            'order' => 'ASC',
+        ]);
+
+        if ($pages && $pages[0] instanceof \WP_Post) {
+            $permalink = get_permalink($pages[0]);
+
+            if (is_string($permalink) && $permalink !== '') {
+                return $permalink;
+            }
+        }
+
+        return $url;
+    }
+
+    /**
      * Resolve the page ID that supplies archive template content.
      */
     public function resolveArchivePageId(?string $post_type = null, ?string $page_title = null): ?int

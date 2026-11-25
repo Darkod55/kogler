@@ -5,6 +5,8 @@
   Icons are inline Lucide paths: the sprite has icon-user and icon-warranty, not users / shield-check.
 --}}
 @php
+    $madeInUsa = \App\Content\CompanyStory::madeInUsa();
+    $quality = \App\Content\CompanyStory::quality();
     $weAreImageId = 0;
     $weAreImage = '';
 
@@ -67,9 +69,9 @@
                 <path d="m9 12 2 2 4-4" />
               </svg>
             </div>
-            <h3 class="mb-0 text-dark-blue">Quality</h3>
+            <h3 class="mb-0 text-dark-blue">{{ $quality['title'] }}</h3>
             <p class="mb-0 text-[length:var(--font-size-base)] leading-[1.65] text-dark-blue/75">
-              From the foam that goes into a mattress to the cable that connects a trailer, everything is tested against the realities of life on the road.
+              {{ $quality['text'] }}
             </p>
           </article>
 
@@ -86,12 +88,12 @@
 
           <article class="flex flex-col gap-4 rounded-3xl bg-dark-blue p-9 text-white">
             <div class="flex flex-wrap items-baseline gap-3">
-              <span class="font-fraunces text-[72px] font-semibold leading-none text-secondary">150+</span>
-              <span class="whitespace-nowrap text-sm text-white/80">mattresses each day</span>
+              <span class="font-fraunces text-[72px] font-semibold leading-none text-secondary">{{ $madeInUsa['stat'] }}</span>
+              <span class="whitespace-nowrap text-sm text-white/80">{{ $madeInUsa['stat_line'] }}</span>
             </div>
-            <h3 class="mb-0 text-white">Made in the USA</h3>
+            <h3 class="mb-0 text-white">{{ $madeInUsa['title'] }}</h3>
             <p class="mb-0 text-[length:var(--font-size-base)] leading-[1.65] text-white/85">
-              Our manufacturing facility in Cleveland, TN produces over 150 quality mattresses each day.
+              {{ $madeInUsa['text'] }}
             </p>
           </article>
         </div>
