@@ -69,7 +69,7 @@ if (!class_exists(__NAMESPACE__.'\Customizer')) {
                 'type' => 'url',
                 'section' => 'kogler_outdoor',
                 'label' => __('Shop on Amazon URL', 'sage'),
-                'description' => __('Used by every Shop on Amazon button. Leave this empty to hide those buttons.', 'sage'),
+                'description' => __('Used by every Shop on Amazon button. The button stays on the page until this is set.', 'sage'),
             ]);
         }
 

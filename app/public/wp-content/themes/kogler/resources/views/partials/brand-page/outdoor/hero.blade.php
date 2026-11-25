@@ -2,7 +2,8 @@
   Kögler Outdoor — hero.
   Set $logoId to the white logo attachment. The SVG fallback is
   resources/images/brands/logo-kogler-outdoor-white.svg when that file is in the build.
-  Shop on Amazon reads the Kögler Outdoor Customizer URL and stays hidden while empty.
+  Shop on Amazon is always shown. It opens the Kögler Outdoor Customizer URL
+  when that setting is filled in.
   Fact-strip lines are new website copy. Edit them here and confirm with the client.
   In-page offset is html scroll-padding-top (--site-chrome-height).
 --}}
@@ -93,11 +94,16 @@
         </h1>
 
         <div class="mt-10 flex flex-wrap gap-3.5">
-          @if ($amazonUrl !== '')
-            <a class="btn btn-primary" href="{{ $amazonUrl }}" target="_blank" rel="noopener">
-              Shop on Amazon<span class="sr-only"> (opens in a new tab)</span>
-            </a>
-          @endif
+          <a
+            class="btn btn-primary"
+            href="{{ $amazonUrl !== '' ? $amazonUrl : '#' }}"
+            @if ($amazonUrl !== '') target="_blank" rel="noopener" @endif
+          >
+            Shop on Amazon
+            @if ($amazonUrl !== '')
+              <span class="sr-only"> (opens in a new tab)</span>
+            @endif
+          </a>
           <a class="btn btn-brand-outline" href="#products">View products</a>
         </div>
       </div>

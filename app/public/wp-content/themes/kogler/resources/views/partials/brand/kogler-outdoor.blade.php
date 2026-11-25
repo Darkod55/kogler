@@ -4,8 +4,8 @@
   An admin-editable catalogue would need ACF.
   No Kogler Outdoor logo file is referenced in the theme. Set $logoUrl to
   swap the wordmark for an image. $tile fills the photo slot when $imageId is empty.
-  Shop on Amazon reads the Kögler Outdoor Customizer URL. The button is
-  omitted while it is empty.
+  Shop on Amazon is always shown. It opens the Kögler Outdoor Customizer URL
+  when that setting is filled in.
 --}}
 @php
     $logoUrl = '';
@@ -81,11 +81,16 @@
         </p>
 
         <div class="mt-8 flex flex-wrap gap-3.5">
-          @if ($amazonUrl)
-            <a class="btn btn-primary" href="{{ $amazonUrl }}" target="_blank" rel="noopener">
-              {{ __('Shop on Amazon', 'sage') }}<span class="sr-only"> {{ __('(opens in a new tab)', 'sage') }}</span>
-            </a>
-          @endif
+          <a
+            class="btn btn-primary"
+            href="{{ $amazonUrl !== '' ? $amazonUrl : '#' }}"
+            @if ($amazonUrl !== '') target="_blank" rel="noopener" @endif
+          >
+            {{ __('Shop on Amazon', 'sage') }}
+            @if ($amazonUrl !== '')
+              <span class="sr-only"> {{ __('(opens in a new tab)', 'sage') }}</span>
+            @endif
+          </a>
           <a class="btn btn-secondary" href="{{ $warrantyUrl }}">
             {{ __('Warranty', 'sage') }}
           </a>

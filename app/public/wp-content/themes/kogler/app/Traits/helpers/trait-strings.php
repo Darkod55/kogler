@@ -355,7 +355,7 @@ trait strings
 
     /**
      * Shop on Amazon URL for every Outdoor button.
-     * Empty until set in the Customizer (Kögler Outdoor). Callers hide the button.
+     * Empty until set in the Customizer (Kögler Outdoor). The button still shows.
      */
     public function outdoorAmazonUrl(): string
     {

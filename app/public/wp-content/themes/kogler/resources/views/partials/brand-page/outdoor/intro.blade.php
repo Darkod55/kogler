@@ -136,11 +136,16 @@
         </p>
 
         <div class="mt-8 flex flex-wrap gap-3.5">
-          @if ($amazonUrl !== '')
-            <a class="btn btn-primary" href="{{ $amazonUrl }}" target="_blank" rel="noopener">
-              Shop on Amazon<span class="sr-only"> (opens in a new tab)</span>
-            </a>
-          @endif
+          <a
+            class="btn btn-primary"
+            href="{{ $amazonUrl !== '' ? $amazonUrl : '#' }}"
+            @if ($amazonUrl !== '') target="_blank" rel="noopener" @endif
+          >
+            Shop on Amazon
+            @if ($amazonUrl !== '')
+              <span class="sr-only"> (opens in a new tab)</span>
+            @endif
+          </a>
           <a class="btn btn-brand-outline" href="{{ $warrantyUrl }}">Warranty</a>
         </div>
       </div>
