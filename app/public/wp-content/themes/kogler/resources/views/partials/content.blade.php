@@ -2,7 +2,7 @@
   <header class="mb-2">
     <h2 class="h4 mb-1">
       <a href="{{ get_permalink() }}" class="text-secondary no-underline hover:text-primary transition-colors">
-        {!! $title !!}
+        {{ kogler_title_case($title) }}
       </a>
     </h2>
 

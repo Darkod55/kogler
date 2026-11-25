@@ -23,6 +23,11 @@
     padding: var(--padding-btn-y) var(--padding-btn-x) !important;
     font-size: var(--font-size-btn);
     line-height: 15px;
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+    }
   }
 
   :is(
@@ -93,6 +98,109 @@
     .wp-block-button.btn-link-dark > .wp-block-button__link
   ) {
     @apply text-black hover:bg-transparent hover:text-secondary;
+  }
+
+  /**
+   * Brand-aware buttons. Fill and ink follow the page theme.
+   * Outline is for dark brand pages.
+   */
+  :is(
+    a.btn-brand,
+    button.btn-brand,
+    .wp-block-button.btn-brand > .wp-block-button__link
+  ) {
+    background-color: var(--site-accent);
+    border-color: var(--site-accent);
+    color: var(--site-accent-ink);
+  }
+
+  :is(
+    a.btn-brand,
+    button.btn-brand,
+    .wp-block-button.btn-brand > .wp-block-button__link
+  ):hover {
+    background-color: color-mix(in srgb, var(--site-accent) 82%, var(--color-white));
+    border-color: color-mix(in srgb, var(--site-accent) 82%, var(--color-white));
+    color: var(--site-accent-ink);
+  }
+
+  :is(
+    a.btn-brand-outline,
+    button.btn-brand-outline,
+    .wp-block-button.btn-brand-outline > .wp-block-button__link
+  ) {
+    background-color: transparent;
+    border-width: 1.5px;
+    border-color: color-mix(in srgb, var(--color-white) 65%, transparent);
+    color: var(--color-white);
+  }
+
+  :is(
+    a.btn-brand-outline,
+    button.btn-brand-outline,
+    .wp-block-button.btn-brand-outline > .wp-block-button__link
+  ):hover {
+    background-color: var(--color-white);
+    border-color: var(--color-white);
+    color: var(--site-accent-ink);
+  }
+
+  :is([data-brand="goliath-steel"], [data-brand="kogler-outdoor"]) :is(
+    a.btn-primary,
+    button.btn-primary,
+    .wp-block-button.btn-primary > .wp-block-button__link,
+    a.btn-primary-alt,
+    button.btn-primary-alt,
+    .wp-block-button.btn-primary-alt > .wp-block-button__link
+  ) {
+    background-color: var(--site-accent);
+    border-color: var(--site-accent);
+    color: var(--site-accent-ink);
+  }
+
+  :is([data-brand="goliath-steel"], [data-brand="kogler-outdoor"]) :is(
+    a.btn-primary,
+    button.btn-primary,
+    .wp-block-button.btn-primary > .wp-block-button__link
+  ):hover {
+    background-color: var(--site-accent);
+    border-color: var(--site-accent);
+    color: var(--site-accent-ink);
+    filter: brightness(1.08);
+  }
+
+  :is([data-brand="goliath-steel"], [data-brand="kogler-outdoor"]) :is(
+    a.btn,
+    button.btn,
+    .wp-block-button[class*='btn-'] > .wp-block-button__link
+  ) {
+    transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, transform 150ms ease, filter 150ms ease;
+  }
+
+  [data-brand="goliath-steel"] :is(
+    a.btn,
+    button.btn,
+    .wp-block-button[class*='btn-'] > .wp-block-button__link
+  ):focus-visible {
+    outline-color: var(--color-goliath-green);
+  }
+
+  [data-brand="kogler-outdoor"] :is(
+    a.btn,
+    button.btn,
+    .wp-block-button[class*='btn-'] > .wp-block-button__link
+  ):focus-visible {
+    outline-color: var(--color-outdoor-amber);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :is([data-brand="goliath-steel"], [data-brand="kogler-outdoor"]) :is(
+      a.btn,
+      button.btn,
+      .wp-block-button[class*='btn-'] > .wp-block-button__link
+    ):hover {
+      transform: translateY(-1px);
+    }
   }
 
   /**

@@ -331,6 +331,121 @@ trait strings
     }
 
     /**
+     * Phone, email, and address shown in the footer.
+     * The homepage contact panel reads this too.
+     *
+     * @return array{phone_display: string, phone_tel: string, email: string, address: string}
+     */
+    public function siteContact(): array
+    {
+        return [
+            'phone_display' => '+1 (855) 702-6636',
+            'phone_tel' => '+18557026636',
+            'email' => 'info@kogler-usa.com',
+            'address' => '939 W North Ave. Suite 880. Chicago, IL 60642',
+        ];
+    }
+
+    /**
+     * Permalink for a page at $slug, else /{slug}/.
+     * Same lookup the Find a Distributor links use.
+     */
+    public function pageUrlBySlug(string $slug): string
+    {
+        $url = function_exists('home_url') ? home_url('/' . trim($slug, '/') . '/') : '#';
+
+        if ($slug !== '' && function_exists('get_page_by_path') && function_exists('get_permalink')) {
+            $page = get_page_by_path($slug);
+
+            if ($page instanceof \WP_Post) {
+                $permalink = get_permalink($page);
+
+                if (is_string($permalink) && $permalink !== '') {
+                    $url = $permalink;
+                }
+            }
+        }
+
+        return $url;
+    }
+
+    /**
+     * Shop on Amazon URL for every Outdoor button.
+     * Empty until set in the Customizer (Kögler Outdoor). The button still shows.
+     */
+    public function outdoorAmazonUrl(): string
+    {
+        if (! function_exists('get_theme_mod')) {
+            return '';
+        }
+
+        $url = trim((string) get_theme_mod('kogler_outdoor_amazon_url', ''));
+
+        if ($url === '') {
+            return '';
+        }
+
+        if (function_exists('wp_http_validate_url')) {
+            $valid = wp_http_validate_url($url);
+
+            return is_string($valid) ? $valid : '';
+        }
+
+        return filter_var($url, FILTER_VALIDATE_URL) ? $url : '';
+    }
+
+    /**
+     * Page field with a default. Uses ACF when that plugin is active
+     * and the field has a value. Otherwise the default copy is used.
+     */
+    public function pageField(string $name, string $default): string
+    {
+        if (function_exists('get_field')) {
+            $value = get_field($name);
+
+            if (is_string($value) && trim($value) !== '') {
+                return trim($value);
+            }
+        }
+
+        return $default;
+    }
+
+    /**
+     * Permalink for a Brand Page whose sidebar brand is $brand.
+     * Falls back to /{brand}/ until that page is published.
+     */
+    public function brandPageUrl(string $brand): string
+    {
+        $brand = strtolower(trim($brand));
+        $url = function_exists('home_url') ? home_url('/' . trim($brand, '/') . '/') : '#';
+
+        if ($brand === '' || ! function_exists('get_posts') || ! function_exists('get_permalink')) {
+            return $url;
+        }
+
+        $pages = get_posts([
+            'post_type' => 'page',
+            'post_status' => 'publish',
+            'posts_per_page' => 1,
+            'meta_key' => 'kogler_brand',
+            'meta_value' => $brand,
+            'orderby' => 'date',
+            'order' => 'ASC',
+        ]);
+
+        if ($pages && $pages[0] instanceof \WP_Post) {
+            $permalink = get_permalink($pages[0]);
+
+            if (is_string($permalink) && $permalink !== '') {
+                return $permalink;
+            }
+        }
+
+        return $url;
+    }
+
+    /**
      * Resolve the page ID that supplies archive template content.
      */
     public function resolveArchivePageId(?string $post_type = null, ?string $page_title = null): ?int
@@ -816,5 +931,134 @@ trait strings
         wp_reset_postdata();
 
         return '';
+    }
+
+    /**
+     * Chicago title case for headings. Wording is unchanged.
+     * Small words stay lower case unless they are first or last.
+     * All-caps tokens, brand names, and unit codes stay as written.
+     */
+    public function titleCase(string $value): string
+    {
+        $value = trim($value);
+
+        if ($value === '') {
+            return $value;
+        }
+
+        $small = ['a', 'an', 'the', 'and', 'but', 'or', 'nor', 'for', 'so', 'yet', 'at', 'by', 'in', 'of', 'on', 'to', 'up', 'via', 'with', 'from', 'into'];
+        $parts = preg_split('/(\s+)/u', $value, -1, PREG_SPLIT_DELIM_CAPTURE);
+        $wordIndexes = [];
+
+        foreach ($parts as $index => $part) {
+            if ($part !== '' && ! preg_match('/^\s+$/u', $part)) {
+                $wordIndexes[] = $index;
+            }
+        }
+
+        $last = count($wordIndexes) - 1;
+
+        foreach ($wordIndexes as $position => $index) {
+            $force = $position === 0 || $position === $last;
+            $parts[$index] = $this->titleCaseWord($parts[$index], $force, $small, $position > 0 ? $parts[$wordIndexes[$position - 1]] : '');
+        }
+
+        return implode('', $parts);
+    }
+
+    /**
+     * Page theme for the chrome. Empty means the default navy.
+     * Set post meta kogler_brand, or use a brand page template when it exists.
+     */
+    public function brandTheme(): string
+    {
+        $allowed = ['kogler-sleep', 'goliath-steel', 'kogler-outdoor'];
+
+        if (! function_exists('is_singular') || ! is_singular('page')) {
+            return '';
+        }
+
+        $id = function_exists('get_queried_object_id') ? (int) get_queried_object_id() : 0;
+
+        if ($id < 1) {
+            return '';
+        }
+
+        $meta = function_exists('get_post_meta') ? strtolower(trim((string) get_post_meta($id, 'kogler_brand', true))) : '';
+
+        if (in_array($meta, $allowed, true)) {
+            return $meta;
+        }
+
+        $template = function_exists('get_page_template_slug') ? (string) get_page_template_slug($id) : '';
+        $map = [
+            'tpl-kogler-sleep.blade.php' => 'kogler-sleep',
+            'tpl-goliath-steel.blade.php' => 'goliath-steel',
+            'tpl-kogler-outdoor.blade.php' => 'kogler-outdoor',
+        ];
+
+        return $map[$template] ?? '';
+    }
+
+    private function titleCaseWord(string $token, bool $force, array $small, string $previous): string
+    {
+        if (preg_match('/^\d+-in-\d+$/iu', $token)) {
+            return mb_strtolower($token);
+        }
+
+        if (preg_match('/^\d+-way$/iu', $token)) {
+            return preg_replace_callback('/^(\d+)-(\p{L}+)$/u', function (array $match): string {
+                return $match[1] . '-' . mb_strtoupper(mb_substr($match[2], 0, 1)) . mb_strtolower(mb_substr($match[2], 1));
+            }, $token);
+        }
+
+        if (preg_match('/^\d+(?:\.\d+)?\s*mil$/iu', $token) || (mb_strtolower(trim($token)) === 'mil' && preg_match('/\d/u', $previous))) {
+            return mb_strtolower($token);
+        }
+
+        if (str_contains($token, '-')) {
+            $bits = explode('-', $token);
+
+            return implode('-', array_map(function (string $bit) use ($small): string {
+                return $this->titleCaseWord($bit, true, $small, '');
+            }, $bits));
+        }
+
+        $letters = preg_replace('/[^\p{L}]/u', '', $token) ?? '';
+
+        if ($letters !== '' && mb_strtoupper($letters) === $letters && mb_strlen($letters) >= 2) {
+            return $token;
+        }
+
+        $core = mb_strtolower(preg_replace('/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/u', '', $token) ?? '');
+
+        if (! $force && in_array($core, $small, true)) {
+            return $this->rewriteLetters($token, false);
+        }
+
+        return $this->rewriteLetters($token, true);
+    }
+
+    private function rewriteLetters(string $token, bool $capitalise): string
+    {
+        $chars = mb_str_split($token);
+        $seen = false;
+
+        foreach ($chars as $index => $char) {
+            if (! preg_match('/\p{L}/u', $char)) {
+                continue;
+            }
+
+            if (! $seen && $capitalise) {
+                $chars[$index] = mb_strtoupper($char);
+                $seen = true;
+                continue;
+            }
+
+            $chars[$index] = mb_strtolower($char);
+            $seen = true;
+        }
+
+        return implode('', $chars);
     }
 }

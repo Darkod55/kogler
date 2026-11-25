@@ -42,33 +42,788 @@ add_filter('woocommerce_single_product_carousel_options', function (array $optio
 });
 
 /**
- * Refresh header cart total + count after AJAX add-to-cart.
+ * Brand page chrome. Post meta kogler_brand, or a dedicated brand template.
  *
- * @param  array<string, string>  $fragments
- * @return array<string, string>
+ * @param  array<int, string>  $classes
+ * @return array<int, string>
  */
-add_filter('woocommerce_add_to_cart_fragments', function (array $fragments) {
-    if (! function_exists('WC') || ! WC()->cart) {
-        return $fragments;
+add_filter('body_class', function (array $classes) {
+    if (! function_exists('App\\helpers')) {
+        return $classes;
     }
 
-    $count = (int) WC()->cart->get_cart_contents_count();
-    $total = html_entity_decode(
-        wp_strip_all_tags(wc_price(WC()->cart->get_displayed_subtotal())),
-        ENT_QUOTES,
-        'UTF-8'
-    );
+    $brand = \App\helpers()->brandTheme();
 
-    $fragments['span.header-cart__total'] = sprintf(
-        '<span class="header-cart__total">%s</span>',
-        esc_html($total)
-    );
+    if ($brand !== '') {
+        $classes[] = 'brand-' . sanitize_html_class($brand);
+    }
 
-    $fragments['span.header-cart__count'] = sprintf(
-        '<span class="header-cart__count" aria-hidden="true"%s>%d</span>',
-        $count === 0 ? ' hidden' : '',
-        $count
-    );
-
-    return $fragments;
+    return $classes;
 });
+
+/**
+ * Native select for kogler_brand. The Brand Page template reads this.
+ */
+add_action('add_meta_boxes_page', function () {
+    add_meta_box(
+        'kogler_brand',
+        __('Brand', 'sage'),
+        function (\WP_Post $post) {
+            $current = (string) get_post_meta($post->ID, 'kogler_brand', true);
+            $choices = [
+                '' => __('Default (site navy)', 'sage'),
+                'kogler-sleep' => __('Kögler Sleep', 'sage'),
+                'goliath-steel' => __('Goliath Steel', 'sage'),
+                'kogler-outdoor' => __('Kögler Outdoor', 'sage'),
+            ];
+
+            wp_nonce_field('kogler_brand_save', 'kogler_brand_nonce');
+            echo '<p><label for="kogler-brand-select">' . esc_html__('Brand theme for the Brand Page template.', 'sage') . '</label></p>';
+            echo '<div class="kogler-brand-field">';
+            echo '<select id="kogler-brand-select" name="kogler_brand">';
+
+            foreach ($choices as $value => $label) {
+                printf(
+                    '<option value="%s"%s>%s</option>',
+                    esc_attr($value),
+                    selected($current, $value, false),
+                    esc_html($label)
+                );
+            }
+
+            echo '</select>';
+            echo '</div>';
+        },
+        'page',
+        'side'
+    );
+});
+
+/**
+ * The closed select sizes itself to its longest option, which is wider
+ * than the block-editor sidebar and makes that column scroll sideways.
+ */
+add_action('admin_head', function () {
+    $screen = function_exists('get_current_screen') ? get_current_screen() : null;
+
+    if (! $screen || $screen->base !== 'post' || $screen->post_type !== 'page') {
+        return;
+    }
+
+    echo '<style>
+        #kogler_brand .inside { min-width: 0; max-width: 100%; }
+        #kogler_brand .inside p { max-width: 100%; overflow-wrap: break-word; }
+        #kogler_brand .kogler-brand-field { display: grid; grid-template-columns: minmax(0, 1fr); max-width: 100%; }
+        #kogler_brand select { box-sizing: border-box; width: 100%; max-width: 100%; min-width: 0; }
+    </style>';
+});
+
+add_action('save_post_page', function ($post_id) {
+    if (! isset($_POST['kogler_brand_nonce']) || ! wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['kogler_brand_nonce'])), 'kogler_brand_save')) {
+        return;
+    }
+
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+
+    if (! current_user_can('edit_page', $post_id)) {
+        return;
+    }
+
+    $brand = isset($_POST['kogler_brand']) ? sanitize_text_field(wp_unslash($_POST['kogler_brand'])) : '';
+    $allowed = ['kogler-sleep', 'goliath-steel', 'kogler-outdoor'];
+
+    if (! in_array($brand, $allowed, true)) {
+        delete_post_meta($post_id, 'kogler_brand');
+
+        return;
+    }
+
+    update_post_meta($post_id, 'kogler_brand', $brand);
+});
+
+/**
+ * Ordering cards on the Goliath Steel brand page.
+ * The repeater is label, headline, and detail. It only appears once ACF
+ * is installed, and only on a Brand Page set to Goliath Steel.
+ */
+add_action('acf/init', function () {
+    if (! function_exists('acf_add_local_field_group')) {
+        return;
+    }
+
+    acf_add_local_field_group([
+        'key' => 'group_kogler_goliath_ordering',
+        'title' => __('Goliath Ordering Information', 'sage'),
+        'fields' => [
+            [
+                'key' => 'field_kogler_goliath_ordering',
+                'label' => __('Ordering Information', 'sage'),
+                'name' => 'goliath_ordering',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'button_label' => __('Add card', 'sage'),
+                'sub_fields' => [
+                    [
+                        'key' => 'field_kogler_goliath_ordering_label',
+                        'label' => __('Label', 'sage'),
+                        'name' => 'label',
+                        'type' => 'text',
+                        'instructions' => __('Stored in normal case. The page uppercases it.', 'sage'),
+                    ],
+                    [
+                        'key' => 'field_kogler_goliath_ordering_headline',
+                        'label' => __('Headline', 'sage'),
+                        'name' => 'headline',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_kogler_goliath_ordering_detail',
+                        'label' => __('Detail', 'sage'),
+                        'name' => 'detail',
+                        'type' => 'textarea',
+                        'rows' => 2,
+                        'new_lines' => '',
+                    ],
+                ],
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_template',
+                    'operator' => '==',
+                    'value' => 'tpl-brand-page.blade.php',
+                ],
+                [
+                    'param' => 'kogler_brand',
+                    'operator' => '==',
+                    'value' => 'goliath-steel',
+                ],
+            ],
+        ],
+    ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_kogler_who_we_are',
+        'title' => __('Who We Are Sections', 'sage'),
+        'fields' => [
+            ['key' => 'field_wwa_brands_title', 'label' => __('Our Brands Title', 'sage'), 'name' => 'wwa_brands_title', 'type' => 'text'],
+            ['key' => 'field_wwa_brands_intro', 'label' => __('Our Brands Intro', 'sage'), 'name' => 'wwa_brands_intro', 'type' => 'textarea', 'rows' => 2, 'new_lines' => ''],
+            ['key' => 'field_wwa_we_are_title', 'label' => __('We Are Title', 'sage'), 'name' => 'wwa_we_are_title', 'type' => 'text'],
+            ['key' => 'field_wwa_we_are_intro', 'label' => __('We Are Intro', 'sage'), 'name' => 'wwa_we_are_intro', 'type' => 'textarea', 'rows' => 2, 'new_lines' => ''],
+            ['key' => 'field_wwa_we_serve_title', 'label' => __('We Serve Title', 'sage'), 'name' => 'wwa_we_serve_title', 'type' => 'text'],
+            ['key' => 'field_wwa_we_serve_intro', 'label' => __('We Serve Intro', 'sage'), 'name' => 'wwa_we_serve_intro', 'type' => 'textarea', 'rows' => 3, 'new_lines' => ''],
+            ['key' => 'field_wwa_hours_title', 'label' => __('Hours Title', 'sage'), 'name' => 'wwa_hours_title', 'type' => 'text', 'instructions' => __('End the title with HOURS to keep that word in the italic style.', 'sage')],
+            ['key' => 'field_wwa_hours_intro', 'label' => __('Hours Intro', 'sage'), 'name' => 'wwa_hours_intro', 'type' => 'textarea', 'rows' => 2, 'new_lines' => ''],
+            ['key' => 'field_wwa_leadership_title', 'label' => __('Leadership Title', 'sage'), 'name' => 'wwa_leadership_title', 'type' => 'text'],
+            ['key' => 'field_wwa_leadership_intro', 'label' => __('Leadership Intro', 'sage'), 'name' => 'wwa_leadership_intro', 'type' => 'textarea', 'rows' => 3, 'new_lines' => ''],
+            ['key' => 'field_wwa_cta_intro', 'label' => __('Closing Intro', 'sage'), 'name' => 'wwa_cta_intro', 'type' => 'textarea', 'rows' => 2, 'new_lines' => ''],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_template',
+                    'operator' => '==',
+                    'value' => 'tpl-who-we-are.blade.php',
+                ],
+            ],
+        ],
+    ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_kogler_outdoor_products',
+        'title' => __('Outdoor Products', 'sage'),
+        'fields' => [
+            [
+                'key' => 'field_kogler_outdoor_products',
+                'label' => __('Outdoor Products', 'sage'),
+                'name' => 'outdoor_products',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'button_label' => __('Add product', 'sage'),
+                'sub_fields' => [
+                    [
+                        'key' => 'field_kogler_outdoor_product_title',
+                        'label' => __('Title', 'sage'),
+                        'name' => 'title',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_kogler_outdoor_product_image',
+                        'label' => __('Image', 'sage'),
+                        'name' => 'image',
+                        'type' => 'image',
+                        'return_format' => 'id',
+                        'preview_size' => 'medium',
+                        'library' => 'all',
+                    ],
+                    [
+                        'key' => 'field_kogler_outdoor_product_detail',
+                        'label' => __('Detail', 'sage'),
+                        'name' => 'detail',
+                        'type' => 'text',
+                        'instructions' => __('Sizes or the marine list. Leave empty to hide the line.', 'sage'),
+                    ],
+                ],
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_template',
+                    'operator' => '==',
+                    'value' => 'tpl-brand-page.blade.php',
+                ],
+                [
+                    'param' => 'kogler_brand',
+                    'operator' => '==',
+                    'value' => 'kogler-outdoor',
+                ],
+            ],
+        ],
+    ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_kogler_home_hero',
+        'title' => __('Homepage Hero', 'sage'),
+        'fields' => [
+            ['key' => 'field_hero_title_line_1', 'label' => __('Title Line 1', 'sage'), 'name' => 'hero_title_line_1', 'type' => 'text'],
+            ['key' => 'field_hero_title_line_2', 'label' => __('Title Line 2', 'sage'), 'name' => 'hero_title_line_2', 'type' => 'text', 'instructions' => __('Rendered in italic.', 'sage')],
+            ['key' => 'field_hero_intro', 'label' => __('Intro', 'sage'), 'name' => 'hero_intro', 'type' => 'textarea', 'rows' => 3, 'new_lines' => ''],
+            ['key' => 'field_hero_video', 'label' => __('Background Video', 'sage'), 'name' => 'hero_video', 'type' => 'file', 'return_format' => 'array', 'mime_types' => 'mp4,webm'],
+            ['key' => 'field_hero_video_poster', 'label' => __('Video Poster', 'sage'), 'name' => 'hero_video_poster', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'medium'],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_type',
+                    'operator' => '==',
+                    'value' => 'front_page',
+                ],
+            ],
+        ],
+    ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_kogler_home_capabilities',
+        'title' => __('Homepage Capabilities', 'sage'),
+        'fields' => [
+            [
+                'key' => 'field_kogler_capabilities',
+                'label' => __('Capabilities', 'sage'),
+                'name' => 'capabilities',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'max' => 5,
+                'button_label' => __('Add capability', 'sage'),
+                'instructions' => __('Up to five items. A stat row shows the number instead of an icon.', 'sage'),
+                'sub_fields' => [
+                    [
+                        'key' => 'field_kogler_capability_type',
+                        'label' => __('Type', 'sage'),
+                        'name' => 'type',
+                        'type' => 'select',
+                        'choices' => [
+                            'icon' => __('Icon', 'sage'),
+                            'stat' => __('Stat', 'sage'),
+                        ],
+                        'default_value' => 'icon',
+                        'ui' => 1,
+                    ],
+                    [
+                        'key' => 'field_kogler_capability_icon',
+                        'label' => __('Icon', 'sage'),
+                        'name' => 'icon',
+                        'type' => 'select',
+                        'choices' => [
+                            'factory' => __('Factory', 'sage'),
+                            'tag' => __('Tag', 'sage'),
+                            'bed' => __('Bed', 'sage'),
+                            'handshake' => __('Handshake', 'sage'),
+                        ],
+                        'ui' => 1,
+                        'conditional_logic' => [
+                            [
+                                [
+                                    'field' => 'field_kogler_capability_type',
+                                    'operator' => '==',
+                                    'value' => 'icon',
+                                ],
+                            ],
+                        ],
+                    ],
+                    [
+                        'key' => 'field_kogler_capability_number',
+                        'label' => __('Number', 'sage'),
+                        'name' => 'number',
+                        'type' => 'text',
+                        'conditional_logic' => [
+                            [
+                                [
+                                    'field' => 'field_kogler_capability_type',
+                                    'operator' => '==',
+                                    'value' => 'stat',
+                                ],
+                            ],
+                        ],
+                    ],
+                    [
+                        'key' => 'field_kogler_capability_label',
+                        'label' => __('Label', 'sage'),
+                        'name' => 'label',
+                        'type' => 'text',
+                    ],
+                ],
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_type',
+                    'operator' => '==',
+                    'value' => 'front_page',
+                ],
+            ],
+        ],
+    ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_kogler_home_brands',
+        'title' => __('Homepage Brands', 'sage'),
+        'fields' => [
+            [
+                'key' => 'field_kogler_home_brands',
+                'label' => __('Brands', 'sage'),
+                'name' => 'brands',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'button_label' => __('Add brand', 'sage'),
+                'instructions' => __('Leave empty to use the three default brands. Theme sets the band colours.', 'sage'),
+                'sub_fields' => [
+                    [
+                        'key' => 'field_kogler_home_brand_theme',
+                        'label' => __('Theme', 'sage'),
+                        'name' => 'theme',
+                        'type' => 'select',
+                        'choices' => [
+                            'sleep' => __('Kögler Sleep', 'sage'),
+                            'goliath' => __('Goliath Steel', 'sage'),
+                            'outdoor' => __('Kögler Outdoor', 'sage'),
+                        ],
+                        'default_value' => 'sleep',
+                        'ui' => 1,
+                    ],
+                    [
+                        'key' => 'field_kogler_home_brand_logo',
+                        'label' => __('Logo', 'sage'),
+                        'name' => 'logo',
+                        'type' => 'image',
+                        'return_format' => 'id',
+                        'preview_size' => 'medium',
+                    ],
+                    [
+                        'key' => 'field_kogler_home_brand_tagline',
+                        'label' => __('Tagline', 'sage'),
+                        'name' => 'tagline',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_kogler_home_brand_text',
+                        'label' => __('Text', 'sage'),
+                        'name' => 'text',
+                        'type' => 'textarea',
+                        'rows' => 3,
+                        'new_lines' => '',
+                    ],
+                    [
+                        'key' => 'field_kogler_home_brand_link',
+                        'label' => __('Link', 'sage'),
+                        'name' => 'link',
+                        'type' => 'link',
+                        'return_format' => 'array',
+                    ],
+                    [
+                        'key' => 'field_kogler_home_brand_image',
+                        'label' => __('Image', 'sage'),
+                        'name' => 'image',
+                        'type' => 'image',
+                        'return_format' => 'id',
+                        'preview_size' => 'medium',
+                        'instructions' => __('Optional attachment ID. Empty leaves the coloured panel.', 'sage'),
+                    ],
+                ],
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_type',
+                    'operator' => '==',
+                    'value' => 'front_page',
+                ],
+            ],
+        ],
+    ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_kogler_home_audiences',
+        'title' => __('Homepage Audiences', 'sage'),
+        'fields' => [
+            [
+                'key' => 'field_kogler_home_audiences',
+                'label' => __('Audiences', 'sage'),
+                'name' => 'audiences',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'button_label' => __('Add audience', 'sage'),
+                'instructions' => __('Leave empty to use the four defaults. Image is an attachment ID. There is no link.', 'sage'),
+                'sub_fields' => [
+                    [
+                        'key' => 'field_kogler_home_audience_label',
+                        'label' => __('Label', 'sage'),
+                        'name' => 'label',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_kogler_home_audience_text',
+                        'label' => __('Text', 'sage'),
+                        'name' => 'text',
+                        'type' => 'textarea',
+                        'rows' => 3,
+                        'new_lines' => '',
+                    ],
+                    [
+                        'key' => 'field_kogler_home_audience_image',
+                        'label' => __('Image', 'sage'),
+                        'name' => 'image',
+                        'type' => 'image',
+                        'return_format' => 'id',
+                        'preview_size' => 'medium',
+                        'instructions' => __('Attachment ID. The media alt is the photo description.', 'sage'),
+                    ],
+                ],
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_type',
+                    'operator' => '==',
+                    'value' => 'front_page',
+                ],
+            ],
+        ],
+    ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_kogler_home_inside',
+        'title' => __('Homepage What’s Inside', 'sage'),
+        'fields' => [
+            [
+                'key' => 'field_kogler_inside_image',
+                'label' => __('Cross-section', 'sage'),
+                'name' => 'inside_image',
+                'type' => 'image',
+                'return_format' => 'id',
+                'preview_size' => 'medium',
+                'instructions' => __('Attachment ID of the plain cross-section. The four numbered markers stay on the layers.', 'sage'),
+            ],
+            [
+                'key' => 'field_kogler_inside_features',
+                'label' => __('Features', 'sage'),
+                'name' => 'inside_features',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'min' => 4,
+                'max' => 4,
+                'button_label' => __('Add feature', 'sage'),
+                'instructions' => __('Keep these four rows in order: cover, foam, core, edges. The markers do not follow a reorder.', 'sage'),
+                'sub_fields' => [
+                    [
+                        'key' => 'field_kogler_inside_feature_title',
+                        'label' => __('Title', 'sage'),
+                        'name' => 'title',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_kogler_inside_feature_text',
+                        'label' => __('Text', 'sage'),
+                        'name' => 'text',
+                        'type' => 'textarea',
+                        'rows' => 3,
+                        'new_lines' => '',
+                    ],
+                ],
+            ],
+            [
+                'key' => 'field_kogler_inside_video',
+                'label' => __('Process Video', 'sage'),
+                'name' => 'inside_video',
+                'type' => 'file',
+                'return_format' => 'id',
+                'mime_types' => 'mp4,webm',
+                'instructions' => __('Attachment ID. Empty uses the mattress video already in the media library.', 'sage'),
+            ],
+            [
+                'key' => 'field_kogler_inside_video_poster',
+                'label' => __('Video Poster', 'sage'),
+                'name' => 'inside_video_poster',
+                'type' => 'image',
+                'return_format' => 'id',
+                'preview_size' => 'medium',
+                'instructions' => __('Attachment ID of a still from the mattress video.', 'sage'),
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_type',
+                    'operator' => '==',
+                    'value' => 'front_page',
+                ],
+            ],
+        ],
+    ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_kogler_home_benefits',
+        'title' => __('Homepage Benefits', 'sage'),
+        'fields' => [
+            [
+                'key' => 'field_kogler_benefits_image',
+                'label' => __('Photo', 'sage'),
+                'name' => 'benefits_image',
+                'type' => 'image',
+                'return_format' => 'id',
+                'preview_size' => 'medium',
+                'instructions' => __('Attachment ID. Empty uses the night-truck photo, 398.', 'sage'),
+            ],
+            [
+                'key' => 'field_kogler_benefits',
+                'label' => __('Benefits', 'sage'),
+                'name' => 'benefits',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'max' => 3,
+                'button_label' => __('Add benefit', 'sage'),
+                'instructions' => __('Up to three. Leave empty to use the defaults.', 'sage'),
+                'sub_fields' => [
+                    [
+                        'key' => 'field_kogler_benefit_title',
+                        'label' => __('Title', 'sage'),
+                        'name' => 'title',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_kogler_benefit_text',
+                        'label' => __('Text', 'sage'),
+                        'name' => 'text',
+                        'type' => 'textarea',
+                        'rows' => 3,
+                        'new_lines' => '',
+                    ],
+                ],
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_type',
+                    'operator' => '==',
+                    'value' => 'front_page',
+                ],
+            ],
+        ],
+    ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_kogler_home_services',
+        'title' => __('Homepage Services', 'sage'),
+        'fields' => [
+            [
+                'key' => 'field_kogler_services_title',
+                'label' => __('Title', 'sage'),
+                'name' => 'services_title',
+                'type' => 'text',
+                'instructions' => __('The last word is set in italic.', 'sage'),
+            ],
+            [
+                'key' => 'field_kogler_services_intro',
+                'label' => __('Intro', 'sage'),
+                'name' => 'services_intro',
+                'type' => 'textarea',
+                'rows' => 3,
+                'new_lines' => '',
+            ],
+            [
+                'key' => 'field_kogler_services_button',
+                'label' => __('Button', 'sage'),
+                'name' => 'services_button',
+                'type' => 'link',
+                'return_format' => 'array',
+            ],
+            [
+                'key' => 'field_kogler_services',
+                'label' => __('Services', 'sage'),
+                'name' => 'services',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'max' => 6,
+                'button_label' => __('Add service', 'sage'),
+                'instructions' => __('Up to six. Leave empty to use the four defaults.', 'sage'),
+                'sub_fields' => [
+                    [
+                        'key' => 'field_kogler_service_title',
+                        'label' => __('Title', 'sage'),
+                        'name' => 'title',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_kogler_service_text',
+                        'label' => __('Text', 'sage'),
+                        'name' => 'text',
+                        'type' => 'textarea',
+                        'rows' => 3,
+                        'new_lines' => '',
+                    ],
+                ],
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_type',
+                    'operator' => '==',
+                    'value' => 'front_page',
+                ],
+            ],
+        ],
+    ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_kogler_home_testimonials',
+        'title' => __('Homepage Testimonials', 'sage'),
+        'fields' => [
+            [
+                'key' => 'field_kogler_testimonials',
+                'label' => __('Testimonials', 'sage'),
+                'name' => 'testimonials',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'button_label' => __('Add testimonial', 'sage'),
+                'instructions' => __('Real quotes only. Leave empty to show the one published driver quote. Do not add placeholders.', 'sage'),
+                'sub_fields' => [
+                    [
+                        'key' => 'field_kogler_testimonial_quote',
+                        'label' => __('Quote', 'sage'),
+                        'name' => 'quote',
+                        'type' => 'textarea',
+                        'rows' => 4,
+                        'new_lines' => '',
+                        'instructions' => __('Type the quote without quotation marks.', 'sage'),
+                    ],
+                    [
+                        'key' => 'field_kogler_testimonial_name',
+                        'label' => __('Name', 'sage'),
+                        'name' => 'name',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_kogler_testimonial_role',
+                        'label' => __('Role', 'sage'),
+                        'name' => 'role',
+                        'type' => 'text',
+                    ],
+                ],
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_type',
+                    'operator' => '==',
+                    'value' => 'front_page',
+                ],
+            ],
+        ],
+    ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_kogler_home_contact',
+        'title' => __('Homepage Contact', 'sage'),
+        'fields' => [
+            [
+                'key' => 'field_kogler_cta_title',
+                'label' => __('Title', 'sage'),
+                'name' => 'cta_title',
+                'type' => 'text',
+                'instructions' => __('The last two words are set in italic.', 'sage'),
+            ],
+            [
+                'key' => 'field_kogler_cta_text',
+                'label' => __('Text', 'sage'),
+                'name' => 'cta_text',
+                'type' => 'textarea',
+                'rows' => 3,
+                'new_lines' => '',
+            ],
+            [
+                'key' => 'field_kogler_cta_form',
+                'label' => __('Fluent Form ID', 'sage'),
+                'name' => 'cta_form',
+                'type' => 'number',
+                'instructions' => __('ID of the imported Homepage – Quote Request form. Set Form Style to None.', 'sage'),
+                'min' => 0,
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_type',
+                    'operator' => '==',
+                    'value' => 'front_page',
+                ],
+            ],
+        ],
+    ]);
+});
+
+add_filter('acf/location/rule_types', function ($choices) {
+    if (! is_array($choices)) {
+        return $choices;
+    }
+
+    if (! isset($choices['Page']) || ! is_array($choices['Page'])) {
+        $choices['Page'] = [];
+    }
+
+    $choices['Page']['kogler_brand'] = __('Brand', 'sage');
+
+    return $choices;
+});
+
+add_filter('acf/location/rule_values/kogler_brand', function ($choices) {
+    if (! is_array($choices)) {
+        $choices = [];
+    }
+
+    $choices['goliath-steel'] = __('Goliath Steel', 'sage');
+    $choices['kogler-outdoor'] = __('Kögler Outdoor', 'sage');
+
+    return $choices;
+});
+
+add_filter('acf/location/rule_match/kogler_brand', function ($match, $rule, $screen) {
+    $postId = is_array($screen) ? (int) ($screen['post_id'] ?? 0) : 0;
+    $brand = $postId > 0 ? (string) get_post_meta($postId, 'kogler_brand', true) : '';
+    $isMatch = $brand === (string) ($rule['value'] ?? '');
+
+    if (($rule['operator'] ?? '==') === '!=') {
+        return ! $isMatch;
+    }
+
+    return $isMatch;
+}, 10, 3);
+

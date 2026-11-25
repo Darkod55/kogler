@@ -12,6 +12,9 @@
 */
 @import "./theme/buttons.css";
 @import "./theme/forms.css";
+@import "./theme/distributor-application.css";
+@import "./theme/contact-section.css";
+@import "./theme/homepage-quote.css";
 @import "./theme/woocommerce.css";
 @import "./theme/nav.css";
 @import "./theme/typography.css";
@@ -21,9 +24,10 @@
 @import "./components/mpx-subheading.css";
 @import "./components/header-chrome.css";
 
-@source inline("text-primary text-secondary text-tertiary text-teal text-gray text-light text-dark-blue text-light-blue text-dark-gray text-black text-white");
-@source inline("bg-primary bg-secondary bg-tertiary bg-teal bg-gray bg-light bg-dark-blue bg-light-blue bg-dark-gray bg-black bg-white");
-@source inline("font-heading font-fraunces");
+@source inline("text-primary text-secondary text-tertiary text-teal text-gray text-light text-dark-blue text-light-blue text-dark-gray text-black text-white text-goliath-silver text-goliath-green text-goliath-chrome text-outdoor-amber");
+@source inline("bg-primary bg-secondary bg-tertiary bg-teal bg-gray bg-light bg-dark-blue bg-light-blue bg-dark-gray bg-black bg-white bg-goliath-950 bg-goliath-900 bg-goliath-800 bg-goliath-700 bg-goliath-green bg-outdoor-950 bg-outdoor-900 bg-outdoor-700 bg-outdoor-600 bg-outdoor-water");
+@source inline("border-goliath-green border-goliath-orange border-outdoor-amber outline-goliath-green outline-outdoor-amber");
+@source inline("font-heading font-fraunces font-jakarta");
 /**
  * Utilities applied via the block editor's "Additional CSS class(es)"
  * field (e.g. the hero right-column glass panel). Those class names live

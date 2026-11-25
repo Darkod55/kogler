@@ -9,7 +9,8 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
   </head>
 
-  <body @php(body_class())>
+  @php($brandTheme = \App\helpers()->brandTheme())
+  <body @php(body_class()) @if ($brandTheme !== '') data-brand="{{ $brandTheme }}" @endif>
     @php(wp_body_open())
 
     <div id="app">

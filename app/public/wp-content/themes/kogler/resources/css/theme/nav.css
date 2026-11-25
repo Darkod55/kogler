@@ -10,14 +10,15 @@
   }
 
   /**
-   * Preheader utility bar (promo copy left, contact / menu right).
+   * Preheader: phone and email on the left, search and social on the right.
    */
   .preheader-pros {
     @apply font-sans text-sm font-semibold text-white;
   }
 
   .preheader-nav,
-  .preheader-phone {
+  .preheader-phone,
+  .preheader-email {
     @apply font-sans text-sm font-semibold text-white;
   }
 
@@ -25,17 +26,9 @@
     @apply inline-flex items-center gap-2 text-white transition-opacity hover:opacity-80;
   }
 
-  /**
-   * Inner pages: white preheader with dark-blue copy/icons.
-   */
-  .site-chrome--inner .preheader-pros,
-  .site-chrome--inner .preheader-nav,
-  .site-chrome--inner .preheader-phone {
-    @apply text-dark-blue;
-  }
-
-  .site-chrome--inner .preheader-nav .nav-link {
-    @apply text-dark-blue hover:opacity-80;
+  .site-chrome .preheader-phone,
+  .site-chrome .preheader-email {
+    color: var(--color-white);
   }
 
   /**
@@ -43,6 +36,10 @@
    */
   .primary-nav {
     @apply font-sans text-base font-medium text-dark-blue;
+  }
+
+  .primary-nav .menu-item-has-children {
+    position: relative;
   }
 
   .primary-nav .nav-link:not(.btn) {
@@ -83,35 +80,18 @@
     height: 1.5rem;
   }
 
-  .header-cart {
-    @apply relative inline-flex items-center gap-2.5 bg-transparent p-0 font-sans text-sm font-semibold text-black no-underline transition-colors hover:text-tertiary;
+  .preheader-icon,
+  .preheader-social {
+    @apply inline-flex size-7 shrink-0 items-center justify-center bg-transparent p-0 text-white no-underline;
   }
 
-  .header-cart .icon {
+  .preheader-icon .icon,
+  .preheader-social .icon,
+  .preheader-phone .icon,
+  .preheader-email .icon {
     display: block;
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-
-  /**
-   * Dark chrome white/hover colours: components/header-chrome.css (Vite-only).
-   */
-
-  /**
-   * Cart dollar amount: desktop only. Tablet keeps icon + count
-   * (screenshot layout + search/account/cart icons).
-   */
-  .header-cart__total {
-    @apply max-lg:hidden;
-  }
-
-  .header-cart__icon {
-    @apply relative inline-flex;
-  }
-
-  .header-cart__count {
-    @apply absolute -right-2 -top-2 inline-flex size-4 items-center justify-center rounded-full text-[10px] font-bold leading-none text-white;
-    background-color: #e53935;
+    width: 1rem;
+    height: 1rem;
   }
 
   /**
@@ -119,56 +99,135 @@
    */
   .nav-dropdown {
     @apply absolute left-0 top-full z-20 mt-2 w-max min-w-0 overflow-hidden p-0 shadow-none;
-    @apply rounded-surface bg-primary text-white normal-case tracking-normal;
+    @apply rounded-surface normal-case tracking-normal;
+    background-color: var(--site-header-bg);
+    color: color-mix(in srgb, var(--color-white) 85%, transparent);
   }
 
   .primary-nav .nav-dropdown .nav-link {
-    @apply flex! items-center justify-start border-0 px-5 py-2.5 text-left font-sans text-[14px] font-medium text-white! no-underline capitalize transition-colors hover:text-white!;
+    @apply flex! items-center justify-start border-0 px-5 py-2.5 text-left font-sans text-[14px] font-medium no-underline capitalize transition-colors;
     background-color: transparent;
+    color: color-mix(in srgb, var(--color-white) 85%, transparent) !important;
 
-    &:hover {
-      background-color: color-mix(in srgb, var(--color-white) 18%, var(--color-primary));
+    &:hover,
+    &:focus-visible {
+      color: var(--site-accent) !important;
+      background-color: color-mix(in srgb, var(--color-white) 8%, transparent);
     }
   }
 
+  .primary-nav .nav-dropdown .menu-item.current-menu-item > .nav-link,
+  .primary-nav .nav-dropdown .menu-item.current-menu-ancestor > .nav-link,
+  .primary-nav .nav-dropdown .menu-item.active > .nav-link {
+    color: var(--site-accent) !important;
+  }
+
+  /* White/85 on the sleep blue is under 4.5:1. Default links use white. */
+  [data-brand="kogler-sleep"] .primary-nav .nav-dropdown,
+  [data-brand="kogler-sleep"] .primary-nav .nav-dropdown .nav-link {
+    color: var(--color-white) !important;
+  }
+
+  [data-brand="kogler-sleep"] .primary-nav .nav-dropdown .nav-link:hover,
+  [data-brand="kogler-sleep"] .primary-nav .nav-dropdown .nav-link:focus-visible,
+  [data-brand="kogler-sleep"] .primary-nav .nav-dropdown .menu-item.current-menu-item > .nav-link,
+  [data-brand="kogler-sleep"] .primary-nav .nav-dropdown .menu-item.current-menu-ancestor > .nav-link,
+  [data-brand="kogler-sleep"] .primary-nav .nav-dropdown .menu-item.active > .nav-link {
+    color: var(--site-accent) !important;
+  }
+
   .site-footer {
-    @apply border-t border-black/10 bg-white text-dark-gray;
+    border-top: 1px solid color-mix(in srgb, var(--color-white) 12%, transparent);
+    background-color: var(--site-footer-bg);
+    color: color-mix(in srgb, var(--color-white) 85%, transparent);
+  }
+
+  [data-brand="goliath-steel"] .site-footer {
+    border-top-color: color-mix(in srgb, var(--color-white) 8%, transparent);
+    color: color-mix(in srgb, var(--color-white) 75%, transparent);
+  }
+
+  [data-brand="goliath-steel"] .footer-links .nav-link,
+  [data-brand="goliath-steel"] .footer-contact__link,
+  [data-brand="goliath-steel"] .footer-contact__text {
+    color: var(--color-white) !important;
+  }
+
+  [data-brand="goliath-steel"] .footer-links .nav-link:hover,
+  [data-brand="goliath-steel"] .footer-contact__link:hover,
+  [data-brand="goliath-steel"] .footer-legal-links .nav-link:hover {
+    color: var(--color-goliath-silver) !important;
+  }
+
+  [data-brand="kogler-outdoor"] .site-footer {
+    border-top-color: color-mix(in srgb, var(--color-white) 10%, transparent);
+    color: color-mix(in srgb, var(--color-white) 75%, transparent);
+  }
+
+  [data-brand="kogler-outdoor"] .footer-links .nav-link,
+  [data-brand="kogler-outdoor"] .footer-contact__link,
+  [data-brand="kogler-outdoor"] .footer-contact__text,
+  [data-brand="kogler-outdoor"] .footer-legal-links .nav-link {
+    color: var(--color-white) !important;
+  }
+
+  [data-brand="kogler-outdoor"] .footer-links .nav-link:hover,
+  [data-brand="kogler-outdoor"] .footer-contact__link:hover,
+  [data-brand="kogler-outdoor"] .footer-legal-links .nav-link:hover {
+    color: var(--color-outdoor-amber) !important;
   }
 
   .footer-nav__title {
-    @apply mb-4 font-heading text-sm font-bold uppercase tracking-wide text-dark-blue;
+    @apply mb-4 font-heading text-sm font-bold uppercase tracking-wide;
+    color: var(--color-white);
   }
 
   .footer-links .nav-link {
-    @apply font-sans text-base font-medium text-dark-blue! no-underline transition-colors;
+    @apply font-sans text-base font-medium no-underline transition-colors;
+    color: color-mix(in srgb, var(--color-white) 85%, transparent) !important;
 
     &:hover {
-      @apply text-primary!;
+      color: var(--color-white) !important;
     }
   }
 
   .footer-legal-links .nav-link {
-    @apply font-sans text-sm font-medium text-dark-gray! no-underline transition-colors;
+    @apply font-sans text-sm font-medium no-underline transition-colors;
+    color: color-mix(in srgb, var(--color-white) 70%, transparent) !important;
 
     &:hover {
-      @apply text-primary!;
+      color: var(--color-white) !important;
     }
   }
 
   .footer-contact__link,
   .footer-contact__text {
-    @apply font-sans text-base font-medium text-dark-blue no-underline transition-colors;
+    @apply font-sans text-base font-medium no-underline transition-colors;
+    color: color-mix(in srgb, var(--color-white) 85%, transparent);
   }
 
   .footer-contact__link:hover {
-    @apply text-primary;
+    color: var(--color-white);
+  }
+
+  .footer-bar {
+    color: color-mix(in srgb, var(--color-white) 70%, transparent);
   }
 
   /**
-   * Social: dark-blue rounded squares with white glyphs (design screenshot).
+   * Social: light tiles on the dark footer.
    */
   .footer-social .nav-link {
-    @apply inline-flex size-10 items-center justify-center rounded-surface bg-dark-blue text-white transition-colors hover:bg-primary;
+    @apply inline-flex size-10 items-center justify-center rounded-surface text-white transition-colors;
+    background-color: color-mix(in srgb, var(--color-white) 12%, transparent);
+
+    &:hover {
+      background-color: color-mix(in srgb, var(--color-white) 22%, transparent);
+    }
+  }
+
+  .offcanvas-nav {
+    background-color: var(--site-header-bg);
   }
 
   .footer-social .nav-link .icon {

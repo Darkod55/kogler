@@ -12,7 +12,7 @@
   <div class="search-result__heading mb-1">
     <h2 class="search-result__title h4 mb-0">
       <a href="{{ get_permalink() }}" class="search-result__link">
-        {!! $title !!}
+        {{ $postType === 'product' ? $title : kogler_title_case($title) }}
       </a>
     </h2>
     @if ($typeLabel !== '')

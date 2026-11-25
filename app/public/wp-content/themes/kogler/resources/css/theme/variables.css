@@ -19,11 +19,35 @@
   --color-teal: #a3bcc6;
   --color-gray: #f9f9fb;
   --color-light: #faf6f0;
-  --color-dark-blue: #0b3e5c;
+  --color-dark-blue: #0a1737;
+  --color-darker-blue: #060e24;
   --color-light-blue: #d4eef8;
+  /* Stable navy for body text. Sleep reassigns --color-dark-blue. */
+  --color-ink: #0a1737;
   --color-dark-gray: #7e7e7e;
   --color-white: #fff;
   --color-black: #000;
+
+  --color-goliath-950: #141619;
+  --color-goliath-900: #1c1f22;
+  --color-goliath-800: #26292d;
+  --color-goliath-700: #3a3f44;
+  --color-goliath-silver: #aeb5bb;
+  --color-goliath-chrome: #d6dbdf;
+  --color-goliath-green: #41ad4a;
+  --color-goliath-green-ink: #10140f;
+  --color-goliath-orange: #f07a20;
+  --color-goliath-orange-light: #f5a15a;
+
+  --color-outdoor-950: #24392d;
+  --color-outdoor-900: #2f4a3a;
+  --color-outdoor-700: #3d5c49;
+  --color-outdoor-600: #4a6b57;
+  --color-outdoor-water: #45647a;
+  --color-outdoor-amber: #f2c88f;
+  --color-outdoor-amber-ink: #8a5a1e;
+  --color-outdoor-ink: #1f3328;
+  --color-outdoor-tint: #cfdcd3;
 
   /**
    * Fluid section padding.
@@ -69,6 +93,81 @@
   --font-size-xs: 12px;
   --font-size-sm: 12px;
   --font-size-base: 16px;
-  --font-size-lead: 20px;
   --font-size-tagline: 18px;
+}
+
+/**
+ * Fluid type. Change these and every heading, `.lead`, and block that
+ * references them follows. Clamps are the type-scale recipes in
+ * docs/design-tokens.md (vmin 1100, vmax 1800 for h1, 1300 for the
+ * other levels, root 16). H1 stays near 63px on a 1300px laptop and
+ * reaches 96px on a wide screen, so a short laptop still shows the hero.
+ *
+ * h1–h6 pick these up on their own. Add `lead` on a heading for
+ * `--font-lead-scale` times that level. `lead` on any other element
+ * uses `--font-size-lead`.
+ */
+:root {
+  --font-size-h1: clamp(3.125rem, -1.3929rem + 6.5714vw, 6rem);
+  --font-size-h2: clamp(2.25rem, -1.875rem + 6vw, 3rem);
+  --font-size-h3: clamp(1.625rem, -0.4375rem + 3vw, 2rem);
+  --font-size-h4: clamp(1.25rem, -0.125rem + 2vw, 1.5rem);
+  --font-size-h5: clamp(1.125rem, -0.25rem + 2vw, 1.375rem);
+  --font-size-h6: clamp(1rem, -0.375rem + 2vw, 1.25rem);
+  --font-size-lead: clamp(1.125rem, 0.4375rem + 1vw, 1.25rem);
+  --font-lead-scale: 1.12;
+}
+
+/**
+ * Shared chrome. Brand pages override these on [data-brand].
+ * Kögler Sleep uses the primary blue. --color-ink stays the default navy.
+ */
+:root {
+  --site-topbar-bg: var(--color-darker-blue);
+  --site-header-bg: var(--color-dark-blue);
+  --site-footer-bg: var(--color-darker-blue);
+  --site-surface: var(--color-white);
+  --site-accent: var(--color-secondary);
+  --site-accent-ink: var(--color-dark-blue);
+  --site-ink: var(--color-ink);
+  --site-heading-accent: var(--color-primary);
+}
+
+[data-brand="kogler-sleep"] {
+  --color-dark-blue: var(--color-primary);
+  --color-darker-blue: #0f5a85;
+  --site-topbar-bg: var(--color-darker-blue);
+  --site-header-bg: var(--color-dark-blue);
+  --site-footer-bg: var(--color-darker-blue);
+  --site-surface: var(--color-white);
+  --site-accent: var(--color-light-blue);
+  --site-accent-ink: var(--color-primary);
+  --site-ink: var(--color-ink);
+  --site-heading-accent: var(--color-darker-blue);
+}
+
+[data-brand="goliath-steel"] {
+  --site-topbar-bg: var(--color-goliath-950);
+  --site-header-bg: var(--color-goliath-900);
+  --site-footer-bg: var(--color-goliath-950);
+  --site-surface: var(--color-goliath-900);
+  --site-accent: var(--color-goliath-green);
+  --site-accent-ink: var(--color-goliath-green-ink);
+  --site-ink: var(--color-white);
+  --site-heading-accent: var(--color-goliath-silver);
+  background-color: var(--site-surface);
+  color: var(--color-white);
+}
+
+[data-brand="kogler-outdoor"] {
+  --site-topbar-bg: var(--color-outdoor-950);
+  --site-header-bg: var(--color-outdoor-900);
+  --site-footer-bg: var(--color-outdoor-950);
+  --site-surface: var(--color-outdoor-900);
+  --site-accent: var(--color-outdoor-amber);
+  --site-accent-ink: var(--color-outdoor-ink);
+  --site-ink: var(--color-white);
+  --site-heading-accent: var(--color-outdoor-amber);
+  background-color: var(--site-surface);
+  color: var(--color-white);
 }

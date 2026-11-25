@@ -1,5 +1,5 @@
 <footer class="site-footer">
-  <div class="px-clamp py-clamp">
+  <div class="p-clamp">
     {{--
       Logo + social | Information | Services | Contact
       Mobile: stacked.
@@ -56,26 +56,27 @@
 
       <div class="footer-nav footer-contact">
         <h3 class="footer-nav__title">{{ __('Contact', 'sage') }}</h3>
+        @php($siteContact = \App\helpers()->siteContact())
         <ul class="footer-contact__list m-0 flex list-none flex-col gap-2.5 p-0">
           <li>
-            <a class="footer-contact__link" href="mailto:info@kogler-usa.com">
-              {{ __('Email: info@kogler-usa.com', 'sage') }}
+            <a class="footer-contact__link" href="mailto:{{ $siteContact['email'] }}">
+              {{ sprintf(__('Email: %s', 'sage'), $siteContact['email']) }}
             </a>
           </li>
           <li>
-            <a class="footer-contact__link" href="tel:+18557026636">
-              {{ __('Phone: +1 (855) 702-6636', 'sage') }}
+            <a class="footer-contact__link" href="tel:{{ $siteContact['phone_tel'] }}">
+              {{ sprintf(__('Phone: %s', 'sage'), $siteContact['phone_display']) }}
             </a>
           </li>
           <li>
-            <span class="footer-contact__text">{{ __('Location: 939 W North Ave. Suite 880. Chicago, IL 60642', 'sage') }}</span>
+            <span class="footer-contact__text">{{ sprintf(__('Location: %s', 'sage'), $siteContact['address']) }}</span>
           </li>
         </ul>
       </div>
     </div>
   </div>
 
-  <div class="footer-bar border-t border-black/10 px-clamp py-4 text-sm text-dark-gray">
+  <div class="footer-bar border-t border-white/12 p-clamp-x py-4 text-sm">
     <div class="container flex flex-col items-center gap-3 text-center lg:flex-row lg:items-center lg:justify-between lg:gap-6 lg:text-left">
       @if (has_nav_menu('legal_navigation'))
         <nav class="footer-legal-nav" aria-label="{{ wp_get_nav_menu_name('legal_navigation') }}">
@@ -96,7 +97,7 @@
         ) }}
         {!! sprintf(
           __('Developed by %s', 'sage'),
-          '<a href="https://metapixels.co.uk/" class="text-dark-blue underline transition-colors hover:text-primary" target="_blank" rel="noopener noreferrer">' . esc_html__('MetaPixels', 'sage') . '</a>'
+          '<a href="https://metapixels.co.uk/" class="text-white underline transition-colors hover:text-white/80" target="_blank" rel="noopener noreferrer">' . esc_html__('MetaPixels', 'sage') . '</a>'
         ) !!}
       </p>
     </div>

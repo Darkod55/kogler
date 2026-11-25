@@ -3,6 +3,69 @@ import Alpine from 'alpinejs';
 window.Alpine = Alpine;
 
 document.addEventListener('alpine:init', () => {
+  Alpine.data('testimonials', (count = 1) => ({
+    active: 0,
+    count: Number(count) > 0 ? Number(count) : 1,
+    next() {
+      this.active = (this.active + 1) % this.count;
+    },
+    prev() {
+      this.active = (this.active + this.count - 1) % this.count;
+    },
+    label() {
+      const pad = (n) => String(n).padStart(2, '0');
+
+      return `${pad(this.active + 1)} / ${pad(this.count)}`;
+    },
+  }));
+
+  Alpine.data('audienceTabs', (count = 4) => ({
+    active: 0,
+    count: Number(count) > 0 ? Number(count) : 4,
+    next() {
+      this.active = (this.active + 1) % this.count;
+      this.focus();
+    },
+    prev() {
+      this.active = (this.active + this.count - 1) % this.count;
+      this.focus();
+    },
+    first() {
+      this.active = 0;
+      this.focus();
+    },
+    last() {
+      this.active = this.count - 1;
+      this.focus();
+    },
+    focus() {
+      this.$nextTick(() => this.$refs[`tab${this.active}`]?.focus());
+    },
+  }));
+
+  Alpine.store('fitment', {
+    make: '',
+    model: null,
+    truck: '',
+    contactHref(base) {
+      const truck = Alpine.store('fitment').truck;
+
+      if (! truck || ! base) {
+        return base;
+      }
+
+      try {
+        const url = new URL(base, window.location.origin);
+        url.searchParams.set('topic', 'mattress-fit');
+        url.searchParams.set('truck', truck);
+
+        return `${url.pathname}${url.search}`;
+      } catch (error) {
+        return base;
+      }
+    },
+  });
+
   /**
    * Close over Alpine’s reactive `ctx` (`this` from init). Expressions like
    * `goTo(n)` are invoked unbound, so method bodies must not rely on `this`.
@@ -698,21 +761,385 @@ document.addEventListener('alpine:init', () => {
       },
     };
   });
+
+  /**
+   * Brand fitment guide. Methods close over `ctx` because Alpine calls
+   * expressions such as `submit()` unbound.
+   */
+  Alpine.data('fitmentGuide', () => {
+    let ctx;
+
+    const uniqueSorted = (values) => [...new Set(values.filter(Boolean))]
+      .sort((a, b) => String(a).localeCompare(String(b)));
+
+    return {
+      fitments: [],
+      make: '',
+      model: '',
+      result: null,
+      contactUrl: '#',
+
+      init() {
+        ctx = this;
+        ctx.contactUrl = ctx.$el.dataset.contactUrl || '#';
+
+        try {
+          const parsed = JSON.parse(ctx.$el.dataset.fitments || '[]');
+          ctx.fitments = Array.isArray(parsed) ? parsed : [];
+        } catch (error) {
+          ctx.fitments = [];
+        }
+      },
+
+      get makes() {
+        return uniqueSorted((this.fitments || []).map((row) => row.make));
+      },
+
+      get models() {
+        if (! this.make) {
+          return [];
+        }
+
+        return uniqueSorted(
+          (this.fitments || [])
+            .filter((row) => row.make === this.make)
+            .map((row) => row.model),
+        );
+      },
+
+      onMakeChange() {
+        ctx.model = '';
+        ctx.result = null;
+      },
+
+      submit() {
+        const match = ctx.fitments.find((row) => row.make === ctx.make && row.model === ctx.model);
+
+        if (! match) {
+          ctx.result = { status: 'none' };
+          return;
+        }
+
+        ctx.result = { status: 'match', ...match };
+      },
+
+      sizeLabel(row) {
+        if (! row || row.status !== 'match') {
+          return '';
+        }
+
+        const mark = (value) => {
+          const text = String(value ?? '');
+          return text.includes('"') ? text : `${text}"`;
+        };
+
+        return `${mark(row.width)} × ${mark(row.length)} × ${mark(row.thickness)}`;
+      },
+    };
+  });
+
+  /**
+   * Kögler Sleep mattress finder. One scope covers the card and the results.
+   * Methods close over `ctx` because Alpine calls them unbound.
+   */
+  Alpine.data('fitmentFinder', (data = {}) => {
+    let ctx;
+
+    const empty = { trucks: {}, makeNotes: {}, parts: {} };
+
+    const bunksFor = (catalog, make, model) => {
+      const truck = catalog.trucks?.[make]?.[model];
+
+      if (! truck) {
+        return [];
+      }
+
+      return truck.bunks.map((bunk) => {
+        const widthsLabel = bunk.widths.map((width) => `${width}"`).join(' or ');
+        const expanded = bunk.widths.flatMap((width) => (width === '38/39' ? ['38', '39'] : [width]));
+        const options = expanded.flatMap((width) => (catalog.parts[width] || []).map((part) => ({
+          type: `${part.construction}, ${part.cover} cover`,
+          size: `${width}" × ${width === '29' ? '79' : '80'}" × 7"`,
+          sku: part.sku,
+        })));
+
+        const extra = bunk.mark && catalog.footnotes ? catalog.footnotes[bunk.mark] : '';
+        let note = bunk.note || '';
+
+        if (note && extra) {
+          note = `${note}${/[.!?]$/.test(note) ? ' ' : '. '}${extra}`;
+        } else if (extra) {
+          note = extra;
+        }
+
+        return {
+          position: bunk.position,
+          widthsLabel,
+          note,
+          options,
+        };
+      });
+    };
+
+    return {
+      catalog: empty,
+      make: '',
+      model: null,
+
+      init() {
+        ctx = this;
+        ctx.catalog = data && data.trucks ? data : empty;
+
+        const params = new URLSearchParams(window.location.search);
+        const make = params.get('make') || '';
+        const modelParam = params.get('model');
+        const models = ctx.catalog.trucks[make] || [];
+
+        if (! models.length) {
+          return;
+        }
+
+        ctx.make = make;
+
+        if (modelParam !== null && modelParam !== '' && models[Number(modelParam)]) {
+          ctx.model = Number(modelParam);
+        } else if (models.length === 1) {
+          ctx.model = 0;
+        }
+
+        ctx.dispatchWidths();
+        ctx.publishSelection();
+      },
+
+      dispatchWidths() {
+        const widths = [];
+
+        if (ctx.make !== '' && ctx.model !== null) {
+          const truck = ctx.catalog.trucks?.[ctx.make]?.[ctx.model];
+
+          (truck?.bunks || []).forEach((bunk) => {
+            bunk.widths.forEach((width) => {
+              if (width === '38/39') {
+                widths.push('38', '39');
+              } else {
+                widths.push(String(width));
+              }
+            });
+          });
+        }
+
+        window.dispatchEvent(new CustomEvent('fitment:widths', {
+          detail: { widths: [...new Set(widths)] },
+        }));
+      },
+
+      publishSelection() {
+        const store = Alpine.store('fitment');
+        const model = ctx.model !== null ? ctx.catalog.trucks?.[ctx.make]?.[ctx.model] : null;
+        store.make = ctx.make || '';
+        store.model = ctx.model;
+        store.truck = model ? `${ctx.make} ${model.name}` : '';
+      },
+
+      get makes() {
+        return Object.keys(ctx.catalog.trucks || {});
+      },
+
+      get models() {
+        if (ctx.make === '') {
+          return [];
+        }
+
+        return ctx.catalog.trucks[ctx.make] || [];
+      },
+
+      get bunks() {
+        if (ctx.make === '' || ctx.model === null) {
+          return [];
+        }
+
+        return bunksFor(ctx.catalog, ctx.make, ctx.model);
+      },
+
+      get truckName() {
+        const model = ctx.catalog.trucks?.[ctx.make]?.[ctx.model];
+
+        return model ? `${ctx.make} ${model.name}` : '';
+      },
+
+      get makeNote() {
+        return ctx.catalog.makeNotes?.[ctx.make] || '';
+      },
+
+      get emptyMessage() {
+        if (ctx.make === '') {
+          return 'Choose your truck make to see which Kögler mattress fits.';
+        }
+
+        if (ctx.model === null) {
+          return `Now choose your ${ctx.make} model.`;
+        }
+
+        return '';
+      },
+
+      onMakeChange() {
+        const models = ctx.catalog.trucks[ctx.make] || [];
+        ctx.model = models.length === 1 ? 0 : null;
+        ctx.syncUrl();
+        ctx.dispatchWidths();
+      },
+
+      onModelChange(event) {
+        const value = event.target.value;
+        ctx.model = value === '' ? null : Number(value);
+        ctx.syncUrl();
+        ctx.dispatchWidths();
+      },
+
+      selectTruck(detail) {
+        const models = detail && ctx.catalog.trucks[detail.make];
+
+        if (! models || ! models.length) {
+          return;
+        }
+
+        const index = Number(detail.model);
+        ctx.make = detail.make;
+        ctx.model = Number.isInteger(index) && models[index] ? index : (models.length === 1 ? 0 : null);
+        ctx.syncUrl();
+        ctx.dispatchWidths();
+
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        document.getElementById('find-your-size')?.scrollIntoView({
+          behavior: reduce ? 'auto' : 'smooth',
+          block: 'start',
+        });
+      },
+
+      syncUrl() {
+        const url = new URL(window.location.href);
+
+        if (ctx.make) {
+          url.searchParams.set('make', ctx.make);
+        } else {
+          url.searchParams.delete('make');
+        }
+
+        if (ctx.model !== null) {
+          url.searchParams.set('model', String(ctx.model));
+        } else {
+          url.searchParams.delete('model');
+        }
+
+        window.history.replaceState(null, '', url);
+        ctx.publishSelection();
+      },
+    };
+  });
+
+  /**
+   * Size Finder: copy a SKU, and highlight widths sent by the mattress finder.
+   */
+  Alpine.data('sizeFinder', () => {
+    let ctx;
+    let copiedTimer;
+
+    return {
+      copied: '',
+      widths: [],
+
+      init() {
+        ctx = this;
+      },
+
+      setWidths(detail) {
+        ctx.widths = detail && Array.isArray(detail.widths) ? detail.widths.map(String) : [];
+      },
+
+      highlighted(width) {
+        return ctx.widths.includes(String(width));
+      },
+
+      async copySku(sku, event) {
+        window.clearTimeout(copiedTimer);
+
+        try {
+          if (! navigator.clipboard || ! navigator.clipboard.writeText) {
+            throw new Error('clipboard unavailable');
+          }
+
+          await navigator.clipboard.writeText(sku);
+          ctx.copied = sku;
+          copiedTimer = window.setTimeout(() => {
+            if (ctx.copied === sku) {
+              ctx.copied = '';
+            }
+          }, 1500);
+        } catch (error) {
+          const range = document.createRange();
+          range.selectNodeContents(event.currentTarget);
+          const selection = window.getSelection();
+          selection.removeAllRanges();
+          selection.addRange(range);
+          ctx.copied = '';
+        }
+      },
+    };
+  });
+
+  /**
+   * Goliath product card. Each card keeps its own variant.
+   */
+  Alpine.data('goliathProduct', (config = {}) => ({
+    variant: config.variant ?? '',
+    keys: Array.isArray(config.keys) ? config.keys : [],
+
+    next(step) {
+      if (this.keys.length < 2) {
+        return;
+      }
+
+      const index = this.keys.indexOf(this.variant);
+      const next = (index + step + this.keys.length) % this.keys.length;
+      this.variant = this.keys[next];
+      this.$nextTick(() => {
+        this.$root.querySelector(`[data-tab="${this.variant}"]`)?.focus();
+      });
+    },
+  }));
 });
 
 Alpine.start();
 
-if (window.scrollY > 0) document.body.classList.add('scrolled');
-window.addEventListener('scroll',() => window.scrollY > 0 ? document.body.classList.add('scrolled') : document.body.classList.remove('scrolled'));
+const headerScrollOn = 48;
+const headerScrollOff = 8;
+let headerIsScrolled = window.scrollY > headerScrollOn;
+
+function syncHeaderScrolled() {
+  const y = window.scrollY;
+
+  if (!headerIsScrolled && y > headerScrollOn) {
+    headerIsScrolled = true;
+  } else if (headerIsScrolled && y < headerScrollOff) {
+    headerIsScrolled = false;
+  }
+
+  document.body.classList.toggle('scrolled', headerIsScrolled);
+}
+
+syncHeaderScrolled();
+window.addEventListener('scroll', syncHeaderScrolled, { passive: true });
 
 /**
- * Admin bar + preheader + main header heights for fixed chrome / heroes.
- * Preheader is display:none below md; `--site-preheader-height` is 0 then.
+ * Admin bar + preheader + the full main-header slot.
+ * `--site-header-h` stays the unscrolled stack. The shortened bar does not change it.
  * Admin bar only when `#wpadminbar` is visible (logged-in).
  */
 function syncSiteChromeHeight() {
   const adminBar = document.getElementById('wpadminbar');
   const preheader = document.querySelector('.preheader');
+  const slot = document.querySelector('.header-bar-slot');
   const header = document.getElementById('main-header');
   let adminBarHeight = 0;
   let preheaderHeight = 0;
@@ -724,11 +1151,12 @@ function syncSiteChromeHeight() {
 
   if (preheader && getComputedStyle(preheader).display !== 'none') {
     preheaderHeight = preheader.getBoundingClientRect().height;
-    height += preheaderHeight;
   }
 
-  if (header) {
-    height += header.getBoundingClientRect().height;
+  if (slot) {
+    height = slot.offsetHeight;
+  } else if (header) {
+    height = header.offsetHeight;
   }
 
   document.documentElement.style.setProperty(
@@ -740,6 +1168,10 @@ function syncSiteChromeHeight() {
     `${Math.round(preheaderHeight)}px`
   );
   document.documentElement.style.setProperty('--site-chrome-height', `${Math.round(height)}px`);
+  document.documentElement.style.setProperty(
+    '--site-header-h',
+    `${Math.round(preheaderHeight + height + adminBarHeight)}px`
+  );
 }
 
 /**

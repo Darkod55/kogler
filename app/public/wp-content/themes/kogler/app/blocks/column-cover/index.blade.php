@@ -1,5 +1,5 @@
 @php
-    $sectionPadding = $a['section_padding'] ?? ['py-clamp-xl'];
+    $sectionPadding = $a['section_padding'] ?? ['p-clamp-y-xl'];
     if (! is_array($sectionPadding)) {
         $sectionPadding = [$sectionPadding];
     }
@@ -77,7 +77,7 @@
         @endif
     </div>
 
-    <div class="mpx-column-cover__foreground px-clamp {{ $paddingClasses }}">
+    <div class="mpx-column-cover__foreground p-clamp-x {{ $paddingClasses }}">
         <div class="container">
             <div class="mpx-column-cover__box">
                 <InnerBlocks

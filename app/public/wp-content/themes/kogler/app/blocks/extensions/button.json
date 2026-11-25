@@ -15,6 +15,8 @@
           { "value": "btn-secondary", "label": "Secondary" },
           { "value": "btn-tertiary", "label": "Tertiary" },
           { "value": "btn-white", "label": "White" },
+          { "value": "btn-brand", "label": "Brand" },
+          { "value": "btn-brand-outline", "label": "Brand Outline" },
           { "value": "btn-link-white", "label": "Link White" },
           { "value": "btn-link-dark", "label": "Link Dark" }
         ],

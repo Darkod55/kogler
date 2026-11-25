@@ -1,7 +1,7 @@
 <article @php(post_class('h-entry'))>
   <header>
     <h1 class="p-name">
-      {!! $title !!}
+      {{ kogler_title_case($title) }}
     </h1>
 
     @include('partials.entry-meta')

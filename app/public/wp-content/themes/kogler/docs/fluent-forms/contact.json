@@ -1,0 +1,481 @@
+[
+  {
+    "title": "Contact",
+    "status": "published",
+    "appearance_settings": null,
+    "form_fields": {
+      "fields": [
+        {
+          "element": "container",
+          "attributes": [],
+          "settings": {
+            "container_class": "",
+            "conditional_logics": [],
+            "is_width_auto_calc": true
+          },
+          "columns": [
+            {
+              "width": 50,
+              "fields": [
+                {
+                  "uniqElKey": "el_first_name",
+                  "element": "input_text",
+                  "attributes": {
+                    "type": "text",
+                    "name": "first_name",
+                    "value": "",
+                    "id": "",
+                    "class": "",
+                    "placeholder": "",
+                    "autocomplete": "given-name"
+                  },
+                  "settings": {
+                    "container_class": "",
+                    "label": "First Name*",
+                    "label_placement": "",
+                    "admin_field_label": "First Name",
+                    "help_message": "",
+                    "validation_rules": {
+                      "required": {
+                        "value": true,
+                        "message": "This field is required",
+                        "global_message": "This field is required",
+                        "global": true
+                      }
+                    },
+                    "conditional_logics": []
+                  },
+                  "editor_options": {
+                    "title": "First Name*",
+                    "template": "inputText"
+                  }
+                }
+              ]
+            },
+            {
+              "width": 50,
+              "fields": [
+                {
+                  "uniqElKey": "el_last_name",
+                  "element": "input_text",
+                  "attributes": {
+                    "type": "text",
+                    "name": "last_name",
+                    "value": "",
+                    "id": "",
+                    "class": "",
+                    "placeholder": "",
+                    "autocomplete": "family-name"
+                  },
+                  "settings": {
+                    "container_class": "",
+                    "label": "Last Name*",
+                    "label_placement": "",
+                    "admin_field_label": "Last Name",
+                    "help_message": "",
+                    "validation_rules": {
+                      "required": {
+                        "value": true,
+                        "message": "This field is required",
+                        "global_message": "This field is required",
+                        "global": true
+                      }
+                    },
+                    "conditional_logics": []
+                  },
+                  "editor_options": {
+                    "title": "Last Name*",
+                    "template": "inputText"
+                  }
+                }
+              ]
+            }
+          ],
+          "editor_options": {
+            "title": "Columns"
+          }
+        },
+        {
+          "uniqElKey": "el_company",
+          "element": "input_text",
+          "attributes": {
+            "type": "text",
+            "name": "company",
+            "value": "",
+            "id": "",
+            "class": "",
+            "placeholder": "",
+            "autocomplete": "organization"
+          },
+          "settings": {
+            "container_class": "",
+            "label": "Company",
+            "label_placement": "",
+            "admin_field_label": "Company",
+            "help_message": "",
+            "validation_rules": {
+              "required": {
+                "value": false,
+                "message": "This field is required",
+                "global_message": "This field is required",
+                "global": true
+              }
+            },
+            "conditional_logics": []
+          },
+          "editor_options": {
+            "title": "Company",
+            "template": "inputText"
+          }
+        },
+        {
+          "element": "container",
+          "attributes": [],
+          "settings": {
+            "container_class": "",
+            "conditional_logics": [],
+            "is_width_auto_calc": true
+          },
+          "columns": [
+            {
+              "width": 50,
+              "fields": [
+                {
+                  "uniqElKey": "el_email",
+                  "element": "input_email",
+                  "attributes": {
+                    "type": "email",
+                    "name": "email",
+                    "value": "",
+                    "id": "",
+                    "class": "",
+                    "placeholder": "",
+                    "autocomplete": "email"
+                  },
+                  "settings": {
+                    "container_class": "",
+                    "label": "Email*",
+                    "label_placement": "",
+                    "admin_field_label": "Email",
+                    "help_message": "",
+                    "validation_rules": {
+                      "required": {
+                        "value": true,
+                        "message": "This field is required",
+                        "global_message": "This field is required",
+                        "global": true
+                      },
+                      "email": {
+                        "value": true,
+                        "message": "This field must contain a valid email",
+                        "global_message": "This field must contain a valid email",
+                        "global": true
+                      }
+                    },
+                    "conditional_logics": []
+                  },
+                  "editor_options": {
+                    "title": "Email*",
+                    "template": "inputText"
+                  }
+                }
+              ]
+            },
+            {
+              "width": 50,
+              "fields": [
+                {
+                  "uniqElKey": "el_phone",
+                  "element": "input_text",
+                  "attributes": {
+                    "type": "tel",
+                    "name": "phone",
+                    "value": "",
+                    "id": "",
+                    "class": "",
+                    "placeholder": "",
+                    "autocomplete": "tel"
+                  },
+                  "settings": {
+                    "container_class": "",
+                    "label": "Phone",
+                    "label_placement": "",
+                    "admin_field_label": "Phone",
+                    "help_message": "",
+                    "validation_rules": {
+                      "required": {
+                        "value": false,
+                        "message": "This field is required",
+                        "global_message": "This field is required",
+                        "global": true
+                      }
+                    },
+                    "conditional_logics": []
+                  },
+                  "editor_options": {
+                    "title": "Phone",
+                    "template": "inputText"
+                  }
+                }
+              ]
+            }
+          ],
+          "editor_options": {
+            "title": "Columns"
+          }
+        },
+        {
+          "uniqElKey": "el_i_am_a",
+          "element": "input_radio",
+          "attributes": {
+            "type": "radio",
+            "name": "i_am_a",
+            "value": "",
+            "class": ""
+          },
+          "settings": {
+            "container_class": "",
+            "label": "I am a\u2026",
+            "admin_field_label": "I am a\u2026",
+            "label_placement": "",
+            "display_type": "",
+            "help_message": "",
+            "advanced_options": [
+              {
+                "label": "Fleet",
+                "value": "Fleet",
+                "calc_value": "",
+                "image": ""
+              },
+              {
+                "label": "Distributor",
+                "value": "Distributor",
+                "calc_value": "",
+                "image": ""
+              },
+              {
+                "label": "Dealership",
+                "value": "Dealership",
+                "calc_value": "",
+                "image": ""
+              },
+              {
+                "label": "Retailer",
+                "value": "Retailer",
+                "calc_value": "",
+                "image": ""
+              },
+              {
+                "label": "Repair shop",
+                "value": "Repair shop",
+                "calc_value": "",
+                "image": ""
+              },
+              {
+                "label": "Owner-Operator",
+                "value": "Owner-Operator",
+                "calc_value": "",
+                "image": ""
+              },
+              {
+                "label": "Other",
+                "value": "Other",
+                "calc_value": "",
+                "image": ""
+              }
+            ],
+            "calc_value_status": false,
+            "enable_image_input": false,
+            "values_visible": false,
+            "randomize_options": "no",
+            "enable_other_option": "no",
+            "validation_rules": {
+              "required": {
+                "value": false,
+                "message": "This field is required",
+                "global_message": "This field is required",
+                "global": true
+              }
+            },
+            "conditional_logics": []
+          },
+          "editor_options": {
+            "title": "I am a\u2026",
+            "template": "inputCheckable"
+          }
+        },
+        {
+          "uniqElKey": "el_brand_of_interest",
+          "element": "input_checkbox",
+          "attributes": {
+            "type": "checkbox",
+            "name": "brand_of_interest",
+            "value": [],
+            "class": ""
+          },
+          "settings": {
+            "container_class": "",
+            "label": "Brand of interest",
+            "admin_field_label": "Brand of interest",
+            "label_placement": "",
+            "display_type": "",
+            "help_message": "",
+            "advanced_options": [
+              {
+                "label": "Kogler",
+                "value": "Kogler",
+                "calc_value": "",
+                "image": ""
+              },
+              {
+                "label": "Goliath Steel",
+                "value": "Goliath Steel",
+                "calc_value": "",
+                "image": ""
+              },
+              {
+                "label": "Kogler Outdoor",
+                "value": "Kogler Outdoor",
+                "calc_value": "",
+                "image": ""
+              }
+            ],
+            "calc_value_status": false,
+            "enable_image_input": false,
+            "values_visible": false,
+            "randomize_options": "no",
+            "enable_other_option": "no",
+            "validation_rules": {
+              "required": {
+                "value": false,
+                "message": "This field is required",
+                "global_message": "This field is required",
+                "global": true
+              }
+            },
+            "conditional_logics": []
+          },
+          "editor_options": {
+            "title": "Brand of interest",
+            "template": "inputCheckable"
+          }
+        },
+        {
+          "uniqElKey": "el_message",
+          "element": "textarea",
+          "attributes": {
+            "name": "message",
+            "value": "",
+            "id": "",
+            "class": "",
+            "placeholder": "",
+            "autocomplete": "",
+            "rows": 5,
+            "cols": 2
+          },
+          "settings": {
+            "container_class": "",
+            "label": "Message*",
+            "label_placement": "",
+            "admin_field_label": "Message",
+            "help_message": "",
+            "validation_rules": {
+              "required": {
+                "value": true,
+                "message": "This field is required",
+                "global_message": "This field is required",
+                "global": true
+              }
+            },
+            "conditional_logics": []
+          },
+          "editor_options": {
+            "title": "Message*",
+            "template": "inputTextarea"
+          }
+        },
+        {
+          "uniqElKey": "el_sms_opt_in",
+          "element": "input_checkbox",
+          "attributes": {
+            "type": "checkbox",
+            "name": "sms_opt_in",
+            "value": [],
+            "class": ""
+          },
+          "settings": {
+            "container_class": "",
+            "label": "[Paste the existing SMS opt-in disclosure from form 1 here, with the company name replaced by: Company legal name]",
+            "admin_field_label": "SMS opt-in",
+            "label_placement": "hide_label",
+            "display_type": "",
+            "help_message": "",
+            "advanced_options": [
+              {
+                "label": "[Paste the existing SMS opt-in disclosure from form 1 here, with the company name replaced by: Company legal name]",
+                "value": "[Paste the existing SMS opt-in disclosure from form 1 here, with the company name replaced by: Company legal name]",
+                "calc_value": "",
+                "image": ""
+              }
+            ],
+            "calc_value_status": false,
+            "enable_image_input": false,
+            "values_visible": false,
+            "randomize_options": "no",
+            "enable_other_option": "no",
+            "validation_rules": {
+              "required": {
+                "value": false,
+                "message": "This field is required",
+                "global_message": "This field is required",
+                "global": true
+              }
+            },
+            "conditional_logics": []
+          },
+          "editor_options": {
+            "title": "[Paste the existing SMS opt-in disclosure from form 1 here, with the company name replaced by: Company legal name]",
+            "template": "inputCheckable"
+          }
+        }
+      ],
+      "submitButton": {
+        "uniqElKey": "el_submit",
+        "element": "button",
+        "attributes": {
+          "type": "submit",
+          "class": ""
+        },
+        "settings": {
+          "button_style": "no_style",
+          "button_size": "md",
+          "align": "left",
+          "container_class": "",
+          "help_message": "",
+          "button_ui": {
+            "type": "default",
+            "text": "Submit",
+            "img_url": ""
+          },
+          "conditional_logics": []
+        },
+        "editor_options": {
+          "title": "Submit Button"
+        }
+      }
+    },
+    "has_payment": 0,
+    "type": "form",
+    "conditions": null,
+    "metas": [
+      {
+        "meta_key": "formSettings",
+        "value": "{\"confirmation\": {\"redirectTo\": \"samePage\", \"messageToShow\": \"<p>[Copy the confirmation message from form 1]</p>\", \"customPage\": null, \"samePageFormBehavior\": \"hide_form\", \"customUrl\": null}, \"restrictions\": {\"limitNumberOfEntries\": {\"enabled\": false, \"numberOfEntries\": null, \"period\": \"total\", \"limitReachedMsg\": null}, \"scheduleForm\": {\"enabled\": false, \"start\": null, \"end\": null, \"pendingMsg\": \"Form submission is not started yet.\", \"expiredMsg\": \"Form submission is now closed.\"}, \"requireLogin\": {\"enabled\": false, \"requireLoginMsg\": null}, \"denyEmptySubmission\": {\"enabled\": false, \"message\": \"Sorry, you cannot submit an empty form. Let's hear what you wanna say.\"}}, \"layout\": {\"labelPlacement\": \"top\", \"helpMessagePlacement\": \"with_label\", \"errorMessagePlacement\": \"inline\", \"asteriskPlacement\": \"asterisk-right\"}, \"delete_entry_on_submission\": \"no\"}"
+      },
+      {
+        "meta_key": "notifications",
+        "value": "[{\"name\": \"Admin notification (disabled until an address is set)\", \"enabled\": false, \"status\": false, \"fromName\": \"\", \"fromEmail\": \"\", \"replyTo\": \"\", \"bcc\": \"\", \"subject\": \"New contact form message\", \"message\": \"{all_data}\", \"sendTo\": {\"type\": \"email\", \"email\": \"\", \"field\": \"\", \"routing\": []}, \"conditionals\": {\"status\": false, \"type\": \"all\", \"conditions\": []}}]"
+      }
+    ]
+  }
+]

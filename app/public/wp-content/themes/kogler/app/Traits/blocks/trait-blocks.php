@@ -278,7 +278,7 @@ trait blocks
             ['hex' => '#a3bcc6', 'name' => 'Teal', 'slug' => 'teal'],
             ['hex' => '#f9f9fb', 'name' => 'Gray', 'slug' => 'gray'],
             ['hex' => '#faf6f0', 'name' => 'Light', 'slug' => 'light'],
-            ['hex' => '#0b3e5c', 'name' => 'Dark Blue', 'slug' => 'dark-blue'],
+            ['hex' => '#0a1737', 'name' => 'Dark Blue', 'slug' => 'dark-blue'],
             ['hex' => '#d4eef8', 'name' => 'Light Blue', 'slug' => 'light-blue'],
             ['hex' => '#7e7e7e', 'name' => 'Dark Gray', 'slug' => 'dark-gray'],
             ['hex' => '#000000', 'name' => 'Black', 'slug' => 'black'],
@@ -337,6 +337,8 @@ trait blocks
                 ['value' => 'btn-secondary', 'label' => 'Secondary'],
                 ['value' => 'btn-tertiary', 'label' => 'Tertiary'],
                 ['value' => 'btn-white', 'label' => 'White'],
+                ['value' => 'btn-brand', 'label' => 'Brand'],
+                ['value' => 'btn-brand-outline', 'label' => 'Brand Outline'],
                 ['value' => 'btn-link-white', 'label' => 'Link White'],
                 ['value' => 'btn-link-dark', 'label' => 'Link Dark'],
             ];
@@ -423,6 +425,8 @@ trait blocks
                         'btn-tertiary',
                         'btn-primary-alt',
                         'btn-white',
+                        'btn-brand',
+                        'btn-brand-outline',
                         'btn-outline-primary',
                         'btn-link-white',
                         'btn-link-dark',
@@ -575,23 +579,24 @@ trait blocks
      * Populating section padding
      *
      * Values map to utilities in resources/css/theme/sections.css
-     * (py-clamp / py-clamp-xl) plus Tailwind spacing scale classes.
+     * (p-clamp-y / p-clamp-y-xl) plus Tailwind spacing scale classes.
+     * Older py-clamp* names stay in CSS for blocks already saved.
      */
     public function populateSectionPadding() {
         add_filter('blockstudio/blocks/attributes/populate', function ($options) {
             $options['sectionPadding'] = [
                 ['value' => 'py-5', 'label' => 'Small (Top and Bottom)'],
-                ['value' => 'py-clamp', 'label' => 'Regular (Top and Bottom)'],
-                ['value' => 'py-clamp-xl', 'label' => 'Large (Top and Bottom)'],
+                ['value' => 'p-clamp-y', 'label' => 'Regular (Top and Bottom)'],
+                ['value' => 'p-clamp-y-xl', 'label' => 'Large (Top and Bottom)'],
                 ['value' => 'py-0', 'label' => 'None'],
                 ['value' => 'pt-0', 'label' => 'None Top'],
                 ['value' => 'pb-0', 'label' => 'None Bottom'],
                 ['value' => 'pt-5', 'label' => 'Small Top'],
                 ['value' => 'pb-5', 'label' => 'Small Bottom'],
-                ['value' => 'pt-clamp-block', 'label' => 'Regular Top'],
-                ['value' => 'pb-clamp-block', 'label' => 'Regular Bottom'],
-                ['value' => 'pt-clamp-block-xl', 'label' => 'Large Top'],
-                ['value' => 'pb-clamp-block-xl', 'label' => 'Large Bottom'],
+                ['value' => 'pt-clamp', 'label' => 'Regular Top'],
+                ['value' => 'pb-clamp', 'label' => 'Regular Bottom'],
+                ['value' => 'pt-clamp-xl', 'label' => 'Large Top'],
+                ['value' => 'pb-clamp-xl', 'label' => 'Large Bottom'],
             ];
 
             return $options;
@@ -690,17 +695,17 @@ trait blocks
         add_filter('blockstudio/blocks/attributes/populate', function ($options) {
             $options['innerPadding'] = [
                 ['value' => 'py-5', 'label' => 'Small (Top and Bottom)'],
-                ['value' => 'py-clamp', 'label' => 'Regular (Top and Bottom)'],
-                ['value' => 'py-clamp-xl', 'label' => 'Large (Top and Bottom)'],
+                ['value' => 'p-clamp-y', 'label' => 'Regular (Top and Bottom)'],
+                ['value' => 'p-clamp-y-xl', 'label' => 'Large (Top and Bottom)'],
                 ['value' => 'py-0', 'label' => 'None'],
                 ['value' => 'pt-0', 'label' => 'None Top'],
                 ['value' => 'pb-0', 'label' => 'None Bottom'],
                 ['value' => 'pt-5', 'label' => 'Small Top'],
                 ['value' => 'pb-5', 'label' => 'Small Bottom'],
-                ['value' => 'pt-clamp-block', 'label' => 'Regular Top'],
-                ['value' => 'pb-clamp-block', 'label' => 'Regular Bottom'],
-                ['value' => 'pt-clamp-block-xl', 'label' => 'Large Top'],
-                ['value' => 'pb-clamp-block-xl', 'label' => 'Large Bottom'],
+                ['value' => 'pt-clamp', 'label' => 'Regular Top'],
+                ['value' => 'pb-clamp', 'label' => 'Regular Bottom'],
+                ['value' => 'pt-clamp-xl', 'label' => 'Large Top'],
+                ['value' => 'pb-clamp-xl', 'label' => 'Large Bottom'],
             ];
 
             return $options;

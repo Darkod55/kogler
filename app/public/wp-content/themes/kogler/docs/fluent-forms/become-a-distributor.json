@@ -1,0 +1,756 @@
+[
+  {
+    "title": "Become a Distributor",
+    "status": "published",
+    "appearance_settings": null,
+    "form_fields": {
+      "fields": [
+        {
+          "element": "container",
+          "attributes": [],
+          "settings": {
+            "container_class": "",
+            "conditional_logics": [],
+            "is_width_auto_calc": true
+          },
+          "columns": [
+            {
+              "width": 33.33,
+              "fields": [
+                {
+                  "uniqElKey": "el_company_name",
+                  "element": "input_text",
+                  "attributes": {
+                    "type": "text",
+                    "name": "company_name",
+                    "value": "",
+                    "id": "",
+                    "class": "",
+                    "placeholder": ""
+                  },
+                  "settings": {
+                    "container_class": "",
+                    "label": "Company Name*",
+                    "label_placement": "",
+                    "admin_field_label": "Company Name",
+                    "help_message": "",
+                    "validation_rules": {
+                      "required": {
+                        "value": true,
+                        "message": "This field is required",
+                        "global_message": "This field is required",
+                        "global": true
+                      }
+                    },
+                    "conditional_logics": []
+                  },
+                  "editor_options": {
+                    "title": "Company Name*",
+                    "template": "inputText"
+                  }
+                }
+              ]
+            },
+            {
+              "width": 33.33,
+              "fields": [
+                {
+                  "uniqElKey": "el_contact_name",
+                  "element": "input_text",
+                  "attributes": {
+                    "type": "text",
+                    "name": "contact_name",
+                    "value": "",
+                    "id": "",
+                    "class": "",
+                    "placeholder": ""
+                  },
+                  "settings": {
+                    "container_class": "",
+                    "label": "Contact Name*",
+                    "label_placement": "",
+                    "admin_field_label": "Contact Name",
+                    "help_message": "",
+                    "validation_rules": {
+                      "required": {
+                        "value": true,
+                        "message": "This field is required",
+                        "global_message": "This field is required",
+                        "global": true
+                      }
+                    },
+                    "conditional_logics": []
+                  },
+                  "editor_options": {
+                    "title": "Contact Name*",
+                    "template": "inputText"
+                  }
+                }
+              ]
+            },
+            {
+              "width": 33.33,
+              "fields": [
+                {
+                  "uniqElKey": "el_title",
+                  "element": "input_text",
+                  "attributes": {
+                    "type": "text",
+                    "name": "title",
+                    "value": "",
+                    "id": "",
+                    "class": "",
+                    "placeholder": ""
+                  },
+                  "settings": {
+                    "container_class": "",
+                    "label": "Title",
+                    "label_placement": "",
+                    "admin_field_label": "Title",
+                    "help_message": "",
+                    "validation_rules": {
+                      "required": {
+                        "value": false,
+                        "message": "This field is required",
+                        "global_message": "This field is required",
+                        "global": true
+                      }
+                    },
+                    "conditional_logics": []
+                  },
+                  "editor_options": {
+                    "title": "Title",
+                    "template": "inputText"
+                  }
+                }
+              ]
+            }
+          ],
+          "editor_options": {
+            "title": "Columns"
+          }
+        },
+        {
+          "element": "container",
+          "attributes": [],
+          "settings": {
+            "container_class": "",
+            "conditional_logics": [],
+            "is_width_auto_calc": true
+          },
+          "columns": [
+            {
+              "width": 33.33,
+              "fields": [
+                {
+                  "uniqElKey": "el_email",
+                  "element": "input_email",
+                  "attributes": {
+                    "type": "email",
+                    "name": "email",
+                    "value": "",
+                    "id": "",
+                    "class": "",
+                    "placeholder": ""
+                  },
+                  "settings": {
+                    "container_class": "",
+                    "label": "Email*",
+                    "label_placement": "",
+                    "admin_field_label": "Email",
+                    "help_message": "",
+                    "validation_rules": {
+                      "required": {
+                        "value": true,
+                        "message": "This field is required",
+                        "global_message": "This field is required",
+                        "global": true
+                      },
+                      "email": {
+                        "value": true,
+                        "message": "This field must contain a valid email",
+                        "global_message": "This field must contain a valid email",
+                        "global": true
+                      }
+                    },
+                    "conditional_logics": []
+                  },
+                  "editor_options": {
+                    "title": "Email*",
+                    "template": "inputText"
+                  }
+                }
+              ]
+            },
+            {
+              "width": 33.33,
+              "fields": [
+                {
+                  "uniqElKey": "el_phone",
+                  "element": "input_text",
+                  "attributes": {
+                    "type": "tel",
+                    "name": "phone",
+                    "value": "",
+                    "id": "",
+                    "class": "",
+                    "placeholder": ""
+                  },
+                  "settings": {
+                    "container_class": "",
+                    "label": "Phone*",
+                    "label_placement": "",
+                    "admin_field_label": "Phone",
+                    "help_message": "",
+                    "validation_rules": {
+                      "required": {
+                        "value": true,
+                        "message": "This field is required",
+                        "global_message": "This field is required",
+                        "global": true
+                      }
+                    },
+                    "conditional_logics": []
+                  },
+                  "editor_options": {
+                    "title": "Phone*",
+                    "template": "inputText"
+                  }
+                }
+              ]
+            },
+            {
+              "width": 33.33,
+              "fields": [
+                {
+                  "uniqElKey": "el_website",
+                  "element": "input_text",
+                  "attributes": {
+                    "type": "text",
+                    "name": "website",
+                    "value": "",
+                    "id": "",
+                    "class": "",
+                    "placeholder": ""
+                  },
+                  "settings": {
+                    "container_class": "",
+                    "label": "Website",
+                    "label_placement": "",
+                    "admin_field_label": "Website",
+                    "help_message": "",
+                    "validation_rules": {
+                      "required": {
+                        "value": false,
+                        "message": "This field is required",
+                        "global_message": "This field is required",
+                        "global": true
+                      }
+                    },
+                    "conditional_logics": []
+                  },
+                  "editor_options": {
+                    "title": "Website",
+                    "template": "inputText"
+                  }
+                }
+              ]
+            }
+          ],
+          "editor_options": {
+            "title": "Columns"
+          }
+        },
+        {
+          "uniqElKey": "el_address",
+          "element": "input_text",
+          "attributes": {
+            "type": "text",
+            "name": "address",
+            "value": "",
+            "id": "",
+            "class": "",
+            "placeholder": ""
+          },
+          "settings": {
+            "container_class": "",
+            "label": "Address*",
+            "label_placement": "",
+            "admin_field_label": "Address",
+            "help_message": "",
+            "validation_rules": {
+              "required": {
+                "value": true,
+                "message": "This field is required",
+                "global_message": "This field is required",
+                "global": true
+              }
+            },
+            "conditional_logics": []
+          },
+          "editor_options": {
+            "title": "Address*",
+            "template": "inputText"
+          }
+        },
+        {
+          "element": "container",
+          "attributes": [],
+          "settings": {
+            "container_class": "",
+            "conditional_logics": [],
+            "is_width_auto_calc": true
+          },
+          "columns": [
+            {
+              "width": 33.33,
+              "fields": [
+                {
+                  "uniqElKey": "el_city",
+                  "element": "input_text",
+                  "attributes": {
+                    "type": "text",
+                    "name": "city",
+                    "value": "",
+                    "id": "",
+                    "class": "",
+                    "placeholder": ""
+                  },
+                  "settings": {
+                    "container_class": "",
+                    "label": "City*",
+                    "label_placement": "",
+                    "admin_field_label": "City",
+                    "help_message": "",
+                    "validation_rules": {
+                      "required": {
+                        "value": true,
+                        "message": "This field is required",
+                        "global_message": "This field is required",
+                        "global": true
+                      }
+                    },
+                    "conditional_logics": []
+                  },
+                  "editor_options": {
+                    "title": "City*",
+                    "template": "inputText"
+                  }
+                }
+              ]
+            },
+            {
+              "width": 33.33,
+              "fields": [
+                {
+                  "uniqElKey": "el_state",
+                  "element": "input_text",
+                  "attributes": {
+                    "type": "text",
+                    "name": "state",
+                    "value": "",
+                    "id": "",
+                    "class": "",
+                    "placeholder": ""
+                  },
+                  "settings": {
+                    "container_class": "",
+                    "label": "State*",
+                    "label_placement": "",
+                    "admin_field_label": "State",
+                    "help_message": "",
+                    "validation_rules": {
+                      "required": {
+                        "value": true,
+                        "message": "This field is required",
+                        "global_message": "This field is required",
+                        "global": true
+                      }
+                    },
+                    "conditional_logics": []
+                  },
+                  "editor_options": {
+                    "title": "State*",
+                    "template": "inputText"
+                  }
+                }
+              ]
+            },
+            {
+              "width": 33.33,
+              "fields": [
+                {
+                  "uniqElKey": "el_zip",
+                  "element": "input_text",
+                  "attributes": {
+                    "type": "text",
+                    "name": "zip",
+                    "value": "",
+                    "id": "",
+                    "class": "",
+                    "placeholder": ""
+                  },
+                  "settings": {
+                    "container_class": "",
+                    "label": "ZIP*",
+                    "label_placement": "",
+                    "admin_field_label": "ZIP",
+                    "help_message": "",
+                    "validation_rules": {
+                      "required": {
+                        "value": true,
+                        "message": "This field is required",
+                        "global_message": "This field is required",
+                        "global": true
+                      }
+                    },
+                    "conditional_logics": []
+                  },
+                  "editor_options": {
+                    "title": "ZIP*",
+                    "template": "inputText"
+                  }
+                }
+              ]
+            }
+          ],
+          "editor_options": {
+            "title": "Columns"
+          }
+        },
+        {
+          "uniqElKey": "el_business_type",
+          "element": "input_radio",
+          "attributes": {
+            "type": "radio",
+            "name": "business_type",
+            "value": "",
+            "class": ""
+          },
+          "settings": {
+            "container_class": "da-pills",
+            "label": "Business type",
+            "admin_field_label": "Business type",
+            "label_placement": "",
+            "display_type": "",
+            "help_message": "",
+            "advanced_options": [
+              {
+                "label": "Distributor",
+                "value": "Distributor",
+                "calc_value": "",
+                "image": ""
+              },
+              {
+                "label": "Dealership",
+                "value": "Dealership",
+                "calc_value": "",
+                "image": ""
+              },
+              {
+                "label": "Retailer",
+                "value": "Retailer",
+                "calc_value": "",
+                "image": ""
+              },
+              {
+                "label": "Repair shop",
+                "value": "Repair shop",
+                "calc_value": "",
+                "image": ""
+              },
+              {
+                "label": "Other",
+                "value": "Other",
+                "calc_value": "",
+                "image": ""
+              }
+            ],
+            "calc_value_status": false,
+            "enable_image_input": false,
+            "values_visible": false,
+            "randomize_options": "no",
+            "enable_other_option": "no",
+            "validation_rules": {
+              "required": {
+                "value": false,
+                "message": "This field is required",
+                "global_message": "This field is required",
+                "global": true
+              }
+            },
+            "conditional_logics": []
+          },
+          "editor_options": {
+            "title": "Business type",
+            "template": "inputCheckable"
+          }
+        },
+        {
+          "uniqElKey": "el_brands",
+          "element": "input_checkbox",
+          "attributes": {
+            "type": "checkbox",
+            "name": "brands",
+            "value": [],
+            "class": ""
+          },
+          "settings": {
+            "container_class": "da-pills",
+            "label": "Brands of interest",
+            "admin_field_label": "Brands of interest",
+            "label_placement": "",
+            "display_type": "",
+            "help_message": "",
+            "advanced_options": [
+              {
+                "label": "Kogler",
+                "value": "Kogler",
+                "calc_value": "",
+                "image": ""
+              },
+              {
+                "label": "Goliath Steel",
+                "value": "Goliath Steel",
+                "calc_value": "",
+                "image": ""
+              },
+              {
+                "label": "Kogler Outdoor",
+                "value": "Kogler Outdoor",
+                "calc_value": "",
+                "image": ""
+              }
+            ],
+            "calc_value_status": false,
+            "enable_image_input": false,
+            "values_visible": false,
+            "randomize_options": "no",
+            "enable_other_option": "no",
+            "validation_rules": {
+              "required": {
+                "value": false,
+                "message": "This field is required",
+                "global_message": "This field is required",
+                "global": true
+              }
+            },
+            "conditional_logics": []
+          },
+          "editor_options": {
+            "title": "Brands of interest",
+            "template": "inputCheckable"
+          }
+        },
+        {
+          "element": "container",
+          "attributes": [],
+          "settings": {
+            "container_class": "",
+            "conditional_logics": [],
+            "is_width_auto_calc": true
+          },
+          "columns": [
+            {
+              "width": 33.33,
+              "fields": [
+                {
+                  "uniqElKey": "el_markets_served",
+                  "element": "input_text",
+                  "attributes": {
+                    "type": "text",
+                    "name": "markets_served",
+                    "value": "",
+                    "id": "",
+                    "class": "",
+                    "placeholder": ""
+                  },
+                  "settings": {
+                    "container_class": "",
+                    "label": "Markets served",
+                    "label_placement": "",
+                    "admin_field_label": "Markets served",
+                    "help_message": "",
+                    "validation_rules": {
+                      "required": {
+                        "value": false,
+                        "message": "This field is required",
+                        "global_message": "This field is required",
+                        "global": true
+                      }
+                    },
+                    "conditional_logics": []
+                  },
+                  "editor_options": {
+                    "title": "Markets served",
+                    "template": "inputText"
+                  }
+                }
+              ]
+            },
+            {
+              "width": 33.33,
+              "fields": [
+                {
+                  "uniqElKey": "el_number_of_locations",
+                  "element": "input_number",
+                  "attributes": {
+                    "type": "number",
+                    "name": "number_of_locations",
+                    "value": "",
+                    "id": "",
+                    "class": "",
+                    "placeholder": ""
+                  },
+                  "settings": {
+                    "container_class": "",
+                    "label": "Number of locations",
+                    "label_placement": "",
+                    "admin_field_label": "Number of locations",
+                    "help_message": "",
+                    "validation_rules": {
+                      "required": {
+                        "value": false,
+                        "message": "This field is required",
+                        "global_message": "This field is required",
+                        "global": true
+                      },
+                      "numeric": {
+                        "value": true,
+                        "message": "This field must contain numeric value",
+                        "global_message": "This field must contain numeric value",
+                        "global": true
+                      },
+                      "min": {
+                        "value": "1",
+                        "message": "Minimum value is 1",
+                        "global_message": "Minimum value is 1",
+                        "global": true
+                      }
+                    },
+                    "conditional_logics": [],
+                    "number_step": "1"
+                  },
+                  "editor_options": {
+                    "title": "Number of locations",
+                    "template": "inputText"
+                  }
+                }
+              ]
+            },
+            {
+              "width": 33.33,
+              "fields": [
+                {
+                  "uniqElKey": "el_buying_group_affiliation",
+                  "element": "input_text",
+                  "attributes": {
+                    "type": "text",
+                    "name": "buying_group_affiliation",
+                    "value": "",
+                    "id": "",
+                    "class": "",
+                    "placeholder": ""
+                  },
+                  "settings": {
+                    "container_class": "",
+                    "label": "Buying group affiliation",
+                    "label_placement": "",
+                    "admin_field_label": "Buying group affiliation",
+                    "help_message": "",
+                    "validation_rules": {
+                      "required": {
+                        "value": false,
+                        "message": "This field is required",
+                        "global_message": "This field is required",
+                        "global": true
+                      }
+                    },
+                    "conditional_logics": []
+                  },
+                  "editor_options": {
+                    "title": "Buying group affiliation",
+                    "template": "inputText"
+                  }
+                }
+              ]
+            }
+          ],
+          "editor_options": {
+            "title": "Columns"
+          }
+        },
+        {
+          "uniqElKey": "el_message",
+          "element": "textarea",
+          "attributes": {
+            "name": "message",
+            "value": "",
+            "id": "",
+            "class": "",
+            "placeholder": "",
+            "rows": 5,
+            "cols": 2
+          },
+          "settings": {
+            "container_class": "",
+            "label": "Message",
+            "label_placement": "",
+            "admin_field_label": "Message",
+            "help_message": "",
+            "validation_rules": {
+              "required": {
+                "value": false,
+                "message": "This field is required",
+                "global_message": "This field is required",
+                "global": true
+              }
+            },
+            "conditional_logics": []
+          },
+          "editor_options": {
+            "title": "Message",
+            "template": "inputTextarea"
+          }
+        }
+      ],
+      "submitButton": {
+        "uniqElKey": "el_submit",
+        "element": "button",
+        "attributes": {
+          "type": "submit",
+          "class": ""
+        },
+        "settings": {
+          "button_style": "no_style",
+          "button_size": "md",
+          "align": "left",
+          "container_class": "",
+          "help_message": "",
+          "button_ui": {
+            "type": "default",
+            "text": "Submit",
+            "img_url": ""
+          },
+          "conditional_logics": []
+        },
+        "editor_options": {
+          "title": "Submit Button"
+        }
+      }
+    },
+    "has_payment": 0,
+    "type": "form",
+    "conditions": null,
+    "metas": [
+      {
+        "meta_key": "formSettings",
+        "value": "{\"confirmation\": {\"redirectTo\": \"samePage\", \"messageToShow\": \"<p>Thanks for your interest. A member of our sales team will contact you within two business days.</p>\", \"customPage\": null, \"samePageFormBehavior\": \"hide_form\", \"customUrl\": null}, \"restrictions\": {\"limitNumberOfEntries\": {\"enabled\": false, \"numberOfEntries\": null, \"period\": \"total\", \"limitReachedMsg\": null}, \"scheduleForm\": {\"enabled\": false, \"start\": null, \"end\": null, \"pendingMsg\": \"Form submission is not started yet.\", \"expiredMsg\": \"Form submission is now closed.\"}, \"requireLogin\": {\"enabled\": false, \"requireLoginMsg\": null}, \"denyEmptySubmission\": {\"enabled\": false, \"message\": \"Sorry, you cannot submit an empty form. Let's hear what you wanna say.\"}}, \"layout\": {\"labelPlacement\": \"top\", \"helpMessagePlacement\": \"with_label\", \"errorMessagePlacement\": \"inline\", \"asteriskPlacement\": \"asterisk-right\"}, \"delete_entry_on_submission\": \"no\"}"
+      },
+      {
+        "meta_key": "notifications",
+        "value": "[{\"name\": \"Admin notification (disabled until the sales inbox is set)\", \"enabled\": false, \"status\": false, \"fromName\": \"\", \"fromEmail\": \"\", \"replyTo\": \"\", \"bcc\": \"\", \"subject\": \"New distributor application\", \"message\": \"{all_data}\", \"sendTo\": {\"type\": \"email\", \"email\": \"\", \"field\": \"\", \"routing\": []}, \"conditionals\": {\"status\": false, \"type\": \"all\", \"conditions\": []}}]"
+      }
+    ]
+  }
+]

@@ -26,4 +26,5 @@
   --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
   --font-heading: 'Plus Jakarta Sans', ui-serif, Georgia, serif;
   --font-fraunces: 'Fraunces', ui-serif, Georgia, serif;
+  --font-jakarta: var(--font-sans);
 }

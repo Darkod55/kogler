@@ -89,6 +89,27 @@
     border-color: transparent !important;
   }
 
+  /**
+   * Dark brand pages: labels stay light, fields stay white with dark text.
+   */
+  :is([data-brand="goliath-steel"], [data-brand="kogler-outdoor"]) :is(
+    .fluentform .ff-el-input--label,
+    .fluentform .ff-el-form-check-label,
+    .fluentform label,
+    .frm-fluent-form .ff-el-input--label,
+    .frm-fluent-form label
+  ) {
+    color: color-mix(in srgb, var(--color-white) 85%, transparent);
+  }
+
+  :is([data-brand="goliath-steel"], [data-brand="kogler-outdoor"]) :is(
+    .fluentform .ff-el-form-control,
+    .frm-fluent-form .ff-el-form-control
+  ) {
+    background-color: var(--color-white) !important;
+    color: var(--color-dark-blue) !important;
+  }
+
   .fluentform .ff-el-form-control::placeholder,
   .frm-fluent-form .ff-el-form-control::placeholder {
     color: color-mix(in srgb, var(--color-primary) 45%, var(--color-white));
@@ -272,7 +293,7 @@
   .mpx-banner__title {
     margin: 0 0 2.5rem;
     font-family: var(--font-heading, var(--font-sans));
-    font-size: clamp(1.75rem, 0.5rem + 2vw, 2.25rem);
+    font-size: var(--font-size-h1);
     font-weight: 600;
     line-height: 1.2;
     color: var(--color-white);

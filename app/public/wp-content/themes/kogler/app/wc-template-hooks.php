@@ -35,7 +35,7 @@ remove_action('woocommerce_before_main_content', 'woocommerce_output_content_wra
 remove_action('woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
 
 add_action('woocommerce_before_main_content', function () {
-    echo '<div class="woocommerce-site px-clamp py-clamp"><div class="container">';
+    echo '<div class="woocommerce-site p-clamp"><div class="container">';
 }, 10);
 
 add_action('woocommerce_after_main_content', function () {

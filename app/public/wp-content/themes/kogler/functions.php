@@ -59,3 +59,13 @@ collect(['setup', 'filters', 'includes'])
             );
         }
     });
+
+if (! function_exists('kogler_title_case')) {
+    /**
+     * Chicago title case for headings. See Helpers::titleCase().
+     */
+    function kogler_title_case(string $string): string
+    {
+        return \App\helpers()->titleCase($string);
+    }
+}

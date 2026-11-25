@@ -18,12 +18,25 @@
  */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 7rem;
+  scroll-padding-top: var(--site-chrome-height, 7rem);
+}
+
+/**
+ * Extra offset for an in-page anchor that does not already sit in the
+ * document scrollport. Do not add this on a section when html
+ * scroll-padding-top is already the chrome height — the two stack.
+ */
+@utility scroll-mt-chrome {
+  scroll-margin-top: var(--site-chrome-height, 7rem);
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .audience-panel {
+    transition: none !important;
   }
 }
 
@@ -31,93 +44,62 @@ html {
   line-height: 0.8em;
 }
 
+:root {
+  --main-header-full: 86px;
+  --main-header-scrolled: 64px;
+}
+
 #main-header .site-logo {
-  height: auto;
+  /* Inline Customizer width would squash this. Height is the 50px cap;
+     width follows the artwork. */
+  height: 50px !important;
+  max-height: 50px;
+  width: auto !important;
+  transform-origin: left center;
+  transition: transform 280ms ease;
+}
+
+body.scrolled #main-header .site-logo {
+  transform: scale(0.72);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #main-header,
+  #main-header .site-logo {
+    transition: none;
+  }
 }
 
 /**
- * Homepage: fixed chrome over the hero — solid primary preheader,
- * transparent main bar that fills dark-blue on scroll.
- * `--site-admin-bar-height` is measured in app.js (0 when logged out).
+ * The preheader stays in normal flow and scrolls away.
+ * The slot keeps the full bar height in the document. Once scrolled, the
+ * bar is fixed and shorter, so the page underneath does not jump.
  */
-.site-chrome--front {
+.site-chrome-root .preheader {
+  background-color: var(--site-topbar-bg);
+  color: var(--color-white);
+}
+
+.header-bar-slot {
+  height: var(--main-header-full);
+}
+
+#main-header {
+  height: var(--main-header-full);
+  transition: height 280ms ease;
+}
+
+body.scrolled #main-header {
   position: fixed;
-  inset-inline: 0;
   top: var(--site-admin-bar-height, 0px);
+  right: 0;
+  left: 0;
   z-index: 30;
-}
-
-.site-chrome--front .preheader {
-  background-color: var(--color-primary);
-}
-
-.site-chrome--front #main-header {
-  background-color: transparent;
-  transition: background-color 450ms ease-in-out;
-}
-
-body.scrolled .site-chrome--front #main-header {
-  background-color: var(--color-dark-blue);
-}
-
-/**
- * Homepage only: crossfade main → alt logo when scrolled.
- */
-.site-chrome--front .brand-logo-link .site-logo {
-  grid-area: 1 / 1;
-  transition: opacity 450ms ease-in-out;
-}
-
-.site-chrome--front .brand-logo-link .site-logo--alt {
-  opacity: 0;
-}
-
-body.scrolled .site-chrome--front .brand-logo-link .site-logo--main {
-  opacity: 0;
-}
-
-body.scrolled .site-chrome--front .brand-logo-link .site-logo--alt {
-  opacity: 1;
-}
-
-/**
- * Homepage mobile: solid dark-blue bar + alt logo at all times
- * (no transparent-over-hero / scroll swap — preheader is hidden below md).
- */
-@media (width < theme(--breakpoint-md)) {
-  .site-chrome--front #main-header {
-    background-color: var(--color-dark-blue);
-  }
-
-  .site-chrome--front .brand-logo-link .site-logo--main {
-    opacity: 0;
-  }
-
-  .site-chrome--front .brand-logo-link .site-logo--alt {
-    opacity: 1;
-  }
-}
-
-/**
- * Inner pages: stick the whole chrome (preheader + bar). Sticky on
- * `#main-header` alone fails because `.site-chrome--inner` is only as
- * tall as the chrome — the parent scrolls away immediately.
- * Main bar matches the homepage scrolled state (dark-blue + white UI).
- */
-.site-chrome--inner {
-  position: sticky;
-  inset-inline: 0;
-  top: var(--site-admin-bar-height, 0px);
-  z-index: 30;
-}
-
-.site-chrome--inner .preheader {
-  background-color: var(--color-white);
-  color: var(--color-dark-blue);
+  height: var(--main-header-scrolled);
 }
 
 .site-chrome--inner #main-header {
-  background-color: var(--color-dark-blue);
+  background-color: var(--site-header-bg);
 }
 
 #main-header .nav-dropdown { border-radius: var(--radius-surface); }

@@ -30,7 +30,9 @@ Fonts: see `fonts.css` (`--font-sans`, `--font-heading`).
 
 ## Layout utilities (`sections.css`)
 
-- `container`, `px-clamp` / `py-clamp*`, `grid-auto-cards`, `hero-overlay`, `mw-*`, `content-pos-*` — reuse existing.
+- `container`, `p-clamp` / `p-clamp-x` / `p-clamp-y` / `p-clamp-xl`, `grid-auto-cards`, `hero-overlay`, `mw-*`, `content-pos-*` — reuse existing.
+- Headings: size comes from `h1`–`h6` (`--font-size-h1` … `--font-size-h6`). Do not put a font-size utility on a heading. Add `lead` when that level should be `--font-lead-scale` larger. `lead` on other elements uses `--font-size-lead`.
+- Buttons: `btn` plus `btn-primary`, `btn-secondary`, `btn-tertiary`, `btn-white`, `btn-brand`, `btn-brand-outline`, `btn-link-white`, `btn-link-dark`. Do not rebuild button padding, radius, or type in a template.
 
 ## Dual Tailwind
 

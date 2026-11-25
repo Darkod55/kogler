@@ -81,7 +81,7 @@ The Template for displaying product archives, including the main shop page which
 
       <div class="mpx-shop__main">
         <header class="mpx-shop__header">
-          <h1 class="mpx-shop__title" x-text="brandName">{{ $activeBrand['name'] }}</h1>
+          <h1 class="mpx-shop__title" x-text="brandName">{{ kogler_title_case($activeBrand['name']) }}</h1>
 
           <div class="mpx-shop__header-actions">
             <button
@@ -178,7 +178,7 @@ The Template for displaying product archives, including the main shop page which
     <div class="mpx-tax-archive">
       <header class="mpx-tax-archive__header">
         @if (apply_filters('woocommerce_show_page_title', true))
-          <h1 class="mpx-tax-archive__title">{!! woocommerce_page_title(false) !!}</h1>
+          <h1 class="mpx-tax-archive__title">{{ kogler_title_case(woocommerce_page_title(false)) }}</h1>
         @endif
 
         <a class="mpx-tax-archive__back btn btn-primary" href="{{ esc_url($shopUrl) }}">
@@ -217,7 +217,7 @@ The Template for displaying product archives, including the main shop page which
   @else
     <header class="woocommerce-products-header">
       @if (apply_filters('woocommerce_show_page_title', true))
-        <h1 class="woocommerce-products-header__title page-title">{!! woocommerce_page_title(false) !!}</h1>
+        <h1 class="woocommerce-products-header__title page-title">{{ kogler_title_case(woocommerce_page_title(false)) }}</h1>
       @endif
 
       @php

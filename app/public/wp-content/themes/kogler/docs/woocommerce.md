@@ -32,7 +32,7 @@ Dev: from theme dir, `npm run build` (or `npm run dev`) after CSS changes.
 
 ## Hooks highlights (`wc-template-hooks.php`)
 
-- Replaces Woo content wrappers with `.woocommerce-site.px-clamp.py-clamp` → `.container`.
+- Replaces Woo content wrappers with `.woocommerce-site.p-clamp` → `.container`.
 - Removes default shop sidebar.
 - Moves breadcrumb into single-product summary.
 - Brand / catalog query filters coordinated with `ShopCatalog`.

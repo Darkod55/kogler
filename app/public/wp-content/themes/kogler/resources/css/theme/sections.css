@@ -2,6 +2,12 @@
  * Section layout utilities
  */
 
+/**
+ * Section padding. All four sides, or one axis.
+ * `p-clamp` / `p-clamp-y` use the regular block token.
+ * `p-clamp-xl` / `p-clamp-y-xl` use the large block token.
+ * Horizontal padding is always `--spacing-clamp-inline`.
+ */
 @utility p-clamp {
   padding-inline: var(--spacing-clamp-inline);
   padding-block: var(--spacing-clamp-block);
@@ -12,6 +18,38 @@
   padding-block: var(--spacing-clamp-block-xl);
 }
 
+@utility p-clamp-x {
+  padding-inline: var(--spacing-clamp-inline);
+}
+
+@utility p-clamp-y {
+  padding-block: var(--spacing-clamp-block);
+}
+
+@utility p-clamp-y-xl {
+  padding-block: var(--spacing-clamp-block-xl);
+}
+
+@utility pt-clamp {
+  padding-top: var(--spacing-clamp-block);
+}
+
+@utility pb-clamp {
+  padding-bottom: var(--spacing-clamp-block);
+}
+
+@utility pt-clamp-xl {
+  padding-top: var(--spacing-clamp-block-xl);
+}
+
+@utility pb-clamp-xl {
+  padding-bottom: var(--spacing-clamp-block-xl);
+}
+
+/**
+ * Names already saved on blocks and in older templates.
+ * Same tokens as p-clamp-x / p-clamp-y / p-clamp-y-xl.
+ */
 @utility px-clamp {
   padding-inline: var(--spacing-clamp-inline);
 }
@@ -37,6 +75,64 @@
 @utility container {
   margin-inline: auto;
   max-width: var(--width-container);
+}
+
+/**
+ * Highway lane marking. Vertical dashes on .lane-v, horizontal on .lane-h.
+ */
+@utility lane-v {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 6px;
+    bottom: 6px;
+    width: 3px;
+    background: repeating-linear-gradient(
+      180deg,
+      rgb(from var(--color-secondary) r g b / 0.8) 0 22px,
+      transparent 22px 38px
+    );
+  }
+}
+
+/* Quote rule: same dash as .lane-v, in primary, filling a 3px column. */
+.lane-v.lane-primary::before {
+  left: 0;
+  background: repeating-linear-gradient(
+    180deg,
+    var(--color-primary) 0 22px,
+    transparent 22px 38px
+  );
+}
+
+@utility lane-h {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    right: 6px;
+    bottom: auto;
+    left: 6px;
+    width: auto;
+    height: 3px;
+    background: repeating-linear-gradient(
+      90deg,
+      rgb(from var(--color-secondary) r g b / 0.8) 0 34px,
+      transparent 34px 58px
+    );
+  }
+}
+
+/* 3px rule: the dash fills the bar instead of sitting below it. */
+.lane-h.lane-rule::before {
+  top: 0;
+  right: 0;
+  left: 0;
 }
 
 /**
@@ -150,23 +246,18 @@
       );
     }
 
-    /**
-     * Homepage chrome is fixed over the hero — sit below the preheader and
-     * fill the rest of the viewport (main bar floats over the image).
-     * Admin bar is already cleared via html margin-top; chrome uses
-     * `--site-admin-bar-height` for its fixed `top`. Hero height still
-     * subtracts the admin bar so it ends at the viewport bottom.
-     */
-    body.home .mpx-hero,
-    body.front-page .mpx-hero {
-      margin-top: var(--site-preheader-height, 0px);
-      --mpx-hero-min-h: calc(
-        100vh - var(--site-preheader-height, 0px) - var(--site-admin-bar-height, 0px)
-      );
-      --mpx-hero-min-h: calc(
-        100dvh - var(--site-preheader-height, 0px) - var(--site-admin-bar-height, 0px)
-      );
-    }
+  }
+
+  /**
+   * Home: the chrome is in normal flow above the hero, so the hero fills
+   * whatever viewport is left. `--site-header-h` is the preheader, the main
+   * bar, and the admin bar (0 when logged out).
+   */
+  body.home .mpx-hero,
+  body.front-page .mpx-hero {
+    margin-top: 0;
+    --mpx-hero-min-h: calc(100vh - var(--site-header-h, 7rem));
+    --mpx-hero-min-h: calc(100svh - var(--site-header-h, 7rem));
   }
 
   .mpx-hero__media {

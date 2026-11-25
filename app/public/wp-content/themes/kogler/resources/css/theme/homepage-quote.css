@@ -1,0 +1,147 @@
+/**
+ * Homepage quote form. Scoped to .kg-form so other Fluent Forms stay as they are.
+ *
+ * Error red: no theme danger token. --kg-error is #B42318, 6.57:1 on white.
+ */
+
+@layer components {
+  .kg-form {
+    --kg-error: #b42318;
+  }
+
+  .kg-form .fluentform .ff-el-group {
+    margin-bottom: 18px;
+  }
+
+  .kg-form .fluentform .ff-t-container {
+    display: grid;
+    gap: 18px 20px;
+    margin-bottom: 18px;
+  }
+
+  .kg-form .fluentform .ff-t-container.ff_columns_total_2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .kg-form .fluentform .ff-t-cell {
+    width: auto !important;
+    max-width: none !important;
+    flex-basis: auto !important;
+  }
+
+  .kg-form .fluentform .ff-t-cell > .ff-el-group,
+  .kg-form .fluentform .ff-t-container .ff-el-group {
+    margin-bottom: 0;
+  }
+
+  .kg-form .fluentform .ff-el-input--label,
+  .kg-form .fluentform .ff-el-input--label label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--color-dark-blue);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .kg-form .fluentform .ff-el-input--label.ff-el-is-required.asterisk-right label::after,
+  .kg-form .fluentform .ff-el-input--label.ff-el-is-required.asterisk-left label::before {
+    color: var(--color-primary);
+  }
+
+  .kg-form .fluentform .ff-el-form-control {
+    width: 100%;
+    height: 50px;
+    min-height: 50px;
+    padding: 0 0.875rem !important;
+    border: 1px solid color-mix(in srgb, var(--color-dark-blue) 25%, transparent) !important;
+    border-radius: 10px;
+    background-color: var(--color-white) !important;
+    box-shadow: none !important;
+    color: var(--color-dark-blue);
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .kg-form .fluentform textarea.ff-el-form-control {
+    height: auto;
+    min-height: 8.5rem;
+    padding: 0.75rem 0.875rem !important;
+    resize: vertical;
+  }
+
+  .kg-form .fluentform .ff-el-form-control:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 1px;
+    border-color: var(--color-primary) !important;
+    box-shadow: none !important;
+  }
+
+  .kg-form .fluentform .ff_submit_btn_wrapper {
+    margin-top: 0.375rem;
+  }
+
+  .kg-form .fluentform .ff-btn-submit {
+    margin-top: 0;
+    padding: 17px 34px;
+    border: 0 !important;
+    border-radius: 999px;
+    background-color: var(--color-dark-blue) !important;
+    box-shadow: none !important;
+    color: var(--color-white) !important;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.2;
+    cursor: pointer;
+    transition: translate 0.15s ease;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .kg-form .fluentform .ff-btn-submit:hover {
+      translate: 0 -1px;
+    }
+  }
+
+  .kg-form .fluentform .ff-btn-submit:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 4px;
+  }
+
+  .kg-form .fluentform .ff-el-is-error .ff-el-form-control {
+    border-color: var(--kg-error) !important;
+    box-shadow: none !important;
+  }
+
+  .kg-form .fluentform .error.text-danger,
+  .kg-form .fluentform .text-danger {
+    margin-top: 0.375rem;
+    color: var(--kg-error);
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .kg-form .fluentform .ff-message-success {
+    margin: 0;
+    padding: 0;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: var(--color-dark-blue);
+    font-size: 18px;
+    line-height: 1.65;
+  }
+
+  .kg-form .fluentform .ff-message-success p {
+    margin: 0;
+  }
+
+  @media (width < 721px) {
+    .kg-form .fluentform .ff-t-container,
+    .kg-form .fluentform .ff-t-container.ff_columns_total_2 {
+      grid-template-columns: 1fr;
+    }
+  }
+}

@@ -1,5 +1,5 @@
 @php
-    $sectionPadding = $a['section_padding'] ?? ['py-clamp'];
+    $sectionPadding = $a['section_padding'] ?? ['p-clamp-y'];
     if (! is_array($sectionPadding)) {
         $sectionPadding = [$sectionPadding];
     }
@@ -24,7 +24,7 @@
 <section
     useBlockProps
     @if ($anchorId !== '') id="{{ $anchorId }}" @endif
-    class="mpx-partners-slider overflow-x-hidden px-clamp bs-block {{ $bgClass }} {{ $paddingClasses }}{{ $isEditor ? ' is-editor' : '' }}"
+    class="mpx-partners-slider overflow-x-hidden p-clamp-x bs-block {{ $bgClass }} {{ $paddingClasses }}{{ $isEditor ? ' is-editor' : '' }}"
 >
     <div class="container">
         <InnerBlocks

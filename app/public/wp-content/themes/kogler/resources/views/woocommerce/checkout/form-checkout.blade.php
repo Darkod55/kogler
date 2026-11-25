@@ -46,7 +46,7 @@
       <div class="mpx-checkout__secondary">
         @php do_action('woocommerce_checkout_before_order_review_heading'); @endphp
 
-        <h3 id="order_review_heading">{{ esc_html__('Your order', 'woocommerce') }}</h3>
+        <h3 id="order_review_heading">{{ esc_html__('Your Order', 'woocommerce') }}</h3>
 
         @php do_action('woocommerce_checkout_before_order_review'); @endphp
 

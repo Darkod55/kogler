@@ -25,7 +25,7 @@
   </figure>
 
   <h3 class="h4 mpx-post-card__title">
-    <a href="{{ $permalink }}">{!! $title !!}</a>
+    <a href="{{ $permalink }}">{{ kogler_title_case($title) }}</a>
   </h3>
 
   <div class="mpx-post-card__footer">

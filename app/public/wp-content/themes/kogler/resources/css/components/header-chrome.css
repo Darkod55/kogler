@@ -1,50 +1,70 @@
 /**
- * Dark primary bar — white nav/icons (homepage overlay + scrolled bar,
- * and all inner pages).
+ * Dark bar — white nav and icons on every page.
  *
  * Kept outside resources/css/theme/ so bridgeTailwindConfig() does not
- * re-emit these into Blockstudio's inline Tailwind. TailwindPHP was
- * incorrectly merging `text-white` + `hover:text-tertiary` so homepage
- * icons stayed gold (tertiary) at rest.
+ * re-emit these into Blockstudio's inline Tailwind.
  */
 
 @layer components {
-  .site-chrome--front .primary-nav .nav-link:not(.btn),
-  .site-chrome--inner .primary-nav .nav-link:not(.btn) {
+  .site-chrome .primary-nav .nav-link:not(.btn) {
     color: var(--color-white);
   }
 
-  .site-chrome--front .primary-nav .nav-link:not(.btn):hover,
-  .site-chrome--inner .primary-nav .nav-link:not(.btn):hover {
+  .site-chrome .primary-nav .nav-link:not(.btn):hover {
     color: color-mix(in oklab, var(--color-white) 80%, transparent);
   }
 
-  .site-chrome--front .primary-nav .menu-item.current-menu-item > .nav-link:not(.btn),
-  .site-chrome--front .primary-nav .menu-item.current-menu-ancestor > .nav-link:not(.btn),
-  .site-chrome--front .primary-nav .menu-item.active > .nav-link:not(.btn),
-  .site-chrome--inner .primary-nav .menu-item.current-menu-item > .nav-link:not(.btn),
-  .site-chrome--inner .primary-nav .menu-item.current-menu-ancestor > .nav-link:not(.btn),
-  .site-chrome--inner .primary-nav .menu-item.active > .nav-link:not(.btn) {
-    color: var(--color-white);
+  .site-chrome .primary-nav .menu-item.current-menu-item > .nav-link:not(.btn),
+  .site-chrome .primary-nav .menu-item.current-menu-ancestor > .nav-link:not(.btn),
+  .site-chrome .primary-nav .menu-item.active > .nav-link:not(.btn) {
+    color: var(--site-accent);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.35em;
+    text-decoration-color: var(--site-accent);
   }
 
-  .site-chrome--front .header-menu-toggle,
-  .site-chrome--inner .header-menu-toggle {
-    color: var(--color-white);
+  /**
+   * Goliath: active parent is silver, with a 2px green underline.
+   */
+  [data-brand="goliath-steel"] .site-chrome .primary-nav .menu-item.current-menu-item > .nav-link:not(.btn),
+  [data-brand="goliath-steel"] .site-chrome .primary-nav .menu-item.current-menu-ancestor > .nav-link:not(.btn),
+  [data-brand="goliath-steel"] .site-chrome .primary-nav .menu-item.active > .nav-link:not(.btn),
+  [data-brand="goliath-steel"] .offcanvas-nav .menu-item.current-menu-item > .nav-link,
+  [data-brand="goliath-steel"] .offcanvas-nav .menu-item.current-menu-ancestor > .nav-link,
+  [data-brand="goliath-steel"] .offcanvas-nav .menu-item.active > .nav-link {
+    color: var(--color-goliath-silver);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.35em;
+    text-decoration-color: var(--color-goliath-green);
   }
 
-  .site-chrome--front .header-icon-btn,
-  .site-chrome--inner .header-icon-btn,
-  .site-chrome--front .header-cart,
-  .site-chrome--inner .header-cart {
+  /**
+   * Outdoor: the desktop bar already paints the active parent in --site-accent
+   * (amber text, 2px amber underline). The off-canvas menu needs the same.
+   */
+  [data-brand="kogler-outdoor"] .offcanvas-nav .menu-item.current-menu-item > .nav-link,
+  [data-brand="kogler-outdoor"] .offcanvas-nav .menu-item.current-menu-ancestor > .nav-link,
+  [data-brand="kogler-outdoor"] .offcanvas-nav .menu-item.active > .nav-link {
+    color: var(--color-outdoor-amber);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.35em;
+    text-decoration-color: var(--color-outdoor-amber);
+  }
+
+  .site-chrome .header-menu-toggle,
+  .site-chrome .header-icon-btn,
+  .site-chrome .preheader-icon,
+  .site-chrome .preheader-social {
     color: var(--color-white);
   }
 
   @media (hover: hover) {
-    .site-chrome--front .header-icon-btn:hover,
-    .site-chrome--inner .header-icon-btn:hover,
-    .site-chrome--front .header-cart:hover,
-    .site-chrome--inner .header-cart:hover {
+    .site-chrome .header-icon-btn:hover,
+    .site-chrome .preheader-icon:hover,
+    .site-chrome .preheader-social:hover {
       color: var(--color-tertiary);
     }
   }

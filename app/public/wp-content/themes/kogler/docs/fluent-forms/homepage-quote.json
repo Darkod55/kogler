@@ -1,0 +1,267 @@
+[
+  {
+    "title": "Homepage – Quote Request",
+    "status": "published",
+    "appearance_settings": null,
+    "form_fields": {
+      "fields": [
+        {
+          "element": "container",
+          "attributes": [],
+          "settings": {
+            "container_class": "",
+            "conditional_logics": [],
+            "is_width_auto_calc": true
+          },
+          "columns": [
+            {
+              "width": 50,
+              "fields": [
+                {
+                  "uniqElKey": "el_name",
+                  "element": "input_text",
+                  "attributes": {
+                    "type": "text",
+                    "name": "name",
+                    "value": "",
+                    "id": "",
+                    "class": "",
+                    "placeholder": "",
+                    "autocomplete": "name"
+                  },
+                  "settings": {
+                    "container_class": "",
+                    "label": "Name",
+                    "label_placement": "",
+                    "admin_field_label": "Name",
+                    "help_message": "",
+                    "validation_rules": {
+                      "required": {
+                        "value": true,
+                        "message": "This field is required",
+                        "global_message": "This field is required",
+                        "global": true
+                      }
+                    },
+                    "conditional_logics": []
+                  },
+                  "editor_options": {
+                    "title": "Name",
+                    "template": "inputText"
+                  }
+                }
+              ]
+            },
+            {
+              "width": 50,
+              "fields": [
+                {
+                  "uniqElKey": "el_email",
+                  "element": "input_email",
+                  "attributes": {
+                    "type": "email",
+                    "name": "email",
+                    "value": "",
+                    "id": "",
+                    "class": "",
+                    "placeholder": "",
+                    "autocomplete": "email"
+                  },
+                  "settings": {
+                    "container_class": "",
+                    "label": "Email",
+                    "label_placement": "",
+                    "admin_field_label": "Email",
+                    "help_message": "",
+                    "validation_rules": {
+                      "required": {
+                        "value": true,
+                        "message": "This field is required",
+                        "global_message": "This field is required",
+                        "global": true
+                      },
+                      "email": {
+                        "value": true,
+                        "message": "This field must contain a valid email",
+                        "global_message": "This field must contain a valid email",
+                        "global": true
+                      }
+                    },
+                    "conditional_logics": []
+                  },
+                  "editor_options": {
+                    "title": "Email",
+                    "template": "inputEmail"
+                  }
+                }
+              ]
+            }
+          ],
+          "editor_options": {
+            "title": "Container"
+          }
+        },
+        {
+          "element": "container",
+          "attributes": [],
+          "settings": {
+            "container_class": "",
+            "conditional_logics": [],
+            "is_width_auto_calc": true
+          },
+          "columns": [
+            {
+              "width": 50,
+              "fields": [
+                {
+                  "uniqElKey": "el_phone",
+                  "element": "input_text",
+                  "attributes": {
+                    "type": "tel",
+                    "name": "phone",
+                    "value": "",
+                    "id": "",
+                    "class": "",
+                    "placeholder": "",
+                    "autocomplete": "tel"
+                  },
+                  "settings": {
+                    "container_class": "",
+                    "label": "Phone",
+                    "label_placement": "",
+                    "admin_field_label": "Phone",
+                    "help_message": "",
+                    "validation_rules": {
+                      "required": {
+                        "value": false,
+                        "message": "This field is required",
+                        "global_message": "This field is required",
+                        "global": true
+                      }
+                    },
+                    "conditional_logics": []
+                  },
+                  "editor_options": {
+                    "title": "Phone",
+                    "template": "inputText"
+                  }
+                }
+              ]
+            },
+            {
+              "width": 50,
+              "fields": [
+                {
+                  "uniqElKey": "el_location",
+                  "element": "input_text",
+                  "attributes": {
+                    "type": "text",
+                    "name": "location",
+                    "value": "",
+                    "id": "",
+                    "class": "",
+                    "placeholder": "City, State",
+                    "autocomplete": "address-level2"
+                  },
+                  "settings": {
+                    "container_class": "",
+                    "label": "Location",
+                    "label_placement": "",
+                    "admin_field_label": "Location",
+                    "help_message": "",
+                    "validation_rules": {
+                      "required": {
+                        "value": false,
+                        "message": "This field is required",
+                        "global_message": "This field is required",
+                        "global": true
+                      }
+                    },
+                    "conditional_logics": []
+                  },
+                  "editor_options": {
+                    "title": "Location",
+                    "template": "inputText"
+                  }
+                }
+              ]
+            }
+          ],
+          "editor_options": {
+            "title": "Container"
+          }
+        },
+        {
+          "uniqElKey": "el_message",
+          "element": "textarea",
+          "attributes": {
+            "name": "message",
+            "value": "",
+            "id": "",
+            "class": "",
+            "placeholder": "",
+            "rows": 5,
+            "cols": 2
+          },
+          "settings": {
+            "container_class": "",
+            "label": "Message",
+            "label_placement": "",
+            "admin_field_label": "Message",
+            "help_message": "",
+            "validation_rules": {
+              "required": {
+                "value": true,
+                "message": "This field is required",
+                "global_message": "This field is required",
+                "global": true
+              }
+            },
+            "conditional_logics": []
+          },
+          "editor_options": {
+            "title": "Message",
+            "template": "inputTextarea"
+          }
+        }
+      ],
+      "submitButton": {
+        "uniqElKey": "el_submit",
+        "element": "button",
+        "attributes": {
+          "type": "submit",
+          "class": ""
+        },
+        "settings": {
+          "button_style": "no_style",
+          "button_size": "md",
+          "align": "left",
+          "container_class": "",
+          "help_message": "",
+          "button_ui": {
+            "type": "default",
+            "text": "Request a Quote",
+            "img_url": ""
+          },
+          "conditional_logics": []
+        },
+        "editor_options": {
+          "title": "Submit Button"
+        }
+      }
+    },
+    "has_payment": 0,
+    "type": "form",
+    "conditions": null,
+    "metas": [
+      {
+        "meta_key": "formSettings",
+        "value": "{\"confirmation\": {\"redirectTo\": \"samePage\", \"messageToShow\": \"<p role=\\\"status\\\">Thanks, we’ve got your request. Our team will send your quote within 24 hours.</p>\", \"customPage\": null, \"samePageFormBehavior\": \"hide_form\", \"customUrl\": null}, \"restrictions\": {\"limitNumberOfEntries\": {\"enabled\": false, \"numberOfEntries\": null, \"period\": \"total\", \"limitReachedMsg\": null}, \"scheduleForm\": {\"enabled\": false, \"start\": null, \"end\": null, \"pendingMsg\": \"Form submission is not started yet.\", \"expiredMsg\": \"Form submission is now closed.\"}, \"requireLogin\": {\"enabled\": false, \"requireLoginMsg\": null}, \"denyEmptySubmission\": {\"enabled\": false, \"message\": \"Sorry, you cannot submit an empty form. Let's hear what you wanna say.\"}}, \"layout\": {\"labelPlacement\": \"top\", \"helpMessagePlacement\": \"with_label\", \"errorMessagePlacement\": \"inline\", \"asteriskPlacement\": \"asterisk-right\"}, \"delete_entry_on_submission\": \"no\"}"
+      },
+      {
+        "meta_key": "notifications",
+        "value": "[{\"name\": \"Sales notification\", \"enabled\": true, \"status\": true, \"fromName\": \"\", \"fromEmail\": \"\", \"replyTo\": \"{inputs.email}\", \"bcc\": \"\", \"subject\": \"New quote request\", \"message\": \"{all_data}\", \"sendTo\": {\"type\": \"email\", \"email\": \"info@kogler-usa.com\", \"field\": \"\", \"routing\": []}, \"conditionals\": {\"status\": false, \"type\": \"all\", \"conditions\": []}}]"
+      }
+    ]
+  }
+]
