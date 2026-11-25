@@ -37,7 +37,7 @@
 
     $selectClass = 'h-[50px] w-full cursor-pointer appearance-none rounded-xl bg-white pr-10 pl-3.5 text-[length:var(--font-size-btn)] text-dark-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-blue disabled:cursor-not-allowed disabled:opacity-[0.55]';
 @endphp
-<section id="kogler" class="relative scroll-mt-chrome bg-white px-clamp py-clamp-xl">
+<section id="kogler" class="relative scroll-mt-chrome bg-white p-clamp-xl">
   <div class="container">
     <div class="flex flex-wrap items-center gap-16">
       <div class="min-w-0 w-full shrink grow basis-full min-[1000px]:basis-[460px]">
@@ -48,11 +48,11 @@
           </span>
         @endif
       -->
-        <h2 class="mt-6 mb-0 font-fraunces text-[clamp(34px,3.8vw,54px)] font-semibold leading-[1.08] tracking-tight text-dark-blue">
+        <h2 class="mt-6 mb-0 font-fraunces text-dark-blue">
           Driving a Truck Is Hard, <em class="italic font-medium text-darker-blue">Sleeping in One Shouldn’t Be.</em>
         </h2>
 
-        <p class="mt-6 mb-0 max-w-[560px] text-[length:var(--font-size-tagline)] leading-[1.7] text-(--site-ink)/80">
+        <p class="mt-6 mb-0 max-w-[560px] lead leading-[1.7] text-(--site-ink)/80">
           Kogler makes high-quality sleep products for the commercial trucking industry. Our sleeper mattresses are built for drivers who spend their nights in the cab and for the fleets that depend on them being rested.
         </p>
       </div>
@@ -72,15 +72,15 @@
     >
       <div class="mt-[72px] flex flex-wrap items-stretch gap-6">
         <div class="min-w-0 w-full shrink grow-[3] basis-full min-[1000px]:basis-[520px]">
-          <h3 class="mb-5 text-[24px] font-bold text-dark-blue">Sleeper Mattresses</h3>
+          <h3 class="mb-5 text-dark-blue">Sleeper Mattresses</h3>
 
           <div class="overflow-hidden rounded-3xl border border-(--site-ink)/12">
             <div class="overflow-x-auto">
               <table class="w-full border-collapse text-left text-base text-(--site-ink)">
                 <thead class="bg-light">
                   <tr>
-                    <th class="w-[34%] px-6 py-4 text-[12px] font-bold tracking-widest text-dark-blue uppercase" scope="col">Spec</th>
-                    <th class="px-6 py-4 text-[12px] font-bold tracking-widest text-dark-blue uppercase" scope="col">Options</th>
+                    <th class="w-[34%] px-6 py-4 fs-xs font-bold tracking-widest text-dark-blue uppercase" scope="col">Spec</th>
+                    <th class="px-6 py-4 fs-xs font-bold tracking-widest text-dark-blue uppercase" scope="col">Options</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -111,7 +111,7 @@
         <div id="find-your-size" class="flex min-w-0 w-full shrink grow-[2] basis-full scroll-mt-chrome flex-col justify-between gap-7 rounded-3xl bg-dark-blue p-9 text-white min-[1000px]:basis-[340px]">
           <div>
             <p class="mb-0 text-[13px] font-semibold text-light-blue">Manufacturer’s Fitment Guide</p>
-            <h3 class="mt-2.5 mb-0 font-fraunces text-[34px] font-semibold leading-[1.1]">Find Your Mattress</h3>
+            <h3 class="lead mt-2.5 mb-0 font-fraunces">Find Your Mattress</h3>
           </div>
 
           <form class="flex flex-col gap-3" @submit.prevent>
@@ -178,7 +178,7 @@
           <div class="mt-6 grid grid-cols-1 gap-4 min-[1000px]:grid-cols-[repeat(auto-fit,minmax(340px,1fr))]">
             <template x-for="bunk in bunks" :key="bunk.position">
               <article class="rounded-[20px] bg-white p-7">
-                <p class="mb-0 text-[12px] font-bold tracking-widest text-(--site-ink)/70 uppercase" x-text="bunk.position"></p>
+                <p class="mb-0 fs-xs font-bold tracking-widest text-(--site-ink)/70 uppercase" x-text="bunk.position"></p>
                 <p class="mt-2 mb-0 font-fraunces text-[44px] leading-none font-semibold text-dark-blue">
                   <span x-text="bunk.widthsLabel"></span>
                   <span class="text-[length:var(--font-size-base)] font-semibold text-(--site-ink)/60">wide</span>

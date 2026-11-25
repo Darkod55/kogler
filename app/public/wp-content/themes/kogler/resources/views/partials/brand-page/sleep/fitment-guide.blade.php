@@ -13,12 +13,12 @@
         ['width' => '42"', 'text' => 'All four styles'],
     ];
 @endphp
-<section id="fitment-guide" class="relative scroll-mt-chrome bg-light px-clamp py-clamp-xl">
+<section id="fitment-guide" class="relative scroll-mt-chrome bg-light p-clamp-xl">
   <div class="container">
-    <h2 class="mb-0 font-fraunces text-[clamp(34px,3.8vw,54px)] font-semibold leading-[1.08] tracking-tight text-dark-blue">
+    <h2 class="mb-0 font-fraunces text-dark-blue">
       Sleeper Fitment <em class="italic font-medium text-darker-blue">Guide</em>
     </h2>
-    <p class="mt-[18px] mb-0 max-w-[680px] text-[length:var(--font-size-tagline)] leading-[1.7] text-(--site-ink)/80">
+    <p class="mt-[18px] mb-0 max-w-[680px] lead leading-[1.7] text-(--site-ink)/80">
       Core Class 8 highway sleepers matched to Kogler mattress widths. All Kogler mattresses are 80" long and 7" deep.
     </p>
 
@@ -38,11 +38,11 @@
           <caption class="sr-only">Kogler mattress width by truck make, model and bunk</caption>
           <thead class="bg-dark-blue text-white">
             <tr>
-              <th class="sticky left-0 z-20 w-36 bg-dark-blue px-6 py-4 text-left text-[12px] font-bold tracking-widest uppercase" scope="col">OEM</th>
-              <th class="sticky left-36 z-20 bg-dark-blue px-6 py-4 text-left text-[12px] font-bold tracking-widest uppercase" scope="col">Model</th>
-              <th class="px-6 py-4 text-left text-[12px] font-bold tracking-widest uppercase" scope="col">Bunk</th>
-              <th class="px-6 py-4 text-left text-[12px] font-bold tracking-widest uppercase" scope="col">Kogler width</th>
-              <th class="px-6 py-4 text-left text-[12px] font-bold tracking-widest uppercase" scope="col">Note</th>
+              <th class="sticky left-0 z-20 w-36 bg-dark-blue px-6 py-4 text-left fs-xs font-bold tracking-widest uppercase" scope="col">OEM</th>
+              <th class="sticky left-36 z-20 bg-dark-blue px-6 py-4 text-left fs-xs font-bold tracking-widest uppercase" scope="col">Model</th>
+              <th class="px-6 py-4 text-left fs-xs font-bold tracking-widest uppercase" scope="col">Bunk</th>
+              <th class="px-6 py-4 text-left fs-xs font-bold tracking-widest uppercase" scope="col">Kogler width</th>
+              <th class="px-6 py-4 text-left fs-xs font-bold tracking-widest uppercase" scope="col">Note</th>
             </tr>
           </thead>
           <tbody>
@@ -77,7 +77,7 @@
       <strong class="text-dark-blue">‡ Replacement reclining mattresses for Volvo sleepers are available on request.</strong>
     </p>
 
-    <h3 class="mt-14 mb-[18px] text-[22px] font-bold text-dark-blue">Styles Available by Width</h3>
+    <h3 class="mt-14 mb-[18px] text-dark-blue">Styles Available by Width</h3>
     <div class="grid grid-cols-1 gap-3.5 min-[380px]:grid-cols-2 min-[1000px]:grid-cols-[repeat(auto-fit,minmax(180px,1fr))]">
       @foreach ($tiles as $tile)
         <div class="rounded-t-[4px] rounded-b-[18px] border-t-[3px] border-dark-blue bg-white px-[22px] py-5">

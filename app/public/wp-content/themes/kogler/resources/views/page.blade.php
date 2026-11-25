@@ -21,7 +21,7 @@
   @endphp
 
   @if ($isWooPage)
-    <div class="woocommerce-site px-clamp py-clamp">
+    <div class="woocommerce-site p-clamp">
       <div class="container">
         <header class="woocommerce-products-header">
           <h1 class="woocommerce-products-header__title page-title">{{ kogler_title_case($pageTitle) }}</h1>

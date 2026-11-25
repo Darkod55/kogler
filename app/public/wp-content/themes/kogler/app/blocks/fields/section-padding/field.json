@@ -5,7 +5,7 @@
       "id": "section_padding",
       "type": "select",
       "label": "Section Padding",
-      "default": ["py-clamp"],
+      "default": ["p-clamp-y"],
       "multiple": true,
       "allowNull": true,
       "populate": {

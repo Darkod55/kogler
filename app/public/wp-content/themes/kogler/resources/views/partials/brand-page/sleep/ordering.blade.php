@@ -13,16 +13,16 @@
         ['label' => 'Packaging', 'value' => 'Roll-packed & sealed'],
     ];
 @endphp
-<section id="ordering" class="relative bg-white px-clamp py-clamp-xl">
+<section id="ordering" class="relative bg-white p-clamp-xl">
   <div class="container">
-    <h2 class="mb-0 font-fraunces text-[clamp(34px,3.8vw,54px)] font-semibold leading-[1.08] tracking-tight text-dark-blue">
+    <h2 class="mb-0 font-fraunces text-dark-blue">
       Ordering <em class="italic font-medium text-darker-blue">Information</em>
     </h2>
 
     <dl class="mt-10 mb-0 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
       @foreach ($orderingCards as $card)
         <div class="rounded-t-[4px] rounded-b-[20px] border-t-[3px] border-dark-blue bg-light px-7 py-6">
-          <dt class="text-[12px] font-bold tracking-widest text-(--site-ink)/70 uppercase">{{ $card['label'] }}</dt>
+          <dt class="fs-xs font-bold tracking-widest text-(--site-ink)/70 uppercase">{{ $card['label'] }}</dt>
           <dd class="mt-2 mb-0 text-[19px] font-bold leading-[1.4] text-dark-blue">{{ $card['value'] }}</dd>
         </div>
       @endforeach

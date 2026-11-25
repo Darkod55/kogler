@@ -23,9 +23,9 @@
 @endphp
 
 @if ($people)
-  <section class="relative bg-white px-clamp py-clamp-xl">
+  <section class="relative bg-white p-clamp-xl">
     <div class="container">
-      <h2 class="mb-0 font-fraunces text-[clamp(32px,3.4vw,48px)] font-semibold leading-[1.1] text-dark-blue">
+      <h2 class="mb-0 font-fraunces text-dark-blue">
         Leadership
       </h2>
 
@@ -55,7 +55,7 @@
                 {!! $portrait !!}
               @endif
             </div>
-            <h3 class="mt-5 mb-1 text-[19px] font-bold text-dark-blue">
+            <h3 class="mt-5 mb-1 text-dark-blue">
               {{ kogler_title_case($person['name']) }}
             </h3>
             <p class="mb-0 text-[length:var(--font-size-btn)] text-dark-blue/75">

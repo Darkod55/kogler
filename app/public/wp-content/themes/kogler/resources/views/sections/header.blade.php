@@ -43,7 +43,7 @@
   x-effect="document.body.classList.toggle('overflow-hidden', mobileOpen || searchOpen)"
   @keydown.escape.window="searchOpen = false"
 >
-  <div class="preheader px-clamp text-white">
+  <div class="preheader p-clamp-x text-white">
     <div class="container flex flex-nowrap items-center justify-between gap-3 py-2.5 text-sm">
       <div class="flex min-w-0 items-center gap-4">
         <a class="preheader-phone inline-flex items-center gap-2 text-white no-underline transition-opacity hover:opacity-80 max-md:size-7 max-md:justify-center max-md:gap-0" href="tel:+18557026636" aria-label="{{ __('(855) 702 - 6636', 'sage') }}">
@@ -87,7 +87,7 @@
     <div class="header-bar-slot">
   <header
     id="main-header"
-    class="banner header-bar z-30 border-b border-white/25 px-clamp"
+    class="banner header-bar z-30 border-b border-white/25 p-clamp-x"
   >
     <div class="container flex h-full items-center justify-between gap-8">
       <div class="brand shrink-0">
@@ -148,7 +148,7 @@
         x-transition:leave="duration-200 ease-in"
         x-transition:leave-start="translate-x-0"
         x-transition:leave-end="translate-x-full"
-        class="offcanvas-nav fixed inset-0 z-50 flex flex-col overflow-y-auto px-clamp py-4 text-white lg:hidden"
+        class="offcanvas-nav fixed inset-0 z-50 flex flex-col overflow-y-auto p-clamp-x py-4 text-white lg:hidden"
       >
         <div class="flex shrink-0 items-center justify-between gap-6">
           <div class="brand shrink-0">

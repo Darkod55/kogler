@@ -3,13 +3,13 @@
   Jump targets #kogler, #goliath-steel, and #kogler-outdoor are later sections.
   Fraunces italic is synthesized; the theme only loads the roman face.
 --}}
-<section class="relative bg-dark-blue px-clamp pt-clamp-block-xl pb-clamp-block-xl text-left text-white">
+<section class="relative bg-dark-blue p-clamp-xl text-left text-white">
   <div class="container">
-    <h1 class="mb-0 font-fraunces text-[clamp(44px,6vw,84px)] font-semibold leading-[1.02] tracking-tight text-white">
+    <h1 class="mb-0 font-fraunces text-white">
       Our <em class="italic font-medium text-secondary">Brands</em>
     </h1>
 
-    <p class="mt-8 mb-0 max-w-[620px] text-[length:var(--font-size-lead)] leading-[1.65] text-white/85">
+    <p class="mt-8 mb-0 max-w-[620px] lead leading-[1.65] text-white/85">
       At Kogler-USA we supply thousands of customers across the commercial truck, RV and marine markets through three brands: Kogler, Goliath Steel and Kogler Outdoor.
     </p>
 

@@ -36,23 +36,22 @@
         ],
     ];
 
-    $pill = 'inline-block rounded-full bg-light-blue px-4 py-2 text-[length:var(--font-size-btn)] font-bold text-darker-blue no-underline hover:bg-white hover:ring-1 hover:ring-darker-blue/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-darker-blue';
 @endphp
-<section id="quick-selector" class="relative scroll-mt-chrome bg-white px-clamp py-clamp-xl">
+<section id="quick-selector" class="relative scroll-mt-chrome bg-white p-clamp-xl">
   <div class="container">
     <div class="flex flex-wrap gap-14">
       <div class="min-w-0 w-full shrink grow basis-full min-[1000px]:max-w-[420px] min-[1000px]:basis-[320px]">
-        <h2 class="mb-0 font-fraunces text-[clamp(34px,3.8vw,54px)] font-semibold leading-[1.08] tracking-tight text-dark-blue">
+        <h2 class="mb-0 font-fraunces text-dark-blue">
           Quick <em class="italic font-medium text-darker-blue">Selector</em>
         </h2>
-        <p class="mt-5 mb-0 text-[length:var(--font-size-tagline)] leading-[1.7] text-(--site-ink)/80">{{ $quickIntro }}</p>
+        <p class="mt-5 mb-0 lead leading-[1.7] text-(--site-ink)/80">{{ $quickIntro }}</p>
         <p class="mt-4 mb-0 text-[length:var(--font-size-btn)] leading-[1.6] text-(--site-ink)/70">
           {{ $quickNote }}<a class="font-semibold text-dark-blue underline-offset-2 hover:underline" href="#find-your-size">find your size</a>.
         </p>
       </div>
 
       <div class="min-w-0 w-full shrink grow-[999] basis-full min-[1000px]:basis-[560px]">
-        <div class="hidden items-center justify-between gap-6 border-b-2 border-dark-blue pb-3.5 text-[12px] font-bold tracking-widest text-dark-blue uppercase sm:flex" aria-hidden="true">
+        <div class="hidden items-center justify-between gap-6 border-b-2 border-dark-blue pb-3.5 fs-xs font-bold tracking-widest text-dark-blue uppercase sm:flex" aria-hidden="true">
           <span>If the customer…</span>
           <span>Recommend</span>
         </div>
@@ -64,7 +63,7 @@
               <dd class="m-0">
                 <span class="sr-only">Recommend: </span>
                 <a
-                  class="{{ $pill }}"
+                  class="btn btn-brand btn-sm"
                   href="{{ $row['href'] }}"
                   @if (! empty($row['cover'])) @click="$dispatch('set-cover', { cover: '{{ $row['cover'] }}' })" @endif
                 >{{ $row['recommendation'] }}</a>

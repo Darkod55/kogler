@@ -31,12 +31,12 @@
     $linkClass = 'text-dark-blue no-underline hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary';
     $rowClass = 'flex items-start gap-4 border-t border-dark-blue/10 py-5';
 @endphp
-<section class="contact-section relative bg-light px-clamp py-clamp-xl" style="--da-error: #B42318;">
+<section class="contact-section relative bg-light p-clamp-xl" style="--da-error: #B42318;">
   <div class="container">
     <div class="flex flex-wrap items-start gap-6">
       <aside class="flex w-full min-w-0 max-w-none basis-full flex-col gap-4 min-[1000px]:max-w-[440px] min-[1000px]:grow min-[1000px]:shrink min-[1000px]:basis-[340px]" aria-labelledby="company-info">
         <div class="rounded-3xl bg-white p-9">
-          <h2 id="company-info" class="mb-2 text-[22px] font-bold text-dark-blue">Company Info</h2>
+          <h2 id="company-info" class="mb-2 text-dark-blue">Company Info</h2>
 
           <dl class="m-0">
             <div class="{{ $rowClass }}">

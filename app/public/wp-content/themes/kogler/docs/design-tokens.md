@@ -97,7 +97,7 @@ padding-btn-sm-x: 10px
 font-size-xs: 12px
 font-size-sm: 16px
 font-size-base: 17px
-font-size-lead: 20px
+# font-size-lead is fluid — see Type scale (18px / 20px) and --font-size-lead
 font-size-tagline: 18px
 font-size-btn: 15px
 ```
@@ -119,13 +119,15 @@ font-size-btn: 15px
 | Token | Used for |
 | --- | --- |
 | `--color-*` | Editor palette + `text-*` / `bg-*` |
-| `--spacing-clamp-*` | `px-clamp`, `py-clamp`, `py-clamp-xl`, … |
+| `--spacing-clamp-*` | `p-clamp`, `p-clamp-x`, `p-clamp-y`, `p-clamp-xl`, `p-clamp-y-xl` |
 | `--width-container` | `.container` + editor mirrors |
 | `--width-content` | `.mw-1000` |
 | `--radius-surface` | Shared radius (`rounded-surface`) |
 | `--padding-surface*` | Cards, FAQ, column cells, bleed |
 | `--padding-btn-*` | `.btn` / `.btn-sm` |
-| `--font-size-xs\|sm\|base\|lead` | `.fs-*` (+ body/`p` via base) |
+| `--font-size-xs\|sm\|base` | `.fs-*` (+ body/`p` via base) |
+| `--font-size-h1` … `--font-size-h6` | `h1`–`h6` and `.h1`–`.h6`. Do not set a font-size on a heading. |
+| `--font-size-lead` / `--font-lead-scale` | `.lead` on copy, or `.lead` on a heading to scale that level |
 | `--font-size-tagline` | `.fs-tagline` (18px, uppercase, dark-gray) |
 | `--font-size-btn` | Button labels |
 
@@ -167,13 +169,15 @@ body: 17px
 - Before `/` = size at `vmin`; after `/` = size at `vmax`.
 - Root **16px**. Prefer `Maximum Viewport Width` = `width-container`.
 - Viewport lines required only if any filled recipe uses `min / max`.
-- Optional: `H1 line-height (lg+): 64px` → `typography.css` lg media query.
+- Heading line-height stays unitless in `typography.css` so it scales with the clamp.
 
 | Recipe key | Also accept | Writes to |
 | --- | --- | --- |
-| `H1` … `H6` | `h1` … `h6` | `typography.css` → `hN, .hN` |
+| `H1` … `H6` | `h1` … `h6` | `--font-size-h1` … `--font-size-h6` in `variables.css`. `typography.css` applies them to `hN, .hN`. |
 | `body` | `p`, `base`, `fs-base` | `--font-size-base` (+ `body`/`p` use the token) |
-| `fs-xs` / `fs-sm` / `fs-lead` / `fs-tagline` | `fs-small`, `lead`, `tagline` | matching `--font-size-*` (+ tagline styles) |
+| `lead` | `fs-lead` | `--font-size-lead`. Class `lead` on copy. On a heading, `lead` multiplies that level by `lead-scale`. |
+| `lead-scale` | | `--font-lead-scale` (default `1.12`) |
+| `fs-xs` / `fs-sm` / `fs-tagline` | `fs-small`, `tagline` | matching `--font-size-*` (+ tagline styles) |
 | `btn` | `button` | `--font-size-btn` |
 
 ### Clamp formula (`min / max` only)
@@ -203,7 +207,8 @@ H5: 18px / 22px
 H6: 16px / 20px
 body: 16px
 fs-sm: 12px
-fs-lead: 18px
+lead: 18px / 20px
+lead-scale: 1.12
 fs-tagline: 18px
 btn: 15px
 ```
@@ -211,9 +216,10 @@ btn: 15px
 ### Type sync (filled keys only)
 
 1. This file — Active recipes  
-2. Headings → `typography.css`  
-3. body/fs/btn → `variables.css` (overrides brand-token values for those keys)  
-4. `npm run build`
+2. H1–H6 → `--font-size-h1` … `--font-size-h6` in `variables.css`. `typography.css` applies them to `hN, .hN`. Do not set a font-size on a heading in a template or block.  
+3. `lead` → `--font-size-lead`. `lead-scale` → `--font-lead-scale`.  
+4. body/fs/btn → `variables.css`  
+5. `npm run build`
 
 ---
 
@@ -242,6 +248,8 @@ btn-tertiary: bg-tertiary text-black / bg-primary text-white
 btn-white: bg-white text-primary / bg-transparent text-white border-white
 btn-link-white: bg-transparent text-white / bg-transparent text-secondary
 btn-link-dark: bg-transparent text-black / bg-transparent text-secondary
+btn-brand: site accent fill / accent ink. Hover lightens the accent.
+btn-brand-outline: transparent + white text on dark panels. Hover is a white fill.
 ```
 
 Legacy aliases: `btn-primary-alt` → `btn-primary`; `btn-outline-primary` → `btn-white`.

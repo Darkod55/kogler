@@ -13,7 +13,7 @@
 @endphp
 <section
   id="apply"
-  class="distributor-application relative bg-light px-clamp py-clamp-xl"
+  class="distributor-application relative bg-light p-clamp-xl"
   style="--da-error: #B42318;"
 >
   <div class="container">

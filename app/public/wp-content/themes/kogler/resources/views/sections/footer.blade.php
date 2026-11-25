@@ -1,5 +1,5 @@
 <footer class="site-footer">
-  <div class="px-clamp py-clamp">
+  <div class="p-clamp">
     {{--
       Logo + social | Information | Services | Contact
       Mobile: stacked.
@@ -75,7 +75,7 @@
     </div>
   </div>
 
-  <div class="footer-bar border-t border-white/12 px-clamp py-4 text-sm">
+  <div class="footer-bar border-t border-white/12 p-clamp-x py-4 text-sm">
     <div class="container flex flex-col items-center gap-3 text-center lg:flex-row lg:items-center lg:justify-between lg:gap-6 lg:text-left">
       @if (has_nav_menu('legal_navigation'))
         <nav class="footer-legal-nav" aria-label="{{ wp_get_nav_menu_name('legal_navigation') }}">

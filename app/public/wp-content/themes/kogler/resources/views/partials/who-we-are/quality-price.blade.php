@@ -13,7 +13,7 @@
             'class' => 'h-full w-full rounded-xl object-cover',
             'loading' => 'lazy',
             'decoding' => 'async',
-            // Half of the 1300px container after the 64px desktop gap, inside px-clamp.
+            // Half of the 1300px container after the 64px desktop gap, inside p-clamp-x.
             'sizes' => '(min-width: 1348px) 618px, (min-width: 1024px) calc((100vw - 112px) / 2), calc(100vw - 48px)',
         ];
 
@@ -26,15 +26,15 @@
         $qualityImage = wp_get_attachment_image($qualityImageId, 'full', false, $qualityAttrs);
     }
 @endphp
-<section class="relative bg-white px-clamp py-clamp-xl">
+<section class="relative bg-white p-clamp-xl">
   <div class="container">
     <div class="flex flex-wrap items-center gap-10 lg:gap-16">
       <div class="min-w-0 shrink grow basis-[420px]">
-        <h2 class="mb-0 font-heading text-[clamp(30px,3.2vw,44px)] font-bold leading-[1.2] tracking-tight text-dark-blue">
+        <h2 class="mb-0 font-heading text-dark-blue">
           We Don't Believe You Should Have to Choose Between Quality and Price.
         </h2>
 
-        <p class="mt-6 mb-0 max-w-[520px] text-[length:var(--font-size-tagline)] leading-[1.7] text-dark-blue/75">
+        <p class="mt-6 mb-0 max-w-[520px] lead leading-[1.7] text-dark-blue/75">
           Our products are built to hold up mile after mile, and priced so you don't pay a premium for it.
         </p>
       </div>

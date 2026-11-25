@@ -1,5 +1,5 @@
 @php
-    $sectionPadding = $a['section_padding'] ?? ['py-clamp'];
+    $sectionPadding = $a['section_padding'] ?? ['p-clamp-y'];
     if (! is_array($sectionPadding)) {
         $sectionPadding = [$sectionPadding];
     }
@@ -78,7 +78,7 @@
 
     // overflow-hidden breaks position:sticky — only use it when not sticky.
     $sectionClasses = trim(implode(' ', array_filter([
-        'relative px-clamp bs-block mpx-columns-section',
+        'relative p-clamp-x bs-block mpx-columns-section',
         $stickyClass ? null : 'overflow-hidden',
         $vAlignClass,
         $bgClass,

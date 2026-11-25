@@ -13,15 +13,15 @@
 @endphp
 <section
   id="size-finder"
-  class="relative scroll-mt-chrome bg-white px-clamp py-clamp-xl"
+  class="relative scroll-mt-chrome bg-white p-clamp-xl"
   x-data="sizeFinder()"
   @fitment:widths.window="setWidths($event.detail)"
 >
   <div class="container">
-    <h2 class="mb-0 font-fraunces text-[clamp(34px,3.8vw,54px)] font-semibold leading-[1.08] tracking-tight text-dark-blue">
+    <h2 class="mb-0 font-fraunces text-dark-blue">
       Size <em class="italic font-medium text-darker-blue">Finder</em>
     </h2>
-    <p class="mt-[18px] mb-0 max-w-[680px] text-[length:var(--font-size-tagline)] leading-[1.7] text-(--site-ink)/80">
+    <p class="mt-[18px] mb-0 max-w-[680px] lead leading-[1.7] text-(--site-ink)/80">
       Find the bunk width (see the <a class="font-semibold text-dark-blue underline-offset-2 hover:underline" href="#fitment-guide">Fitment Guide</a>), then read across to the part number. All mattresses 7" deep; length 80" unless noted.
     </p>
 
@@ -41,7 +41,7 @@
           <caption class="sr-only">Kogler mattress part numbers by width, construction and cover</caption>
           <thead class="bg-dark-blue text-white">
             <tr>
-              <th class="sticky left-0 z-20 border-r border-white/15 bg-dark-blue px-6 py-4 text-left text-[12px] font-bold tracking-widest uppercase" scope="col">Width</th>
+              <th class="sticky left-0 z-20 border-r border-white/15 bg-dark-blue px-6 py-4 text-left fs-xs font-bold tracking-widest uppercase" scope="col">Width</th>
               @foreach ($columns as $column)
                 <th class="px-6 py-4 text-left" scope="col">
                   <span class="block text-[11px] tracking-widest text-white/90 uppercase">{{ $column['construction'] }}</span>
@@ -56,7 +56,7 @@
                 <th class="sticky left-0 z-10 border-r border-(--site-ink)/10 bg-inherit px-6 py-4 text-left" scope="row">
                   <span class="font-fraunces text-[24px] font-semibold text-dark-blue">{{ $row['width'] }}</span>
                   @if ($row['lengthNote'] !== '')
-                    <span class="block text-[12px] font-medium text-(--site-ink)/70">{{ $row['lengthNote'] }}</span>
+                    <span class="block fs-xs font-medium text-(--site-ink)/70">{{ $row['lengthNote'] }}</span>
                   @endif
                 </th>
                 @foreach ($row['cells'] as $sku)

@@ -41,9 +41,9 @@
         ],
     ];
 @endphp
-<section class="relative bg-white px-clamp pt-0 pb-clamp-block-xl">
+<section class="relative bg-white p-clamp-x pt-0 pb-clamp-xl">
   <div class="container">
-    <h2 class="mb-8 font-heading text-[clamp(30px,3.2vw,44px)] font-bold tracking-tight text-dark-blue">
+    <h2 class="mb-8 font-heading text-dark-blue">
       Our Brands
     </h2>
 
@@ -95,7 +95,7 @@
           </div>
 
           <div class="relative z-10 bg-[var(--brand-strip)] p-8">
-            <h3 class="mb-0 text-[30px] font-extrabold tracking-tight text-white">
+            <h3 class="mb-0 text-white">
               {{ $brand['name'] }}
             </h3>
             <p class="mt-2.5 mb-[18px] text-[length:var(--font-size-base)] leading-relaxed text-white/85">

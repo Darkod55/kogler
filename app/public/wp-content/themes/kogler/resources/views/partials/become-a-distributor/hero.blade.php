@@ -16,7 +16,7 @@
         'Private label opportunities available',
     ];
 @endphp
-<section class="bg-dark-blue px-clamp pt-clamp-block-xl pb-clamp-block-xl text-white">
+<section class="bg-dark-blue p-clamp-xl text-white">
   <div class="container">
     <div class="flex flex-wrap items-start gap-14">
       <div class="min-w-[min(100%,460px)] shrink grow basis-[460px]">
@@ -26,18 +26,18 @@
           </a>
         </nav>
 
-        <h1 class="mt-6 mb-0 font-fraunces text-[clamp(44px,6vw,84px)] font-semibold leading-[1.02] tracking-tight">
+        <h1 class="mt-6 mb-0 font-fraunces">
           Become a <em class="italic font-medium text-secondary">Distributor</em>
         </h1>
 
-        <p class="mt-8 mb-0 max-w-[560px] text-[length:var(--font-size-lead)] leading-[1.7] text-white/85">
+        <p class="mt-8 mb-0 max-w-[560px] lead leading-[1.7] text-white/85">
           We grow through our distribution partners. If you sell to fleets, repair shops, dealerships or RV and marine customers, our brands give you products your customers need at margins that work for your business.
         </p>
       </div>
 
       <div class="min-w-[min(100%,420px)] w-full shrink grow basis-[420px] lg:max-w-[520px]">
         <div class="rounded-3xl bg-white px-9 pt-9 pb-6 text-dark-blue">
-          <h2 class="mb-2 text-[22px] font-bold text-dark-blue">What Partners Get</h2>
+          <h2 class="mb-2 text-dark-blue">What Partners Get</h2>
 
           <ul class="m-0 flex list-none flex-col p-0">
             @foreach ($benefits as $benefit)

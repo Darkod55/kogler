@@ -31,9 +31,9 @@
         ],
     ];
 @endphp
-<section class="relative bg-light px-clamp py-clamp-xl">
+<section class="relative bg-light p-clamp-xl">
   <div class="container">
-    <h2 class="mx-auto mb-0 max-w-[760px] text-center font-fraunces text-[clamp(38px,4.6vw,64px)] font-semibold leading-[1.05] text-dark-blue">
+    <h2 class="lead mx-auto mb-0 max-w-[760px] text-center font-fraunces text-dark-blue">
       We Log the <span class="italic text-primary">HOURS</span>
     </h2>
 
@@ -45,7 +45,7 @@
             {{ $value['letter'] }}
           </div>
           <div class="min-w-0">
-            <h3 class="mt-6 mb-3 text-[20px] font-bold text-dark-blue md:mt-0 lg:mt-6">
+            <h3 class="mt-6 mb-3 text-dark-blue md:mt-0 lg:mt-6">
               {{ kogler_title_case($value['name']) }}
             </h3>
             <p class="mb-0 text-[length:var(--font-size-btn)] leading-[1.65] text-dark-blue/75">

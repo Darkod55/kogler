@@ -1,5 +1,5 @@
 @php
-    $sectionPadding = $a['section_padding'] ?? ['py-clamp'];
+    $sectionPadding = $a['section_padding'] ?? ['p-clamp-y'];
     if (! is_array($sectionPadding)) {
         $sectionPadding = [$sectionPadding];
     }
@@ -61,7 +61,7 @@
 
     // overflow-hidden breaks background-attachment:fixed — skip it with a bg image.
     $sectionClasses = trim(implode(' ', array_filter([
-        'relative px-clamp bs-block mpx-one-column-section',
+        'relative p-clamp-x bs-block mpx-one-column-section',
         $hasBackgroundImage ? 'has-bg-image' : 'overflow-hidden',
         $bgClass,
         $paddingClasses,

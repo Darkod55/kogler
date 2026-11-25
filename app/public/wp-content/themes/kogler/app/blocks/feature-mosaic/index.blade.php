@@ -1,5 +1,5 @@
 @php
-    $sectionPadding = $a['section_padding'] ?? ['py-clamp'];
+    $sectionPadding = $a['section_padding'] ?? ['p-clamp-y'];
     if (! is_array($sectionPadding)) {
         $sectionPadding = [$sectionPadding];
     }
@@ -37,7 +37,7 @@
     $anchorId = $a['anchor'] ?? $b['anchor'] ?? '';
 
     $sectionClasses = trim(implode(' ', array_filter([
-        'relative px-clamp bs-block mpx-feature-mosaic',
+        'relative p-clamp-x bs-block mpx-feature-mosaic',
         $bgClass,
         $paddingClasses,
     ])));

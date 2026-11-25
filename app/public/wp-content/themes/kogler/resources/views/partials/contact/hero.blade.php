@@ -3,9 +3,9 @@
   Same dark-blue intro as the Brand hero, without the jump cards.
   Fraunces italic is synthesized; the theme only loads the roman face.
 --}}
-<section class="relative bg-dark-blue px-clamp py-clamp-xl text-white">
+<section class="relative bg-dark-blue p-clamp-xl text-white">
   <div class="container">
-    <h1 class="mb-0 text-left font-fraunces text-[clamp(44px,6vw,84px)] font-semibold leading-[1.02] tracking-tight text-white">
+    <h1 class="mb-0 text-left font-fraunces text-white">
       Contact <em class="italic font-medium text-secondary">Us</em>
     </h1>
 

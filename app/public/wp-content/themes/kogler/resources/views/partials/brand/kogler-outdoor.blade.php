@@ -51,13 +51,12 @@
     // Future parts guide. Empty means nothing is rendered.
     $parts = [];
 
-    $buttonClass = 'inline-flex items-center justify-center rounded-full text-center text-[16px] font-bold no-underline transition motion-safe:hover:-translate-y-px motion-reduce:transform-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--ko-green)';
     $cardClass = 'flex items-center gap-5 rounded-3xl bg-white p-4';
     $cardLinkClass = $cardClass . ' no-underline transition hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--ko-green)';
 @endphp
 <section
   id="kogler-outdoor"
-  class="bg-light px-clamp py-clamp-xl"
+  class="bg-light p-clamp-xl"
   style="--ko-green: var(--color-outdoor-900); --ko-ink: var(--color-outdoor-ink); --ko-amber: var(--color-outdoor-amber); --ko-amber-ink: var(--color-outdoor-amber-ink); --ko-tint: var(--color-outdoor-tint);"
 >
   <div class="container">
@@ -74,21 +73,21 @@
           </span>
         @endif
 
-        <h2 class="mt-6 mb-0 font-fraunces text-[clamp(34px,3.8vw,54px)] font-semibold leading-[1.08] tracking-tight text-(--ko-green)">
+        <h2 class="mt-6 mb-0 font-fraunces text-(--ko-green)">
           Sleep Like Home, <em class="italic font-medium text-(--ko-amber-ink)">Wherever You Roam!</em>
         </h2>
 
-        <p class="mt-6 mb-0 max-w-[560px] text-[length:var(--font-size-tagline)] leading-[1.7] text-(--ko-ink)/80">
+        <p class="mt-6 mb-0 max-w-[560px] lead leading-[1.7] text-(--ko-ink)/80">
           Kogler Outdoor brings our sleep expertise to the RV and marine markets, with comfort products made for RVs, campers and boats.
         </p>
 
         <div class="mt-8 flex flex-wrap gap-3.5">
           @if ($amazonUrl)
-            <a class="{{ $buttonClass }} bg-(--ko-green) px-[30px] py-4 text-white" href="{{ $amazonUrl }}" target="_blank" rel="noopener">
+            <a class="btn btn-primary" href="{{ $amazonUrl }}" target="_blank" rel="noopener">
               {{ __('Shop on Amazon', 'sage') }}<span class="sr-only"> {{ __('(opens in a new tab)', 'sage') }}</span>
             </a>
           @endif
-          <a class="{{ $buttonClass }} border-[length:1.5px] border-(--ko-green) bg-transparent px-7 py-[14.5px] text-(--ko-green)" href="{{ $warrantyUrl }}">
+          <a class="btn btn-secondary" href="{{ $warrantyUrl }}">
             {{ __('Warranty', 'sage') }}
           </a>
         </div>
@@ -107,7 +106,7 @@
     </div>
 
     <div class="mt-[72px]">
-      <h3 class="mb-5 text-[24px] font-bold text-(--ko-green)">Products</h3>
+      <h3 class="mb-5 text-(--ko-green)">Products</h3>
 
       <ul class="m-0 grid list-none grid-cols-1 gap-5 p-0 md:grid-cols-2">
         @foreach ($products as $product)
@@ -141,7 +140,7 @@
                   @endif
                 </div>
                 <div>
-                  <h4 class="mb-0 font-fraunces text-[26px] font-semibold text-(--ko-green)">{{ kogler_title_case($product['title']) }}</h4>
+                  <h4 class="mb-0 font-fraunces text-(--ko-green)">{{ kogler_title_case($product['title']) }}</h4>
                   @if ($note !== '')
                     <p class="mt-1.5 mb-0 text-[14px] text-(--ko-amber-ink)">{{ $note }}</p>
                   @endif

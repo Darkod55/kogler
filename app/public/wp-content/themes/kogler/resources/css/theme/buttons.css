@@ -23,6 +23,11 @@
     padding: var(--padding-btn-y) var(--padding-btn-x) !important;
     font-size: var(--font-size-btn);
     line-height: 15px;
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+    }
   }
 
   :is(
@@ -110,6 +115,16 @@
   }
 
   :is(
+    a.btn-brand,
+    button.btn-brand,
+    .wp-block-button.btn-brand > .wp-block-button__link
+  ):hover {
+    background-color: color-mix(in srgb, var(--site-accent) 82%, var(--color-white));
+    border-color: color-mix(in srgb, var(--site-accent) 82%, var(--color-white));
+    color: var(--site-accent-ink);
+  }
+
+  :is(
     a.btn-brand-outline,
     button.btn-brand-outline,
     .wp-block-button.btn-brand-outline > .wp-block-button__link
@@ -118,6 +133,16 @@
     border-width: 1.5px;
     border-color: color-mix(in srgb, var(--color-white) 65%, transparent);
     color: var(--color-white);
+  }
+
+  :is(
+    a.btn-brand-outline,
+    button.btn-brand-outline,
+    .wp-block-button.btn-brand-outline > .wp-block-button__link
+  ):hover {
+    background-color: var(--color-white);
+    border-color: var(--color-white);
+    color: var(--site-accent-ink);
   }
 
   :is([data-brand="goliath-steel"], [data-brand="kogler-outdoor"]) :is(

@@ -29,12 +29,12 @@
         ],
     ];
 @endphp
-<section id="measure" class="relative bg-light px-clamp py-clamp-xl">
+<section id="measure" class="relative bg-light p-clamp-xl">
   <div class="container">
-    <h2 class="mb-0 font-fraunces text-[clamp(34px,3.8vw,54px)] font-semibold leading-[1.08] tracking-tight text-dark-blue">
+    <h2 class="mb-0 font-fraunces text-dark-blue">
       How to Measure <em class="italic font-medium text-darker-blue">Your Bunk</em>
     </h2>
-    <p class="mt-[18px] mb-0 max-w-[640px] text-[length:var(--font-size-tagline)] leading-[1.7] text-(--site-ink)/80">{{ $measureIntro }}</p>
+    <p class="mt-[18px] mb-0 max-w-[640px] lead leading-[1.7] text-(--site-ink)/80">{{ $measureIntro }}</p>
 
     <ol class="mt-10 grid list-none grid-cols-1 gap-5 p-0 sm:grid-cols-2 lg:grid-cols-4">
       @foreach ($steps as $index => $step)
@@ -60,7 +60,7 @@
             @endif
           </svg>
           <span class="mt-4 font-fraunces text-[48px] leading-none font-semibold text-dark-blue" aria-hidden="true">{{ $index + 1 }}</span>
-          <h3 class="mt-5 mb-2 text-[19px] font-bold text-dark-blue">{{ $step['title'] }}</h3>
+          <h3 class="mt-5 mb-2 text-dark-blue">{{ $step['title'] }}</h3>
           <p class="mb-0 text-[length:var(--font-size-btn)] leading-[1.6] text-(--site-ink)/80">{{ $step['text'] }}</p>
         </li>
       @endforeach

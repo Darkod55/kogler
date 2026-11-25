@@ -59,20 +59,20 @@
         {!! $wipeableImage !!}
       @endif
       @if ($caption)
-        <figcaption class="mt-2.5 text-center text-[12px] font-bold tracking-widest text-(--site-ink)/70 uppercase" x-text="cover === 'cloth' ? 'Cloth cover' : 'Wipeable navy nylon cover'">Cloth cover</figcaption>
+        <figcaption class="mt-2.5 text-center fs-xs font-bold tracking-widest text-(--site-ink)/70 uppercase" x-text="cover === 'cloth' ? 'Cloth cover' : 'Wipeable navy nylon cover'">Cloth cover</figcaption>
       @endif
     </figure>
   </div>
 
   <div class="min-w-0 w-full shrink grow-[999] basis-full min-[1000px]:basis-[520px]">
-    <h3 class="mb-0 font-fraunces text-[clamp(30px,3vw,38px)] font-semibold leading-[1.1] text-dark-blue">{{ $title }}</h3>
+    <h3 class="lead mb-0 font-fraunces text-dark-blue">{{ $title }}</h3>
     <p class="mt-3 mb-0 text-[17px] leading-[1.65] text-(--site-ink)/80">{{ $intro }}</p>
 
     <table class="mt-7 w-full border-collapse text-[length:var(--font-size-btn)]">
       <thead>
         <tr class="border-b-2 border-dark-blue">
-          <th class="w-[38%] pr-4 pb-3 text-left text-[12px] font-bold tracking-widest text-dark-blue uppercase" scope="col">Feature</th>
-          <th class="pb-3 text-left text-[12px] font-bold tracking-widest text-dark-blue uppercase" scope="col">Benefit to the driver &amp; fleet</th>
+          <th class="w-[38%] pr-4 pb-3 text-left fs-xs font-bold tracking-widest text-dark-blue uppercase" scope="col">Feature</th>
+          <th class="pb-3 text-left fs-xs font-bold tracking-widest text-dark-blue uppercase" scope="col">Benefit to the driver &amp; fleet</th>
         </tr>
       </thead>
       <tbody>
@@ -86,7 +86,7 @@
     </table>
 
     <div class="mt-9 flex flex-wrap items-center justify-between gap-4">
-      <h4 class="mb-0 text-[length:var(--font-size-tagline)] font-bold text-dark-blue">Part Numbers</h4>
+      <h4 class="mb-0 text-dark-blue">Part Numbers</h4>
       <div
         class="inline-flex rounded-full bg-light p-1"
         role="tablist"
@@ -131,9 +131,9 @@
       <table class="w-full min-w-[520px] border-collapse text-[length:var(--font-size-btn)]">
         <thead class="bg-dark-blue text-white">
           <tr>
-            <th class="px-5 py-3.5 text-left text-[12px] font-bold tracking-widest uppercase" scope="col">Part no.</th>
-            <th class="px-5 py-3.5 text-left text-[12px] font-bold tracking-widest uppercase" scope="col">Description</th>
-            <th class="px-5 py-3.5 text-left text-[12px] font-bold tracking-widest uppercase" scope="col">Size (W × L × D)</th>
+            <th class="px-5 py-3.5 text-left fs-xs font-bold tracking-widest uppercase" scope="col">Part no.</th>
+            <th class="px-5 py-3.5 text-left fs-xs font-bold tracking-widest uppercase" scope="col">Description</th>
+            <th class="px-5 py-3.5 text-left fs-xs font-bold tracking-widest uppercase" scope="col">Size (W × L × D)</th>
           </tr>
         </thead>
         <tbody>
@@ -155,9 +155,9 @@
           <table class="w-full min-w-[520px] border-collapse text-[length:var(--font-size-btn)]">
             <thead class="bg-dark-blue text-white">
               <tr>
-                <th class="px-5 py-3.5 text-left text-[12px] font-bold tracking-widest uppercase" scope="col">Part no.</th>
-                <th class="px-5 py-3.5 text-left text-[12px] font-bold tracking-widest uppercase" scope="col">Description</th>
-                <th class="px-5 py-3.5 text-left text-[12px] font-bold tracking-widest uppercase" scope="col">Size (W × L × D)</th>
+                <th class="px-5 py-3.5 text-left fs-xs font-bold tracking-widest uppercase" scope="col">Part no.</th>
+                <th class="px-5 py-3.5 text-left fs-xs font-bold tracking-widest uppercase" scope="col">Description</th>
+                <th class="px-5 py-3.5 text-left fs-xs font-bold tracking-widest uppercase" scope="col">Size (W × L × D)</th>
               </tr>
             </thead>
             <tbody>

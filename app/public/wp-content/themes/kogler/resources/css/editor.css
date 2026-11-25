@@ -1036,7 +1036,6 @@
 h1.font-fraunces,
 .h1.font-fraunces {
   font-weight: 700 !important;
-  line-height: 1em !important;
 }
 
 /**
@@ -1187,6 +1186,33 @@ h1.font-fraunces,
   background-color: transparent !important;
   color: var(--color-secondary) !important;
   border-color: transparent !important;
+}
+
+.wp-block-button.btn-brand > .wp-block-button__link {
+  background-color: var(--site-accent) !important;
+  background-image: none !important;
+  color: var(--site-accent-ink) !important;
+  border-color: var(--site-accent) !important;
+}
+
+.wp-block-button.btn-brand > .wp-block-button__link:hover {
+  background-color: color-mix(in srgb, var(--site-accent) 82%, var(--color-white)) !important;
+  color: var(--site-accent-ink) !important;
+  border-color: color-mix(in srgb, var(--site-accent) 82%, var(--color-white)) !important;
+}
+
+.wp-block-button.btn-brand-outline > .wp-block-button__link {
+  background-color: transparent !important;
+  background-image: none !important;
+  color: var(--color-white) !important;
+  border-color: color-mix(in srgb, var(--color-white) 65%, transparent) !important;
+  border-width: 1.5px !important;
+}
+
+.wp-block-button.btn-brand-outline > .wp-block-button__link:hover {
+  background-color: var(--color-white) !important;
+  color: var(--site-accent-ink) !important;
+  border-color: var(--color-white) !important;
 }
 
 .wp-block-button.btn-sm > .wp-block-button__link {

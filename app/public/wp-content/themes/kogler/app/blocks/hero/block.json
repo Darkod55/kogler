@@ -166,7 +166,7 @@
             "type": "custom/section_padding",
             "overrides": {
               "section_padding": {
-                "default": ["py-clamp-xl"]
+                "default": ["p-clamp-y-xl"]
               }
             }
           }

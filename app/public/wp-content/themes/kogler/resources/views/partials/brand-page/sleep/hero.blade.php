@@ -38,7 +38,6 @@
         }
     }
 
-    $heroButton = 'inline-flex items-center justify-center rounded-full text-center font-bold no-underline transition motion-safe:hover:-translate-y-px motion-reduce:transform-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white';
 
     $facts = [
         ['title' => 'Made in the USA', 'line' => 'Cleveland, Tennessee'],
@@ -46,7 +45,7 @@
         ['title' => 'Roll-packed & sealed', 'line' => 'Easy to store and carry'],
     ];
 @endphp
-<section class="bg-dark-blue px-clamp py-clamp-xl text-white">
+<section class="bg-dark-blue p-clamp-xl text-white">
   <div class="container">
     <div class="flex flex-wrap items-center justify-between gap-14">
       <div class="min-w-[min(100%,520px)] shrink grow basis-[520px]">
@@ -56,17 +55,17 @@
           Kögler Sleep
         </nav>
 
-        <h1 class="mt-9 mb-0 font-fraunces text-[clamp(44px,5.6vw,80px)] font-semibold leading-[1.02] tracking-tight">
+        <h1 class="mt-9 mb-0 font-fraunces">
           Sleeper Cab <em class="italic font-medium text-light-blue">Mattresses</em>
         </h1>
 
-        <p class="mt-7 mb-0 max-w-[560px] text-[length:var(--font-size-lead)] leading-[1.65] text-white/90">
+        <p class="mt-7 mb-0 max-w-[560px] lead leading-[1.65] text-white/90">
           Innerspring and gel-infused foam mattresses, in cloth or wipeable covers, for every standard sleeper bunk.
         </p>
 
         <div class="mt-9 flex flex-wrap gap-3.5">
-          <a class="{{ $heroButton }} bg-white px-[30px] py-4 text-(--site-accent-ink)" href="#find-your-size">Find Your Size</a>
-          <a class="{{ $heroButton }} border-[1.5px] border-white/60 bg-transparent px-7 py-[14.5px] text-white" href="{{ $distributorUrl }}">Find a Distributor</a>
+          <a class="btn btn-white" href="#find-your-size">Find Your Size</a>
+          <a class="btn btn-brand-outline" href="{{ $distributorUrl }}">Find a Distributor</a>
         </div>
       </div>
 
@@ -80,7 +79,7 @@
     <ul class="mt-16 grid list-none grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-6 p-0">
       @foreach ($facts as $fact)
         <li class="border-t-2 border-light-blue pt-[18px]">
-          <p class="mb-0 text-[length:var(--font-size-tagline)] font-bold">{{ $fact['title'] }}</p>
+          <p class="mb-0 lead font-bold">{{ $fact['title'] }}</p>
           <p class="mt-1 mb-0 text-[length:var(--font-size-btn)] text-white/90">{{ $fact['line'] }}</p>
         </li>
       @endforeach

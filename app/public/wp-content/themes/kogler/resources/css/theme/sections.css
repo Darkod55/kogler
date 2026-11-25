@@ -2,6 +2,12 @@
  * Section layout utilities
  */
 
+/**
+ * Section padding. All four sides, or one axis.
+ * `p-clamp` / `p-clamp-y` use the regular block token.
+ * `p-clamp-xl` / `p-clamp-y-xl` use the large block token.
+ * Horizontal padding is always `--spacing-clamp-inline`.
+ */
 @utility p-clamp {
   padding-inline: var(--spacing-clamp-inline);
   padding-block: var(--spacing-clamp-block);
@@ -12,6 +18,38 @@
   padding-block: var(--spacing-clamp-block-xl);
 }
 
+@utility p-clamp-x {
+  padding-inline: var(--spacing-clamp-inline);
+}
+
+@utility p-clamp-y {
+  padding-block: var(--spacing-clamp-block);
+}
+
+@utility p-clamp-y-xl {
+  padding-block: var(--spacing-clamp-block-xl);
+}
+
+@utility pt-clamp {
+  padding-top: var(--spacing-clamp-block);
+}
+
+@utility pb-clamp {
+  padding-bottom: var(--spacing-clamp-block);
+}
+
+@utility pt-clamp-xl {
+  padding-top: var(--spacing-clamp-block-xl);
+}
+
+@utility pb-clamp-xl {
+  padding-bottom: var(--spacing-clamp-block-xl);
+}
+
+/**
+ * Names already saved on blocks and in older templates.
+ * Same tokens as p-clamp-x / p-clamp-y / p-clamp-y-xl.
+ */
 @utility px-clamp {
   padding-inline: var(--spacing-clamp-inline);
 }

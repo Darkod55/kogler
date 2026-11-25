@@ -13,7 +13,7 @@
             'loading' => 'eager',
             'fetchpriority' => 'high',
             'decoding' => 'async',
-            // Container max is 1300px inside px-clamp (24px each side).
+            // Container max is 1300px inside p-clamp-x (24px each side).
             'sizes' => '(min-width: 1348px) 1300px, calc(100vw - 48px)',
         ];
 
@@ -26,14 +26,14 @@
         $heroImage = wp_get_attachment_image($heroImageId, 'full', false, $heroAttrs);
     }
 @endphp
-<section class="relative overflow-hidden bg-dark-blue px-clamp pt-clamp-block-xl pb-0 text-left">
+<section class="relative overflow-hidden bg-dark-blue p-clamp-x pt-clamp-xl pb-0 text-left">
   <div class="container">
-    <h1 class="mb-0 max-w-[1100px] font-fraunces text-[clamp(44px,6.2vw,88px)] font-semibold leading-[1.02] tracking-tight text-white">
+    <h1 class="mb-0 max-w-[1100px] font-fraunces text-white">
       One Company. Three Brands.
       <em class="font-medium italic text-secondary">Built for the People Who Keep America Moving.</em>
     </h1>
 
-    <p class="mt-12 mb-0 max-w-[620px] text-lg leading-relaxed text-white/85 lg:text-[length:var(--font-size-lead)]">
+    <p class="mt-12 mb-0 max-w-[620px] text-lg leading-relaxed text-white/85 lg:lead">
       At Kogler-USA we supply thousands of customers across the commercial truck, RV and marine markets through three brands: Kogler, Goliath Steel and Kogler Outdoor.
     </p>
 

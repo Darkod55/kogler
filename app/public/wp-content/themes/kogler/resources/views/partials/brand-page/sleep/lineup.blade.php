@@ -11,12 +11,12 @@
     $innerspringParts = \App\Sleep\MattressCatalog::partsForCover('Innerspring');
     $gelParts = \App\Sleep\MattressCatalog::partsForCover('Gel Foam');
 @endphp
-<section id="lineup" class="relative scroll-mt-chrome bg-light px-clamp py-clamp-xl">
+<section id="lineup" class="relative scroll-mt-chrome bg-light p-clamp-xl">
   <div class="container">
-    <h2 class="mb-0 font-fraunces text-[clamp(34px,3.8vw,54px)] font-semibold leading-[1.08] tracking-tight text-dark-blue">
+    <h2 class="mb-0 font-fraunces text-dark-blue">
       The 2027 <em class="italic font-medium text-darker-blue">Lineup</em>
     </h2>
-    <p class="mt-[18px] mb-0 max-w-[640px] text-[length:var(--font-size-tagline)] leading-[1.7] text-(--site-ink)/80">
+    <p class="mt-[18px] mb-0 max-w-[640px] lead leading-[1.7] text-(--site-ink)/80">
       Two constructions, two cover options. All 7" deep, roll-packed and sealed, made in Cleveland, TN.
     </p>
 

@@ -207,7 +207,7 @@ Installed plugin version: **{blockstudio_version}**. Prefer local files over the
 - New `mpx/*` blocks: add the name to `mpxRemoveInnerBlocksWrapper()` in `trait-blocks.php`.
 - Media library images: `wp_get_attachment_image($ID)` — not `bs_media_image()` (that helper is for theme-relative static assets).
 - Icons: block populate reads `resources/views/components/footer-icons.blade.php` (`#icon-{name}`). Add new symbols there; ensure the sprite is included on the page (layouts or block `@include`).
-- Design tokens: `resources/css/theme/*.css`, bridged into Blockstudio Tailwind via `bridgeTailwindConfig()`. Use live utilities (`btn`, `btn-primary`, `py-clamp`, `bg-primary`, `grid-auto-cards`, …). Non-bridged Vite-only rules can live under `resources/css/components/` (imported from `theme.css`). Rebrand via `docs/design-tokens.md`.
+- Design tokens: `resources/css/theme/*.css`, bridged into Blockstudio Tailwind via `bridgeTailwindConfig()`. Use live utilities (`btn`, `btn-primary`, `p-clamp`, `p-clamp-x`, `p-clamp-y`, `bg-primary`, `grid-auto-cards`, …). Headings take their size from the `h1`–`h6` scale. Non-bridged Vite-only rules can live under `resources/css/components/` (imported from `theme.css`). Rebrand via `docs/design-tokens.md`.
 - Dual Tailwind: Vite scans Blade/PHP; Blockstudio also compiles from rendered HTML. Dynamic / post-content classes may need `@source inline(...)` in `resources/css/theme.css`.
 - `blockstudio.json` → `cache.enabled: false` on purpose (populate options live in PHP outside the scan root). Re-enable only with a bust plan.
 - Composition: section blocks nest `mpx/partial-*` pieces. Fluent Forms Gutenberg id is intentionally `fluentfom/guten-block` (plugin typo) when that plugin is in use.
@@ -305,7 +305,7 @@ Fonts: see `fonts.css` (`--font-sans`, `--font-heading`).
 
 ## Layout utilities (`sections.css`)
 
-- `container`, `px-clamp` / `py-clamp*`, `grid-auto-cards`, `hero-overlay`, `mw-*`, `content-pos-*` — reuse existing.
+- `container`, `p-clamp` / `p-clamp-x` / `p-clamp-y`, `grid-auto-cards`, `hero-overlay`, `mw-*`, `content-pos-*` — reuse existing.
 
 ## Dual Tailwind
 

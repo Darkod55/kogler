@@ -61,9 +61,9 @@
         ],
     ];
 @endphp
-<section class="relative bg-dark-blue px-clamp py-clamp-xl">
+<section class="relative bg-dark-blue p-clamp-xl">
   <div class="container">
-    <h2 class="mb-0 font-fraunces text-[clamp(32px,3.4vw,48px)] font-semibold leading-[1.1] text-white">
+    <h2 class="mb-0 font-fraunces text-white">
       We Serve
     </h2>
 
@@ -108,7 +108,7 @@
             </div>
 
             <div class="min-w-0">
-              <h3 class="mb-1.5 text-[19px] font-bold text-dark-blue">
+              <h3 class="mb-1.5 text-dark-blue">
                 {{ kogler_title_case($audience['title']) }}
               </h3>
               <p class="mb-0 text-[length:var(--font-size-btn)] leading-[1.6] text-dark-blue/75">

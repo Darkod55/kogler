@@ -25,11 +25,11 @@
         $weAreImage = wp_get_attachment_image($weAreImageId, 'full', false, $weAreAttrs);
     }
 @endphp
-<section class="relative bg-white px-clamp py-clamp-xl">
+<section class="relative bg-white p-clamp-xl">
   <div class="container">
     <div class="flex flex-wrap gap-16">
       <div class="min-w-0 max-w-[400px] shrink grow basis-[320px]">
-        <h2 class="mb-0 font-fraunces text-[clamp(32px,3.4vw,48px)] font-semibold leading-[1.1] text-dark-blue">
+        <h2 class="mb-0 font-fraunces text-dark-blue">
           We Are
         </h2>
 
@@ -54,7 +54,7 @@
                 <circle cx="9" cy="7" r="4" />
               </svg>
             </div>
-            <h3 class="mb-0 text-[22px] font-bold text-dark-blue">Partners</h3>
+            <h3 class="mb-0 text-dark-blue">Partners</h3>
             <p class="mb-0 text-[length:var(--font-size-base)] leading-[1.65] text-dark-blue/75">
               We learn your business and build programs around how you buy, stock and sell.
             </p>
@@ -67,7 +67,7 @@
                 <path d="m9 12 2 2 4-4" />
               </svg>
             </div>
-            <h3 class="mb-0 text-[22px] font-bold text-dark-blue">Quality</h3>
+            <h3 class="mb-0 text-dark-blue">Quality</h3>
             <p class="mb-0 text-[length:var(--font-size-base)] leading-[1.65] text-dark-blue/75">
               From the foam that goes into a mattress to the cable that connects a trailer, everything is tested against the realities of life on the road.
             </p>
@@ -78,7 +78,7 @@
               <span class="font-fraunces text-[72px] font-semibold leading-none text-secondary">50+</span>
               <span class="whitespace-nowrap text-sm text-white/80">years in heavy-duty</span>
             </div>
-            <h3 class="mb-0 text-[22px] font-bold text-white">Industry Backed</h3>
+            <h3 class="mb-0 text-white">Industry Backed</h3>
             <p class="mb-0 text-[length:var(--font-size-base)] leading-[1.65] text-white/85">
               With over 50 years in heavy-duty, our leaders understand the industry and are aligned with your needs.
             </p>
@@ -89,7 +89,7 @@
               <span class="font-fraunces text-[72px] font-semibold leading-none text-secondary">150+</span>
               <span class="whitespace-nowrap text-sm text-white/80">mattresses each day</span>
             </div>
-            <h3 class="mb-0 text-[22px] font-bold text-white">Made in the USA</h3>
+            <h3 class="mb-0 text-white">Made in the USA</h3>
             <p class="mb-0 text-[length:var(--font-size-base)] leading-[1.65] text-white/85">
               Our manufacturing facility in Cleveland, TN produces over 150 quality mattresses each day.
             </p>
