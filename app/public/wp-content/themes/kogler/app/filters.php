@@ -305,6 +305,89 @@ add_action('acf/init', function () {
             ],
         ],
     ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_kogler_home_capabilities',
+        'title' => __('Homepage Capabilities', 'sage'),
+        'fields' => [
+            [
+                'key' => 'field_kogler_capabilities',
+                'label' => __('Capabilities', 'sage'),
+                'name' => 'capabilities',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'max' => 5,
+                'button_label' => __('Add capability', 'sage'),
+                'instructions' => __('Up to five items. A stat row shows the number instead of an icon.', 'sage'),
+                'sub_fields' => [
+                    [
+                        'key' => 'field_kogler_capability_type',
+                        'label' => __('Type', 'sage'),
+                        'name' => 'type',
+                        'type' => 'select',
+                        'choices' => [
+                            'icon' => __('Icon', 'sage'),
+                            'stat' => __('Stat', 'sage'),
+                        ],
+                        'default_value' => 'icon',
+                        'ui' => 1,
+                    ],
+                    [
+                        'key' => 'field_kogler_capability_icon',
+                        'label' => __('Icon', 'sage'),
+                        'name' => 'icon',
+                        'type' => 'select',
+                        'choices' => [
+                            'factory' => __('Factory', 'sage'),
+                            'tag' => __('Tag', 'sage'),
+                            'bed' => __('Bed', 'sage'),
+                            'handshake' => __('Handshake', 'sage'),
+                        ],
+                        'ui' => 1,
+                        'conditional_logic' => [
+                            [
+                                [
+                                    'field' => 'field_kogler_capability_type',
+                                    'operator' => '==',
+                                    'value' => 'icon',
+                                ],
+                            ],
+                        ],
+                    ],
+                    [
+                        'key' => 'field_kogler_capability_number',
+                        'label' => __('Number', 'sage'),
+                        'name' => 'number',
+                        'type' => 'text',
+                        'conditional_logic' => [
+                            [
+                                [
+                                    'field' => 'field_kogler_capability_type',
+                                    'operator' => '==',
+                                    'value' => 'stat',
+                                ],
+                            ],
+                        ],
+                    ],
+                    [
+                        'key' => 'field_kogler_capability_label',
+                        'label' => __('Label', 'sage'),
+                        'name' => 'label',
+                        'type' => 'text',
+                    ],
+                ],
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_type',
+                    'operator' => '==',
+                    'value' => 'front_page',
+                ],
+            ],
+        ],
+    ]);
 });
 
 add_filter('acf/location/rule_types', function ($choices) {

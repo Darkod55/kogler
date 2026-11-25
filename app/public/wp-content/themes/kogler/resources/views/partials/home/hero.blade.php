@@ -1,6 +1,6 @@
 {{--
-  Homepage hero. Sits under the site header. The capabilities row is the
-  page content that follows. Title, intro, video and poster are ACF fields
+  Homepage hero. Sits under the site header. The capabilities row follows
+  in the front-page template. Title, intro, video and poster are ACF fields
   on the front page when that plugin is installed.
 --}}
 @php
