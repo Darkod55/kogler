@@ -1,10 +1,20 @@
 {{--
   Kögler Sleep — hero
-  Logo file needed: resources/images/brands/kogler-sleep-white.svg
-  (white Kögler Sleep mark). uploads/2026/08/kogler-logo-white.webp is the
-  Kogler wordmark used on the Brand section chip, not a Sleep logo.
+  Set $logoId to the Media Library attachment ID of the white Kögler Sleep logo.
 --}}
 @php
+    $logoId = 0;
+    $sleepLogo = '';
+
+    if ($logoId && function_exists('wp_attachment_is_image') && wp_attachment_is_image($logoId)) {
+        $sleepLogo = wp_get_attachment_image($logoId, 'full', false, [
+            'class' => 'h-auto w-full',
+            'alt' => 'Kögler Sleep',
+            'loading' => 'eager',
+            'decoding' => 'async',
+        ]);
+    }
+
     $distributorUrl = \App\helpers()->pageUrlBySlug('find-a-distributor');
     $brandsUrl = function_exists('home_url') ? home_url('/our-brands/') : '#';
 
@@ -60,11 +70,11 @@
         </div>
       </div>
 
-      <div class="w-full max-w-[300px] shrink-0 min-[1000px]:ml-auto min-[1000px]:max-w-[420px]" role="img" aria-label="{{ __('Kögler Sleep', 'sage') }}">
-        <div class="flex min-h-32 items-center justify-center rounded-3xl border border-dashed border-white/60 px-6 py-8 text-center text-sm font-semibold">
-          Kögler Sleep
+      @if ($sleepLogo)
+        <div class="w-full max-w-[300px] shrink-0 min-[1000px]:ml-auto min-[1000px]:max-w-[420px]">
+          {!! $sleepLogo !!}
         </div>
-      </div>
+      @endif
     </div>
 
     <ul class="mt-16 grid list-none grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-6 p-0">
