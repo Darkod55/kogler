@@ -42,25 +42,25 @@
         [
             'label' => 'Truck Fleet Repair',
             'text' => 'Goliath Steel parts and Kögler mattresses in volume, with one point of contact for every truck you keep on the road.',
-            'image_id' => 0,
+            'image_id' => 97,
             'image_class' => 'h-full w-full object-cover',
         ],
         [
             'label' => 'Distributor / Retailer',
             'text' => 'Programs built for resale, with brands your customers ask for and a sales team behind every order.',
-            'image_id' => 0,
+            'image_id' => 99,
             'image_class' => 'h-full w-full object-cover',
         ],
         [
             'label' => 'E-Commerce / Big Box',
             'text' => 'Retail-ready products and packaging for shelf and online, shipped next day.',
-            'image_id' => 0,
+            'image_id' => 78,
             'image_class' => 'h-full w-full object-cover',
         ],
         [
             'label' => 'Private Label / Customization',
             'text' => 'Your brand on our products, from custom sizes to private label packaging.',
-            'image_id' => 0,
+            'image_id' => 89,
             'image_class' => 'h-full w-full object-cover object-[center_35%]',
         ],
     ];

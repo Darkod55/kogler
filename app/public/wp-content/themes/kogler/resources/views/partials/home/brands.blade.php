@@ -101,7 +101,7 @@
             'link_title' => 'Explore Kögler Outdoor',
             'link_url' => \App\helpers()->brandPageUrl('kogler-outdoor'),
             'logo_id' => 396,
-            'image_id' => 0,
+            'image_id' => 190,
         ],
     ];
 
