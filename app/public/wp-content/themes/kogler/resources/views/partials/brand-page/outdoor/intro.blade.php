@@ -9,7 +9,7 @@
 --}}
 @php
     $chipLogoId = 0;
-    $imageId = 0;
+    $imageId = 190;
     $chipLogo = '';
     $photoHtml = '';
 
@@ -57,14 +57,14 @@
     $products = [
         [
             'title' => 'RV Mattresses',
-            'image_id' => 0,
+            'image_id' => 190,
             'detail' => '',
             'alt' => 'Kögler mattress in an RV bedroom',
             'placeholder' => 'bg-outdoor-600',
         ],
         [
             'title' => 'Marine Sleep Products',
-            'image_id' => 0,
+            'image_id' => 190,
             'detail' => '',
             'alt' => 'Kögler mattress in a boat cabin berth',
             'placeholder' => 'bg-outdoor-water',

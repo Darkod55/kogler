@@ -8,7 +8,7 @@
   In-page offset is html scroll-padding-top (--site-chrome-height).
 --}}
 @php
-    $logoId = 0;
+    $logoId = 396;
     $logo = '';
 
     if ($logoId > 0 && function_exists('wp_get_attachment_image')) {
