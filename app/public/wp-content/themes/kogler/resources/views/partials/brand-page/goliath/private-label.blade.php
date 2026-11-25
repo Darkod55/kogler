@@ -36,8 +36,7 @@
   <div class="container">
     <div class="flex flex-wrap items-center gap-12 rounded-t-lg rounded-b-[28px] border-t-4 border-goliath-green bg-goliath-800 p-7 min-[1000px]:p-14">
       <div class="min-w-[min(100%,460px)] shrink grow basis-[460px]">
-        <p class="mb-0 text-sm font-bold tracking-[0.15em] text-goliath-green uppercase">Private label</p>
-        <h2 class="mt-3.5 mb-0 font-fraunces text-white">
+        <h2 class="mb-0 font-fraunces text-white">
           Private Label Programs <em class="italic font-medium text-goliath-silver">Available</em>
         </h2>
         <p class="mt-5 mb-0 max-w-[520px] lead leading-[1.7] text-white/80">

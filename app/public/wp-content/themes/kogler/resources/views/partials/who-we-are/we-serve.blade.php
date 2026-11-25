@@ -64,8 +64,11 @@
 <section class="relative bg-dark-blue p-clamp-xl">
   <div class="container">
     <h2 class="mb-0 font-fraunces text-white">
-      We Serve
+      {{ \App\helpers()->pageField('wwa_we_serve_title', 'Whoever Keeps the Wheels Turning.') }}
     </h2>
+    <p class="mt-4 mb-0 max-w-[620px] text-[length:var(--font-size-lead)] leading-[1.7] text-white/80">
+      {{ \App\helpers()->pageField('wwa_we_serve_intro', 'From the distributor\'s warehouse to the driver\'s cab, we build programs around the way each customer buys and uses our products.') }}
+    </p>
 
     <div class="mt-14 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
       @foreach ($audiences as $audience)

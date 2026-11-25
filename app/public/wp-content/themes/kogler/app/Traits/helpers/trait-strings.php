@@ -379,6 +379,23 @@ trait strings
     }
 
     /**
+     * Page field with a default. Uses ACF when that plugin is active
+     * and the field has a value. Otherwise the default copy is used.
+     */
+    public function pageField(string $name, string $default): string
+    {
+        if (function_exists('get_field')) {
+            $value = get_field($name);
+
+            if (is_string($value) && trim($value) !== '') {
+                return trim($value);
+            }
+        }
+
+        return $default;
+    }
+
+    /**
      * Permalink for a Brand Page whose sidebar brand is $brand.
      * Falls back to /{brand}/ until that page is published.
      */

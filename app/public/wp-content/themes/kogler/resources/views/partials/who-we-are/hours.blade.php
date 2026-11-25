@@ -30,12 +30,22 @@
             'text' => 'We treat every customer like they\'re our only one, because their success is how we measure ours.',
         ],
     ];
+
+    $hoursTitle = \App\helpers()->pageField('wwa_hours_title', 'We Log the HOURS');
+    $hoursIntro = \App\helpers()->pageField('wwa_hours_intro', 'Truckers log their hours. So do we. Five values guide every order we ship.');
 @endphp
 <section class="relative bg-light p-clamp-xl">
   <div class="container">
     <h2 class="lead mx-auto mb-0 max-w-[760px] text-center font-fraunces text-dark-blue">
-      We Log the <span class="italic text-primary">HOURS</span>
+      @if (preg_match('/^(.*?)\s*HOURS\s*$/u', $hoursTitle, $hoursMatch))
+        {{ trim($hoursMatch[1]) }} <span class="italic text-primary">HOURS</span>
+      @else
+        {{ $hoursTitle }}
+      @endif
     </h2>
+    <p class="mx-auto mt-[18px] mb-0 max-w-[560px] text-center text-[length:var(--font-size-lead)] leading-[1.7] text-dark-blue/75">
+      {{ $hoursIntro }}
+    </p>
 
     {{-- Theme base styles put discs and left padding on every ul. --}}
     <ul class="m-0 mt-[72px] grid list-none grid-cols-1 divide-y divide-dark-blue/10 overflow-hidden rounded-3xl bg-white p-0 lg:grid-cols-5 lg:divide-x lg:divide-y-0">

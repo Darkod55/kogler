@@ -31,9 +31,12 @@
   <div class="container">
     <div class="flex flex-wrap gap-16">
       <div class="min-w-0 max-w-[400px] shrink grow basis-[320px]">
-        <h2 class="mb-0 font-fraunces text-dark-blue">
-          We Are
+        <h2 class="mb-5 font-fraunces text-dark-blue">
+          {{ \App\helpers()->pageField('wwa_we_are_title', 'Partners First. Suppliers Second.') }}
         </h2>
+        <p class="mb-0 text-[length:var(--font-size-lead)] leading-[1.7] text-dark-blue/75">
+          {{ \App\helpers()->pageField('wwa_we_are_intro', 'Four things you can count on, whichever of our brands you buy from.') }}
+        </p>
 
         <div
           class="mt-10 h-[300px] w-full overflow-hidden rounded-3xl bg-light-blue"

@@ -55,11 +55,7 @@
         </div>
 
         <div class="min-w-0 w-full shrink grow-[999] basis-full min-[1000px]:basis-[520px]">
-          <p class="mb-0 inline-flex items-center gap-2.5 text-sm font-bold tracking-[0.15em] text-white/80 uppercase">
-            <span class="size-3 rounded-sm bg-goliath-orange" aria-hidden="true"></span>
-            Orange · Sizes S – XXL
-          </p>
-          <h2 class="mt-4 mb-0 font-fraunces text-white">
+          <h2 class="mb-0 font-fraunces text-white">
             Diamond-Grip <em class="italic font-medium text-goliath-orange-light">Nitrile Gloves</em>
           </h2>
           <p class="mt-[18px] mb-0 max-w-[560px] lead leading-[1.7] text-white/80">{{ $diamond['intro'] }}</p>
@@ -131,8 +127,7 @@
 
       @if ($black)
         <div class="mt-14 rounded-[28px] border border-white/[0.08] bg-goliath-900 p-7 min-[1000px]:p-12">
-          <p class="mb-0 text-sm font-bold tracking-[0.15em] text-goliath-green uppercase">Also available</p>
-          <h3 class="mt-3 mb-0 font-fraunces text-white">{{ $black['title'] }}</h3>
+          <h3 class="mb-0 font-fraunces text-white">Also Available: Black Nitrile Disposable Gloves</h3>
           <p class="mt-3 mb-0 text-[length:var(--font-size-base)] leading-[1.65] text-white/80">{{ $black['intro'] }}</p>
 
           <div class="mt-7 flex flex-wrap items-start gap-8 min-[1000px]:flex-nowrap min-[1000px]:gap-10">

@@ -206,6 +206,33 @@ add_action('acf/init', function () {
     ]);
 
     acf_add_local_field_group([
+        'key' => 'group_kogler_who_we_are',
+        'title' => __('Who We Are Sections', 'sage'),
+        'fields' => [
+            ['key' => 'field_wwa_brands_title', 'label' => __('Our Brands Title', 'sage'), 'name' => 'wwa_brands_title', 'type' => 'text'],
+            ['key' => 'field_wwa_brands_intro', 'label' => __('Our Brands Intro', 'sage'), 'name' => 'wwa_brands_intro', 'type' => 'textarea', 'rows' => 2, 'new_lines' => ''],
+            ['key' => 'field_wwa_we_are_title', 'label' => __('We Are Title', 'sage'), 'name' => 'wwa_we_are_title', 'type' => 'text'],
+            ['key' => 'field_wwa_we_are_intro', 'label' => __('We Are Intro', 'sage'), 'name' => 'wwa_we_are_intro', 'type' => 'textarea', 'rows' => 2, 'new_lines' => ''],
+            ['key' => 'field_wwa_we_serve_title', 'label' => __('We Serve Title', 'sage'), 'name' => 'wwa_we_serve_title', 'type' => 'text'],
+            ['key' => 'field_wwa_we_serve_intro', 'label' => __('We Serve Intro', 'sage'), 'name' => 'wwa_we_serve_intro', 'type' => 'textarea', 'rows' => 3, 'new_lines' => ''],
+            ['key' => 'field_wwa_hours_title', 'label' => __('Hours Title', 'sage'), 'name' => 'wwa_hours_title', 'type' => 'text', 'instructions' => __('End the title with HOURS to keep that word in the italic style.', 'sage')],
+            ['key' => 'field_wwa_hours_intro', 'label' => __('Hours Intro', 'sage'), 'name' => 'wwa_hours_intro', 'type' => 'textarea', 'rows' => 2, 'new_lines' => ''],
+            ['key' => 'field_wwa_leadership_title', 'label' => __('Leadership Title', 'sage'), 'name' => 'wwa_leadership_title', 'type' => 'text'],
+            ['key' => 'field_wwa_leadership_intro', 'label' => __('Leadership Intro', 'sage'), 'name' => 'wwa_leadership_intro', 'type' => 'textarea', 'rows' => 3, 'new_lines' => ''],
+            ['key' => 'field_wwa_cta_intro', 'label' => __('Closing Intro', 'sage'), 'name' => 'wwa_cta_intro', 'type' => 'textarea', 'rows' => 2, 'new_lines' => ''],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_template',
+                    'operator' => '==',
+                    'value' => 'tpl-who-we-are.blade.php',
+                ],
+            ],
+        ],
+    ]);
+
+    acf_add_local_field_group([
         'key' => 'group_kogler_outdoor_products',
         'title' => __('Outdoor Products', 'sage'),
         'fields' => [

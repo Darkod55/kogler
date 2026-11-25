@@ -18,5 +18,7 @@
   @include('partials.who-we-are.we-serve')
   @include('partials.who-we-are.hours')
   @include('partials.who-we-are.leadership')
-  @include('partials.cta-work-together')
+  @include('partials.cta-work-together', [
+      'ctaIntro' => \App\helpers()->pageField('wwa_cta_intro', 'Tell us how you buy, stock and sell, and we\'ll build the right program around it.'),
+  ])
 @endsection

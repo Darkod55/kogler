@@ -15,6 +15,12 @@
         ['name' => '[Name]', 'title' => '[Title]', 'image_id' => 0],
     ];
 
+    $people = array_values(array_filter($people, static function (array $person): bool {
+        $name = trim((string) ($person['name'] ?? ''));
+
+        return $name !== '' && $name !== '[Name]';
+    }));
+
     // The closing CTA is pt-0 when this section renders. Share the flag so the
     // CTA can add its own top padding when the list is empty.
     if (function_exists('view')) {
@@ -25,9 +31,14 @@
 @if ($people)
   <section class="relative bg-white p-clamp-xl">
     <div class="container">
-      <h2 class="mb-0 font-fraunces text-dark-blue">
-        Leadership
-      </h2>
+      <div class="flex flex-wrap items-end justify-between gap-8">
+        <h2 class="mb-0 max-w-[640px] font-fraunces text-dark-blue">
+          {{ \App\helpers()->pageField('wwa_leadership_title', 'The People Behind the Products.') }}
+        </h2>
+        <p class="mb-0 max-w-[420px] text-[length:var(--font-size-lead)] leading-[1.7] text-dark-blue/75">
+          {{ \App\helpers()->pageField('wwa_leadership_intro', 'With over 50 years in heavy-duty, our leaders understand the industry and are aligned with your needs.') }}
+        </p>
+      </div>
 
       {{-- Theme base styles put discs and left padding on every ul. --}}
       <ul class="m-0 mt-14 grid list-none grid-cols-1 gap-6 p-0 sm:grid-cols-2 lg:grid-cols-4">

@@ -110,8 +110,7 @@
 
         <div id="find-your-size" class="flex min-w-0 w-full shrink grow-[2] basis-full scroll-mt-chrome flex-col justify-between gap-7 rounded-3xl bg-dark-blue p-9 text-white min-[1000px]:basis-[340px]">
           <div>
-            <p class="mb-0 text-[13px] font-semibold text-light-blue">Manufacturer’s Fitment Guide</p>
-            <h3 class="lead mt-2.5 mb-0 font-fraunces">Find Your Mattress</h3>
+            <h3 class="lead mb-0 font-fraunces">Find Your Mattress</h3>
           </div>
 
           <form class="flex flex-col gap-3" @submit.prevent>

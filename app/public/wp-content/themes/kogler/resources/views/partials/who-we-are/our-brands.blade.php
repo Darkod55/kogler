@@ -43,11 +43,14 @@
 @endphp
 <section class="relative bg-white p-clamp-x pt-0 pb-clamp-xl">
   <div class="container">
-    <h2 class="mb-8 font-heading text-dark-blue">
-      Our Brands
+    <h2 class="mb-0 font-heading text-dark-blue">
+      {{ \App\helpers()->pageField('wwa_brands_title', 'Three Brands, One Standard.') }}
     </h2>
+    <p class="mt-4 mb-0 max-w-[620px] text-[length:var(--font-size-lead)] leading-[1.7] text-dark-blue/75">
+      {{ \App\helpers()->pageField('wwa_brands_intro', 'Three specialist brands, each built for a different part of life on the road and on the water.') }}
+    </p>
 
-    <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+    <div class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
       @foreach ($brands as $brand)
         @php
             $brandImage = '';

@@ -23,6 +23,7 @@
     $ctaId = $ctaId ?? '';
     $ctaLogo = $ctaLogo ?? '';
     $ctaPhoto = $ctaPhoto ?? '';
+    $ctaIntro = $ctaIntro ?? '';
 
     if (! isset($ctaPadTop)) {
         $leadershipVisible = true;
@@ -113,9 +114,14 @@
 <section class="relative {{ $ctaBackground }} p-clamp-x {{ $ctaTopClass }} pb-clamp-xl">
   <div class="container">
     <div class="flex flex-wrap items-center justify-start gap-10 rounded-4xl bg-dark-blue px-7 py-12 text-white lg:justify-between lg:px-14 lg:py-20">
-      <h2 class="lead mb-0 max-w-[640px] font-fraunces text-white">
-        Ready to Work <em class="italic font-medium text-secondary">Together?</em>
-      </h2>
+      <div class="min-w-0 max-w-[640px]">
+        <h2 class="lead mb-0 font-fraunces text-white">
+          Ready to Work <em class="italic font-medium text-secondary">Together?</em>
+        </h2>
+        @if ($ctaIntro !== '')
+          <p class="mt-[18px] mb-0 text-[length:var(--font-size-lead)] leading-[1.6] text-white/80">{{ $ctaIntro }}</p>
+        @endif
+      </div>
 
       <div class="flex flex-wrap gap-3.5 max-[400px]:w-full">
         <a class="btn btn-secondary max-[400px]:w-full" href="{{ $contactUrl }}">

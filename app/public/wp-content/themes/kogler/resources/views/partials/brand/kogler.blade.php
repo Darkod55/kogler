@@ -154,8 +154,7 @@
 
       <div class="flex min-w-[min(100%,340px)] shrink grow-[2] basis-[340px] flex-col justify-between gap-7 rounded-3xl bg-dark-blue p-9 text-white">
         <div>
-          <p class="mb-0 text-[13px] font-semibold text-secondary">Manufacturer’s Fitment Guide</p>
-          <h3 class="lead mt-2.5 mb-0 font-fraunces">Find Your Mattress</h3>
+          <h3 class="lead mb-0 font-fraunces">Find Your Mattress</h3>
         </div>
 
         <form
