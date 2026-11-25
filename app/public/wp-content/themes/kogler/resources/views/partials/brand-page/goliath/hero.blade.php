@@ -1,8 +1,6 @@
 {{--
   Goliath Steel — hero.
-  Set $logoId to the Media Library attachment of logo-goliath-steel-full-colour.svg
-  (PNG is fine too). A theme file of that name is used when the ID is 0.
-  The artwork is not recoloured.
+  Set $logoId to the Media Library attachment. The artwork is not recoloured.
 --}}
 @php
     $logoId = 397;
@@ -31,41 +29,6 @@
     };
 
     $goliathLogo = $logoFromAttachment((int) $logoId);
-
-    if ($goliathLogo === '' && class_exists(\Illuminate\Support\Facades\Vite::class)) {
-        foreach ([
-            'resources/images/brands/logo-goliath-steel-full-colour.svg',
-            'resources/images/brands/logo-goliath-steel-full-colour.png',
-        ] as $relative) {
-            $absolute = function_exists('get_theme_file_path') ? get_theme_file_path($relative) : '';
-
-            if (! is_string($absolute) || ! is_readable($absolute)) {
-                continue;
-            }
-
-            try {
-                $url = \Illuminate\Support\Facades\Vite::asset($relative);
-            } catch (\Throwable $e) {
-                $url = '';
-            }
-
-            if ($url === '') {
-                continue;
-            }
-
-            $size = @getimagesize($absolute);
-            $width = is_array($size) ? (int) $size[0] : 420;
-            $height = is_array($size) ? (int) $size[1] : 180;
-
-            $goliathLogo = sprintf(
-                '<img src="%s" alt="Goliath Steel" class="h-auto w-full" width="%d" height="%d" loading="eager" decoding="async">',
-                esc_url($url),
-                max(1, $width),
-                max(1, $height)
-            );
-            break;
-        }
-    }
 
     $koglerMark = '';
     $koglerLogoId = function_exists('get_theme_mod') ? (int) get_theme_mod('custom_logo') : 0;

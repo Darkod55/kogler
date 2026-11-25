@@ -1,40 +1,30 @@
 {{--
   Goliath Steel brand page — intro and Air System tiles.
   This partial is only included from the Brand Page template.
-  Add a category to $categories to stack another panel.
-  Item photos are theme files. A missing file uses the icon box.
+  Photos are Media Library attachment IDs. Set $imageId for the assembly
+  photo and each item image_id. 0 keeps the icon box. Add a category to
+  $categories to stack another panel.
 --}}
 @php
-    $logoUrl = '';
+    $chipLogoId = 0;
     $imageId = 405;
-
-    $themeImage = function (string $file): string {
-        if ($file === '' || ! class_exists(\Illuminate\Support\Facades\Vite::class)) {
-            return '';
-        }
-
-        $relative = 'resources/images/brands/' . $file;
-        $absolute = function_exists('get_theme_file_path') ? get_theme_file_path($relative) : '';
-
-        if (! is_string($absolute) || ! is_readable($absolute)) {
-            return '';
-        }
-
-        try {
-            return (string) \Illuminate\Support\Facades\Vite::asset($relative);
-        } catch (\Throwable $e) {
-            return '';
-        }
-    };
-
-    $assemblyAlt = 'Goliath Steel 3-in-1 full assembly with gladhands and seals';
-    $assemblyUrl = $themeImage('goliath-3in1-full-assembly.webp');
+    $chipLogo = '';
     $photoHtml = '';
+
+    if ($chipLogoId && function_exists('wp_attachment_is_image') && wp_attachment_is_image($chipLogoId)) {
+        $renderedChip = wp_get_attachment_image($chipLogoId, 'full', false, [
+            'class' => 'h-[22px] w-auto',
+            'alt' => 'Goliath Steel',
+            'loading' => 'lazy',
+            'decoding' => 'async',
+        ]);
+        $chipLogo = is_string($renderedChip) ? $renderedChip : '';
+    }
 
     if ($imageId && function_exists('wp_attachment_is_image') && wp_attachment_is_image($imageId)) {
         $rendered = wp_get_attachment_image($imageId, 'full', false, [
             'class' => 'absolute inset-0 h-full w-full object-cover',
-            'alt' => $assemblyAlt,
+            'alt' => 'Goliath Steel 3-in-1 full assembly with gladhands and seals',
             'loading' => 'lazy',
             'decoding' => 'async',
             'sizes' => '(min-width: 1000px) 640px, calc(100vw - 48px)',
@@ -46,12 +36,12 @@
         [
             'name' => 'Air System',
             'items' => [
-                ['name' => '3-in-1 Electric Airline Sets', 'file' => 'goliath-3in1-abs-assembly.webp'],
-                ['name' => 'ABS Power Cables', 'file' => 'goliath-7way-cable.webp'],
-                ['name' => 'ABS Air Brake Hose', 'file' => 'goliath-air-brake-hose.webp'],
-                ['name' => 'Gladhands & Seals', 'file' => 'goliath-3in1-full-assembly.webp'],
-                ['name' => 'Plugs & Receptacles', 'file' => 'goliath-7way-copper-core-zinc-plug.webp'],
-                ['name' => 'Tender Springs & Clips', 'file' => ''],
+                ['name' => '3-in-1 Electric Airline Sets', 'image_id' => 0],
+                ['name' => 'ABS Power Cables', 'image_id' => 0],
+                ['name' => 'ABS Air Brake Hose', 'image_id' => 0],
+                ['name' => 'Gladhands & Seals', 'image_id' => 0],
+                ['name' => 'Plugs & Receptacles', 'image_id' => 0],
+                ['name' => 'Tender Springs & Clips', 'image_id' => 0],
             ],
         ],
     ];
@@ -60,9 +50,9 @@
   <div class="container">
     <div class="flex flex-wrap items-center gap-16">
       <div class="min-w-[min(100%,460px)] shrink grow basis-[460px]">
-        @if ($logoUrl !== '')
+        @if ($chipLogo !== '')
           <span class="inline-flex h-12 items-center rounded-xl bg-white/[0.08] px-5">
-            <img src="{{ $logoUrl }}" alt="Goliath Steel" class="h-[22px] w-auto" height="22">
+            {!! $chipLogo !!}
           </span>
         @else
           <span class="inline-flex h-12 items-center rounded-xl bg-white/[0.08] px-5 text-xl font-extrabold tracking-[0.15em] text-goliath-chrome">GOLIATH STEEL</span>
@@ -79,12 +69,10 @@
 
       <div
         class="relative h-[280px] min-w-[min(100%,460px)] w-full shrink grow basis-[460px] overflow-hidden rounded-3xl bg-goliath-700 min-[1000px]:order-first min-[1000px]:h-[420px]"
-        @unless ($photoHtml !== '' || $assemblyUrl !== '') aria-hidden="true" @endunless
+        @unless ($photoHtml !== '') aria-hidden="true" @endunless
       >
         @if ($photoHtml !== '')
           {!! $photoHtml !!}
-        @elseif ($assemblyUrl !== '')
-          <img src="{{ $assemblyUrl }}" alt="{{ $assemblyAlt }}" class="absolute inset-0 h-full w-full object-cover" loading="lazy" decoding="async">
         @endif
       </div>
     </div>
@@ -108,7 +96,6 @@
                 @php
                     $thumb = '';
                     $thumbId = (int) ($item['image_id'] ?? 0);
-                    $thumbUrl = $themeImage((string) ($item['file'] ?? ''));
 
                     if ($thumbId && function_exists('wp_attachment_is_image') && wp_attachment_is_image($thumbId)) {
                         $rendered = wp_get_attachment_image($thumbId, 'medium', false, [
@@ -121,11 +108,9 @@
                     }
                 @endphp
                 <li class="flex items-center gap-3.5 rounded-2xl bg-goliath-900 p-3">
-                  <div class="flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-[10px] {{ ($thumb !== '' || $thumbUrl !== '') ? 'bg-white' : 'bg-goliath-700' }}" aria-hidden="true">
+                  <div class="flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-[10px] {{ $thumb !== '' ? 'bg-white' : 'bg-goliath-700' }}" aria-hidden="true">
                     @if ($thumb !== '')
                       {!! $thumb !!}
-                    @elseif ($thumbUrl !== '')
-                      <img src="{{ $thumbUrl }}" alt="" class="h-full w-full object-cover" loading="lazy" decoding="async">
                     @else
                       <svg class="size-6 text-goliath-silver" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z" />
