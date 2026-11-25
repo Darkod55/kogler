@@ -701,6 +701,54 @@ add_action('acf/init', function () {
             ],
         ],
     ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_kogler_home_testimonials',
+        'title' => __('Homepage Testimonials', 'sage'),
+        'fields' => [
+            [
+                'key' => 'field_kogler_testimonials',
+                'label' => __('Testimonials', 'sage'),
+                'name' => 'testimonials',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'button_label' => __('Add testimonial', 'sage'),
+                'instructions' => __('Real quotes only. Leave empty to show the one published driver quote. Do not add placeholders.', 'sage'),
+                'sub_fields' => [
+                    [
+                        'key' => 'field_kogler_testimonial_quote',
+                        'label' => __('Quote', 'sage'),
+                        'name' => 'quote',
+                        'type' => 'textarea',
+                        'rows' => 4,
+                        'new_lines' => '',
+                        'instructions' => __('Type the quote without quotation marks.', 'sage'),
+                    ],
+                    [
+                        'key' => 'field_kogler_testimonial_name',
+                        'label' => __('Name', 'sage'),
+                        'name' => 'name',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_kogler_testimonial_role',
+                        'label' => __('Role', 'sage'),
+                        'name' => 'role',
+                        'type' => 'text',
+                    ],
+                ],
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_type',
+                    'operator' => '==',
+                    'value' => 'front_page',
+                ],
+            ],
+        ],
+    ]);
 });
 
 add_filter('acf/location/rule_types', function ($choices) {

@@ -3,6 +3,22 @@ import Alpine from 'alpinejs';
 window.Alpine = Alpine;
 
 document.addEventListener('alpine:init', () => {
+  Alpine.data('testimonials', (count = 1) => ({
+    active: 0,
+    count: Number(count) > 0 ? Number(count) : 1,
+    next() {
+      this.active = (this.active + 1) % this.count;
+    },
+    prev() {
+      this.active = (this.active + this.count - 1) % this.count;
+    },
+    label() {
+      const pad = (n) => String(n).padStart(2, '0');
+
+      return `${pad(this.active + 1)} / ${pad(this.count)}`;
+    },
+  }));
+
   Alpine.data('audienceTabs', (count = 4) => ({
     active: 0,
     count: Number(count) > 0 ? Number(count) : 4,

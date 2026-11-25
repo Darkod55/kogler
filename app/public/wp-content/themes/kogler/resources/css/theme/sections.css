@@ -98,6 +98,16 @@
   }
 }
 
+/* Quote rule: same dash as .lane-v, in primary, filling a 3px column. */
+.lane-v.lane-primary::before {
+  left: 0;
+  background: repeating-linear-gradient(
+    180deg,
+    var(--color-primary) 0 22px,
+    transparent 22px 38px
+  );
+}
+
 @utility lane-h {
   position: relative;
 
