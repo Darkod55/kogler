@@ -1,6 +1,7 @@
 {{--
   Homepage testimonials. Sits directly after Our Services.
-  One published quote. Controls appear only when a second real quote is added.
+  Michael R. is the published quote. The other two are samples so the
+  previous/next controls can be checked. Replace them with real quotes.
 --}}
 @php
     $testimonials = [
@@ -8,6 +9,16 @@
             'quote' => 'Finally, a mattress that actually fits my sleeper cab. It’s comfortable, supportive, and made a huge difference on long hauls.',
             'name' => 'Michael R.',
             'role' => 'Owner-Operator',
+        ],
+        [
+            'quote' => 'Sample quote. Short enough to show the slide height staying put.',
+            'name' => 'Sample Name',
+            'role' => 'Sample role',
+        ],
+        [
+            'quote' => 'Sample quote. This one runs longer so the next and previous controls can be checked without the page jumping when the quote changes length. Replace this with a real driver quote before launch.',
+            'name' => 'Sample Name',
+            'role' => 'Sample role',
         ],
     ];
 
