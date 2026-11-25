@@ -27,7 +27,7 @@
     @include('partials.brand-page.sleep.cta')
   @elseif ($brandPage === 'goliath-steel')
     @include('partials.brand-page.goliath.hero')
-    @include('partials.brand-page.goliath.intro')
+    @include('partials.brand.goliath-steel', ['goliathVariant' => 'brand-page'])
     @include('partials.brand-page.goliath.products')
     @include('partials.brand-page.goliath.private-label')
     @include('partials.brand-page.goliath.gloves')
