@@ -96,10 +96,10 @@
         @endif
 
         <h2 class="mt-6 mb-0 font-fraunces text-[clamp(34px,3.8vw,54px)] font-semibold leading-[1.08] tracking-tight text-dark-blue">
-          Driving a Truck Is Hard, <em class="italic font-medium text-(--site-heading-accent)">Sleeping in One Shouldn’t Be.</em>
+          Driving a Truck Is Hard, <em class="italic font-medium text-primary">Sleeping in One Shouldn’t Be.</em>
         </h2>
 
-        <p class="mt-6 mb-0 max-w-[560px] text-[length:var(--font-size-tagline)] leading-[1.7] text-(--site-ink)/80">
+        <p class="mt-6 mb-0 max-w-[560px] text-[length:var(--font-size-tagline)] leading-[1.7] text-dark-blue/80">
           Kogler makes high-quality sleep products for the commercial trucking industry. Our sleeper mattresses are built for drivers who spend their nights in the cab and for the fleets that depend on them being rested.
         </p>
       </div>
@@ -120,10 +120,10 @@
       <div class="min-w-[min(100%,520px)] shrink grow-[3] basis-[520px]">
         <h3 class="mb-5 text-[24px] font-bold text-dark-blue">Sleeper Mattresses</h3>
 
-        <div class="overflow-hidden rounded-3xl border border-(--site-ink)/10">
+        <div class="overflow-hidden rounded-3xl border border-dark-blue/12">
           <div class="overflow-x-auto">
-            <table class="w-full border-collapse text-left text-base text-(--site-ink)">
-              <thead class="bg-light text-dark-blue">
+            <table class="w-full border-collapse text-left text-base text-dark-blue">
+              <thead class="bg-light">
                 <tr>
                   <th class="w-[34%] px-6 py-4 text-[12px] font-bold uppercase tracking-widest" scope="col">Spec</th>
                   <th class="px-6 py-4 text-[12px] font-bold uppercase tracking-widest" scope="col">Options</th>
@@ -131,13 +131,13 @@
               </thead>
               <tbody>
                 @foreach ($specs as $spec)
-                  <tr class="border-t border-(--site-ink)/10">
+                  <tr class="border-t border-dark-blue/10">
                     <th class="px-6 py-[18px] text-left font-bold" scope="row">{{ $spec['label'] }}</th>
                     <td class="px-6 py-[18px]">
                       @if (is_array($spec['value']))
                         <div class="flex flex-wrap gap-1.5">
                           @foreach ($spec['value'] as $chip)
-                            <span class="rounded-lg bg-light-blue px-3 py-1.5 text-sm font-bold text-(--site-ink)">{{ $chip }}</span>
+                            <span class="rounded-lg bg-light-blue px-3 py-1.5 text-sm font-bold text-dark-blue">{{ $chip }}</span>
                           @endforeach
                         </div>
                       @else
@@ -152,7 +152,7 @@
         </div>
       </div>
 
-      <div id="find-your-size" class="flex min-w-[min(100%,340px)] shrink grow-[2] basis-[340px] flex-col justify-between gap-7 rounded-3xl bg-dark-blue p-9 text-white">
+      <div class="flex min-w-[min(100%,340px)] shrink grow-[2] basis-[340px] flex-col justify-between gap-7 rounded-3xl bg-dark-blue p-9 text-white">
         <div>
           <p class="mb-0 text-[13px] font-semibold text-secondary">Manufacturer’s Fitment Guide</p>
           <h3 class="mt-2.5 mb-0 font-fraunces text-[34px] font-semibold leading-[1.1]">Find Your Mattress</h3>
@@ -196,11 +196,7 @@
 
           <button
             type="submit"
-            @class([
-              'mt-1.5 h-[52px] w-full rounded-full text-[length:var(--font-size-base)] font-bold disabled:cursor-not-allowed disabled:opacity-60',
-              'bg-white text-(--site-accent-ink)' => \App\helpers()->brandTheme() === 'kogler-sleep',
-              'bg-secondary text-dark-blue' => \App\helpers()->brandTheme() !== 'kogler-sleep',
-            ])
+            class="mt-1.5 h-[52px] w-full rounded-full bg-secondary text-[length:var(--font-size-base)] font-bold text-dark-blue disabled:cursor-not-allowed disabled:opacity-60"
             :disabled="!make || !model"
           >
             Find your mattress

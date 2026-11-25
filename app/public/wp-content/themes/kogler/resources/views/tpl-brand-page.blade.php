@@ -17,7 +17,7 @@
 
   @if ($brandPage === 'kogler-sleep')
     @include('partials.brand-page.sleep.hero')
-    @include('partials.brand.kogler')
+    @include('partials.brand-page.sleep.intro')
     @include('partials.brand-page.sleep.lineup')
     @include('partials.brand-page.sleep.quick-selector')
     @include('partials.brand-page.sleep.fitment-guide')
