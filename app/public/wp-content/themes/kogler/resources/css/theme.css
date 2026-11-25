@@ -24,7 +24,7 @@
 @import "./components/header-chrome.css";
 
 @source inline("text-primary text-secondary text-tertiary text-teal text-gray text-light text-dark-blue text-light-blue text-dark-gray text-black text-white text-goliath-silver text-goliath-green text-goliath-chrome text-outdoor-amber");
-@source inline("bg-primary bg-secondary bg-tertiary bg-teal bg-gray bg-light bg-dark-blue bg-light-blue bg-dark-gray bg-black bg-white bg-goliath-950 bg-goliath-900 bg-goliath-800 bg-goliath-700 bg-goliath-green bg-outdoor-950 bg-outdoor-900");
+@source inline("bg-primary bg-secondary bg-tertiary bg-teal bg-gray bg-light bg-dark-blue bg-light-blue bg-dark-gray bg-black bg-white bg-goliath-950 bg-goliath-900 bg-goliath-800 bg-goliath-700 bg-goliath-green bg-outdoor-950 bg-outdoor-900 bg-outdoor-700 bg-outdoor-600 bg-outdoor-water");
 @source inline("border-goliath-green border-goliath-orange border-outdoor-amber outline-goliath-green outline-outdoor-amber");
 @source inline("font-heading font-fraunces");
 /**

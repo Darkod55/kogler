@@ -44,15 +44,14 @@
     }
 
     $products = [
-        ['title' => 'RV mattresses', 'image_id' => 0, 'note' => '', 'url' => ''],
-        ['title' => 'Marine sleep products', 'image_id' => 0, 'note' => '', 'url' => ''],
+        ['title' => 'RV Mattresses', 'image_id' => 0, 'note' => ''],
+        ['title' => 'Marine Sleep Products', 'image_id' => 0, 'note' => ''],
     ];
 
     // Future parts guide. Empty means nothing is rendered.
     $parts = [];
 
     $cardClass = 'flex items-center gap-5 rounded-3xl bg-white p-4';
-    $cardLinkClass = $cardClass . ' no-underline transition hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--ko-green)';
 @endphp
 <section
   id="kogler-outdoor"
@@ -126,30 +125,22 @@
               $note = trim((string) ($product['note'] ?? ''));
           @endphp
           <li>
-            @if (! empty($product['url']))
-              <a href="{{ $product['url'] }}" class="{{ $cardLinkClass }}">
-            @else
-              <div class="{{ $cardClass }}">
-            @endif
-                <div
-                  class="h-[120px] w-[140px] flex-none overflow-hidden rounded-2xl bg-(--ko-tint) max-[400px]:h-[96px] max-[400px]:w-[112px]"
-                  @unless ($thumb) aria-hidden="true" @endunless
-                >
-                  @if ($thumb)
-                    {!! $thumb !!}
-                  @endif
-                </div>
-                <div>
-                  <h4 class="mb-0 font-fraunces text-(--ko-green)">{{ kogler_title_case($product['title']) }}</h4>
-                  @if ($note !== '')
-                    <p class="mt-1.5 mb-0 text-[14px] text-(--ko-amber-ink)">{{ $note }}</p>
-                  @endif
-                </div>
-            @if (! empty($product['url']))
-              </a>
-            @else
+            <div class="{{ $cardClass }}">
+              <div
+                class="h-[120px] w-[140px] flex-none overflow-hidden rounded-2xl bg-(--ko-tint) max-[400px]:h-[96px] max-[400px]:w-[112px]"
+                @unless ($thumb) aria-hidden="true" @endunless
+              >
+                @if ($thumb)
+                  {!! $thumb !!}
+                @endif
               </div>
-            @endif
+              <div>
+                <h4 class="mb-0 font-fraunces text-(--ko-green)">{{ kogler_title_case($product['title']) }}</h4>
+                @if ($note !== '')
+                  <p class="mt-1.5 mb-0 text-[14px] text-(--ko-amber-ink)">{{ $note }}</p>
+                @endif
+              </div>
+            </div>
           </li>
         @endforeach
       </ul>

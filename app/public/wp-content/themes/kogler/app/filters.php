@@ -183,6 +183,59 @@ add_action('acf/init', function () {
             ],
         ],
     ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_kogler_outdoor_products',
+        'title' => __('Outdoor Products', 'sage'),
+        'fields' => [
+            [
+                'key' => 'field_kogler_outdoor_products',
+                'label' => __('Outdoor Products', 'sage'),
+                'name' => 'outdoor_products',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'button_label' => __('Add product', 'sage'),
+                'sub_fields' => [
+                    [
+                        'key' => 'field_kogler_outdoor_product_title',
+                        'label' => __('Title', 'sage'),
+                        'name' => 'title',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_kogler_outdoor_product_image',
+                        'label' => __('Image', 'sage'),
+                        'name' => 'image',
+                        'type' => 'image',
+                        'return_format' => 'id',
+                        'preview_size' => 'medium',
+                        'library' => 'all',
+                    ],
+                    [
+                        'key' => 'field_kogler_outdoor_product_detail',
+                        'label' => __('Detail', 'sage'),
+                        'name' => 'detail',
+                        'type' => 'text',
+                        'instructions' => __('Sizes or the marine list. Leave empty to hide the line.', 'sage'),
+                    ],
+                ],
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_template',
+                    'operator' => '==',
+                    'value' => 'tpl-brand-page.blade.php',
+                ],
+                [
+                    'param' => 'kogler_brand',
+                    'operator' => '==',
+                    'value' => 'kogler-outdoor',
+                ],
+            ],
+        ],
+    ]);
 });
 
 add_filter('acf/location/rule_types', function ($choices) {
@@ -205,6 +258,7 @@ add_filter('acf/location/rule_values/kogler_brand', function ($choices) {
     }
 
     $choices['goliath-steel'] = __('Goliath Steel', 'sage');
+    $choices['kogler-outdoor'] = __('Kögler Outdoor', 'sage');
 
     return $choices;
 });
