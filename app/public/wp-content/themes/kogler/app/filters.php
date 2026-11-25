@@ -637,6 +637,70 @@ add_action('acf/init', function () {
             ],
         ],
     ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_kogler_home_services',
+        'title' => __('Homepage Services', 'sage'),
+        'fields' => [
+            [
+                'key' => 'field_kogler_services_title',
+                'label' => __('Title', 'sage'),
+                'name' => 'services_title',
+                'type' => 'text',
+                'instructions' => __('The last word is set in italic.', 'sage'),
+            ],
+            [
+                'key' => 'field_kogler_services_intro',
+                'label' => __('Intro', 'sage'),
+                'name' => 'services_intro',
+                'type' => 'textarea',
+                'rows' => 3,
+                'new_lines' => '',
+            ],
+            [
+                'key' => 'field_kogler_services_button',
+                'label' => __('Button', 'sage'),
+                'name' => 'services_button',
+                'type' => 'link',
+                'return_format' => 'array',
+            ],
+            [
+                'key' => 'field_kogler_services',
+                'label' => __('Services', 'sage'),
+                'name' => 'services',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'max' => 6,
+                'button_label' => __('Add service', 'sage'),
+                'instructions' => __('Up to six. Leave empty to use the four defaults.', 'sage'),
+                'sub_fields' => [
+                    [
+                        'key' => 'field_kogler_service_title',
+                        'label' => __('Title', 'sage'),
+                        'name' => 'title',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_kogler_service_text',
+                        'label' => __('Text', 'sage'),
+                        'name' => 'text',
+                        'type' => 'textarea',
+                        'rows' => 3,
+                        'new_lines' => '',
+                    ],
+                ],
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_type',
+                    'operator' => '==',
+                    'value' => 'front_page',
+                ],
+            ],
+        ],
+    ]);
 });
 
 add_filter('acf/location/rule_types', function ($choices) {

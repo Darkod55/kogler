@@ -7,5 +7,6 @@
   @include('partials.home.audiences')
   @include('partials.home.inside')
   @include('partials.home.benefits')
+  @include('partials.home.services')
   {!! the_content() !!}
 @endsection
