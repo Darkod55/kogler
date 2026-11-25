@@ -46,9 +46,11 @@ html {
 }
 
 #main-header .site-logo {
-  height: auto;
-  max-height: 40px;
-  width: auto;
+  /* Inline Customizer width would squash this. Height is the 50px cap;
+     width follows the artwork. */
+  height: 50px !important;
+  max-height: 50px;
+  width: auto !important;
   transform-origin: left center;
   transition: transform 280ms ease;
 }
