@@ -78,8 +78,9 @@ add_action('add_meta_boxes_page', function () {
             ];
 
             wp_nonce_field('kogler_brand_save', 'kogler_brand_nonce');
-            echo '<p><label for="kogler_brand">' . esc_html__('Brand theme for the Brand Page template.', 'sage') . '</label></p>';
-            echo '<select id="kogler_brand" name="kogler_brand" class="widefat">';
+            echo '<p><label for="kogler-brand-select">' . esc_html__('Brand theme for the Brand Page template.', 'sage') . '</label></p>';
+            echo '<div class="kogler-brand-field">';
+            echo '<select id="kogler-brand-select" name="kogler_brand">';
 
             foreach ($choices as $value => $label) {
                 printf(
@@ -91,10 +92,30 @@ add_action('add_meta_boxes_page', function () {
             }
 
             echo '</select>';
+            echo '</div>';
         },
         'page',
         'side'
     );
+});
+
+/**
+ * The closed select sizes itself to its longest option, which is wider
+ * than the block-editor sidebar and makes that column scroll sideways.
+ */
+add_action('admin_head', function () {
+    $screen = function_exists('get_current_screen') ? get_current_screen() : null;
+
+    if (! $screen || $screen->base !== 'post' || $screen->post_type !== 'page') {
+        return;
+    }
+
+    echo '<style>
+        #kogler_brand .inside { min-width: 0; max-width: 100%; }
+        #kogler_brand .inside p { max-width: 100%; overflow-wrap: break-word; }
+        #kogler_brand .kogler-brand-field { display: grid; grid-template-columns: minmax(0, 1fr); max-width: 100%; }
+        #kogler_brand select { box-sizing: border-box; width: 100%; max-width: 100%; min-width: 0; }
+    </style>';
 });
 
 add_action('save_post_page', function ($post_id) {
