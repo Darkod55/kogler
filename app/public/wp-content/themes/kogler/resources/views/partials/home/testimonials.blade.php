@@ -102,7 +102,7 @@
     <div class="mt-16 grid" @if ($carousel) aria-live="polite" @endif>
       @foreach ($testimonials as $index => $item)
         <figure
-          class="col-start-1 row-start-1 m-0 flex items-start gap-10 transition-opacity duration-[250ms] motion-reduce:transition-none max-[720px]:gap-6 {{ $index > 0 ? 'invisible' : '' }}"
+          class="col-start-1 row-start-1 m-0 flex h-full items-stretch gap-10 transition-opacity duration-[250ms] motion-reduce:transition-none max-[720px]:gap-6 {{ $index > 0 ? 'invisible' : '' }}"
           @if ($carousel)
             role="group"
             aria-roledescription="slide"
@@ -112,11 +112,11 @@
           @endif
         >
           <div class="lane-v lane-primary w-[3px] shrink-0 self-stretch" aria-hidden="true"></div>
-          <div class="max-w-[1000px] min-w-0 flex-1">
-            <blockquote class="m-0 font-fraunces text-[clamp(28px,3.2vw,44px)] font-medium leading-[1.25] tracking-[-0.4px] text-dark-blue">
+          <div class="flex h-full max-w-[1000px] min-w-0 flex-1 flex-col">
+            <blockquote class="m-0 font-fraunces text-[clamp(22px,2.2vw,32px)] font-medium leading-[1.35] tracking-[-0.3px] text-dark-blue">
               <p class="m-0">“{{ $item['quote'] }}”</p>
             </blockquote>
-            <figcaption class="mt-8 text-base text-dark-blue">
+            <figcaption class="mt-auto pt-8 text-base text-dark-blue">
               @if ($item['name'] !== '')
                 <strong class="font-bold">{{ $item['name'] }}</strong>
               @endif
