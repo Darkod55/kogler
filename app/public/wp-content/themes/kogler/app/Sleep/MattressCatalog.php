@@ -13,12 +13,84 @@ class MattressCatalog
      */
     public static function catalog(): array
     {
+        $footnotes = self::footnotes();
+        $makeMarks = self::makeMarks();
+        $makeNotes = [];
+
+        foreach ($makeMarks as $make => $mark) {
+            if (isset($footnotes[$mark])) {
+                $makeNotes[$make] = $footnotes[$mark];
+            }
+        }
+
         return [
             'trucks' => self::trucks(),
-            'makeNotes' => [
-                'Volvo' => 'Replacement reclining mattresses for Volvo sleepers are available on request.',
-            ],
+            'makeNotes' => $makeNotes,
+            'makeMarks' => $makeMarks,
+            'footnotes' => $footnotes,
             'parts' => self::parts(),
+        ];
+    }
+
+    /**
+     * One table row per bunk, in catalog order.
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    public static function fitmentRows(): array
+    {
+        $rows = [];
+        $marks = self::makeMarks();
+
+        foreach (self::trucks() as $make => $models) {
+            $bunks = [];
+
+            foreach ($models as $modelIndex => $model) {
+                foreach ($model['bunks'] as $bunk) {
+                    $bunks[] = [
+                        'make' => $make,
+                        'makeMark' => $marks[$make] ?? '',
+                        'model' => $model['name'],
+                        'modelIndex' => $modelIndex,
+                        'bunk' => self::bunkColumn($bunk['position']),
+                        'width' => self::widthLabel($bunk['widths']),
+                        'mark' => $bunk['mark'] ?? '',
+                        'note' => $bunk['note'] ?? '',
+                    ];
+                }
+            }
+
+            $span = count($bunks);
+
+            foreach ($bunks as $index => $row) {
+                $row['first'] = $index === 0;
+                $row['rowspan'] = $span;
+                $rows[] = $row;
+            }
+        }
+
+        return $rows;
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public static function footnotes(): array
+    {
+        return [
+            '*' => 'Width matches; OEM bunk is longer than 80".',
+            '†' => 'Nearest fit; about 1" narrower than the OEM bunk.',
+            '‡' => 'Replacement reclining mattresses for Volvo sleepers are available on request.',
+        ];
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public static function makeMarks(): array
+    {
+        return [
+            'Volvo' => '‡',
         ];
     }
 
@@ -100,8 +172,8 @@ class MattressCatalog
             ],
             'Peterbilt' => [
                 self::model('579 (80" UltraLoft)', [
-                    self::bunk('Lower bunk', ['42'], 'OEM bunk 42" × 85". Width matches; OEM bunk is longer than 80".'),
-                    self::bunk('Upper bunk', ['36'], 'OEM bunk 36" × 82". Width matches; OEM bunk is longer than 80".'),
+                    self::bunk('Lower bunk', ['42'], 'OEM bunk 42" × 85"', '*'),
+                    self::bunk('Upper bunk', ['36'], 'OEM bunk 36" × 82"', '*'),
                 ]),
                 self::model('389 high roof', [
                     self::bunk('Lower bunk', ['42']),
@@ -122,7 +194,7 @@ class MattressCatalog
                 ]),
                 self::model('LT 73"', [
                     self::bunk('Lower bunk', ['42']),
-                    self::bunk('Upper bunk', ['32'], 'OEM bunk 33.2" wide. Nearest fit; about 1" narrower than the OEM bunk.'),
+                    self::bunk('Upper bunk', ['32'], 'OEM bunk 33.2" wide', '†'),
                 ]),
             ],
             'Mack' => [
@@ -190,11 +262,38 @@ class MattressCatalog
 
     /**
      * @param  array<int, string>  $widths
-     * @return array{position: string, widths: array<int, string>, note: string}
+     * @return array{position: string, widths: array<int, string>, note: string, mark: string}
      */
-    private static function bunk(string $position, array $widths, string $note = ''): array
+    private static function bunk(string $position, array $widths, string $note = '', string $mark = ''): array
     {
-        return ['position' => $position, 'widths' => $widths, 'note' => $note];
+        return ['position' => $position, 'widths' => $widths, 'note' => $note, 'mark' => $mark];
+    }
+
+    /**
+     * @param  array<int, string>  $widths
+     */
+    private static function widthLabel(array $widths): string
+    {
+        return implode(' or ', array_map(static function ($width): string {
+            return $width . '"';
+        }, $widths));
+    }
+
+    private static function bunkColumn(string $position): string
+    {
+        if (str_starts_with($position, 'Lower')) {
+            return 'Lower';
+        }
+
+        if (str_starts_with($position, 'Upper')) {
+            return 'Upper';
+        }
+
+        if (str_starts_with($position, 'Single')) {
+            return 'Single';
+        }
+
+        return $position;
     }
 
     /**

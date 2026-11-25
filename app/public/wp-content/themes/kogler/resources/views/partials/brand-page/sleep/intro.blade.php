@@ -66,7 +66,10 @@
 
     <script type="application/json" id="kogler-sleep-fitment">{!! $fitmentJson !!}</script>
 
-    <div x-data="fitmentFinder(JSON.parse(document.getElementById('kogler-sleep-fitment').textContent))">
+    <div
+      x-data="fitmentFinder(JSON.parse(document.getElementById('kogler-sleep-fitment').textContent))"
+      @fitment:select.window="selectTruck($event.detail)"
+    >
       <div class="mt-[72px] flex flex-wrap items-stretch gap-6">
         <div class="min-w-0 w-full shrink grow-[3] basis-full min-[1000px]:basis-[520px]">
           <h3 class="mb-5 text-[24px] font-bold text-dark-blue">Sleeper Mattresses</h3>
@@ -105,7 +108,7 @@
           </div>
         </div>
 
-        <div id="find-your-size" class="flex min-w-0 w-full shrink grow-[2] basis-full flex-col justify-between gap-7 rounded-3xl bg-dark-blue p-9 text-white min-[1000px]:basis-[340px]">
+        <div id="find-your-size" class="flex min-w-0 w-full shrink grow-[2] basis-full scroll-mt-chrome flex-col justify-between gap-7 rounded-3xl bg-dark-blue p-9 text-white min-[1000px]:basis-[340px]">
           <div>
             <p class="mb-0 text-[13px] font-semibold text-light-blue">Manufacturer’s Fitment Guide</p>
             <h3 class="mt-2.5 mb-0 font-fraunces text-[34px] font-semibold leading-[1.1]">Find Your Mattress</h3>

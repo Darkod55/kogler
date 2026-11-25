@@ -800,10 +800,19 @@ document.addEventListener('alpine:init', () => {
           sku: part.sku,
         })));
 
+        const extra = bunk.mark && catalog.footnotes ? catalog.footnotes[bunk.mark] : '';
+        let note = bunk.note || '';
+
+        if (note && extra) {
+          note = `${note}${/[.!?]$/.test(note) ? ' ' : '. '}${extra}`;
+        } else if (extra) {
+          note = extra;
+        }
+
         return {
           position: bunk.position,
           widthsLabel,
-          note: bunk.note || '',
+          note,
           options,
         };
       });
@@ -888,6 +897,25 @@ document.addEventListener('alpine:init', () => {
         const value = event.target.value;
         ctx.model = value === '' ? null : Number(value);
         ctx.syncUrl();
+      },
+
+      selectTruck(detail) {
+        const models = detail && ctx.catalog.trucks[detail.make];
+
+        if (! models || ! models.length) {
+          return;
+        }
+
+        const index = Number(detail.model);
+        ctx.make = detail.make;
+        ctx.model = Number.isInteger(index) && models[index] ? index : (models.length === 1 ? 0 : null);
+        ctx.syncUrl();
+
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        document.getElementById('find-your-size')?.scrollIntoView({
+          behavior: reduce ? 'auto' : 'smooth',
+          block: 'start',
+        });
       },
 
       syncUrl() {
