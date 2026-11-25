@@ -12,6 +12,10 @@
   Goliath Steel passes $ctaVariant "goliath", plus $ctaId, $ctaLogo, and
   $ctaPhoto. That variant keeps this headline and the same two page links,
   with the logo, the gloves photo, and the brand buttons.
+
+  Kögler Outdoor passes $ctaVariant "outdoor", plus $ctaId and $ctaLogo.
+  Shop on Amazon is hidden while the Customizer URL is empty. Find a
+  Distributor is the amber button in that case.
 --}}
 @php
     $ctaBackground = $ctaBackground ?? 'bg-white';
@@ -48,10 +52,39 @@
     }
 
     $distributorUrl = \App\Helpers\Helpers::instance()->pageUrlBySlug('find-a-distributor');
+    $amazonUrl = $ctaVariant === 'outdoor' ? \App\helpers()->outdoorAmazonUrl() : '';
 
     $ctaTopClass = $ctaPadTop ? 'pt-clamp-xl' : 'pt-0';
 @endphp
-@if ($ctaVariant === 'goliath')
+@if ($ctaVariant === 'outdoor')
+<section @if ($ctaId !== '') id="{{ $ctaId }}" @endif class="relative {{ $ctaBackground }} px-clamp {{ $ctaTopClass }} pb-clamp-xl text-white">
+  <div class="container">
+    <div class="flex flex-wrap items-center justify-between gap-10 rounded-t-lg rounded-b-[32px] border-t-4 border-outdoor-amber bg-outdoor-950 px-7 py-12 min-[1000px]:px-14 min-[1000px]:py-[72px]">
+      <div class="min-w-0 shrink grow basis-full min-[1000px]:basis-[420px]">
+        @if ($ctaLogo !== '')
+          {!! $ctaLogo !!}
+        @endif
+
+        <h2 class="lead mt-7 mb-0 font-fraunces tracking-tight text-white">
+          Ready to Work <em class="italic font-medium text-outdoor-amber">Together?</em>
+        </h2>
+      </div>
+
+      <div class="flex flex-wrap gap-3.5 max-[400px]:w-full">
+        @if ($amazonUrl !== '')
+          <a class="btn btn-primary max-[400px]:w-full" href="{{ $amazonUrl }}" target="_blank" rel="noopener">
+            Shop on Amazon<span class="sr-only"> (opens in a new tab)</span>
+          </a>
+          <a class="btn btn-brand-outline max-[400px]:w-full" href="{{ $distributorUrl }}">Find a Distributor</a>
+        @else
+          <a class="btn btn-primary max-[400px]:w-full" href="{{ $distributorUrl }}">Find a Distributor</a>
+        @endif
+        <a class="btn btn-brand-outline max-[400px]:w-full" href="{{ $contactUrl }}">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+@elseif ($ctaVariant === 'goliath')
 <section @if ($ctaId !== '') id="{{ $ctaId }}" @endif class="relative {{ $ctaBackground }} px-clamp {{ $ctaTopClass }} pb-clamp-xl text-white">
   <div class="container">
     <div class="flex flex-wrap items-stretch overflow-hidden rounded-t-lg rounded-b-[32px] border-t-4 border-goliath-green bg-goliath-950">
