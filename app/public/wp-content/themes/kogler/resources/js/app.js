@@ -3,6 +3,30 @@ import Alpine from 'alpinejs';
 window.Alpine = Alpine;
 
 document.addEventListener('alpine:init', () => {
+  Alpine.data('audienceTabs', (count = 4) => ({
+    active: 0,
+    count: Number(count) > 0 ? Number(count) : 4,
+    next() {
+      this.active = (this.active + 1) % this.count;
+      this.focus();
+    },
+    prev() {
+      this.active = (this.active + this.count - 1) % this.count;
+      this.focus();
+    },
+    first() {
+      this.active = 0;
+      this.focus();
+    },
+    last() {
+      this.active = this.count - 1;
+      this.focus();
+    },
+    focus() {
+      this.$nextTick(() => this.$refs[`tab${this.active}`]?.focus());
+    },
+  }));
+
   Alpine.store('fitment', {
     make: '',
     model: null,

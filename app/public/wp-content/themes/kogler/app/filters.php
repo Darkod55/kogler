@@ -466,6 +466,56 @@ add_action('acf/init', function () {
             ],
         ],
     ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_kogler_home_audiences',
+        'title' => __('Homepage Audiences', 'sage'),
+        'fields' => [
+            [
+                'key' => 'field_kogler_home_audiences',
+                'label' => __('Audiences', 'sage'),
+                'name' => 'audiences',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'button_label' => __('Add audience', 'sage'),
+                'instructions' => __('Leave empty to use the four defaults. Image is an attachment ID. There is no link.', 'sage'),
+                'sub_fields' => [
+                    [
+                        'key' => 'field_kogler_home_audience_label',
+                        'label' => __('Label', 'sage'),
+                        'name' => 'label',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_kogler_home_audience_text',
+                        'label' => __('Text', 'sage'),
+                        'name' => 'text',
+                        'type' => 'textarea',
+                        'rows' => 3,
+                        'new_lines' => '',
+                    ],
+                    [
+                        'key' => 'field_kogler_home_audience_image',
+                        'label' => __('Image', 'sage'),
+                        'name' => 'image',
+                        'type' => 'image',
+                        'return_format' => 'id',
+                        'preview_size' => 'medium',
+                        'instructions' => __('Attachment ID. The media alt is the photo description.', 'sage'),
+                    ],
+                ],
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_type',
+                    'operator' => '==',
+                    'value' => 'front_page',
+                ],
+            ],
+        ],
+    ]);
 });
 
 add_filter('acf/location/rule_types', function ($choices) {
