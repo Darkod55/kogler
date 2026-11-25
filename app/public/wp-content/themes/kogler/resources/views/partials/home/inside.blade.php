@@ -36,9 +36,9 @@
         ],
     ];
 
-    $imageId = 0;
-    $posterId = 0;
-    $videoId = 0;
+    $imageId = 419;
+    $posterId = 154;
+    $videoId = 111;
 
     if (function_exists('get_field')) {
         $saved = get_field('inside_features');
