@@ -1,14 +1,15 @@
 {{--
   Kögler Sleep lineup card.
-  $cardId, $title, $intro, $features, $parts, $imageLast,
-  $clothImage, $wipeableImage (url, alt), $caption (gel only).
+  $clothImageId and $wipeableImageId are Media Library attachment IDs.
 --}}
 @php
     $cardId = $cardId ?? 'lineup';
     $imageLast = $imageLast ?? false;
     $caption = $caption ?? false;
-    $clothImage = $clothImage ?? ['url' => '', 'alt' => ''];
-    $wipeableImage = $wipeableImage ?? ['url' => '', 'alt' => ''];
+    $clothImageId = (int) ($clothImageId ?? 0);
+    $wipeableImageId = (int) ($wipeableImageId ?? 0);
+    $clothAlt = $clothAlt ?? '';
+    $wipeableAlt = $wipeableAlt ?? '';
     $parts = $parts ?? ['cloth' => [], 'wipeable' => []];
     $features = $features ?? [];
     $partsJson = function_exists('wp_json_encode')
@@ -18,6 +19,28 @@
     if ($imageLast) {
         $imageColumn .= ' min-[1000px]:order-last';
     }
+
+    $lineupAttachment = function (int $id, string $alt, array $extra = []): string {
+        if ($id < 1 || ! function_exists('wp_get_attachment_image')) {
+            return '';
+        }
+
+        if (function_exists('wp_attachment_is_image') && ! wp_attachment_is_image($id)) {
+            return '';
+        }
+
+        return wp_get_attachment_image($id, 'full', false, array_merge([
+            'class' => 'aspect-square w-full rounded-[20px] bg-white object-contain',
+            'alt' => $alt,
+            'loading' => 'lazy',
+            'decoding' => 'async',
+        ], $extra));
+    };
+
+    $clothImage = $lineupAttachment($clothImageId, $clothAlt, $wipeableImageId > 0 ? ['x-show' => "cover === 'cloth'"] : []);
+    $wipeableImage = $wipeableImageId > 0
+        ? $lineupAttachment($wipeableImageId, $wipeableAlt, ['x-show' => "cover === 'wipeable'", 'x-cloak' => 'true'])
+        : '';
 @endphp
 <article
   class="{{ $cardClass ?? '' }} flex flex-wrap gap-12 rounded-[28px] bg-white p-7 min-[1000px]:p-12"
@@ -27,30 +50,11 @@
 >
   <div class="{{ $imageColumn }}">
     <figure class="m-0">
-      @if ($clothImage['url'] !== '')
-        <img
-          src="{{ $clothImage['url'] }}"
-          alt="{{ $clothImage['alt'] }}"
-          width="800"
-          height="800"
-          class="aspect-square w-full rounded-[20px] bg-white object-contain"
-          loading="lazy"
-          decoding="async"
-          @if ($wipeableImage['url'] !== '') x-show="cover === 'cloth'" @endif
-        >
+      @if ($clothImage !== '')
+        {!! $clothImage !!}
       @endif
-      @if ($wipeableImage['url'] !== '')
-        <img
-          src="{{ $wipeableImage['url'] }}"
-          alt="{{ $wipeableImage['alt'] }}"
-          width="800"
-          height="800"
-          class="aspect-square w-full rounded-[20px] bg-white object-contain"
-          loading="lazy"
-          decoding="async"
-          x-show="cover === 'wipeable'"
-          x-cloak
-        >
+      @if ($wipeableImage !== '')
+        {!! $wipeableImage !!}
       @endif
       @if ($caption)
         <figcaption class="mt-2.5 text-center text-[12px] font-bold tracking-widest text-(--site-ink)/70 uppercase" x-text="cover === 'cloth' ? 'Cloth cover' : 'Wipeable navy nylon cover'">Cloth cover</figcaption>

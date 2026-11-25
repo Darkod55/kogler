@@ -1,31 +1,12 @@
 {{--
   Kögler Sleep — The 2027 Lineup.
   Part numbers come from App\Sleep\MattressCatalog.
-  Set the image IDs to Media Library attachments. The named WebP files are
-  used when they are in the theme build.
+  Set the image IDs to Media Library attachments.
 --}}
 @php
     $innerspringImageId = 0;
     $gelClothImageId = 0;
     $gelWipeableImageId = 0;
-
-    $lineupImage = function (int $id, string $file): string {
-        if ($id && function_exists('wp_attachment_is_image') && wp_attachment_is_image($id)) {
-            $url = wp_get_attachment_image_url($id, 'full');
-
-            return is_string($url) ? $url : '';
-        }
-
-        if (class_exists(\Illuminate\Support\Facades\Vite::class)) {
-            try {
-                return \Illuminate\Support\Facades\Vite::asset('resources/images/brands/' . $file);
-            } catch (\Throwable $e) {
-                return '';
-            }
-        }
-
-        return '';
-    };
 
     $innerspringParts = \App\Sleep\MattressCatalog::partsForCover('Innerspring');
     $gelParts = \App\Sleep\MattressCatalog::partsForCover('Gel Foam');
@@ -48,11 +29,10 @@
         'imageLast' => false,
         'caption' => false,
         'parts' => $innerspringParts,
-        'clothImage' => [
-            'url' => $lineupImage($innerspringImageId, 'kogler-sleep-innerspring-mattress.webp'),
-            'alt' => 'Kögler innerspring mattress showing the coil core, with its roll-pack box',
-        ],
-        'wipeableImage' => ['url' => '', 'alt' => ''],
+        'clothImageId' => $innerspringImageId,
+        'clothAlt' => 'Kögler innerspring mattress showing the coil core, with its roll-pack box',
+        'wipeableImageId' => 0,
+        'wipeableAlt' => '',
         'features' => [
             ['feature' => 'Premium 5" innerspring core', 'benefit' => 'Responsive, supportive feel drivers already know'],
             ['feature' => '7" profile', 'benefit' => 'Fits standard sleeper bunks'],
@@ -71,14 +51,10 @@
         'imageLast' => true,
         'caption' => true,
         'parts' => $gelParts,
-        'clothImage' => [
-            'url' => $lineupImage($gelClothImageId, 'kogler-sleep-gel-foam-cloth-cover.webp'),
-            'alt' => 'Gel-infused foam mattress with grey cloth cover, with its roll-pack box',
-        ],
-        'wipeableImage' => [
-            'url' => $lineupImage($gelWipeableImageId, 'kogler-sleep-gel-foam-wipeable-cover.webp'),
-            'alt' => 'Gel-infused foam mattress with wipeable navy nylon cover, with its roll-pack box',
-        ],
+        'clothImageId' => $gelClothImageId,
+        'clothAlt' => 'Gel-infused foam mattress with grey cloth cover, with its roll-pack box',
+        'wipeableImageId' => $gelWipeableImageId,
+        'wipeableAlt' => 'Gel-infused foam mattress with wipeable navy nylon cover, with its roll-pack box',
         'features' => [
             ['feature' => 'Gel-infused foam, top to bottom', 'benefit' => 'Helps drivers sleep cooler, with even support across the whole mattress'],
             ['feature' => 'High-density foam', 'benefit' => 'Supportive and durable for nightly use on the road'],
