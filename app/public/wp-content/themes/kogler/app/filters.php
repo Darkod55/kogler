@@ -284,6 +284,27 @@ add_action('acf/init', function () {
             ],
         ],
     ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_kogler_home_hero',
+        'title' => __('Homepage Hero', 'sage'),
+        'fields' => [
+            ['key' => 'field_hero_title_line_1', 'label' => __('Title Line 1', 'sage'), 'name' => 'hero_title_line_1', 'type' => 'text'],
+            ['key' => 'field_hero_title_line_2', 'label' => __('Title Line 2', 'sage'), 'name' => 'hero_title_line_2', 'type' => 'text', 'instructions' => __('Rendered in italic.', 'sage')],
+            ['key' => 'field_hero_intro', 'label' => __('Intro', 'sage'), 'name' => 'hero_intro', 'type' => 'textarea', 'rows' => 3, 'new_lines' => ''],
+            ['key' => 'field_hero_video', 'label' => __('Background Video', 'sage'), 'name' => 'hero_video', 'type' => 'file', 'return_format' => 'array', 'mime_types' => 'mp4,webm'],
+            ['key' => 'field_hero_video_poster', 'label' => __('Video Poster', 'sage'), 'name' => 'hero_video_poster', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'medium'],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_type',
+                    'operator' => '==',
+                    'value' => 'front_page',
+                ],
+            ],
+        ],
+    ]);
 });
 
 add_filter('acf/location/rule_types', function ($choices) {
