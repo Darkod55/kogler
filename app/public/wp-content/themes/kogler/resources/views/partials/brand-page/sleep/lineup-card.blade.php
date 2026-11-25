@@ -15,7 +15,7 @@
     $partsJson = function_exists('wp_json_encode')
         ? wp_json_encode($parts)
         : json_encode($parts, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE);
-    $imageColumn = 'mx-auto w-full max-w-[360px] shrink grow basis-full min-[1000px]:mx-0 min-[1000px]:max-w-[460px] min-[1000px]:basis-[360px]';
+    $imageColumn = 'mx-auto w-full max-w-[360px] shrink grow basis-full min-[1000px]:sticky min-[1000px]:top-[calc(var(--site-chrome-height,86px)+1.5rem)] min-[1000px]:z-10 min-[1000px]:mx-0 min-[1000px]:max-w-[460px] min-[1000px]:basis-[360px] min-[1000px]:self-start';
     if ($imageLast) {
         $imageColumn .= ' min-[1000px]:order-last';
     }
