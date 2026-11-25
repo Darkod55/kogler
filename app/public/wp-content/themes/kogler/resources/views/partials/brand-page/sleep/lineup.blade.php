@@ -4,9 +4,9 @@
   Set the image IDs to Media Library attachments.
 --}}
 @php
-    $innerspringImageId = 0;
-    $gelClothImageId = 0;
-    $gelWipeableImageId = 0;
+    $innerspringImageId = 401;
+    $gelClothImageId = 399;
+    $gelWipeableImageId = 400;
 
     $innerspringParts = \App\Sleep\MattressCatalog::partsForCover('Innerspring');
     $gelParts = \App\Sleep\MattressCatalog::partsForCover('Gel Foam');
