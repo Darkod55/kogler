@@ -5,5 +5,6 @@
   @include('partials.home.capabilities')
   @include('partials.home.brands')
   @include('partials.home.audiences')
+  @include('partials.home.inside')
   {!! the_content() !!}
 @endsection

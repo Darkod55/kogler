@@ -516,6 +516,76 @@ add_action('acf/init', function () {
             ],
         ],
     ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_kogler_home_inside',
+        'title' => __('Homepage What’s Inside', 'sage'),
+        'fields' => [
+            [
+                'key' => 'field_kogler_inside_image',
+                'label' => __('Cross-section', 'sage'),
+                'name' => 'inside_image',
+                'type' => 'image',
+                'return_format' => 'id',
+                'preview_size' => 'medium',
+                'instructions' => __('Attachment ID of the plain cross-section. The four numbered markers stay on the layers.', 'sage'),
+            ],
+            [
+                'key' => 'field_kogler_inside_features',
+                'label' => __('Features', 'sage'),
+                'name' => 'inside_features',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'min' => 4,
+                'max' => 4,
+                'button_label' => __('Add feature', 'sage'),
+                'instructions' => __('Keep these four rows in order: cover, foam, core, edges. The markers do not follow a reorder.', 'sage'),
+                'sub_fields' => [
+                    [
+                        'key' => 'field_kogler_inside_feature_title',
+                        'label' => __('Title', 'sage'),
+                        'name' => 'title',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_kogler_inside_feature_text',
+                        'label' => __('Text', 'sage'),
+                        'name' => 'text',
+                        'type' => 'textarea',
+                        'rows' => 3,
+                        'new_lines' => '',
+                    ],
+                ],
+            ],
+            [
+                'key' => 'field_kogler_inside_video',
+                'label' => __('Process Video', 'sage'),
+                'name' => 'inside_video',
+                'type' => 'file',
+                'return_format' => 'id',
+                'mime_types' => 'mp4,webm',
+                'instructions' => __('Attachment ID. Empty uses the mattress video already in the media library.', 'sage'),
+            ],
+            [
+                'key' => 'field_kogler_inside_video_poster',
+                'label' => __('Video Poster', 'sage'),
+                'name' => 'inside_video_poster',
+                'type' => 'image',
+                'return_format' => 'id',
+                'preview_size' => 'medium',
+                'instructions' => __('Attachment ID of a still from the mattress video.', 'sage'),
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_type',
+                    'operator' => '==',
+                    'value' => 'front_page',
+                ],
+            ],
+        ],
+    ]);
 });
 
 add_filter('acf/location/rule_types', function ($choices) {
