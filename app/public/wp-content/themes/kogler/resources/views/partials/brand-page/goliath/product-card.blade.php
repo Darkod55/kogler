@@ -92,10 +92,16 @@
       </tbody>
     </table>
 
-    <div class="relative mt-9">
+    <div class="mt-9 flex flex-wrap items-center justify-between gap-x-6 gap-y-4">
+      <div class="min-w-0">
+        @foreach ($variants as $variant)
+          <h4 class="mb-0 font-fraunces text-white" x-show="variant === '{{ $variant['key'] }}'">{{ $variant['title'] }}</h4>
+        @endforeach
+      </div>
+
       @if ($hasSwitch)
         <div
-          class="mb-4 inline-flex rounded-full bg-goliath-800 p-1 min-[1000px]:absolute min-[1000px]:top-0 min-[1000px]:right-0 min-[1000px]:mb-0"
+          class="inline-flex rounded-full bg-goliath-800 p-1"
           role="tablist"
           aria-label="{{ $product['tablist_label'] }}"
           @keydown.right.prevent="next(1)"
@@ -117,6 +123,7 @@
           @endforeach
         </div>
       @endif
+    </div>
 
       @foreach ($variants as $variant)
         @php
@@ -126,12 +133,10 @@
                 : '';
         @endphp
         <div x-show="variant === '{{ $variant['key'] }}'">
-          <h4 class="mb-0 font-fraunces text-white min-[1000px]:pr-56">{{ $variant['title'] }}</h4>
-
           <div
             id="{{ $product['id'] }}-parts-{{ $variant['key'] }}"
             @if ($hasSwitch) role="tabpanel" aria-labelledby="{{ $product['id'] }}-tab-{{ $variant['key'] }}" @endif
-            class="mt-4 flex items-start gap-4"
+            class="mt-6 flex items-start gap-4"
           >
             @if ($showBox)
               <div class="hidden shrink-0 sm:block" x-show="variant === '{{ $variant['key'] }}'">
@@ -179,6 +184,5 @@
           @endif
         </div>
       @endforeach
-    </div>
   </div>
 </article>
