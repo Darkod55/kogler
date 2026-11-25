@@ -17,6 +17,7 @@ class AbsCatalog
         return [
             [
                 'id' => 'abs-3-in-1',
+                'group' => 'abs',
                 'title' => '3-in-1 ABS Assembly',
                 'intro' => 'Air and electrical in one spiral-wrapped assembly. Standard or Full Assembly, in 12 ft and 15 ft.',
                 'image_id' => 404,
@@ -70,6 +71,7 @@ class AbsCatalog
             ],
             [
                 'id' => 'seven-way',
+                'group' => 'abs',
                 'title' => '7-Way Electrical Cable',
                 'intro' => 'Heavy-duty trailer power cable with zinc plugs. Straight or coiled, in 12 ft and 15 ft.',
                 'image_id' => 407,
@@ -115,6 +117,7 @@ class AbsCatalog
             ],
             [
                 'id' => 'air-brake-hoses',
+                'group' => 'abs',
                 'title' => 'Air Brake Hoses',
                 'intro' => 'Straight rubber service and emergency air lines, 15 ft, sold individually.',
                 'image_id' => 411,
@@ -147,7 +150,76 @@ class AbsCatalog
                     ],
                 ],
             ],
+            [
+                'id' => 'diamond-grip',
+                'group' => 'gloves',
+                'title' => 'Diamond-Grip Nitrile Gloves',
+                'intro' => 'Heavy-duty orange nitrile with a raised diamond texture for a sure grip on tools and parts.',
+                'image_id' => 0,
+                'image_alt' => 'Orange nitrile glove with a close-up of the raised diamond texture',
+                'box_image_id' => 0,
+                'box_alt' => 'Goliath Steel disposable nitrile gloves box',
+                'stats' => [
+                    ['value' => '8 mil', 'label' => 'Industry-standard thickness'],
+                    ['value' => '100', 'label' => 'Gloves per box (90 in XXL)'],
+                    ['value' => '10', 'label' => 'Boxes per case'],
+                ],
+                'cards' => [
+                    ['title' => 'Diamond-Grip Texture', 'text' => 'Sure grip on tools and oily parts, and adds durability.'],
+                    ['title' => 'Resists Tears', 'text' => '8-mil nitrile stands up to shop work and protects hands.'],
+                    ['title' => 'Latex-Free', 'text' => 'No latex allergy concerns for techs or drivers.'],
+                    ['title' => 'Bright Orange', 'text' => 'Easy to spot on the bench and easy to tell apart on the shelf.'],
+                ],
+                'note' => 'Sold by the case. Case = 10 boxes; 100 gloves per box, 90 per box in XXL.',
+                'features' => [],
+                'variants' => [
+                    [
+                        'key' => 'orange',
+                        'parts' => [
+                            self::glove('KOGDGGLOVE-S', 'Orange Diamond-Grip Nitrile Gloves, Small', 'S', '10 × 100'),
+                            self::glove('KOGDGGLOVE-M', 'Orange Diamond-Grip Nitrile Gloves, Medium', 'M', '10 × 100'),
+                            self::glove('KOGDGGLOVE-L', 'Orange Diamond-Grip Nitrile Gloves, Large', 'L', '10 × 100'),
+                            self::glove('KOGDGGLOVE-XL', 'Orange Diamond-Grip Nitrile Gloves, X-Large', 'XL', '10 × 100'),
+                            self::glove('KOGDGGLOVE-XXL', 'Orange Diamond-Grip Nitrile Gloves, XX-Large', 'XXL', '10 × 90'),
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'id' => 'black-nitrile',
+                'group' => 'gloves',
+                'title' => 'Black Nitrile Disposable Gloves',
+                'intro' => 'Industrial-grade nitrile shop gloves in black. Sold by the case in Large and X-Large.',
+                'features' => [
+                    ['feature' => 'Nitrile', 'benefit' => 'Holds up to oil, grease and shop grime'],
+                    ['feature' => 'Latex-free', 'benefit' => 'No latex allergy concerns for techs or drivers'],
+                    ['feature' => 'Black color', 'benefit' => 'Hides grease and dirt; clean, professional look'],
+                    ['feature' => 'Disposable', 'benefit' => 'A fresh pair for every job; no cleanup'],
+                    ['feature' => 'Industrial grade', 'benefit' => 'Made for shop and fleet maintenance work'],
+                    ['feature' => 'Sold by the case', 'benefit' => 'Easy to stock and reorder'],
+                ],
+                'variants' => [
+                    [
+                        'key' => 'black',
+                        'parts' => [
+                            self::black('KOGGLOVEB-L', 'Black Nitrile Disposable Gloves, Large', 'Large'),
+                            self::black('KOGGLOVEB-XL', 'Black Nitrile Disposable Gloves, X-Large', 'X-Large'),
+                        ],
+                    ],
+                ],
+            ],
         ];
+    }
+
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    public static function byGroup(string $group): array
+    {
+        return array_values(array_filter(
+            self::products(),
+            static fn (array $product): bool => ($product['group'] ?? 'abs') === $group
+        ));
     }
 
     /**
@@ -160,6 +232,10 @@ class AbsCatalog
         $rows = [];
 
         foreach (self::products() as $product) {
+            if (($product['group'] ?? 'abs') !== 'abs') {
+                continue;
+            }
+
             foreach ($product['variants'] as $variant) {
                 foreach ($variant['parts'] as $part) {
                     $rows[] = $part + [
@@ -183,6 +259,33 @@ class AbsCatalog
             'description' => $description,
             'length' => $length,
             'packaging' => $packaging,
+        ];
+    }
+
+    /**
+     * @return array{sku: string, description: string, size: string, case: string}
+     */
+    private static function glove(string $sku, string $description, string $size, string $case): array
+    {
+        return [
+            'sku' => $sku,
+            'description' => $description,
+            'size' => $size,
+            'case' => $case,
+        ];
+    }
+
+    /**
+     * @return array{sku: string, description: string, size: string, color: string, sold_by: string}
+     */
+    private static function black(string $sku, string $description, string $size): array
+    {
+        return [
+            'sku' => $sku,
+            'description' => $description,
+            'size' => $size,
+            'color' => 'Black',
+            'sold_by' => 'Case',
         ];
     }
 }
