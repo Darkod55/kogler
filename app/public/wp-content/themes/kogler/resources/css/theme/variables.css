@@ -22,6 +22,8 @@
   --color-dark-blue: #0a1737;
   --color-darker-blue: #060e24;
   --color-light-blue: #d4eef8;
+  /* Stable navy for body text. Sleep reassigns --color-dark-blue. */
+  --color-ink: #0a1737;
   --color-dark-gray: #7e7e7e;
   --color-white: #fff;
   --color-black: #000;
@@ -97,7 +99,7 @@
 
 /**
  * Shared chrome. Brand pages override these on [data-brand].
- * Kögler Sleep is the only place the previous navy remains.
+ * Kögler Sleep uses the primary blue. --color-ink stays the default navy.
  */
 :root {
   --site-topbar-bg: var(--color-darker-blue);
@@ -106,15 +108,21 @@
   --site-surface: var(--color-white);
   --site-accent: var(--color-secondary);
   --site-accent-ink: var(--color-dark-blue);
+  --site-ink: var(--color-ink);
+  --site-heading-accent: var(--color-primary);
 }
 
 [data-brand="kogler-sleep"] {
-  --color-dark-blue: #0b3e5c;
-  --color-darker-blue: #082e45;
+  --color-dark-blue: var(--color-primary);
+  --color-darker-blue: #0f5a85;
   --site-topbar-bg: var(--color-darker-blue);
   --site-header-bg: var(--color-dark-blue);
   --site-footer-bg: var(--color-darker-blue);
-  --site-accent-ink: var(--color-dark-blue);
+  --site-surface: var(--color-white);
+  --site-accent: var(--color-light-blue);
+  --site-accent-ink: var(--color-primary);
+  --site-ink: var(--color-ink);
+  --site-heading-accent: var(--color-darker-blue);
 }
 
 [data-brand="goliath-steel"] {

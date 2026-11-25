@@ -41,3 +41,84 @@ add_filter('woocommerce_single_product_carousel_options', function (array $optio
     return $options;
 });
 
+/**
+ * Brand page chrome. Post meta kogler_brand, or a dedicated brand template.
+ *
+ * @param  array<int, string>  $classes
+ * @return array<int, string>
+ */
+add_filter('body_class', function (array $classes) {
+    if (! function_exists('App\\helpers')) {
+        return $classes;
+    }
+
+    $brand = \App\helpers()->brandTheme();
+
+    if ($brand !== '') {
+        $classes[] = 'brand-' . sanitize_html_class($brand);
+    }
+
+    return $classes;
+});
+
+/**
+ * Native select for kogler_brand. The Brand Page template reads this.
+ */
+add_action('add_meta_boxes_page', function () {
+    add_meta_box(
+        'kogler_brand',
+        __('Brand', 'sage'),
+        function (\WP_Post $post) {
+            $current = (string) get_post_meta($post->ID, 'kogler_brand', true);
+            $choices = [
+                '' => __('Default (site navy)', 'sage'),
+                'kogler-sleep' => __('Kögler Sleep', 'sage'),
+                'goliath-steel' => __('Goliath Steel', 'sage'),
+                'kogler-outdoor' => __('Kögler Outdoor', 'sage'),
+            ];
+
+            wp_nonce_field('kogler_brand_save', 'kogler_brand_nonce');
+            echo '<p><label for="kogler_brand">' . esc_html__('Brand theme for the Brand Page template.', 'sage') . '</label></p>';
+            echo '<select id="kogler_brand" name="kogler_brand" class="widefat">';
+
+            foreach ($choices as $value => $label) {
+                printf(
+                    '<option value="%s"%s>%s</option>',
+                    esc_attr($value),
+                    selected($current, $value, false),
+                    esc_html($label)
+                );
+            }
+
+            echo '</select>';
+        },
+        'page',
+        'side'
+    );
+});
+
+add_action('save_post_page', function ($post_id) {
+    if (! isset($_POST['kogler_brand_nonce']) || ! wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['kogler_brand_nonce'])), 'kogler_brand_save')) {
+        return;
+    }
+
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+
+    if (! current_user_can('edit_page', $post_id)) {
+        return;
+    }
+
+    $brand = isset($_POST['kogler_brand']) ? sanitize_text_field(wp_unslash($_POST['kogler_brand'])) : '';
+    $allowed = ['kogler-sleep', 'goliath-steel', 'kogler-outdoor'];
+
+    if (! in_array($brand, $allowed, true)) {
+        delete_post_meta($post_id, 'kogler_brand');
+
+        return;
+    }
+
+    update_post_meta($post_id, 'kogler_brand', $brand);
+});
+

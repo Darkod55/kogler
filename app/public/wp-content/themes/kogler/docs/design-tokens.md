@@ -50,6 +50,7 @@ light: #faf6f0
 dark-blue: #0a1737
 darker-blue: #060e24
 light-blue: #d4eef8
+ink: #0a1737
 dark-gray: #7e7e7e
 white: #fff
 black: #000
@@ -72,6 +73,10 @@ outdoor-amber: #f2c88f
 outdoor-amber-ink: #8a5a1e
 outdoor-ink: #1f3328
 outdoor-tint: #cfdcd3
+
+# Kögler Sleep page only ([data-brand="kogler-sleep"] in variables.css).
+# Reassigns dark-blue to primary and darker-blue to #0f5a85.
+# Does not change the tokens above. --site-ink stays --color-ink.
 
 # Section spacing → --spacing-clamp-*
 spacing-clamp-inline: 24px

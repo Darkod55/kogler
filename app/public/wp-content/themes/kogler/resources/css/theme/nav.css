@@ -122,6 +122,20 @@
     color: var(--site-accent) !important;
   }
 
+  /* White/85 on the sleep blue is under 4.5:1. Default links use white. */
+  [data-brand="kogler-sleep"] .primary-nav .nav-dropdown,
+  [data-brand="kogler-sleep"] .primary-nav .nav-dropdown .nav-link {
+    color: var(--color-white) !important;
+  }
+
+  [data-brand="kogler-sleep"] .primary-nav .nav-dropdown .nav-link:hover,
+  [data-brand="kogler-sleep"] .primary-nav .nav-dropdown .nav-link:focus-visible,
+  [data-brand="kogler-sleep"] .primary-nav .nav-dropdown .menu-item.current-menu-item > .nav-link,
+  [data-brand="kogler-sleep"] .primary-nav .nav-dropdown .menu-item.current-menu-ancestor > .nav-link,
+  [data-brand="kogler-sleep"] .primary-nav .nav-dropdown .menu-item.active > .nav-link {
+    color: var(--site-accent) !important;
+  }
+
   .site-footer {
     border-top: 1px solid color-mix(in srgb, var(--color-white) 12%, transparent);
     background-color: var(--site-footer-bg);
