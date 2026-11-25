@@ -127,8 +127,8 @@
           <h3 class="mt-3 mb-0 font-fraunces text-white">{{ $black['title'] }}</h3>
           <p class="mt-3 mb-0 text-[length:var(--font-size-base)] leading-[1.65] text-white/80">{{ $black['intro'] }}</p>
 
-          <div class="mt-7 flex flex-wrap gap-10">
-            <table class="w-full min-w-0 shrink grow basis-full border-collapse text-[length:var(--font-size-btn)] min-[1000px]:basis-[420px]">
+          <div class="mt-7 flex flex-wrap items-start gap-8 min-[1000px]:flex-nowrap min-[1000px]:gap-10">
+            <table class="w-full shrink-0 basis-full border-collapse text-[length:var(--font-size-btn)] min-[1000px]:w-[34%] min-[1000px]:max-w-[380px] min-[1000px]:basis-[34%]">
               <thead>
                 <tr class="border-b-2 border-goliath-green">
                   <th class="w-[40%] pr-4 pb-3 text-left fs-xs font-bold tracking-widest uppercase" scope="col">Feature</th>
@@ -145,25 +145,25 @@
               </tbody>
             </table>
 
-            <div class="min-w-0 shrink grow basis-full overflow-x-auto rounded-[18px] border border-white/10 min-[1000px]:basis-[420px]">
-              <table class="w-full min-w-[620px] border-collapse text-[length:var(--font-size-btn)]">
+            <div class="min-w-0 shrink grow basis-full overflow-x-auto rounded-[18px] border border-white/10 min-[1000px]:basis-auto min-[1000px]:overflow-visible">
+              <table class="w-full min-w-[520px] border-collapse text-[length:var(--font-size-btn)] min-[1000px]:min-w-0">
                 <thead class="bg-goliath-800">
                   <tr>
-                    <th class="px-5 py-3.5 text-left fs-xs font-bold tracking-widest uppercase" scope="col">Part no.</th>
-                    <th class="px-5 py-3.5 text-left fs-xs font-bold tracking-widest uppercase" scope="col">Description</th>
-                    <th class="px-5 py-3.5 text-left fs-xs font-bold tracking-widest uppercase" scope="col">Size</th>
-                    <th class="px-5 py-3.5 text-left fs-xs font-bold tracking-widest uppercase" scope="col">Color</th>
-                    <th class="px-5 py-3.5 text-left fs-xs font-bold tracking-widest uppercase" scope="col">Sold by</th>
+                    <th class="px-4 py-3.5 text-left fs-xs font-bold tracking-widest whitespace-nowrap uppercase" scope="col">Part no.</th>
+                    <th class="px-4 py-3.5 text-left fs-xs font-bold tracking-widest uppercase" scope="col">Description</th>
+                    <th class="px-4 py-3.5 text-left fs-xs font-bold tracking-widest whitespace-nowrap uppercase" scope="col">Size</th>
+                    <th class="px-4 py-3.5 text-left fs-xs font-bold tracking-widest whitespace-nowrap uppercase" scope="col">Color</th>
+                    <th class="px-4 py-3.5 text-left fs-xs font-bold tracking-widest whitespace-nowrap uppercase" scope="col">Sold by</th>
                   </tr>
                 </thead>
                 <tbody>
                   @foreach ($blackParts as $part)
                     <tr class="border-t border-white/[0.08]">
-                      <th class="px-5 py-[13px] text-left font-bold" scope="row">{{ $part['sku'] }}</th>
-                      <td class="px-5 py-[13px] text-white/85">{{ $part['description'] }}</td>
-                      <td class="px-5 py-[13px] font-bold">{{ $part['size'] }}</td>
-                      <td class="px-5 py-[13px]">{{ $part['color'] }}</td>
-                      <td class="px-5 py-[13px] text-white/75">{{ $part['sold_by'] }}</td>
+                      <th class="px-4 py-[13px] text-left font-bold whitespace-nowrap" scope="row">{{ $part['sku'] }}</th>
+                      <td class="px-4 py-[13px] text-white/85">{{ $part['description'] }}</td>
+                      <td class="px-4 py-[13px] font-bold whitespace-nowrap">{{ $part['size'] }}</td>
+                      <td class="px-4 py-[13px] whitespace-nowrap">{{ $part['color'] }}</td>
+                      <td class="px-4 py-[13px] text-white/75 whitespace-nowrap">{{ $part['sold_by'] }}</td>
                     </tr>
                   @endforeach
                 </tbody>
