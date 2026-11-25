@@ -95,27 +95,35 @@
 
         <div class="min-w-0 shrink grow basis-full sm:basis-[520px]">
           <h3 class="mb-3.5 text-[length:var(--font-size-tagline)] font-bold text-white">Part Numbers</h3>
-          <div class="overflow-x-auto rounded-[18px] border border-white/10">
-            <table class="w-full min-w-[520px] border-collapse text-[length:var(--font-size-btn)]">
-              <thead class="bg-goliath-800">
-                <tr>
-                  <th class="px-5 py-3.5 text-left fs-xs font-bold tracking-widest uppercase" scope="col">Part no.</th>
-                  <th class="px-5 py-3.5 text-left fs-xs font-bold tracking-widest uppercase" scope="col">Description</th>
-                  <th class="px-5 py-3.5 text-left fs-xs font-bold tracking-widest uppercase" scope="col">Size</th>
-                  <th class="px-5 py-3.5 text-left fs-xs font-bold tracking-widest uppercase" scope="col">Case</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach ($orangeParts as $part)
-                  <tr class="border-t border-white/[0.08]">
-                    <th class="px-5 py-[13px] text-left font-bold" scope="row">{{ $part['sku'] }}</th>
-                    <td class="px-5 py-[13px] text-white/85">{{ $part['description'] }}</td>
-                    <td class="px-5 py-[13px] font-bold">{{ $part['size'] }}</td>
-                    <td class="px-5 py-[13px] text-white/75 tabular-nums">{{ $part['case'] }}</td>
+          <div class="overflow-hidden rounded-[18px] border border-white/10">
+            <div class="overflow-x-auto">
+              <table class="w-full min-w-[520px] border-separate border-spacing-0 text-[length:var(--font-size-btn)]">
+                <thead class="bg-goliath-800">
+                  <tr>
+                    <th class="rounded-tl-[17px] bg-goliath-800 px-5 py-3.5 text-left fs-xs font-bold tracking-widest uppercase" scope="col">Part no.</th>
+                    <th class="bg-goliath-800 px-5 py-3.5 text-left fs-xs font-bold tracking-widest uppercase" scope="col">Description</th>
+                    <th class="bg-goliath-800 px-5 py-3.5 text-left fs-xs font-bold tracking-widest uppercase" scope="col">Size</th>
+                    <th class="rounded-tr-[17px] bg-goliath-800 px-5 py-3.5 text-left fs-xs font-bold tracking-widest uppercase" scope="col">Case</th>
                   </tr>
-                @endforeach
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  @foreach ($orangeParts as $part)
+                    <tr>
+                      <th @class([
+                        'border-t border-white/[0.08] px-5 py-[13px] text-left font-bold',
+                        'rounded-bl-[17px]' => $loop->last,
+                      ]) scope="row">{{ $part['sku'] }}</th>
+                      <td class="border-t border-white/[0.08] px-5 py-[13px] text-white/85">{{ $part['description'] }}</td>
+                      <td class="border-t border-white/[0.08] px-5 py-[13px] font-bold">{{ $part['size'] }}</td>
+                      <td @class([
+                        'border-t border-white/[0.08] px-5 py-[13px] text-white/75 tabular-nums',
+                        'rounded-br-[17px]' => $loop->last,
+                      ])>{{ $part['case'] }}</td>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
           </div>
           <p class="mt-3.5 mb-0 text-sm text-white/70">{{ $diamond['note'] }}</p>
         </div>
@@ -145,29 +153,37 @@
               </tbody>
             </table>
 
-            <div class="min-w-0 shrink grow basis-full overflow-x-auto rounded-[18px] border border-white/10 min-[1000px]:basis-auto min-[1000px]:overflow-visible">
-              <table class="w-full min-w-[520px] border-collapse text-[length:var(--font-size-btn)] min-[1000px]:min-w-0">
-                <thead class="bg-goliath-800">
-                  <tr>
-                    <th class="px-4 py-3.5 text-left fs-xs font-bold tracking-widest whitespace-nowrap uppercase" scope="col">Part no.</th>
-                    <th class="px-4 py-3.5 text-left fs-xs font-bold tracking-widest uppercase" scope="col">Description</th>
-                    <th class="px-4 py-3.5 text-left fs-xs font-bold tracking-widest whitespace-nowrap uppercase" scope="col">Size</th>
-                    <th class="px-4 py-3.5 text-left fs-xs font-bold tracking-widest whitespace-nowrap uppercase" scope="col">Color</th>
-                    <th class="px-4 py-3.5 text-left fs-xs font-bold tracking-widest whitespace-nowrap uppercase" scope="col">Sold by</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach ($blackParts as $part)
-                    <tr class="border-t border-white/[0.08]">
-                      <th class="px-4 py-[13px] text-left font-bold whitespace-nowrap" scope="row">{{ $part['sku'] }}</th>
-                      <td class="px-4 py-[13px] text-white/85">{{ $part['description'] }}</td>
-                      <td class="px-4 py-[13px] font-bold whitespace-nowrap">{{ $part['size'] }}</td>
-                      <td class="px-4 py-[13px] whitespace-nowrap">{{ $part['color'] }}</td>
-                      <td class="px-4 py-[13px] text-white/75 whitespace-nowrap">{{ $part['sold_by'] }}</td>
+            <div class="min-w-0 shrink grow basis-full overflow-hidden rounded-[18px] border border-white/10 min-[1000px]:basis-auto">
+              <div class="overflow-x-auto">
+                <table class="w-full min-w-[520px] border-separate border-spacing-0 text-[length:var(--font-size-btn)] min-[1000px]:min-w-0">
+                  <thead>
+                    <tr>
+                      <th class="rounded-tl-[17px] bg-goliath-800 px-4 py-3.5 text-left fs-xs font-bold tracking-widest whitespace-nowrap uppercase" scope="col">Part no.</th>
+                      <th class="bg-goliath-800 px-4 py-3.5 text-left fs-xs font-bold tracking-widest uppercase" scope="col">Description</th>
+                      <th class="bg-goliath-800 px-4 py-3.5 text-left fs-xs font-bold tracking-widest whitespace-nowrap uppercase" scope="col">Size</th>
+                      <th class="bg-goliath-800 px-4 py-3.5 text-left fs-xs font-bold tracking-widest whitespace-nowrap uppercase" scope="col">Color</th>
+                      <th class="rounded-tr-[17px] bg-goliath-800 px-4 py-3.5 text-left fs-xs font-bold tracking-widest whitespace-nowrap uppercase" scope="col">Sold by</th>
                     </tr>
-                  @endforeach
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    @foreach ($blackParts as $part)
+                      <tr>
+                        <th @class([
+                          'border-t border-white/[0.08] px-4 py-[13px] text-left font-bold whitespace-nowrap',
+                          'rounded-bl-[17px]' => $loop->last,
+                        ]) scope="row">{{ $part['sku'] }}</th>
+                        <td class="border-t border-white/[0.08] px-4 py-[13px] text-white/85">{{ $part['description'] }}</td>
+                        <td class="border-t border-white/[0.08] px-4 py-[13px] font-bold whitespace-nowrap">{{ $part['size'] }}</td>
+                        <td class="border-t border-white/[0.08] px-4 py-[13px] whitespace-nowrap">{{ $part['color'] }}</td>
+                        <td @class([
+                          'border-t border-white/[0.08] px-4 py-[13px] text-white/75 whitespace-nowrap',
+                          'rounded-br-[17px]' => $loop->last,
+                        ])>{{ $part['sold_by'] }}</td>
+                      </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
