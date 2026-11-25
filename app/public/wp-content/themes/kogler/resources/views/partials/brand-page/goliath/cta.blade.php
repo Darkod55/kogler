@@ -9,7 +9,7 @@
 --}}
 @php
     $logoId = 397;
-    $imageId = 0;
+    $imageId = 414;
 
     $logo = '';
 
