@@ -586,6 +586,57 @@ add_action('acf/init', function () {
             ],
         ],
     ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_kogler_home_benefits',
+        'title' => __('Homepage Benefits', 'sage'),
+        'fields' => [
+            [
+                'key' => 'field_kogler_benefits_image',
+                'label' => __('Photo', 'sage'),
+                'name' => 'benefits_image',
+                'type' => 'image',
+                'return_format' => 'id',
+                'preview_size' => 'medium',
+                'instructions' => __('Attachment ID. Empty uses the night-truck photo, 398.', 'sage'),
+            ],
+            [
+                'key' => 'field_kogler_benefits',
+                'label' => __('Benefits', 'sage'),
+                'name' => 'benefits',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'max' => 3,
+                'button_label' => __('Add benefit', 'sage'),
+                'instructions' => __('Up to three. Leave empty to use the defaults.', 'sage'),
+                'sub_fields' => [
+                    [
+                        'key' => 'field_kogler_benefit_title',
+                        'label' => __('Title', 'sage'),
+                        'name' => 'title',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_kogler_benefit_text',
+                        'label' => __('Text', 'sage'),
+                        'name' => 'text',
+                        'type' => 'textarea',
+                        'rows' => 3,
+                        'new_lines' => '',
+                    ],
+                ],
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_type',
+                    'operator' => '==',
+                    'value' => 'front_page',
+                ],
+            ],
+        ],
+    ]);
 });
 
 add_filter('acf/location/rule_types', function ($choices) {

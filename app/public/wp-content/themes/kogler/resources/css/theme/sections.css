@@ -78,6 +78,47 @@
 }
 
 /**
+ * Highway lane marking. Vertical dashes on .lane-v, horizontal on .lane-h.
+ */
+@utility lane-v {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 6px;
+    bottom: 6px;
+    width: 3px;
+    background: repeating-linear-gradient(
+      180deg,
+      rgb(from var(--color-secondary) r g b / 0.8) 0 22px,
+      transparent 22px 38px
+    );
+  }
+}
+
+@utility lane-h {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    right: 6px;
+    bottom: auto;
+    left: 6px;
+    width: auto;
+    height: 3px;
+    background: repeating-linear-gradient(
+      90deg,
+      rgb(from var(--color-secondary) r g b / 0.8) 0 34px,
+      transparent 34px 58px
+    );
+  }
+}
+
+/**
  * Optional content-width cap (mpx/one-column Limit width toggle,
  */
 @utility mw-1000 {
