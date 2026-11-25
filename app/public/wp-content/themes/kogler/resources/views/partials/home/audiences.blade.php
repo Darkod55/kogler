@@ -144,7 +144,7 @@
       </div>
     </div>
 
-    <div class="min-w-0">
+    <div class="grid min-w-0">
       @foreach ($audiences as $index => $audience)
         @php
             $image = $photo(
@@ -154,14 +154,14 @@
             );
         @endphp
         <div
-          class="audience-panel overflow-hidden rounded-[22px] bg-white"
+          class="audience-panel col-start-1 row-start-1 overflow-hidden rounded-[22px] bg-white transition-opacity duration-200 motion-reduce:transition-none"
           role="tabpanel"
           id="aud-panel-{{ $index }}"
           aria-labelledby="aud-tab-{{ $index }}"
-          tabindex="0"
-          x-show="active === {{ $index }}"
-          x-transition.opacity.duration.200ms
-          @if ($index > 0) x-cloak @endif
+          @if ($index === 0) tabindex="0" @else x-cloak @endif
+          :tabindex="active === {{ $index }} ? 0 : -1"
+          :aria-hidden="active !== {{ $index }}"
+          :class="active === {{ $index }} ? 'z-10 opacity-100' : 'pointer-events-none z-0 opacity-0'"
         >
           <div class="h-[260px] w-full bg-gray min-[641px]:h-[400px]">
             @if ($image !== '')
