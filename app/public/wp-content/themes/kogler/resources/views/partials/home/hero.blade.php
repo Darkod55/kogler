@@ -55,7 +55,8 @@
     $shopUrl = function_exists('home_url') ? home_url('/shop/') : '/shop/';
 @endphp
 <section
-  class="relative h-auto min-h-[600px] overflow-hidden bg-darker-blue text-white min-[641px]:h-[640px] min-[1025px]:h-[760px]"
+  class="relative overflow-hidden bg-darker-blue text-white"
+  style="height: calc(100vh - var(--site-header-h, 7rem)); height: calc(100svh - var(--site-header-h, 7rem));"
   x-data="{ playing: ! window.matchMedia('(prefers-reduced-motion: reduce)').matches }"
   x-init="if (! playing && $refs.vid) { $refs.vid.pause() }"
 >
