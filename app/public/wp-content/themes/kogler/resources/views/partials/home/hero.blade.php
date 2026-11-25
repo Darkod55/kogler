@@ -60,9 +60,8 @@
   x-data="{ playing: ! window.matchMedia('(prefers-reduced-motion: reduce)').matches }"
   x-init="if (! playing && $refs.vid) { $refs.vid.pause() }"
 >
-  {{-- Scale from the bottom-left so the truck rides up into the open road, clear of the headline. --}}
   <div
-    class="absolute inset-0 origin-bottom scale-[1.16] bg-darker-blue bg-cover bg-center min-[1025px]:origin-bottom-left min-[1025px]:scale-[1.28]"
+    class="absolute inset-0 bg-darker-blue bg-cover bg-center"
     @if ($posterUrl !== '') style="background-image: url('{{ esc_url($posterUrl) }}')" @endif
   >
     @if ($videoUrl !== '')
@@ -82,51 +81,43 @@
     @endif
   </div>
 
-  {{-- Dark behind the copy. The road stays open so the truck is not buried in the wash. --}}
-  <div
-    class="pointer-events-none absolute inset-0 min-[1025px]:hidden"
-    aria-hidden="true"
-    style="background: linear-gradient(180deg, color-mix(in srgb, var(--color-darker-blue) 34%, transparent) 0%, color-mix(in srgb, var(--color-darker-blue) 6%, transparent) 22%, color-mix(in srgb, var(--color-darker-blue) 8%, transparent) 58%, color-mix(in srgb, var(--color-darker-blue) 72%, transparent) 78%, color-mix(in srgb, var(--color-darker-blue) 90%, transparent) 100%)"
-  ></div>
-  <div
-    class="pointer-events-none absolute inset-0 hidden min-[1025px]:block"
-    aria-hidden="true"
-    style="background: linear-gradient(90deg, color-mix(in srgb, var(--color-darker-blue) 62%, transparent) 0%, color-mix(in srgb, var(--color-darker-blue) 34%, transparent) 30%, transparent 44%, transparent 62%, color-mix(in srgb, var(--color-darker-blue) 28%, transparent) 100%), linear-gradient(180deg, color-mix(in srgb, var(--color-darker-blue) 30%, transparent) 0%, color-mix(in srgb, var(--color-darker-blue) 4%, transparent) 16%, color-mix(in srgb, var(--color-darker-blue) 8%, transparent) 48%, color-mix(in srgb, var(--color-darker-blue) 36%, transparent) 70%, color-mix(in srgb, var(--color-darker-blue) 84%, transparent) 100%)"
-  ></div>
-
-  <div class="relative flex h-full flex-col justify-end px-clamp pb-16 min-[641px]:pb-[88px]">
+  <div class="relative z-10 flex h-full flex-col justify-end px-clamp pb-16 min-[641px]:pb-[88px]">
     <div class="container">
-      <div class="grid grid-cols-1 items-end gap-8 min-[1025px]:grid-cols-[1.5fr_1fr] min-[1025px]:gap-14">
+      <div class="relative w-fit max-w-full">
+        <div
+          class="pointer-events-none absolute -z-10"
+          aria-hidden="true"
+          style="inset: -4.5rem -6rem -3rem -2.5rem; background: radial-gradient(ellipse 72% 78% at 22% 58%, color-mix(in srgb, var(--color-darker-blue) 88%, transparent) 0%, color-mix(in srgb, var(--color-darker-blue) 70%, transparent) 46%, transparent 74%)"
+        ></div>
+
         <h1 class="mb-0 font-fraunces text-[56px] font-semibold leading-[0.92] tracking-[-2.5px] text-white min-[400px]:text-[clamp(4rem,8.4vw,8.25rem)]">
           {{ $line1 }}<br>
           <em class="font-medium italic text-secondary">{{ $line2 }}</em>
         </h1>
 
-        <div class="min-[1025px]:pb-2.5">
-          <p class="mb-0 max-w-[440px] font-jakarta text-[length:var(--font-size-tagline)] leading-[1.65] text-white/90">
-            {{ $intro }}
-          </p>
-          <div class="mt-7 flex flex-wrap items-center gap-6">
-            <a
-              class="inline-flex items-center justify-center rounded-full bg-white px-[30px] py-[17px] text-[length:var(--font-size-base)] font-bold text-dark-blue no-underline transition-transform duration-150 hover:-translate-y-px motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-              href="{{ $shopUrl }}"
-            >Explore All Products</a>
-            <button
-              type="button"
-              class="grid size-12 place-items-center rounded-full border-[1.5px] border-white/55 text-white hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-              @click="if (! $refs.vid) return; playing ? $refs.vid.pause() : $refs.vid.play(); playing = ! playing"
-              :aria-label="playing ? 'Pause background video' : 'Play background video'"
-              :aria-pressed="(! playing).toString()"
-            >
-              <svg x-show="playing" class="size-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-                <rect x="3" y="2" width="3.5" height="12" rx="1" />
-                <rect x="9.5" y="2" width="3.5" height="12" rx="1" />
-              </svg>
-              <svg x-show="! playing" x-cloak class="size-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-                <path d="M4.5 2.8a1 1 0 0 1 1.5-.86l7 4.2a1 1 0 0 1 0 1.72l-7 4.2A1 1 0 0 1 4.5 13.2z" />
-              </svg>
-            </button>
-          </div>
+        <p class="mb-0 mt-6 max-w-[440px] font-jakarta text-[length:var(--font-size-tagline)] leading-[1.65] text-white/90">
+          {{ $intro }}
+        </p>
+        <div class="mt-7 flex flex-wrap items-center gap-6">
+          <a
+            class="inline-flex items-center justify-center rounded-full bg-white px-[30px] py-[17px] text-[length:var(--font-size-base)] font-bold text-dark-blue no-underline transition-transform duration-150 hover:-translate-y-px motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            href="{{ $shopUrl }}"
+          >Explore All Products</a>
+          <button
+            type="button"
+            class="grid size-12 place-items-center rounded-full border-[1.5px] border-white/55 text-white hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            @click="if (! $refs.vid) return; playing ? $refs.vid.pause() : $refs.vid.play(); playing = ! playing"
+            :aria-label="playing ? 'Pause background video' : 'Play background video'"
+            :aria-pressed="(! playing).toString()"
+          >
+            <svg x-show="playing" class="size-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+              <rect x="3" y="2" width="3.5" height="12" rx="1" />
+              <rect x="9.5" y="2" width="3.5" height="12" rx="1" />
+            </svg>
+            <svg x-show="! playing" x-cloak class="size-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+              <path d="M4.5 2.8a1 1 0 0 1 1.5-.86l7 4.2a1 1 0 0 1 0 1.72l-7 4.2A1 1 0 0 1 4.5 13.2z" />
+            </svg>
+          </button>
         </div>
       </div>
     </div>
