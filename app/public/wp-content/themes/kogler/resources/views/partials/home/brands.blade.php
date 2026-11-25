@@ -1,11 +1,8 @@
 {{--
   Homepage brands. Sits directly after the capabilities row.
-  Theme files, until the brands repeater on the front page has rows:
-  resources/images/brands/logo-kogler-sleep-white.svg
-  resources/images/brands/kogler-sleep-innerspring-mattress.webp
-  resources/images/brands/logo-goliath-steel-full-colour.png
-  resources/images/brands/goliath-3in1-full-assembly.webp
-  resources/images/brands/logo-kogler-outdoor-white.svg
+  Logos and photos are Media Library attachment IDs.
+  Sleep logo 395, innerspring 401. Goliath logo 397, assembly 405.
+  Outdoor logo 396. Outdoor photo is 0 until an attachment is set.
 --}}
 @php
     $themes = [
@@ -44,73 +41,38 @@
         ],
     ];
 
-    $themeFile = static function (string $file): array {
-        $empty = ['url' => '', 'width' => 0, 'height' => 0];
-
-        if ($file === '' || ! class_exists(\Illuminate\Support\Facades\Vite::class)) {
-            return $empty;
+    $attachmentId = static function ($value): int {
+        if (is_numeric($value)) {
+            return (int) $value;
         }
 
-        try {
-            $url = \Illuminate\Support\Facades\Vite::asset('resources/images/brands/' . $file);
-        } catch (\Throwable $e) {
-            return $empty;
+        if (is_array($value)) {
+            return (int) ($value['ID'] ?? $value['id'] ?? 0);
         }
 
-        $width = 0;
-        $height = 0;
-        $path = function_exists('get_theme_file_path') ? get_theme_file_path('resources/images/brands/' . $file) : '';
-
-        if (is_string($path) && is_file($path)) {
-            $size = @getimagesize($path);
-
-            if (is_array($size)) {
-                $width = (int) $size[0];
-                $height = (int) $size[1];
-            } elseif (str_ends_with(strtolower($path), '.svg')) {
-                $svg = file_get_contents($path);
-
-                if (is_string($svg) && preg_match('/viewBox="[\d.\s-]+?\s+([\d.]+)\s+([\d.]+)"/', $svg, $box)) {
-                    $width = (int) round((float) $box[1]);
-                    $height = (int) round((float) $box[2]);
-                }
-            }
-        }
-
-        return ['url' => $url, 'width' => $width, 'height' => $height];
+        return 0;
     };
 
-    $imageFromField = static function ($value): array {
-        $empty = ['url' => '', 'width' => 0, 'height' => 0];
-
-        if (is_numeric($value) && function_exists('wp_get_attachment_image_src')) {
-            $src = wp_get_attachment_image_src((int) $value, 'full');
-
-            if (is_array($src)) {
-                return ['url' => (string) $src[0], 'width' => (int) $src[1], 'height' => (int) $src[2]];
-            }
+    $attachment = static function (int $id, string $alt, string $class): string {
+        if ($id < 1 || ! function_exists('wp_get_attachment_image')) {
+            return '';
         }
 
-        if (! is_array($value)) {
-            return $empty;
+        $mime = function_exists('get_post_mime_type') ? (string) get_post_mime_type($id) : '';
+        $isImage = function_exists('wp_attachment_is_image') && wp_attachment_is_image($id);
+
+        if (! $isImage && $mime !== 'image/svg+xml') {
+            return '';
         }
 
-        $url = ! empty($value['url']) && is_string($value['url']) ? $value['url'] : '';
-        $width = (int) ($value['width'] ?? 0);
-        $height = (int) ($value['height'] ?? 0);
-        $id = (int) ($value['ID'] ?? $value['id'] ?? 0);
+        $image = wp_get_attachment_image($id, 'full', false, [
+            'class' => $class,
+            'alt' => $alt,
+            'loading' => 'lazy',
+            'decoding' => 'async',
+        ]);
 
-        if ($url === '' && $id > 0 && function_exists('wp_get_attachment_image_src')) {
-            $src = wp_get_attachment_image_src($id, 'full');
-
-            if (is_array($src)) {
-                $url = (string) $src[0];
-                $width = $width > 0 ? $width : (int) $src[1];
-                $height = $height > 0 ? $height : (int) $src[2];
-            }
-        }
-
-        return ['url' => $url, 'width' => $width, 'height' => $height];
+        return is_string($image) ? $image : '';
     };
 
     $bands = [
@@ -120,8 +82,8 @@
             'text' => 'Sleeper cab mattresses built for drivers who spend their nights in the cab, and for the fleets that depend on them being rested.',
             'link_title' => 'Explore Kögler Sleep',
             'link_url' => \App\helpers()->brandPageUrl('kogler-sleep'),
-            'logo' => $themeFile('logo-kogler-sleep-white.svg'),
-            'image' => $themeFile('kogler-sleep-innerspring-mattress.webp'),
+            'logo_id' => 395,
+            'image_id' => 401,
         ],
         [
             'theme' => 'goliath',
@@ -129,8 +91,8 @@
             'text' => 'Commercial truck aftermarket parts: high quality at reasonable prices for fleets, repair shops and distribution partners.',
             'link_title' => 'Explore Goliath Steel',
             'link_url' => \App\helpers()->brandPageUrl('goliath-steel'),
-            'logo' => $themeFile('logo-goliath-steel-full-colour.png'),
-            'image' => $themeFile('goliath-3in1-full-assembly.webp'),
+            'logo_id' => 397,
+            'image_id' => 405,
         ],
         [
             'theme' => 'outdoor',
@@ -138,8 +100,8 @@
             'text' => 'Our sleep expertise brought to the RV and marine markets, with comfort products made for RVs, campers and boats.',
             'link_title' => 'Explore Kögler Outdoor',
             'link_url' => \App\helpers()->brandPageUrl('kogler-outdoor'),
-            'logo' => $themeFile('logo-kogler-outdoor-white.svg'),
-            'image' => ['url' => '', 'width' => 0, 'height' => 0],
+            'logo_id' => 396,
+            'image_id' => 0,
         ],
     ];
 
@@ -176,8 +138,8 @@
                     'text' => trim((string) ($row['text'] ?? '')),
                     'link_title' => $linkTitle !== '' ? $linkTitle : 'Explore ' . $themes[$theme]['name'],
                     'link_url' => $linkUrl !== '' ? $linkUrl : \App\helpers()->brandPageUrl($themes[$theme]['slug']),
-                    'logo' => $imageFromField($row['logo'] ?? null),
-                    'image' => $imageFromField($row['image'] ?? null),
+                    'logo_id' => $attachmentId($row['logo'] ?? 0),
+                    'image_id' => $attachmentId($row['image'] ?? 0),
                 ];
             }
         }
@@ -204,19 +166,13 @@
             $theme = $themes[$band['theme']];
             $bandClass = 'group relative grid grid-cols-1 items-center gap-6 rounded-[18px] px-7 py-8 text-white transition-transform duration-200 hover:translate-x-1.5 motion-reduce:transform-none motion-reduce:transition-none min-[981px]:grid-cols-[200px_minmax(0,1fr)_280px] min-[981px]:gap-8 min-[981px]:px-10 min-[981px]:py-9 min-[1101px]:grid-cols-[260px_minmax(0,1fr)_340px] min-[1101px]:gap-12 has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-4';
             $bandClass .= ' ' . $theme['bg'] . ' ' . $theme['outline'];
+            $logo = $attachment((int) $band['logo_id'], $theme['name'], 'h-auto w-full max-w-[200px] min-[981px]:max-w-[230px]');
+            $photo = $attachment((int) $band['image_id'], '', 'h-full w-full ' . $theme['fit']);
         @endphp
         <li class="m-0">
           <article class="{{ $bandClass }}">
-            @if ($band['logo']['url'] !== '')
-              <img
-                class="h-auto w-full max-w-[200px] min-[981px]:max-w-[230px]"
-                src="{{ $band['logo']['url'] }}"
-                alt="{{ $theme['name'] }}"
-                @if ($band['logo']['width'] > 0) width="{{ $band['logo']['width'] }}" @endif
-                @if ($band['logo']['height'] > 0) height="{{ $band['logo']['height'] }}" @endif
-                loading="lazy"
-                decoding="async"
-              >
+            @if ($logo !== '')
+              {!! $logo !!}
             @else
               <p class="sr-only">{{ $theme['name'] }}</p>
             @endif
@@ -239,16 +195,8 @@
             </div>
 
             <div class="h-[220px] w-full overflow-hidden rounded-xl min-[981px]:h-[200px] {{ $theme['panel'] }}">
-              @if ($band['image']['url'] !== '')
-                <img
-                  class="h-full w-full {{ $theme['fit'] }}"
-                  src="{{ $band['image']['url'] }}"
-                  alt=""
-                  @if ($band['image']['width'] > 0) width="{{ $band['image']['width'] }}" @endif
-                  @if ($band['image']['height'] > 0) height="{{ $band['image']['height'] }}" @endif
-                  loading="lazy"
-                  decoding="async"
-                >
+              @if ($photo !== '')
+                {!! $photo !!}
               @endif
             </div>
           </article>
