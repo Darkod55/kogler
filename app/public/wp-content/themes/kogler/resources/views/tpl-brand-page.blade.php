@@ -36,7 +36,7 @@
   @elseif ($brandPage === 'kogler-outdoor')
     @include('partials.brand-page.outdoor.hero')
     @include('partials.brand-page.outdoor.intro')
-    @include('partials.brand-page.outdoor.home-away')
+{{--    @include('partials.brand-page.outdoor.home-away')--}}
     @include('partials.brand-page.outdoor.brands')
     @include('partials.brand-page.outdoor.cta')
   @else
