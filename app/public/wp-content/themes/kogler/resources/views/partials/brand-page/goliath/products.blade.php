@@ -4,7 +4,7 @@
   In-page offset is html scroll-padding-top (--site-chrome-height).
 --}}
 @php
-    $products = \App\Goliath\AbsCatalog::products();
+    $products = \App\Goliath\AbsCatalog::byGroup('abs');
 @endphp
 <section id="products" class="relative bg-goliath-950 p-clamp-xl text-white">
   <div class="container">
