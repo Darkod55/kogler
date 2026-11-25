@@ -1047,6 +1047,27 @@ document.addEventListener('alpine:init', () => {
       },
     };
   });
+
+  /**
+   * Goliath product card. Each card keeps its own variant.
+   */
+  Alpine.data('goliathProduct', (config = {}) => ({
+    variant: config.variant ?? '',
+    keys: Array.isArray(config.keys) ? config.keys : [],
+
+    next(step) {
+      if (this.keys.length < 2) {
+        return;
+      }
+
+      const index = this.keys.indexOf(this.variant);
+      const next = (index + step + this.keys.length) % this.keys.length;
+      this.variant = this.keys[next];
+      this.$nextTick(() => {
+        this.$root.querySelector(`[data-tab="${this.variant}"]`)?.focus();
+      });
+    },
+  }));
 });
 
 Alpine.start();
