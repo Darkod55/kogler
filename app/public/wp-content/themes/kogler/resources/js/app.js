@@ -1049,47 +1049,6 @@ document.addEventListener('alpine:init', () => {
   });
 
   /**
-   * Goliath Quick Reference. Copy a part number, then clear the confirmation.
-   */
-  Alpine.data('goliathQuickReference', () => {
-    let ctx;
-    let copiedTimer;
-
-    return {
-      copied: '',
-
-      init() {
-        ctx = this;
-      },
-
-      async copySku(sku, event) {
-        window.clearTimeout(copiedTimer);
-
-        try {
-          if (! navigator.clipboard || ! navigator.clipboard.writeText) {
-            throw new Error('clipboard unavailable');
-          }
-
-          await navigator.clipboard.writeText(sku);
-          ctx.copied = sku;
-          copiedTimer = window.setTimeout(() => {
-            if (ctx.copied === sku) {
-              ctx.copied = '';
-            }
-          }, 1500);
-        } catch (error) {
-          const range = document.createRange();
-          range.selectNodeContents(event.currentTarget);
-          const selection = window.getSelection();
-          selection.removeAllRanges();
-          selection.addRange(range);
-          ctx.copied = '';
-        }
-      },
-    };
-  });
-
-  /**
    * Goliath product card. Each card keeps its own variant.
    */
   Alpine.data('goliathProduct', (config = {}) => ({

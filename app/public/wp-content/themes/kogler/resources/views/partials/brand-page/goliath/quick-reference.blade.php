@@ -59,7 +59,7 @@
         }
     }
 @endphp
-<section id="quick-reference" class="relative bg-goliath-900 px-clamp py-clamp-xl text-white" x-data="goliathQuickReference()">
+<section id="quick-reference" class="relative bg-goliath-900 px-clamp py-clamp-xl text-white">
   <div class="container">
     <h2 class="mb-0 font-fraunces tracking-tight text-white">
       Quick <em class="italic font-medium text-goliath-silver">Reference</em>
@@ -109,14 +109,7 @@
                   ])>
                     @forelse ($row['cells'][$length] as $part)
                       <div class="flex items-baseline justify-between gap-4 py-0.5">
-                        <span class="inline-flex min-w-0 items-baseline gap-2">
-                          <button
-                            type="button"
-                            class="cursor-pointer font-bold tabular-nums underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-goliath-green"
-                            @click='copySku({{ \Illuminate\Support\Js::from($part['sku']) }}, $event)'
-                          >{{ $part['sku'] }}</button>
-                          <span x-show='copied === {{ \Illuminate\Support\Js::from($part['sku']) }}' x-cloak class="text-sm font-semibold text-goliath-green">Copied</span>
-                        </span>
+                        <span class="font-bold tabular-nums">{{ $part['sku'] }}</span>
                         <span class="shrink-0 text-[13px] text-white/60">{{ $part['packaging'] }}</span>
                       </div>
                     @empty
@@ -132,8 +125,6 @@
       </div>
       <div x-show="canScroll" x-cloak class="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-goliath-900 to-transparent" aria-hidden="true"></div>
     </div>
-    <p class="sr-only" aria-live="polite" x-text="copied ? copied + ' copied' : ''"></p>
-
     <h2 class="mt-[88px] mb-0 font-fraunces text-white">
       Ordering <em class="italic font-medium text-goliath-silver">Information</em>
     </h2>
