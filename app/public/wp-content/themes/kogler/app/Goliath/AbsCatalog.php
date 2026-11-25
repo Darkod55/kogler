@@ -155,9 +155,9 @@ class AbsCatalog
                 'group' => 'gloves',
                 'title' => 'Diamond-Grip Nitrile Gloves',
                 'intro' => 'Heavy-duty orange nitrile with a raised diamond texture for a sure grip on tools and parts.',
-                'image_id' => 0,
+                'image_id' => 413,
                 'image_alt' => 'Orange nitrile glove with a close-up of the raised diamond texture',
-                'box_image_id' => 0,
+                'box_image_id' => 412,
                 'box_alt' => 'Goliath Steel disposable nitrile gloves box',
                 'stats' => [
                     ['value' => '8 mil', 'label' => 'Industry-standard thickness'],
