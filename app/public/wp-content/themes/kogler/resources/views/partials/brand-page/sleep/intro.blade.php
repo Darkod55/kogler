@@ -11,7 +11,7 @@
         ? wp_json_encode($catalog)
         : json_encode($catalog, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE);
 
-    $photoId = 0;
+    $photoId = 398;
     $photo = '';
 
     if ($photoId && function_exists('wp_attachment_is_image') && wp_attachment_is_image($photoId)) {
@@ -41,12 +41,13 @@
   <div class="container">
     <div class="flex flex-wrap items-center gap-16">
       <div class="min-w-0 w-full shrink grow basis-full min-[1000px]:basis-[460px]">
+        <!--
         @if ($koglerLogo)
           <span class="inline-flex h-12 items-center rounded-xl bg-dark-blue px-5">
             <img src="{{ $koglerLogo }}" alt="Kögler" class="h-6 w-auto" height="24">
           </span>
         @endif
-
+      -->
         <h2 class="mt-6 mb-0 font-fraunces text-[clamp(34px,3.8vw,54px)] font-semibold leading-[1.08] tracking-tight text-dark-blue">
           Driving a Truck Is Hard, <em class="italic font-medium text-darker-blue">Sleeping in One Shouldn’t Be.</em>
         </h2>

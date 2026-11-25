@@ -3,7 +3,7 @@
   Set $logoId to the Media Library attachment ID of the white Kögler Sleep logo.
 --}}
 @php
-    $logoId = 0;
+    $logoId = 395;
     $sleepLogo = '';
 
     if ($logoId && function_exists('wp_attachment_is_image') && wp_attachment_is_image($logoId)) {
