@@ -5,7 +5,7 @@
   is waiting on client sign-off, so the URL is not pre-filled.
 --}}
 @php
-    $imageId = 0;
+    $imageId = 415;
     $boxImage = '';
 
     if ($imageId && function_exists('wp_attachment_is_image') && wp_attachment_is_image($imageId)) {
