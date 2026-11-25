@@ -11,7 +11,7 @@
     $innerspringParts = \App\Sleep\MattressCatalog::partsForCover('Innerspring');
     $gelParts = \App\Sleep\MattressCatalog::partsForCover('Gel Foam');
 @endphp
-<section id="lineup" class="relative bg-light px-clamp py-clamp-xl">
+<section id="lineup" class="relative scroll-mt-chrome bg-light px-clamp py-clamp-xl">
   <div class="container">
     <h2 class="mb-0 font-fraunces text-[clamp(34px,3.8vw,54px)] font-semibold leading-[1.08] tracking-tight text-dark-blue">
       The 2027 <em class="italic font-medium text-darker-blue">Lineup</em>
@@ -23,6 +23,7 @@
     @include('partials.brand-page.sleep.lineup-card', [
         'cardClass' => 'mt-14',
         'cardId' => 'innerspring',
+        'anchorId' => 'lineup-innerspring',
         'title' => 'Innerspring Mattress',
         'intro' => 'Premium coil support with a familiar feel. 7" deep. Cloth or wipeable cover.',
         'tabLabel' => 'Innerspring cover',
@@ -45,6 +46,7 @@
     @include('partials.brand-page.sleep.lineup-card', [
         'cardClass' => 'mt-6',
         'cardId' => 'gel',
+        'anchorId' => 'lineup-gel-foam',
         'title' => 'Gel-Infused Foam Mattress',
         'intro' => 'Gel-infused high-density foam through the entire mattress. 7" deep.',
         'tabLabel' => 'Gel foam cover',

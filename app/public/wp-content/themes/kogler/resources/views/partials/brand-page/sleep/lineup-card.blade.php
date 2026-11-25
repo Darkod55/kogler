@@ -43,10 +43,12 @@
         : '';
 @endphp
 <article
-  class="{{ $cardClass ?? '' }} flex flex-wrap gap-12 rounded-[28px] bg-white p-7 min-[1000px]:p-12"
+  @if (! empty($anchorId)) id="{{ $anchorId }}" @endif
+  class="{{ $cardClass ?? '' }} flex scroll-mt-chrome flex-wrap gap-12 rounded-[28px] bg-white p-7 min-[1000px]:p-12"
   x-data="{ cover: 'cloth', parts: { cloth: [], wipeable: [] } }"
   data-parts="{{ $partsJson }}"
   x-init="parts = JSON.parse($el.dataset.parts)"
+  @set-cover.window="cover = $event.detail.cover"
 >
   <div class="{{ $imageColumn }}">
     <figure class="m-0">
