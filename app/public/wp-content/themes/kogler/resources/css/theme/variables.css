@@ -151,6 +151,8 @@
   --site-surface: var(--color-goliath-900);
   --site-accent: var(--color-goliath-green);
   --site-accent-ink: var(--color-goliath-green-ink);
+  --site-ink: var(--color-white);
+  --site-heading-accent: var(--color-goliath-silver);
   background-color: var(--site-surface);
   color: var(--color-white);
 }

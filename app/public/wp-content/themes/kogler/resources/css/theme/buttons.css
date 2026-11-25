@@ -169,6 +169,32 @@
     filter: brightness(1.08);
   }
 
+  [data-brand="goliath-steel"] :is(
+    a.btn,
+    button.btn,
+    .wp-block-button[class*='btn-'] > .wp-block-button__link
+  ) {
+    transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, transform 150ms ease, filter 150ms ease;
+  }
+
+  [data-brand="goliath-steel"] :is(
+    a.btn,
+    button.btn,
+    .wp-block-button[class*='btn-'] > .wp-block-button__link
+  ):focus-visible {
+    outline-color: var(--color-goliath-green);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    [data-brand="goliath-steel"] :is(
+      a.btn,
+      button.btn,
+      .wp-block-button[class*='btn-'] > .wp-block-button__link
+    ):hover {
+      transform: translateY(-1px);
+    }
+  }
+
   /**
    * Size modifier - combine with a colour variant
    */

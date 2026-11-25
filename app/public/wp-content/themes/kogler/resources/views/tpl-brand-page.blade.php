@@ -4,7 +4,7 @@
   Reusable brand page. In wp-admin: Pages → the page → Template → Brand Page,
   then Brand in the sidebar (post meta kogler_brand).
   That meta sets data-brand and the body class brand-{slug}.
-  Goliath Steel and Kögler Outdoor sections follow in later prompts.
+  Goliath Steel and Kögler Outdoor use the same template and the Brand sidebar field.
   Anchors use the theme's scroll-padding-top (--site-chrome-height), which
   is already the sticky header height. scroll-mt-chrome is not added on top,
   because the two offsets stack.
@@ -25,6 +25,14 @@
     @include('partials.brand-page.sleep.measure')
     @include('partials.brand-page.sleep.ordering')
     @include('partials.brand-page.sleep.cta')
+  @elseif ($brandPage === 'goliath-steel')
+    @include('partials.brand-page.goliath.hero')
+    @include('partials.brand-page.goliath.intro')
+    @include('partials.brand-page.goliath.products')
+    @include('partials.brand-page.goliath.private-label')
+    @include('partials.brand-page.goliath.gloves')
+    @include('partials.brand-page.goliath.quick-reference')
+    @include('partials.brand-page.goliath.cta')
   @else
     {{-- Choose Kögler Sleep, Goliath Steel, or Kögler Outdoor in the Brand sidebar field. --}}
   @endif

@@ -24,6 +24,22 @@
     text-decoration-color: var(--site-accent);
   }
 
+  /**
+   * Goliath: active parent is silver, with a 2px green underline.
+   */
+  [data-brand="goliath-steel"] .site-chrome .primary-nav .menu-item.current-menu-item > .nav-link:not(.btn),
+  [data-brand="goliath-steel"] .site-chrome .primary-nav .menu-item.current-menu-ancestor > .nav-link:not(.btn),
+  [data-brand="goliath-steel"] .site-chrome .primary-nav .menu-item.active > .nav-link:not(.btn),
+  [data-brand="goliath-steel"] .offcanvas-nav .menu-item.current-menu-item > .nav-link,
+  [data-brand="goliath-steel"] .offcanvas-nav .menu-item.current-menu-ancestor > .nav-link,
+  [data-brand="goliath-steel"] .offcanvas-nav .menu-item.active > .nav-link {
+    color: var(--color-goliath-silver);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.35em;
+    text-decoration-color: var(--color-goliath-green);
+  }
+
   .site-chrome .header-menu-toggle,
   .site-chrome .header-icon-btn,
   .site-chrome .preheader-icon,
