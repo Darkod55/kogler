@@ -354,6 +354,31 @@ trait strings
     }
 
     /**
+     * Shop on Amazon URL for every Outdoor button.
+     * Empty until set in the Customizer (Kögler Outdoor). Callers hide the button.
+     */
+    public function outdoorAmazonUrl(): string
+    {
+        if (! function_exists('get_theme_mod')) {
+            return '';
+        }
+
+        $url = trim((string) get_theme_mod('kogler_outdoor_amazon_url', ''));
+
+        if ($url === '') {
+            return '';
+        }
+
+        if (function_exists('wp_http_validate_url')) {
+            $valid = wp_http_validate_url($url);
+
+            return is_string($valid) ? $valid : '';
+        }
+
+        return filter_var($url, FILTER_VALIDATE_URL) ? $url : '';
+    }
+
+    /**
      * Resolve the page ID that supplies archive template content.
      */
     public function resolveArchivePageId(?string $post_type = null, ?string $page_title = null): ?int

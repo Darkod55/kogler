@@ -164,6 +164,8 @@
   --site-surface: var(--color-outdoor-900);
   --site-accent: var(--color-outdoor-amber);
   --site-accent-ink: var(--color-outdoor-ink);
+  --site-ink: var(--color-white);
+  --site-heading-accent: var(--color-outdoor-amber);
   background-color: var(--site-surface);
   color: var(--color-white);
 }

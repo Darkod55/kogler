@@ -159,6 +159,24 @@
     color: var(--color-goliath-silver) !important;
   }
 
+  [data-brand="kogler-outdoor"] .site-footer {
+    border-top-color: color-mix(in srgb, var(--color-white) 10%, transparent);
+    color: color-mix(in srgb, var(--color-white) 75%, transparent);
+  }
+
+  [data-brand="kogler-outdoor"] .footer-links .nav-link,
+  [data-brand="kogler-outdoor"] .footer-contact__link,
+  [data-brand="kogler-outdoor"] .footer-contact__text,
+  [data-brand="kogler-outdoor"] .footer-legal-links .nav-link {
+    color: var(--color-white) !important;
+  }
+
+  [data-brand="kogler-outdoor"] .footer-links .nav-link:hover,
+  [data-brand="kogler-outdoor"] .footer-contact__link:hover,
+  [data-brand="kogler-outdoor"] .footer-legal-links .nav-link:hover {
+    color: var(--color-outdoor-amber) !important;
+  }
+
   .footer-nav__title {
     @apply mb-4 font-heading text-sm font-bold uppercase tracking-wide;
     color: var(--color-white);

@@ -41,6 +41,36 @@ if (!class_exists(__NAMESPACE__.'\Customizer')) {
 
             // Controls for alternative site logo
             $this->customizerSiteLogoAlternative($wp_customize);
+
+            $this->customizerOutdoorAmazon($wp_customize);
+        }
+
+        /**
+         * One Amazon store URL for every Kögler Outdoor "Shop on Amazon" button.
+         * Empty hides those buttons.
+         *
+         * @param \WP_Customize_Manager $wp_customize
+         */
+        private function customizerOutdoorAmazon($wp_customize)
+        {
+            $wp_customize->add_section('kogler_outdoor', [
+                'title' => __('Kögler Outdoor', 'sage'),
+                'priority' => 160,
+            ]);
+
+            $wp_customize->add_setting('kogler_outdoor_amazon_url', [
+                'default' => '',
+                'type' => 'theme_mod',
+                'capability' => 'edit_theme_options',
+                'sanitize_callback' => 'esc_url_raw',
+            ]);
+
+            $wp_customize->add_control('kogler_outdoor_amazon_url', [
+                'type' => 'url',
+                'section' => 'kogler_outdoor',
+                'label' => __('Shop on Amazon URL', 'sage'),
+                'description' => __('Used by every Shop on Amazon button. Leave this empty to hide those buttons.', 'sage'),
+            ]);
         }
 
         /**

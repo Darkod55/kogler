@@ -4,12 +4,12 @@
   An admin-editable catalogue would need ACF.
   No Kogler Outdoor logo file is referenced in the theme. Set $logoUrl to
   swap the wordmark for an image. $tile fills the photo slot when $imageId is empty.
-  $amazonUrl is empty until the Amazon URL is confirmed. The button is
+  Shop on Amazon reads the Kögler Outdoor Customizer URL. The button is
   omitted while it is empty.
 --}}
 @php
     $logoUrl = '';
-    $amazonUrl = '';
+    $amazonUrl = \App\helpers()->outdoorAmazonUrl();
     $imageId = 0;
     $tileFile = 'kogler-outdoor.webp';
     $tileUrl = '';

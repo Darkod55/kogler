@@ -33,6 +33,12 @@
     @include('partials.brand-page.goliath.gloves')
     @include('partials.brand-page.goliath.quick-reference')
     @include('partials.brand-page.goliath.cta')
+  @elseif ($brandPage === 'kogler-outdoor')
+    @include('partials.brand-page.outdoor.hero')
+    @include('partials.brand-page.outdoor.intro')
+    @include('partials.brand-page.outdoor.home-away')
+    @include('partials.brand-page.outdoor.brands')
+    @include('partials.brand-page.outdoor.cta')
   @else
     {{-- Choose Kögler Sleep, Goliath Steel, or Kögler Outdoor in the Brand sidebar field. --}}
   @endif
