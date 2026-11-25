@@ -5,7 +5,7 @@
   The artwork is not recoloured.
 --}}
 @php
-    $logoId = 0;
+    $logoId = 397;
     $goliathLogo = '';
 
     $logoFromAttachment = function (int $id): string {
